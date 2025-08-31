@@ -14,9 +14,38 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Badge } from "@/components/ui/badge"
 import { Shield, Users, Wifi, Heart } from "lucide-react"
 
+type FormData = {
+  // Personal Information
+  firstName: string
+  lastName: string
+  email: string
+  phone: string
+
+  // Stay Preferences
+  roomType: string
+  moveInDate: string
+  stayDuration: string
+  yogaSurfOctober: boolean
+
+  // Work & Lifestyle
+  occupation: string
+  workDescription: string
+  remoteWork: string
+  interests: string[]
+
+  // Special Requirements
+  dietaryRestrictions: string
+  allergies: string
+  specialRequests: string
+
+  // Agreement
+  termsAccepted: boolean
+  privacyAccepted: boolean
+}
+
 export default function JoinPage() {
   const [currentStep, setCurrentStep] = useState(1)
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormData>({
     // Personal Information
     firstName: "",
     lastName: "",
@@ -27,6 +56,7 @@ export default function JoinPage() {
     roomType: "",
     moveInDate: "",
     stayDuration: "",
+    yogaSurfOctober: false,
 
     // Work & Lifestyle
     occupation: "",
@@ -68,9 +98,8 @@ export default function JoinPage() {
   ]
 
   const roomPricing = [
-    { name: "Standard Room", price: 550, features: ["15m²", "Shared bathroom", "City view", "Basic furnishing"] },
-    { name: "Garden Room", price: 650, features: ["18m²", "Shared bathroom", "Garden view", "Premium furnishing"] },
-    { name: "Ocean Suite", price: 850, features: ["25m²", "Private bathroom", "Ocean view", "Luxury furnishing"] },
+    { name: "Budget Room", price: 550, features: ["15m²", "Shared bathroom", "City view", "Basic furnishing"] },
+    { name: "Standard Room", price: 650, features: ["18m²", "Shared bathroom", "Garden view", "Premium furnishing"] }
   ]
 
   const handleInputChange = (field: string, value: any) => {
@@ -101,9 +130,9 @@ export default function JoinPage() {
         </div>
 
         <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
-          <h1 className="font-caveat text-6xl md:text-7xl font-bold mb-4">Join Our Community</h1>
+          <h1 className="font-caveat text-6xl md:text-7xl font-bold mb-4">Join our Community</h1>
           <p className="font-nunito text-xl md:text-2xl text-balance">
-            Start your journey to the perfect work-life balance in Lagos
+            Live & work where others spend their vacation while being a part of a lovely tribe of like-minded entrepreneurial people in a place full of sunshine & colors
           </p>
         </div>
       </section>
@@ -112,21 +141,52 @@ export default function JoinPage() {
       <section className="py-20 bg-lagos-aquamarine/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="font-caveat text-5xl font-bold text-gray-900 mb-4">Why Choose Lagos Living?</h2>
+            <h2 className="font-caveat text-5xl font-bold text-gray-900 mb-4">Why Choose Noma Village?</h2>
+            <p className="font-nunito text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+              At Noma, we're more than just a usual Coliving & Coworking space. We're a vibrant community of like-minded entrepreneurial people seeking connection and purpose. Together, we support and uplift each other, creating a positive impact on our journeys.
+            </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {whyChooseUs.map((item, index) => (
-              <Card key={index} className="border-0 shadow-lg text-center">
-                <CardContent className="p-8">
-                  <div className="w-16 h-16 bg-lagos-blue-green/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <item.icon className="h-8 w-8 text-lagos-blue-green" />
-                  </div>
-                  <h3 className="font-montserrat text-xl font-semibold mb-4">{item.title}</h3>
-                  <p className="font-nunito text-gray-600 leading-relaxed">{item.description}</p>
-                </CardContent>
-              </Card>
-            ))}
+            <Card className="border-0 shadow-lg text-center">
+              <CardContent className="p-8">
+                <div className="w-16 h-16 bg-lagos-pink/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Heart className="h-8 w-8 text-lagos-pink" />
+                </div>
+                <h3 className="font-montserrat text-xl font-semibold mb-4">Entrepreneurial Community</h3>
+                <p className="font-nunito text-gray-600 leading-relaxed">Hand-selected individuals who value initiative, authenticity, and meaningful connections</p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-0 shadow-lg text-center">
+              <CardContent className="p-8">
+                <div className="w-16 h-16 bg-lagos-blue-green/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Users className="h-8 w-8 text-lagos-blue-green" />
+                </div>
+                <h3 className="font-montserrat text-xl font-semibold mb-4">Authentic Experience</h3>
+                <p className="font-nunito text-gray-600 leading-relaxed">Owned by a lovely Portuguese family, offering genuine cultural immersion and local connections</p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-0 shadow-lg text-center">
+              <CardContent className="p-8">
+                <div className="w-16 h-16 bg-lagos-amber/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Wifi className="h-8 w-8 text-lagos-amber" />
+                </div>
+                <h3 className="font-montserrat text-xl font-semibold mb-4">Perfect Location</h3>
+                <p className="font-nunito text-gray-600 leading-relaxed">10 minutes walk to stunning beaches, with over 300 sunny days per year in beautiful Lagos</p>
+              </CardContent>
+            </Card>
+
+            <Card className="border-0 shadow-lg text-center">
+              <CardContent className="p-8">
+                <div className="w-16 h-16 bg-lagos-aquamarine/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Shield className="h-8 w-8 text-lagos-aquamarine" />
+                </div>
+                <h3 className="font-montserrat text-xl font-semibold mb-4">Magic & Synchronicity</h3>
+                <p className="font-nunito text-gray-600 leading-relaxed">Experience the magic that happens when like-minded people come together in this special place</p>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
@@ -135,9 +195,9 @@ export default function JoinPage() {
       <section className="py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="font-caveat text-5xl font-bold text-gray-900 mb-4">Application Form</h2>
-            <p className="font-nunito text-xl text-gray-600">
-              Tell us about yourself so we can find your perfect match
+            <h2 className="font-caveat text-5xl font-bold text-gray-900 mb-4">Inquire Now</h2>
+            <p className="font-nunito text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+              Ready to join our community? Send us your details and let's start the conversation. We carefully curate our community to ensure the perfect vibe for everyone.
             </p>
           </div>
 
@@ -214,6 +274,22 @@ export default function JoinPage() {
               {currentStep === 2 && (
                 <div className="space-y-6">
                   <h3 className="font-montserrat text-xl font-semibold mb-6">Stay Preferences</h3>
+                  <div className="p-4 border rounded-lg bg-gray-50">
+                    <div className="flex items-start justify-between gap-4">
+                      <div className="text-left">
+                        <div className="font-montserrat font-semibold">October Yoga + Surf Colive</div>
+                        <div className="font-nunito text-sm text-gray-600">From 790€ — Only 5 spots left (of 13)</div>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <Checkbox
+                          id="yoga-surf-october"
+                          checked={formData.yogaSurfOctober}
+                          onCheckedChange={(checked) => handleInputChange("yogaSurfOctober", checked === true)}
+                        />
+                        <Label htmlFor="yoga-surf-october" className="font-nunito">I want to join this program</Label>
+                      </div>
+                    </div>
+                  </div>
                   <div>
                     <Label className="font-nunito mb-4 block">Preferred Room Type</Label>
                     <RadioGroup
@@ -225,7 +301,7 @@ export default function JoinPage() {
                           <RadioGroupItem value={room.name} id={room.name} />
                           <div className="flex-1">
                             <Label htmlFor={room.name} className="font-montserrat font-semibold cursor-pointer">
-                              {room.name} - €{room.price}/month
+                              {room.name}
                             </Label>
                             <div className="flex flex-wrap gap-2 mt-2">
                               {room.features.map((feature, idx) => (
@@ -278,7 +354,7 @@ export default function JoinPage() {
                   <div className="space-y-6">
                     <h3 className="font-montserrat text-xl font-semibold mb-6">Work & Lifestyle</h3>
                     <div>
-                      <Label htmlFor="occupation" className="font-nunito">
+                      <Label htmlFor="occupation" className="font-nunito mb-2">
                         Occupation/Job Title
                       </Label>
                       <Input
@@ -289,7 +365,7 @@ export default function JoinPage() {
                       />
                     </div>
                     <div>
-                      <Label htmlFor="workDescription" className="font-nunito">
+                      <Label htmlFor="workDescription" className="font-nunito mb-2">
                         Describe your work and what you do
                       </Label>
                       <Textarea
@@ -351,7 +427,7 @@ export default function JoinPage() {
                               id={interest}
                               checked={formData.interests.includes(interest)}
                               onCheckedChange={(checked) => {
-                                if (checked) {
+                                if (checked === true) {
                                   handleInputChange("interests", [...formData.interests, interest])
                                 } else {
                                   handleInputChange(
@@ -371,34 +447,10 @@ export default function JoinPage() {
                   </div>
 
                   {/* Additional Information */}
-                  <div className="space-y-6 border-t pt-8">
-                    <h3 className="font-montserrat text-xl font-semibold mb-6">Additional Information</h3>
+                  <div className="space-y-6 pt-0">
+
                     <div>
-                      <Label htmlFor="dietaryRestrictions" className="font-nunito">
-                        Dietary Restrictions or Preferences
-                      </Label>
-                      <Input
-                        id="dietaryRestrictions"
-                        value={formData.dietaryRestrictions}
-                        onChange={(e) => handleInputChange("dietaryRestrictions", e.target.value)}
-                        className="font-nunito"
-                        placeholder="e.g., Vegetarian, Vegan, Gluten-free"
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="allergies" className="font-nunito">
-                        Allergies
-                      </Label>
-                      <Input
-                        id="allergies"
-                        value={formData.allergies}
-                        onChange={(e) => handleInputChange("allergies", e.target.value)}
-                        className="font-nunito"
-                        placeholder="Any allergies we should know about"
-                      />
-                    </div>
-                    <div>
-                      <Label htmlFor="specialRequests" className="font-nunito">
+                      <Label htmlFor="specialRequests" className="font-nunito mb-2">
                         Special Requests or Additional Information
                       </Label>
                       <Textarea

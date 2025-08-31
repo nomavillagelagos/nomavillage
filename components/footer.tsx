@@ -1,5 +1,6 @@
 import Link from "next/link"
 import { MapPin, Phone, Mail, Instagram, Facebook } from "lucide-react"
+import Image from "next/image"
 
 export function Footer() {
   return (
@@ -9,10 +10,13 @@ export function Footer() {
           {/* Brand */}
           <div className="col-span-1 md:col-span-2">
             <Link href="/" className="flex items-center space-x-2 mb-4">
-              <div className="w-8 h-8 bg-lagos-blue-green rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">L</span>
-              </div>
-              <span className="font-caveat text-2xl font-bold text-lagos-blue-green">Lagos Living</span>
+              <Image
+                src="/logo.svg"
+                alt="Logo"
+                width={50}
+                height={50}
+              />
+              <span className="font-caveat text-2xl font-bold text-lagos-amber">Noma Village Lagos</span>
             </Link>
             <p className="font-nunito text-gray-600 mb-4 max-w-md">
               Experience the perfect blend of work and life in beautiful Lagos, Portugal. Join our vibrant community of
@@ -59,14 +63,14 @@ export function Footer() {
               </div>
               <div className="flex items-center space-x-2">
                 <Mail className="h-4 w-4 text-lagos-amber" />
-                <span className="font-nunito text-gray-600 text-sm">hello@lagosliving.com</span>
+                <span className="font-nunito text-gray-600 text-sm">hello@nomavillage.com</span>
               </div>
             </div>
           </div>
         </div>
 
         <div className="border-t border-gray-200 mt-8 pt-8">
-          <p className="font-nunito text-center text-gray-500 text-sm">© 2024 Lagos Living. All rights reserved.</p>
+          <p className="font-nunito text-center text-gray-500 text-sm">© 2024 Noma Village Lagos. All rights reserved.</p>
         </div>
       </div>
     </footer>

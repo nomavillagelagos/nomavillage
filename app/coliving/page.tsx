@@ -69,9 +69,9 @@ export default function ColivingPage() {
         </div>
 
         <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
-          <h1 className="font-caveat text-6xl md:text-7xl font-bold mb-4">Coliving in Lagos</h1>
+          <h1 className="font-caveat text-6xl md:text-7xl font-bold mb-4">Coliving</h1>
           <p className="font-nunito text-xl md:text-2xl text-balance">
-            Your home away from home on the Portuguese coast
+            A haven in the heart of community
           </p>
         </div>
       </section>
@@ -81,30 +81,16 @@ export default function ColivingPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="font-caveat text-5xl font-bold text-gray-900 mb-6">Our Coliving Philosophy</h2>
+              <h2 className="font-caveat text-5xl font-bold text-gray-900 mb-6">A haven in the heart of community</h2>
               <p className="font-nunito text-lg text-gray-600 mb-6 leading-relaxed">
-                At Lagos Living, we believe that the best experiences come from meaningful connections. Our coliving
-                space is designed to foster community, creativity, and personal growth while maintaining the perfect
-                balance between social interaction and personal space.
+                Nomavillage goes beyond being a place to crash—it's where your room turns into your cozy hideaway, and the shared spaces transform into your playground. It's all about that perfect balance between having your own chill space and enjoying the good vibes with your fellow Colivers.
+              </p>
+              <p className="font-nunito text-lg text-gray-600 mb-6 leading-relaxed">
+                Our Coliving setup includes three houses, each facing the other, with two cool pools in between. Each house is packed with comfy private rooms, all with their own bathroom. We've got shared spaces, too—think of them as our main hub for Coliving & Coworking. Open 24/7, they're the heart of our village.
               </p>
               <p className="font-nunito text-lg text-gray-600 mb-8 leading-relaxed">
-                Whether you're here for a month or a year, you'll find yourself part of a supportive community of
-                like-minded individuals who share your passion for remote work, travel, and authentic experiences.
+                On our spacious property, you can find your Zen, take a dip or relax by the pool, catch the sunrise from the rooftop, or just sip your morning coffee on the balcony. Our Coliving vibe is easygoing, with no strict schedules. Things just happen naturally, bringing us all closer.
               </p>
-              <div className="flex items-center space-x-6">
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-lagos-blue-green font-montserrat">50+</div>
-                  <div className="font-nunito text-sm text-gray-600">Happy Residents</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-lagos-blue-green font-montserrat">4.9</div>
-                  <div className="font-nunito text-sm text-gray-600">Average Rating</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-lagos-blue-green font-montserrat">25+</div>
-                  <div className="font-nunito text-sm text-gray-600">Nationalities</div>
-                </div>
-              </div>
             </div>
             <div className="relative">
               <img
@@ -121,49 +107,91 @@ export default function ColivingPage() {
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="font-caveat text-5xl font-bold text-gray-900 mb-4">Choose Your Space</h2>
-            <p className="font-nunito text-xl text-gray-600">All rooms come fully furnished with premium amenities</p>
+            <h2 className="font-caveat text-5xl font-bold text-gray-900 mb-4">Our Coliving Space</h2>
+            <p className="font-nunito text-xl text-gray-600">Everything you need for comfortable community living</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {roomTypes.map((room, index) => (
-              <Card key={index} className="border-0 shadow-lg hover:shadow-xl transition-shadow duration-300">
-                <div className="relative">
-                  <img
-                    src={room.image || "/placeholder.svg"}
-                    alt={room.name}
-                    className="w-full h-48 object-cover rounded-t-lg"
-                  />
-                  {!room.available && <Badge className="absolute top-4 right-4 bg-red-500">Waitlist</Badge>}
-                  {room.available && <Badge className="absolute top-4 right-4 bg-green-500">Available</Badge>}
-                </div>
-                <CardHeader>
-                  <CardTitle className="font-montserrat text-xl">{room.name}</CardTitle>
-                  <div className="flex items-baseline">
-                    <span className="text-3xl font-bold text-lagos-blue-green font-montserrat">{room.price}</span>
-                    <span className="font-nunito text-gray-600 ml-1">{room.period}</span>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-2 mb-6">
-                    {room.features.map((feature, idx) => (
-                      <li key={idx} className="flex items-center font-nunito text-gray-600">
-                        <CheckCircle className="h-4 w-4 text-green-500 mr-2" />
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                  <Button
-                    className={`w-full font-montserrat ${
-                      room.available ? "bg-lagos-pink hover:bg-lagos-pink/90" : "bg-gray-400 cursor-not-allowed"
-                    }`}
-                    disabled={!room.available}
-                  >
-                    {room.available ? "Book Now" : "Join Waitlist"}
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
+            <div className="text-center">
+              <div className="w-16 h-16 bg-lagos-blue-green/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <Utensils className="h-8 w-8 text-lagos-blue-green" />
+              </div>
+              <h3 className="font-montserrat text-lg font-semibold mb-2">2 fully-equipped kitchen</h3>
+            </div>
+            
+            <div className="text-center">
+              <div className="w-16 h-16 bg-lagos-pink/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <Users className="h-8 w-8 text-lagos-pink" />
+              </div>
+              <h3 className="font-montserrat text-lg font-semibold mb-2">2 Coworking spaces</h3>
+            </div>
+            
+            <div className="text-center">
+              <div className="w-16 h-16 bg-lagos-amber/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <Car className="h-8 w-8 text-lagos-amber" />
+              </div>
+              <h3 className="font-montserrat text-lg font-semibold mb-2">Chill Area</h3>
+            </div>
+            
+            <div className="text-center">
+              <div className="w-16 h-16 bg-lagos-aquamarine/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <Waves className="h-8 w-8 text-lagos-aquamarine" />
+              </div>
+              <h3 className="font-montserrat text-lg font-semibold mb-2">Balcony</h3>
+            </div>
+            
+            <div className="text-center">
+              <div className="w-16 h-16 bg-lagos-blue-green/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <Waves className="h-8 w-8 text-lagos-blue-green" />
+              </div>
+              <h3 className="font-montserrat text-lg font-semibold mb-2">2 Pools</h3>
+            </div>
+            
+            <div className="text-center">
+              <div className="w-16 h-16 bg-lagos-pink/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <Coffee className="h-8 w-8 text-lagos-pink" />
+              </div>
+              <h3 className="font-montserrat text-lg font-semibold mb-2">Outdoor seating</h3>
+            </div>
+            
+            <div className="text-center">
+              <div className="w-16 h-16 bg-lagos-amber/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <Wifi className="h-8 w-8 text-lagos-amber" />
+              </div>
+              <h3 className="font-montserrat text-lg font-semibold mb-2">Laundry</h3>
+            </div>
+            
+            <div className="text-center">
+              <div className="w-16 h-16 bg-lagos-aquamarine/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <Shield className="h-8 w-8 text-lagos-aquamarine" />
+              </div>
+              <h3 className="font-montserrat text-lg font-semibold mb-2">Yoga Mats & meditation cushions</h3>
+            </div>
+            
+            <div className="text-center">
+              <div className="w-16 h-16 bg-lagos-pink/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <CheckCircle className="h-8 w-8 text-lagos-pink" />
+              </div>
+              <h3 className="font-montserrat text-lg font-semibold mb-2">Rooftop</h3>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Weekly Community Activities */}
+      <section className="py-20 bg-lagos-aquamarine/10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="font-caveat text-5xl font-bold text-gray-900 mb-4">Community Life</h2>
+            <p className="font-nunito text-xl text-gray-600">
+              Every week, we come together for communal meals, and Thursdays are all about yoga sessions
+            </p>
+          </div>
+          
+          <div className="text-center max-w-4xl mx-auto">
+            <p className="font-nunito text-lg text-gray-600 mb-8 leading-relaxed">
+              If the ocean is calling, you might spot a crew heading out for a surf or swim. As the day winds down, there's always an opportunity for a spontaneous excursion to catch the breathtaking sunset on the cliffs. Evenings are alive with someone always hanging out in our main spaces. And guess what? That's just the start—we're always up for new adventures, making sure no moment goes unexplored.
+            </p>
           </div>
         </div>
       </section>

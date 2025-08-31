@@ -159,9 +159,9 @@ export default function CoworkingPage() {
         </div>
 
         <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
-          <h1 className="font-caveat text-6xl md:text-7xl font-bold mb-4">Coworking in Paradise</h1>
+          <h1 className="font-caveat text-6xl md:text-7xl font-bold mb-4">Coworking</h1>
           <p className="font-nunito text-xl md:text-2xl text-balance">
-            Where productivity meets Portuguese coastal inspiration
+            Get work done without being alone
           </p>
         </div>
       </section>
@@ -170,81 +170,87 @@ export default function CoworkingPage() {
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="font-caveat text-5xl font-bold text-gray-900 mb-4">World-Class Workspace</h2>
-            <p className="font-nunito text-xl text-gray-600">
-              Everything you need to do your best work in a stunning coastal setting
+            <h2 className="font-caveat text-5xl font-bold text-gray-900 mb-4">Our Coworking Spaces</h2>
+            <p className="font-nunito text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+              If you're looking for a space to work and live in sunny Portugal, we've got you covered all beneath the same roof(s). Coworking at Noma Village is more than just a place to work. Let yourself be inspired and motivated by sitting together with our Coliving Community members in the same space, where everyone works on their stuff.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {workspaceFeatures.map((feature, index) => (
-              <Card key={index} className="border-0 shadow-lg hover:shadow-xl transition-shadow duration-300">
-                <CardContent className="p-8 text-center">
-                  <div className="w-16 h-16 bg-lagos-blue-green/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <feature.icon className="h-8 w-8 text-lagos-blue-green" />
-                  </div>
-                  <h3 className="font-montserrat text-xl font-semibold mb-4">{feature.title}</h3>
-                  <p className="font-nunito text-gray-600 leading-relaxed">{feature.description}</p>
-                </CardContent>
-              </Card>
-            ))}
+            <div className="text-center">
+              <div className="w-16 h-16 bg-lagos-blue-green/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <Users className="h-8 w-8 text-lagos-blue-green" />
+              </div>
+              <h3 className="font-montserrat text-lg font-semibold mb-2">Two Coworking Spaces</h3>
+            </div>
+            
+            <div className="text-center">
+              <div className="w-16 h-16 bg-lagos-pink/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <Monitor className="h-8 w-8 text-lagos-pink" />
+              </div>
+              <h3 className="font-montserrat text-lg font-semibold mb-2">Large Tables & Chairs</h3>
+            </div>
+            
+            <div className="text-center">
+              <div className="w-16 h-16 bg-lagos-amber/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <Headphones className="h-8 w-8 text-lagos-amber" />
+              </div>
+              <h3 className="font-montserrat text-lg font-semibold mb-2">Living Room</h3>
+            </div>
+            
+            <div className="text-center">
+              <div className="w-16 h-16 bg-lagos-aquamarine/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <Users className="h-8 w-8 text-lagos-aquamarine" />
+              </div>
+              <h3 className="font-montserrat text-lg font-semibold mb-2">Shared Bathroom</h3>
+            </div>
+            
+            <div className="text-center">
+              <div className="w-16 h-16 bg-lagos-blue-green/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <Coffee className="h-8 w-8 text-lagos-blue-green" />
+              </div>
+              <h3 className="font-montserrat text-lg font-semibold mb-2">Two fully equipped Kitchen</h3>
+            </div>
+            
+            <div className="text-center">
+              <div className="w-16 h-16 bg-lagos-pink/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <Printer className="h-8 w-8 text-lagos-pink" />
+              </div>
+              <h3 className="font-montserrat text-lg font-semibold mb-2">Balcony</h3>
+            </div>
+            
+            <div className="text-center">
+              <div className="w-16 h-16 bg-lagos-amber/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <Wifi className="h-8 w-8 text-lagos-amber" />
+              </div>
+              <h3 className="font-montserrat text-lg font-semibold mb-2">Wifi 500 Mbps ↓ 120 Mbps ↑</h3>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Membership Plans */}
+      {/* Workspace Description */}
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="font-caveat text-5xl font-bold text-gray-900 mb-4">Choose Your Plan</h2>
-            <p className="font-nunito text-xl text-gray-600">
-              Flexible options designed for every type of remote worker
+            <h2 className="font-caveat text-5xl font-bold text-gray-900 mb-4">Two Distinct Spaces</h2>
+            <p className="font-nunito text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+              Our main Coworking Space is a big dedicated flat that we have turned into an office space & living room. No need to work next to the bed in your private room anymore!
+            </p>
+          </div>
+          
+          <div className="max-w-4xl mx-auto">
+            <p className="font-nunito text-lg text-gray-600 mb-6 leading-relaxed">
+              Here, you find two big desks, a chillout niche, a fully equipped kitchen and our dreamy balcony on which you can chill or work too. Also ideal for enjoying your morning coffee or tea while catching the first sunrays of the day. If you have a call or meeting, you can use the call booth downstairs to not disturb your coworkers.
+            </p>
+            <p className="font-nunito text-lg text-gray-600 mb-6 leading-relaxed">
+              On the other side of the pool in the second villa, you'll find our little Coworking studio. This one is also equipped with another big desk, a kitchen, toilet and a little winter garden. So in case you should need a change of scenery, just walk over to the other space.
+            </p>
+            <p className="font-nunito text-lg text-gray-600 leading-relaxed">
+              Other than that, you can also find a workplace outside next to our pools. We have a roofed area with WiFi access you can use for working too. If you need some more privacy for coaching calls or deep work, you have a little desk in your private room too.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {membershipPlans.map((plan, index) => (
-              <Card
-                key={index}
-                className={`border-0 shadow-lg hover:shadow-xl transition-shadow duration-300 relative ${
-                  plan.popular ? "ring-2 ring-lagos-pink" : ""
-                }`}
-              >
-                {plan.popular && (
-                  <Badge className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-lagos-pink">
-                    Most Popular
-                  </Badge>
-                )}
-                <CardHeader className="text-center">
-                  <CardTitle className="font-montserrat text-2xl">{plan.name}</CardTitle>
-                  <div className="flex items-baseline justify-center">
-                    <span className="text-4xl font-bold text-lagos-blue-green font-montserrat">{plan.price}</span>
-                    <span className="font-nunito text-gray-600 ml-1">{plan.period}</span>
-                  </div>
-                  <p className="font-nunito text-gray-600">{plan.description}</p>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-3 mb-8">
-                    {plan.features.map((feature, idx) => (
-                      <li key={idx} className="flex items-center font-nunito text-gray-600">
-                        <CheckCircle className="h-4 w-4 text-green-500 mr-3 flex-shrink-0" />
-                        {feature}
-                      </li>
-                    ))}
-                  </ul>
-                  <Button
-                    className={`w-full font-montserrat ${
-                      plan.popular
-                        ? "bg-lagos-pink hover:bg-lagos-pink/90"
-                        : "bg-lagos-blue-green hover:bg-lagos-blue-green/90"
-                    }`}
-                  >
-                    {plan.cta}
-                  </Button>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
         </div>
       </section>
 

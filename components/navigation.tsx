@@ -4,6 +4,7 @@ import { useState } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Menu, X } from "lucide-react"
+import Image from "next/image"
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
@@ -22,10 +23,15 @@ export function Navigation() {
         <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-lagos-blue-green rounded-lg flex items-center justify-center">
-              <span className="text-white font-bold text-sm">N</span>
-            </div>
-            <span className="font-caveat text-2xl font-bold text-lagos-blue-green">Noma Village</span>
+
+              <Image
+                src="/logo.svg"
+                alt="Logo"
+                width={50}
+                height={50}
+              />
+
+            <span className="font-caveat text-2xl font-bold text-lagos-amber">Noma Village</span>
           </Link>
 
           {/* Desktop Navigation */}

@@ -132,9 +132,9 @@ export default function RoomsPage() {
         </div>
 
         <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
-          <h1 className="font-caveat text-6xl md:text-7xl font-bold mb-4">Your Perfect Room</h1>
+          <h1 className="font-caveat text-6xl md:text-7xl font-bold mb-4">Private Rooms</h1>
           <p className="font-nunito text-xl md:text-2xl text-balance">
-            Thoughtfully designed spaces for every budget and lifestyle
+            More than just a place to sleep
           </p>
         </div>
       </section>
@@ -143,9 +143,12 @@ export default function RoomsPage() {
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="font-caveat text-5xl font-bold text-gray-900 mb-4">Choose Your Space</h2>
-            <p className="font-nunito text-xl text-gray-600">
-              All rooms come fully furnished with everything you need for comfortable living
+            <h2 className="font-caveat text-5xl font-bold text-gray-900 mb-4">Our Private Rooms</h2>
+            <p className="font-nunito text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+              Welcome to your own little private oasis at our Coliving & Coworking Space! Our rooms are designed with your comfort and privacy in mind. Each room features its own private bathroom, so you can enjoy your personal space without any interruptions.
+            </p>
+            <p className="font-nunito text-lg text-gray-600 max-w-4xl mx-auto mt-4 leading-relaxed">
+              Feel right at home and start your day feeling refreshed and rejuvenated. Our rooms are tastefully decorated with a welcoming ambiance. You'll find yourself sinking into a big-sized, super comfortable bed, ensuring a restful night's sleep. Natural daylight fills the space through large sliding doors, creating a bright and light-flooded environment.
             </p>
           </div>
 
@@ -259,18 +262,69 @@ export default function RoomsPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {includedAmenities.map((amenity, index) => (
-              <Card key={index} className="border-0 shadow-lg hover:shadow-xl transition-shadow duration-300">
-                <CardContent className="p-8 text-center">
-                  <div className="w-16 h-16 bg-lagos-blue-green/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                    <amenity.icon className="h-8 w-8 text-lagos-blue-green" />
-                  </div>
-                  <h3 className="font-montserrat text-xl font-semibold mb-2">{amenity.title}</h3>
-                  <p className="font-nunito text-gray-600">{amenity.description}</p>
-                </CardContent>
-              </Card>
-            ))}
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-8">
+            <div className="text-center">
+              <div className="w-16 h-16 bg-lagos-blue-green/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <Bath className="h-8 w-8 text-lagos-blue-green" />
+              </div>
+              <h3 className="font-montserrat text-lg font-semibold mb-2">Private Bathroom</h3>
+            </div>
+            
+            <div className="text-center">
+              <div className="w-16 h-16 bg-lagos-pink/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <Bath className="h-8 w-8 text-lagos-pink" />
+              </div>
+              <h3 className="font-montserrat text-lg font-semibold mb-2">Desk & Chair</h3>
+            </div>
+            
+            <div className="text-center">
+              <div className="w-16 h-16 bg-lagos-amber/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <Bath className="h-8 w-8 text-lagos-amber" />
+              </div>
+              <h3 className="font-montserrat text-lg font-semibold mb-2">Large, comfy Bed</h3>
+            </div>
+            
+            <div className="text-center">
+              <div className="w-16 h-16 bg-lagos-aquamarine/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <Wifi className="h-8 w-8 text-lagos-aquamarine" />
+              </div>
+              <h3 className="font-montserrat text-lg font-semibold mb-2">WiFi</h3>
+            </div>
+            
+            <div className="text-center">
+              <div className="w-16 h-16 bg-lagos-blue-green/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <Shirt className="h-8 w-8 text-lagos-blue-green" />
+              </div>
+              <h3 className="font-montserrat text-lg font-semibold mb-2">Towels & Sheets</h3>
+            </div>
+            
+            <div className="text-center">
+              <div className="w-16 h-16 bg-lagos-pink/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <Bath className="h-8 w-8 text-lagos-pink" />
+              </div>
+              <h3 className="font-montserrat text-lg font-semibold mb-2">Hair Dryer</h3>
+            </div>
+            
+            <div className="text-center">
+              <div className="w-16 h-16 bg-lagos-amber/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <Bath className="h-8 w-8 text-lagos-amber" />
+              </div>
+              <h3 className="font-montserrat text-lg font-semibold mb-2">Cleaning Service</h3>
+            </div>
+            
+            <div className="text-center">
+              <div className="w-16 h-16 bg-lagos-aquamarine/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <AirVent className="h-8 w-8 text-lagos-aquamarine" />
+              </div>
+              <h3 className="font-montserrat text-lg font-semibold mb-2">AC / Heater</h3>
+            </div>
+            
+            <div className="text-center">
+              <div className="w-16 h-16 bg-lagos-pink/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <Bath className="h-8 w-8 text-lagos-pink" />
+              </div>
+              <h3 className="font-montserrat text-lg font-semibold mb-2">Flatscreen TV</h3>
+            </div>
           </div>
         </div>
       </section>

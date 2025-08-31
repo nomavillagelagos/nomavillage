@@ -144,9 +144,9 @@ export default function CommunityPage() {
         </div>
 
         <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
-          <h1 className="font-caveat text-6xl md:text-7xl font-bold mb-4">Our Community</h1>
+          <h1 className="font-caveat text-6xl md:text-7xl font-bold mb-4">Community</h1>
           <p className="font-nunito text-xl md:text-2xl text-balance">
-            Meet the amazing people who make Lagos Living special
+            Make Friends you haven't met yet
           </p>
         </div>
       </section>
@@ -156,76 +156,127 @@ export default function CommunityPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             <div className="space-y-2">
-              <div className="text-4xl font-bold text-lagos-blue-green font-montserrat">50+</div>
-              <div className="font-nunito text-gray-600">Active Members</div>
+              <div className="font-nunito text-gray-600">Age Range</div>
+              <div className="text-3xl font-bold text-lagos-blue-green font-montserrat">25 - 45 years</div>
             </div>
             <div className="space-y-2">
-              <div className="text-4xl font-bold text-lagos-blue-green font-montserrat">25+</div>
-              <div className="font-nunito text-gray-600">Nationalities</div>
+              <div className="font-nunito text-gray-600">Ø Age</div>
+              <div className="text-3xl font-bold text-lagos-blue-green font-montserrat">33 years</div>
             </div>
             <div className="space-y-2">
-              <div className="text-4xl font-bold text-lagos-blue-green font-montserrat">15+</div>
-              <div className="font-nunito text-gray-600">Monthly Events</div>
+              <div className="font-nunito text-gray-600">Ø Stay</div>
+              <div className="text-3xl font-bold text-lagos-blue-green font-montserrat">1.5 months</div>
             </div>
             <div className="space-y-2">
-              <div className="text-4xl font-bold text-lagos-blue-green font-montserrat">4.9</div>
-              <div className="font-nunito text-gray-600">Community Rating</div>
+              <div className="font-nunito text-gray-600">Gender Ratio</div>
+              <div className="text-3xl font-bold text-lagos-blue-green font-montserrat">♀ 60% - ♂ 40%</div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Member Profiles */}
+      {/* Community Philosophy */}
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="font-caveat text-5xl font-bold text-gray-900 mb-4">Meet Our Members</h2>
-            <p className="font-nunito text-xl text-gray-600">
-              Discover the stories of our diverse community from around the world
+            <h2 className="font-caveat text-5xl font-bold text-gray-900 mb-4">What Makes Us Different</h2>
+            <p className="font-nunito text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+              At Noma Village, it's not just about Coliving & Coworking; it's also about Community. Set in the stunning Algarve region of Portugal, we're a community bringing together like-minded entrepreneurial people who are seeking meaningful connections and a beautiful life.
             </p>
           </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            {communityMembers.map((member, index) => (
-              <Card key={index} className="border-0 shadow-lg hover:shadow-xl transition-shadow duration-300">
-                <CardContent className="p-8">
-                  <div className="flex items-start space-x-4 mb-6">
-                    <Avatar className="w-16 h-16">
-                      <AvatarImage src={member.image || "/placeholder.svg"} alt={member.name} />
-                      <AvatarFallback>
-                        {member.name
-                          .split(" ")
-                          .map((n) => n[0])
-                          .join("")}
-                      </AvatarFallback>
-                    </Avatar>
-                    <div className="flex-1">
-                      <h3 className="font-montserrat text-xl font-semibold">{member.name}</h3>
-                      <p className="font-nunito text-gray-600">{member.role}</p>
-                      <div className="flex items-center space-x-4 mt-2">
-                        <Badge variant="outline" className="text-lagos-blue-green border-lagos-blue-green">
-                          {member.country}
-                        </Badge>
-                        <span className="font-nunito text-sm text-gray-500">{member.duration}</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <p className="font-nunito text-gray-600 mb-4 leading-relaxed italic">"{member.story}"</p>
-
-                  <div className="flex flex-wrap gap-2">
-                    {member.skills.map((skill, idx) => (
-                      <Badge key={idx} className="bg-lagos-amber/20 text-lagos-amber border-0">
-                        {skill}
-                      </Badge>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+          
+          <div className="max-w-4xl mx-auto space-y-6">
+            <p className="font-nunito text-lg text-gray-600 leading-relaxed">
+              In probably every advertisement for a Coliving space, you'll find the term "like-minded people". But what truly defines this "mind" that unites everyone? In most cases, it's just the fact that they share the attribute of working remotely. We differ from the most typical Colivings. We aim to attract a special kind of people because the most beautiful magic and synchronicity unfold when these individuals come together.
+            </p>
+            <p className="font-nunito text-lg text-gray-600 leading-relaxed">
+              As a Digital Nomad, travelling to a new country can sometimes feel lonely, particularly if you don't know anyone in your destination. It takes time to settle, meet others and discover the area. But no worries, this time of loneliness is over! From your arrival in Noma Village, you'll find yourself immersed in our wonderful Community.
+            </p>
+            <p className="font-nunito text-lg text-gray-600 leading-relaxed">
+              What sets us apart is the way we live together as flatmates. It's not just about finding a place to stay; it's about willingly integrating yourself into our Community. We encourage you to be an active part of the collective and similarly respect the need for personal time and space.
+            </p>
           </div>
         </div>
       </section>
+      
+      {/* Activities */}
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="font-caveat text-5xl font-bold text-gray-900 mb-4">Activities</h2>
+            <p className="font-nunito text-xl text-gray-600">
+              From spiritual practices to beach adventures - there's always something happening
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
+            <div className="text-center">
+              <div className="w-16 h-16 bg-lagos-pink/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <Heart className="h-8 w-8 text-lagos-pink" />
+              </div>
+              <h3 className="font-montserrat text-lg font-semibold mb-2">Spiritual Practices</h3>
+            </div>
+            
+            <div className="text-center">
+              <div className="w-16 h-16 bg-lagos-blue-green/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <Users className="h-8 w-8 text-lagos-blue-green" />
+              </div>
+              <h3 className="font-montserrat text-lg font-semibold mb-2">Yoga, Sports</h3>
+            </div>
+            
+            <div className="text-center">
+              <div className="w-16 h-16 bg-lagos-amber/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <Globe className="h-8 w-8 text-lagos-amber" />
+              </div>
+              <h3 className="font-montserrat text-lg font-semibold mb-2">Group Meals</h3>
+            </div>
+            
+            <div className="text-center">
+              <div className="w-16 h-16 bg-lagos-aquamarine/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <MapPin className="h-8 w-8 text-lagos-aquamarine" />
+              </div>
+              <h3 className="font-montserrat text-lg font-semibold mb-2">Hiking</h3>
+            </div>
+            
+            <div className="text-center">
+              <div className="w-16 h-16 bg-lagos-pink/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <MessageCircle className="h-8 w-8 text-lagos-pink" />
+              </div>
+              <h3 className="font-montserrat text-lg font-semibold mb-2">Ecstatic Dance</h3>
+            </div>
+            
+            <div className="text-center">
+              <div className="w-16 h-16 bg-lagos-blue-green/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <Calendar className="h-8 w-8 text-lagos-blue-green" />
+              </div>
+              <h3 className="font-montserrat text-lg font-semibold mb-2">Exploration</h3>
+            </div>
+            
+            <div className="text-center">
+              <div className="w-16 h-16 bg-lagos-amber/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <Users className="h-8 w-8 text-lagos-amber" />
+              </div>
+              <h3 className="font-montserrat text-lg font-semibold mb-2">Surfing</h3>
+            </div>
+            
+            <div className="text-center">
+              <div className="w-16 h-16 bg-lagos-aquamarine/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <MessageCircle className="h-8 w-8 text-lagos-aquamarine" />
+              </div>
+              <h3 className="font-montserrat text-lg font-semibold mb-2">Workshops</h3>
+            </div>
+            
+            <div className="text-center">
+              <div className="w-16 h-16 bg-lagos-pink/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+                <Camera className="h-8 w-8 text-lagos-pink" />
+              </div>
+              <h3 className="font-montserrat text-lg font-semibold mb-2">Beach Time</h3>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Member Profiles - Removed as we'll focus on activities instead */}
 
       {/* Community Values */}
       <section className="py-20 bg-gray-50">
