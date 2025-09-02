@@ -24,8 +24,8 @@ export default function HomePage() {
 
         <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
           <h1 className="font-caveat text-6xl md:text-8xl font-bold mb-6 text-balance">Live, Work & Thrive Together</h1>
-          <p className="font-nunito text-xl md:text-2xl mb-8 text-balance max-w-3xl mx-auto leading-relaxed">
-            Experience Coliving & Coworking with a curated community of like-minded entrepreneurial people. Connect, explore and thrive in a colorful space you can call home in sunny Lagos, Portugal.
+          <p className="font-nunitor text-xl md:text-2xl mb-8 text-balance max-w-3xl mx-auto leading-relaxed">
+            Experience Wurst & Schnitzel with a curated community of like-minded entrepreneurial people. Connect, explore and thrive in a colorful space you can call home in sunny Lagos, Portugal.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -62,7 +62,7 @@ export default function HomePage() {
             <img
               src="/images/yoga.jpg"
               alt="Yoga by the pool"
-              className="w-full max-w-xl rounded-lg shadow-lg object-cover object-[50%_70%] aspect-video"
+              className="w-full max-w-xl shadow-lg object-cover object-[50%_70%] aspect-video"
             />
           </div>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -116,12 +116,12 @@ export default function HomePage() {
               <img
                 src="/images/noma1.webp"
                 alt="Noma Village exterior in Lagos, Portugal"
-                className="w-full h-64 object-cover rounded-lg shadow-lg"
+                className="w-full h-64 object-cover shadow-lg"
               />
               <img
                 src="/images/beach.jpg"
                 alt="Rooftop terrace with Lagos coastline view"
-                className="w-full h-48 object-cover rounded-lg shadow-lg"
+                className="w-full h-48 object-cover shadow-lg"
               />
             </div>
           </div>
@@ -143,7 +143,7 @@ export default function HomePage() {
               <img
                 src="/images/room3.jpg"
                 alt="Private Rooms"
-                className="w-full h-64 object-cover rounded-lg shadow-md mb-4"
+                className="w-full h-64 object-cover shadow-md mb-4"
               />
               <h3 className="font-montserrat text-xl font-semibold mb-4">Private Rooms</h3>
               <p className="font-nunito text-gray-600 leading-relaxed">
@@ -155,7 +155,7 @@ export default function HomePage() {
               <img
                 src="/images/cowork.jpg"
                 alt="Coworking Spaces"
-                className="w-full h-64 object-cover rounded-lg shadow-md mb-4"
+                className="w-full h-64 object-cover shadow-md mb-4"
               />
               <h3 className="font-montserrat text-xl font-semibold mb-4">Coworking Spaces</h3>
               <p className="font-nunito text-gray-600 leading-relaxed">
@@ -167,7 +167,7 @@ export default function HomePage() {
               <img
                 src="/images/community.jpg"
                 alt="Coliving Community"
-                className="w-full h-64 object-cover rounded-lg shadow-md mb-4"
+                className="w-full h-64 object-cover shadow-md mb-4"
               />
               <h3 className="font-montserrat text-xl font-semibold mb-4">Coliving Community</h3>
               <p className="font-nunito text-gray-600 leading-relaxed">
@@ -179,7 +179,7 @@ export default function HomePage() {
               <img
                 src="/images/pool.jpg"
                 alt="Outdoor Areas"
-                className="w-full h-64 object-cover rounded-lg shadow-md mb-4"
+                className="w-full h-64 object-cover shadow-md mb-4"
               />
               <h3 className="font-montserrat text-xl font-semibold mb-4">Outdoor Areas</h3>
               <p className="font-nunito text-gray-600 leading-relaxed">
@@ -191,7 +191,7 @@ export default function HomePage() {
               <img
                 src="/images/house2.jpg"
                 alt="Feeling Home"
-                className="w-full h-64 object-cover rounded-lg shadow-md mb-4"
+                className="w-full h-64 object-cover shadow-md mb-4"
               />
               <h3 className="font-montserrat text-xl font-semibold mb-4">Feeling Home</h3>
               <p className="font-nunito text-gray-600 leading-relaxed">
@@ -203,7 +203,7 @@ export default function HomePage() {
               <img
                 src="/images/beach2.jpg"
                 alt="Fantastic Beaches"
-                className="w-full h-64 object-cover rounded-lg shadow-md mb-4"
+                className="w-full h-64 object-cover shadow-md mb-4"
               />
               <h3 className="font-montserrat text-xl font-semibold mb-4">Fantastic Beaches</h3>
               <p className="font-nunito text-gray-600 leading-relaxed">
@@ -229,36 +229,36 @@ export default function HomePage() {
               <img
                 src="/images/community2.jpg"
                 alt="Coworking space"
-                className="w-full h-64 object-cover rounded-lg shadow-md"
+                className="w-full h-64 object-cover shadow-md"
               />
               <img
                 src="/images/community3.jpg"
                 alt="Coliving room"
-                className="w-full h-48 object-cover object-[50%_90%] rounded-lg shadow-md"
+                className="w-full h-48 object-cover object-[50%_90%] shadow-md"
               />
             </div>
             <div className="space-y-6">
               <img
                 src="/images/community5.jpg"
                 alt="Rooftop terrace"
-                className="w-full h-48 object-cover rounded-lg shadow-md"
+                className="w-full h-48 object-cover shadow-md"
               />
               <img
                 src="/images/community6.jpg"
                 alt="Community kitchen"
-                className="w-full h-64 object-cover rounded-lg shadow-md"
+                className="w-full h-64 object-cover shadow-md"
               />
             </div>
             <div className="space-y-6">
               <img
                 src="/images/cliff.jpg"
                 alt="Beach working"
-                className="w-full h-64 object-cover rounded-lg object-[50%_70%] shadow-md"
+                className="w-full h-64 object-cover object-[50%_70%] shadow-md"
               />
               <img
                 src="/images/bedroom.jpg"
                 alt="Yoga session"
-                className="w-full h-48 object-cover rounded-lg shadow-md"
+                className="w-full h-48 object-cover shadow-md"
               />
             </div>
           </div>
@@ -286,7 +286,7 @@ export default function HomePage() {
                   Lagos is absolutely unbeatable!"
                 </p>
                 <div className="flex items-center">
-                  <img src="/young-woman-smiling.png" alt="Sarah" className="w-12 h-12 rounded-full mr-4" />
+                  <img src="/young-woman-smiling.png" alt="Sarah" className="w-12 h-12 mr-4" />
                   <div>
                     <div className="font-montserrat font-semibold">Sarah Chen</div>
                     <div className="font-nunito text-sm text-gray-500">UX Designer, San Francisco</div>
@@ -308,7 +308,7 @@ export default function HomePage() {
                   such an amazing lifestyle and authentic cultural experience."
                 </p>
                 <div className="flex items-center">
-                  <img src="/young-bearded-man-headshot.png" alt="Marcus" className="w-12 h-12 rounded-full mr-4" />
+                  <img src="/young-bearded-man-headshot.png" alt="Marcus" className="w-12 h-12 mr-4" />
                   <div>
                     <div className="font-montserrat font-semibold">Marcus Weber</div>
                     <div className="font-nunito text-sm text-gray-500">Software Engineer, Berlin</div>
@@ -333,7 +333,7 @@ export default function HomePage() {
                   <img
                     src="/professional-headshot-of-young-woman-with-curly-ha.png"
                     alt="Ana"
-                    className="w-12 h-12 rounded-full mr-4"
+                    className="w-12 h-12 mr-4"
                   />
                   <div>
                     <div className="font-montserrat font-semibold">Ana Rodriguez</div>

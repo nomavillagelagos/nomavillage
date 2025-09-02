@@ -135,9 +135,9 @@ export default function CommunityPage() {
       {/* Hero Section */}
       <section className="relative h-96 flex items-center justify-center overflow-hidden">
         <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          className="absolute object-bottom inset-0 bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: "url('/diverse-group-of-people-socializing.png')",
+            backgroundImage: "url('/images/community.jpg')",
           }}
         >
           <div className="absolute inset-0 bg-black/40"></div>
