@@ -25,7 +25,7 @@ export default function HomePage() {
         <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
           <h1 className="font-caveat text-6xl md:text-8xl font-bold mb-6 text-balance">Live, Work & Thrive Together</h1>
           <p className="font-nunitor text-xl md:text-2xl mb-8 text-balance max-w-3xl mx-auto leading-relaxed">
-            Experience Wurst & Schnitzel with a curated community of like-minded entrepreneurial people. Connect, explore and thrive in a colorful space you can call home in sunny Lagos, Portugal.
+            Experience Wurst & Schnitzel+Bier with a curated community of like-minded entrepreneurial people. Connect, explore and thrive in a colorful space you can call home in sunny Lagos, Portugal.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
