@@ -152,7 +152,7 @@ export default function CoworkingPage() {
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: "url('/modern-coworking-space-with-people-working.png')",
+            backgroundImage: "url('/modern-coworking-space-with-people-working.jpg')",
           }}
         >
           <div className="absolute inset-0 bg-black/40"></div>
@@ -375,7 +375,7 @@ export default function CoworkingPage() {
                 <Card className="border-0 shadow-lg">
                   <CardContent className="p-6">
                     <img
-                      src="/modern-meeting-room-with-video-conferencing.png"
+                      src="/modern-coworking-space-with-ocean-view-in-portugal.png"
                       alt="Meeting Room A"
                       className="w-full h-48 object-cover rounded-lg mb-4"
                     />
@@ -393,7 +393,7 @@ export default function CoworkingPage() {
                 <Card className="border-0 shadow-lg">
                   <CardContent className="p-6">
                     <img
-                      src="/small-meeting-room-with-modern-furniture.png"
+                      src="/group-of-digital-nomads-working-on-laptops-by-the-.png"
                       alt="Meeting Room B"
                       className="w-full h-48 object-cover rounded-lg mb-4"
                     />

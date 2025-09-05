@@ -440,7 +440,7 @@ export default function RoomsPage() {
                   incredible!"
                 </p>
                 <div className="flex items-center">
-                  <img src="/happy-resident-woman.png" alt="Maria" className="w-12 h-12 rounded-full mr-4" />
+                  <img src="/young-woman-smiling.webp" alt="Maria" className="w-12 h-12 rounded-full mr-4" />
                   <div>
                     <div className="font-montserrat font-semibold">Maria Santos</div>
                     <div className="font-nunito text-sm text-gray-500">Ocean View Suite</div>
@@ -460,7 +460,7 @@ export default function RoomsPage() {
                   "Perfect balance of privacy and community. The Garden Room is my peaceful sanctuary."
                 </p>
                 <div className="flex items-center">
-                  <img src="/happy-resident-man.png" alt="Tom" className="w-12 h-12 rounded-full mr-4" />
+                  <img src="/young-bearded-man-headshot.webp" alt="Tom" className="w-12 h-12 rounded-full mr-4" />
                   <div>
                     <div className="font-montserrat font-semibold">Tom Wilson</div>
                     <div className="font-nunito text-sm text-gray-500">Garden Room</div>
@@ -480,7 +480,7 @@ export default function RoomsPage() {
                   "Great value for money. Everything I need for comfortable living at an affordable price."
                 </p>
                 <div className="flex items-center">
-                  <img src="/happy-resident-young-woman.png" alt="Lisa" className="w-12 h-12 rounded-full mr-4" />
+                  <img src="/professional-headshot-of-young-woman-with-curly-ha.webp" alt="Lisa" className="w-12 h-12 rounded-full mr-4" />
                   <div>
                     <div className="font-montserrat font-semibold">Lisa Chen</div>
                     <div className="font-nunito text-sm text-gray-500">Standard Room</div>

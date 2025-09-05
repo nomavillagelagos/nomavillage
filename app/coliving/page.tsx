@@ -60,16 +60,16 @@ export default function ColivingPage() {
       {/* Hero Section */}
       <section className="relative h-96 flex items-center justify-center overflow-hidden">
         <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          className="absolute inset-0 bg-cover bg-[center_60%] bg-no-repeat aspect-video lg:aspect-[21/9]"
           style={{
-            backgroundImage: "url('/beautiful-coliving-house-exterior-lagos-portugal.png')",
+            backgroundImage: "url('/beautiful-coliving-house-exterior-lagos-portugal.jpg')",
           }}
         >
           <div className="absolute inset-0 bg-black/40"></div>
         </div>
 
         <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
-          <h1 className="font-caveat text-6xl md:text-7xl font-bold mb-4">Coliving</h1>
+          <h1 className="font-montserrat text-6xl md:text-7xl font-bold mb-4">Coliving</h1>
           <p className="font-nunito text-xl md:text-2xl text-balance">
             A haven in the heart of community
           </p>
@@ -81,7 +81,7 @@ export default function ColivingPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="font-caveat text-5xl font-bold text-gray-900 mb-6">A haven in the heart of community</h2>
+              <h2 className="font-montserrat text-5xl font-bold text-gray-900 mb-6">A haven in the heart of community</h2>
               <p className="font-nunito text-lg text-gray-600 mb-6 leading-relaxed">
                 Nomavillage goes beyond being a place to crash—it's where your room turns into your cozy hideaway, and the shared spaces transform into your playground. It's all about that perfect balance between having your own chill space and enjoying the good vibes with your fellow Colivers.
               </p>
@@ -94,7 +94,7 @@ export default function ColivingPage() {
             </div>
             <div className="relative">
               <img
-                src="/group-of-people-cooking-together-in-modern-kitchen.png"
+                src="/group-of-people-cooking-together-in-modern-kitchen.jpg"
                 alt="Community cooking"
                 className="w-full h-96 object-cover rounded-lg shadow-xl"
               />
@@ -107,7 +107,7 @@ export default function ColivingPage() {
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="font-caveat text-5xl font-bold text-gray-900 mb-4">Our Coliving Space</h2>
+            <h2 className="font-montserrat text-5xl font-bold text-gray-900 mb-4">Our Coliving Space</h2>
             <p className="font-nunito text-xl text-gray-600">Everything you need for comfortable community living</p>
           </div>
 
@@ -182,7 +182,7 @@ export default function ColivingPage() {
       <section className="py-20 bg-lagos-aquamarine/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="font-caveat text-5xl font-bold text-gray-900 mb-4">Community Life</h2>
+            <h2 className="font-montserrat text-5xl font-bold text-gray-900 mb-4">Community Life</h2>
             <p className="font-nunito text-xl text-gray-600">
               Every week, we come together for communal meals, and Thursdays are all about yoga sessions
             </p>
@@ -200,7 +200,7 @@ export default function ColivingPage() {
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="font-caveat text-5xl font-bold text-gray-900 mb-4">World-Class Amenities</h2>
+            <h2 className="font-montserrat text-5xl font-bold text-gray-900 mb-4">World-Class Amenities</h2>
             <p className="font-nunito text-xl text-gray-600">
               Everything you need for comfortable living and productive work
             </p>
@@ -226,31 +226,31 @@ export default function ColivingPage() {
       <section className="py-20 bg-lagos-aquamarine/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="font-caveat text-5xl font-bold text-gray-900 mb-4">Take a Virtual Tour</h2>
+            <h2 className="font-montserrat text-5xl font-bold text-gray-900 mb-4">Take a Virtual Tour</h2>
             <p className="font-nunito text-xl text-gray-600">Explore our beautiful spaces from anywhere in the world</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="space-y-6">
               <img
-                src="/modern-coliving-common-area-with-comfortable-seatin.png"
+                src="/community-kitchen-with-people-cooking-together.jpg"
                 alt="Common area"
-                className="w-full h-64 object-cover rounded-lg shadow-md"
+                className="w-full h-96 object-cover rounded-lg shadow-md"
               />
               <img
-                src="/fully-equipped-shared-kitchen-in-coliving-space.png"
+                src="/fully-equipped-shared-kitchen-in-coliving-space.jpg"
                 alt="Kitchen"
                 className="w-full h-48 object-cover rounded-lg shadow-md"
               />
             </div>
             <div className="space-y-6">
               <img
-                src="/rooftop-terrace-with-ocean-view-and-lounge-chairs.png"
+                src="/rooftop-terrace-with-ocean-view-and-lounge-chairs.jpg"
                 alt="Rooftop"
                 className="w-full h-48 object-cover rounded-lg shadow-md"
               />
               <img
-                src="/cozy-reading-nook-with-books-and-plants.png"
+                src="/cozy-reading-nook-with-books-and-plants.jpg"
                 alt="Reading nook"
                 className="w-full h-64 object-cover rounded-lg shadow-md"
               />
@@ -269,7 +269,7 @@ export default function ColivingPage() {
       <section className="py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="font-caveat text-5xl font-bold text-gray-900 mb-4">House Guidelines</h2>
+            <h2 className="font-montserrat text-5xl font-bold text-gray-900 mb-4">House Guidelines</h2>
             <p className="font-nunito text-xl text-gray-600">
               Simple rules that help us maintain a harmonious community
             </p>
@@ -290,7 +290,7 @@ export default function ColivingPage() {
       <section className="py-20 bg-gray-50">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="font-caveat text-5xl font-bold text-gray-900 mb-4">Frequently Asked Questions</h2>
+            <h2 className="font-montserrat text-5xl font-bold text-gray-900 mb-4">Frequently Asked Questions</h2>
           </div>
 
           <Accordion type="single" collapsible className="space-y-4">
@@ -350,7 +350,7 @@ export default function ColivingPage() {
       {/* CTA Section */}
       <section className="py-20 bg-gradient-to-r from-lagos-blue-green to-lagos-pink">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="font-caveat text-5xl font-bold text-white mb-4">Ready to Join Our Community?</h2>
+          <h2 className="font-montserrat text-5xl font-bold text-white mb-4">Ready to Join Our Community?</h2>
           <p className="font-nunito text-xl text-white/90 mb-8 text-balance">
             Start your coliving journey in beautiful Lagos, Portugal
           </p>

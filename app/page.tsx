@@ -1,3 +1,4 @@
+import EmailSignupForm from '@/components/email-signup-form'
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { Button } from "@/components/ui/button"
@@ -23,7 +24,7 @@ export default function HomePage() {
         </div>
 
         <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
-          <h1 className="font-caveat text-6xl md:text-8xl font-bold mb-6 text-balance">Live, Work & Thrive Together</h1>
+          <h1 className="font-montserrat text-6xl md:text-8xl font-bold mb-6 text-balance">Live, Work & Thrive Together</h1>
           <p className="font-nunitor text-xl md:text-2xl mb-8 text-balance max-w-3xl mx-auto leading-relaxed">
             Experience with a curated community of like-minded entrepreneurial people. Connect, explore and thrive in a colorful space you can call home in sunny Lagos, Portugal.
           </p>
@@ -51,7 +52,7 @@ export default function HomePage() {
       {/* Coming Up: October Yoga + Surf Colive */}
       <section className="py-20 bg-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="font-caveat text-5xl font-bold text-gray-900 mb-4">Coming Up</h2>
+          <h2 className="font-montserrat text-5xl font-bold text-gray-900 mb-4">Coming Up</h2>
           <h3 className="font-montserrat text-2xl md:text-3xl text-gray-900 mb-4">Yoga + Surf Colive in October: Work Remotely, Live Fully</h3>
           <p className="font-nunito text-lg text-gray-700 max-w-3xl mx-auto mb-4">
             Combine daily yoga, surf, and mindful living with everything you need to work remotely: fast WiFi, inspiring spaces, and like-minded people.
@@ -100,7 +101,7 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
-              <h2 className="font-caveat text-5xl font-bold text-gray-900 mb-6">Where Magic Meets Vibrant Living</h2>
+              <h2 className="font-montserrat text-5xl font-bold text-gray-900 mb-6">Where Magic Meets Vibrant Living</h2>
               <div className="space-y-6 font-nunito text-lg text-gray-700 leading-relaxed">
                 <p className="font-semibold text-xl">
                   Bored of living just by yourself? Tired of working in the same old environment?
@@ -132,7 +133,7 @@ export default function HomePage() {
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="font-caveat text-5xl font-bold text-gray-900 mb-4">What Makes Us Special</h2>
+            <h2 className="font-montserrat text-5xl font-bold text-gray-900 mb-4">What Makes Us Special</h2>
             <p className="font-nunito text-xl text-gray-600 max-w-3xl mx-auto text-balance">
               Discover the magic that happens when like-minded entrepreneurial people come together in a vibrant Portuguese coastal setting
             </p>
@@ -218,7 +219,7 @@ export default function HomePage() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="font-caveat text-5xl font-bold text-gray-900 mb-4">Life at Noma Village</h2>
+            <h2 className="font-montserrat text-5xl font-bold text-gray-900 mb-4">Life at Noma Village</h2>
             <p className="font-nunito text-xl text-gray-600">
               Discover your new home away from home in Lagos, Portugal
             </p>
@@ -269,7 +270,7 @@ export default function HomePage() {
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="font-caveat text-5xl font-bold text-gray-900 mb-4">What Our Community Says</h2>
+            <h2 className="font-montserrat text-5xl font-bold text-gray-900 mb-4">What Our Community Says</h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -286,10 +287,10 @@ export default function HomePage() {
                   Lagos is absolutely unbeatable!"
                 </p>
                 <div className="flex items-center">
-                  <img src="/young-woman-smiling.png" alt="Sarah" className="w-12 h-12 mr-4" />
+                  <img src="/young-woman-smiling.webp" alt="Sarah" className="w-12 h-12 mr-4" />
                   <div>
-                    <div className="font-montserrat font-semibold">Sarah Chen</div>
-                    <div className="font-nunito text-sm text-gray-500">UX Designer, San Francisco</div>
+                    <div className="font-montserrat font-semibold">Fabienne</div>
+                    <div className="font-nunito text-sm text-gray-500">Coach, Berlin</div>
                   </div>
                 </div>
               </CardContent>
@@ -308,10 +309,10 @@ export default function HomePage() {
                   such an amazing lifestyle and authentic cultural experience."
                 </p>
                 <div className="flex items-center">
-                  <img src="/young-bearded-man-headshot.png" alt="Marcus" className="w-12 h-12 mr-4" />
+                  <img src="/young-bearded-man-headshot.webp" alt="Marcus" className="w-12 h-12 mr-4" />
                   <div>
-                    <div className="font-montserrat font-semibold">Marcus Weber</div>
-                    <div className="font-nunito text-sm text-gray-500">Software Engineer, Berlin</div>
+                    <div className="font-montserrat font-semibold">Bart</div>
+                    <div className="font-nunito text-sm text-gray-500">Social Engineer, Amsterdam</div>
                   </div>
                 </div>
               </CardContent>
@@ -331,13 +332,13 @@ export default function HomePage() {
                 </p>
                 <div className="flex items-center">
                   <img
-                    src="/professional-headshot-of-young-woman-with-curly-ha.png"
+                    src="/professional-headshot-of-young-woman-with-curly-ha.webp"
                     alt="Ana"
                     className="w-12 h-12 mr-4"
                   />
                   <div>
-                    <div className="font-montserrat font-semibold">Ana Rodriguez</div>
-                    <div className="font-nunito text-sm text-gray-500">Marketing Consultant, Madrid</div>
+                    <div className="font-montserrat font-semibold">Kiki</div>
+                    <div className="font-nunito text-sm text-gray-500">Copywriter, Holland</div>
                   </div>
                 </div>
               </CardContent>
@@ -349,19 +350,16 @@ export default function HomePage() {
       {/* Newsletter Signup */}
       <section className="py-20 bg-gradient-to-r from-lagos-blue-green to-lagos-pink">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="font-caveat text-5xl font-bold text-white mb-4">Stay Connected</h2>
+          <h2 className="font-montserrat text-5xl font-bold text-white mb-4">Stay Connected</h2>
           <p className="font-nunito text-xl text-white/90 mb-8 text-balance">
             Get updates on community events, new amenities, and exclusive member benefits at Noma Village
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
-            <Input
-              type="email"
-              placeholder="Enter your email"
-              className="flex-1 bg-white/10 border-white/20 text-white placeholder:text-white/70 font-nunito"
-            />
-            <Button className="bg-white text-lagos-blue-green hover:bg-white/90 font-montserrat">Subscribe</Button>
-          </div>
+          <EmailSignupForm 
+            source="homepage-newsletter"
+            showNames={true}
+            className="max-w-md mx-auto"
+          />
         </div>
       </section>
 
