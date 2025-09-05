@@ -130,7 +130,7 @@ export default function JoinPage() {
         </div>
 
         <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
-          <h1 className="font-caveat text-6xl md:text-7xl font-bold mb-4">Join our Community</h1>
+          <h1 className="font-caveat text-6xl md:text-7xl font-bold mb-4">Join the Community</h1>
           <p className="font-nunito text-xl md:text-2xl text-balance">
             Live & work where others spend their vacation while being a part of a lovely tribe of like-minded entrepreneurial people in a place full of sunshine & colors
           </p>
