@@ -190,7 +190,7 @@ export default function HomePage() {
 
             <div className="text-center">
               <img
-                src="/images/house2.jpg"
+                src="/images/house2.webp"
                 alt="Feeling Home"
                 className="w-full h-64 object-cover shadow-md mb-4"
               />
