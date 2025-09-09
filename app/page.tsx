@@ -8,6 +8,7 @@ import { Star, Quote } from "lucide-react"
 import Link from "next/link"
 import Script from "next/script"
 import SmoothScrollLink from "@/components/smooth-scroll-link"
+import { CountUp } from "@/components/count-up"
 
 export default function HomePage() {
   // Using SmoothScrollLink for controlled, smooth in-page scrolling
@@ -96,15 +97,27 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
             <div className="space-y-2">
-              <div className="text-4xl font-bold text-lagos-blue-green font-montserrat">145</div>
+              <CountUp 
+                end={145} 
+                duration={2500}
+                className="text-4xl font-bold text-lagos-blue-green font-montserrat"
+              />
               <div className="font-nunito text-gray-600">souls from</div>
             </div>
             <div className="space-y-2">
-              <div className="text-4xl font-bold text-lagos-blue-green font-montserrat">26</div>
+              <CountUp 
+                end={26} 
+                duration={2200}
+                className="text-4xl font-bold text-lagos-blue-green font-montserrat"
+              />
               <div className="font-nunito text-gray-600">nationalities forming</div>
             </div>
             <div className="space-y-2">
-              <div className="text-4xl font-bold text-lagos-blue-green font-montserrat">1</div>
+              <CountUp 
+                end={1} 
+                duration={1800}
+                className="text-4xl font-bold text-lagos-blue-green font-montserrat"
+              />
               <div className="font-nunito text-gray-600">community</div>
             </div>
           </div>
@@ -232,6 +245,30 @@ export default function HomePage() {
       {/* Photo Gallery */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Duplicate buttons above Life at Noma Village */}
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-16">
+            <Button
+              size="lg"
+              className="bg-lagos-pink hover:bg-lagos-pink/90 text-white font-montserrat"
+              data-fillout-id="aKuWaUwvaVus"
+              data-fillout-embed-type="slider"
+              data-fillout-slider-direction="right"
+              data-fillout-inherit-parameters
+              data-fillout-popup-size="medium"
+            >
+              Join Us
+            </Button>
+            <Button
+              asChild
+              size="lg"
+              className="bg-[#e362b7] hover:bg-[#e362b7]/90 text-white font-montserrat"
+            >
+              <SmoothScrollLink to="#stay-connected" duration={1500} offset={80}>
+                Get the Guide
+              </SmoothScrollLink>
+            </Button>
+          </div>
+          
           <div className="text-center mb-16">
             <h2 className="font-montserrat text-5xl font-bold text-gray-900 mb-4">Life at Noma Village</h2>
             <p className="font-nunito text-xl text-gray-600">

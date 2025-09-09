@@ -228,9 +228,6 @@ export default function RoomsPage() {
             <p className="font-nunito text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
               Welcome to your own little private oasis at our Coliving & Coworking Space! Our rooms are designed with your comfort and privacy in mind. Each room features its own private bathroom, so you can enjoy your personal space without any interruptions.
             </p>
-            <p className="font-nunito text-lg text-gray-600 max-w-4xl mx-auto mt-4 leading-relaxed">
-              Feel right at home and start your day feeling refreshed and rejuvenated. Our rooms are tastefully decorated with a welcoming ambiance. You'll find yourself sinking into a big-sized, super comfortable bed, ensuring a restful night's sleep. Natural daylight fills the space through large sliding doors, creating a bright and light-flooded environment.
-            </p>
           </div>
 
           <div className="space-y-16">

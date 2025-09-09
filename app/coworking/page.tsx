@@ -323,16 +323,14 @@ export default function CoworkingPage() {
         </div>
       </section>
 
-      {/* Events & Networking */}
+      {/* Upcoming Colives */}
       <section className="py-20 bg-lagos-aquamarine/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="font-caveat text-5xl font-bold text-gray-900 mb-6">Events & Networking</h2>
+              <h2 className="font-caveat text-5xl font-bold text-gray-900 mb-6">Upcoming Colives</h2>
               <p className="font-nunito text-lg text-gray-600 mb-8 leading-relaxed">
-                Our vibrant community hosts regular events, workshops, and networking sessions designed to help you grow
-                professionally and personally. From startup pitch nights to skill-building workshops, there's always
-                something happening at Lagos Living.
+                Every month there is a theme in the colive. Look at the schedule for what's coming up. We want to have interesting themes that enrich our private and professional lives. Maybe there's also something for you.
               </p>
 
               <div className="grid grid-cols-2 gap-6 mb-8">
