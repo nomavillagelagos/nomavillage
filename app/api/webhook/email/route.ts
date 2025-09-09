@@ -16,6 +16,8 @@ interface BrevoContact {
     FIRSTNAME?: string
     LASTNAME?: string
     SOURCE?: string
+    SIGNUP_DATE?: string
+    FORM_TYPE?: string
   }
   listIds?: number[]
 }
@@ -56,40 +58,10 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // Send to Zapier webhook (primary)
-    const zapierWebhookUrl = process.env.ZAPIER_WEBHOOK_URL
-    if (zapierWebhookUrl) {
-      try {
-        await fetch(zapierWebhookUrl, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(emailData)
-        })
-      } catch (error) {
-        console.error('Failed to send to Zapier webhook:', error)
-      }
-    }
-
-    // Send to Make webhook (alternative)
-    const makeWebhookUrl = process.env.MAKE_WEBHOOK_URL
-    if (makeWebhookUrl) {
-      try {
-        await fetch(makeWebhookUrl, {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(emailData)
-        })
-      } catch (error) {
-        console.error('Failed to send to Make webhook:', error)
-      }
-    }
-
-    // Send to Brevo directly (optional fallback)
+    // Send to Brevo CRM (primary integration)
     const brevoApiKey = process.env.BREVO_API_KEY
+    let brevoSuccess = false
+    
     if (brevoApiKey) {
       try {
         const brevoContact: BrevoContact = {
@@ -97,7 +69,9 @@ export async function POST(request: NextRequest) {
           attributes: {
             FIRSTNAME: emailData.firstName || emailData.name || '',
             LASTNAME: emailData.lastName || '',
-            SOURCE: emailData.source
+            SOURCE: emailData.source,
+            SIGNUP_DATE: emailData.timestamp,
+            FORM_TYPE: emailData.metadata?.formType || 'unknown'
           }
         }
 
@@ -107,7 +81,17 @@ export async function POST(request: NextRequest) {
           brevoContact.listIds = [parseInt(defaultListId)]
         }
 
-        await fetch('https://api.brevo.com/v3/contacts', {
+        // Add to guide-specific list for guide requests
+        if (emailData.metadata?.requestType === 'lagos-algarve-guide') {
+          const guideListId = process.env.BREVO_GUIDE_LIST_ID
+          if (guideListId) {
+            brevoContact.listIds = brevoContact.listIds 
+              ? [...brevoContact.listIds, parseInt(guideListId)]
+              : [parseInt(guideListId)]
+          }
+        }
+
+        const brevoResponse = await fetch('https://api.brevo.com/v3/contacts', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -115,8 +99,71 @@ export async function POST(request: NextRequest) {
           },
           body: JSON.stringify(brevoContact)
         })
+
+        if (brevoResponse.ok) {
+          brevoSuccess = true
+          console.log('Successfully created contact in Brevo')
+        } else {
+          const errorData = await brevoResponse.json()
+          console.error('Brevo API error:', errorData)
+          
+          // If contact already exists, try to update instead
+          if (brevoResponse.status === 400 && errorData.code === 'duplicate_parameter') {
+            const updateResponse = await fetch(`https://api.brevo.com/v3/contacts/${emailData.email}`, {
+              method: 'PUT',
+              headers: {
+                'Content-Type': 'application/json',
+                'api-key': brevoApiKey
+              },
+              body: JSON.stringify({
+                attributes: brevoContact.attributes,
+                listIds: brevoContact.listIds
+              })
+            })
+            
+            if (updateResponse.ok) {
+              brevoSuccess = true
+              console.log('Successfully updated existing contact in Brevo')
+            }
+          }
+        }
       } catch (error) {
         console.error('Failed to send to Brevo:', error)
+      }
+    }
+
+    // Fallback webhooks (only if Brevo fails)
+    if (!brevoSuccess) {
+      // Send to Zapier webhook (fallback)
+      const zapierWebhookUrl = process.env.ZAPIER_WEBHOOK_URL
+      if (zapierWebhookUrl) {
+        try {
+          await fetch(zapierWebhookUrl, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(emailData)
+          })
+        } catch (error) {
+          console.error('Failed to send to Zapier webhook:', error)
+        }
+      }
+
+      // Send to Make webhook (fallback)
+      const makeWebhookUrl = process.env.MAKE_WEBHOOK_URL
+      if (makeWebhookUrl) {
+        try {
+          await fetch(makeWebhookUrl, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(emailData)
+          })
+        } catch (error) {
+          console.error('Failed to send to Make webhook:', error)
+        }
       }
     }
 
