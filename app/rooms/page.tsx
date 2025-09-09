@@ -1,3 +1,5 @@
+"use client"
+
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { Button } from "@/components/ui/button"
@@ -5,85 +7,164 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table"
-import { Bath, Maximize, Wifi, AirVent, Car, Utensils, Shirt, CheckCircle, Calendar, Eye, Star } from "lucide-react"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Bath, Maximize, Wifi, AirVent, Car, Utensils, Shirt, CheckCircle, Calendar, Eye, Star, X, ChevronLeft, ChevronRight, Info, Laptop, Zap, Monitor, Bed, ChevronDown } from "lucide-react"
 import Link from "next/link"
+import { useState } from "react"
 
 export default function RoomsPage() {
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false)
+  const [isInfoOpen, setIsInfoOpen] = useState(false)
+  const [showInfoOnCalendarOpen, setShowInfoOnCalendarOpen] = useState(false)
+  const [currentDate, setCurrentDate] = useState(new Date())
+  const [selectedMonth, setSelectedMonth] = useState(new Date().getMonth().toString())
+  const [selectedRoom, setSelectedRoom] = useState("Room 101")
+
+  // Generate room data based on selected month
+  const generateRoomsForMonth = (monthIndex: number) => {
+    const currentMonth = new Date().getMonth()
+    const baseRooms = [
+      { id: 1, name: "Room 101" },
+      { id: 2, name: "Room 102" },
+      { id: 3, name: "Room 103" },
+      { id: 4, name: "Room 104" },
+      { id: 5, name: "Room 105" },
+      { id: 6, name: "Room 201" },
+      { id: 7, name: "Room 202" },
+      { id: 8, name: "Room 203" },
+      { id: 9, name: "Room 204" },
+      { id: 10, name: "Room 205" }
+    ]
+
+    // September (month 8) is fully booked
+    if (monthIndex === 8) {
+      return baseRooms.map((room) => ({
+        ...room,
+        status: "booked"
+      }))
+    } else if (monthIndex === currentMonth) {
+      // Current month: 2 available, 8 booked
+      return baseRooms.map((room, index) => ({
+        ...room,
+        status: index < 2 ? "available" : "booked"
+      }))
+    } else if (monthIndex === currentMonth + 1) {
+      // Next month: 2 available, 8 booked
+      return baseRooms.map((room, index) => ({
+        ...room,
+        status: index < 2 ? "available" : "booked"
+      }))
+    } else {
+      // Month after next: 50% occupation (5 available, 5 booked)
+      return baseRooms.map((room, index) => ({
+        ...room,
+        status: index < 5 ? "available" : "booked"
+      }))
+    }
+  }
+
+  // Generate calendar data based on selected room and month
+  const generateCalendarData = (date: Date, roomName: string) => {
+    const year = date.getFullYear()
+    const month = date.getMonth()
+    const daysInMonth = new Date(year, month + 1, 0).getDate()
+    const firstDayOfMonth = new Date(year, month, 1).getDay()
+    
+    const days = []
+    // Add empty cells for days before the first day of the month
+    for (let i = 0; i < firstDayOfMonth; i++) {
+      days.push(null)
+    }
+    
+    // Check if this room is available in the main grid
+    const roomsForMonth = generateRoomsForMonth(month)
+    const roomData = roomsForMonth.find(room => room.name === roomName)
+    const isRoomAvailable = roomData?.status === "available"
+    
+    // Add days of the month
+    for (let day = 1; day <= daysInMonth; day++) {
+      const isPast = new Date(year, month, day) < new Date()
+      let isBooked
+      
+      if (isPast) {
+        isBooked = true
+      } else if (isRoomAvailable) {
+        // If room is available in main grid, show full availability in calendar
+        isBooked = false
+      } else {
+        // If room is booked in main grid, show limited availability
+        isBooked = Math.random() < 0.8 // 80% booked
+      }
+      
+      days.push({ day, isBooked, isPast })
+    }
+    
+    return days
+  }
+
+  const monthNames = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ]
+
+  // Use real-time date for current months only
+  const today = new Date()
+  const realCurrentDate = new Date(today.getFullYear(), today.getMonth(), 1)
+  const currentMonthData = generateCalendarData(realCurrentDate, selectedRoom)
+  const nextMonth = new Date(today.getFullYear(), today.getMonth() + 1, 1)
+  const nextMonthData = generateCalendarData(nextMonth, selectedRoom)
+
+  // Generate room data based on selected month
+  const roomsData = generateRoomsForMonth(parseInt(selectedMonth))
+  const availableRoomsCount = roomsData.filter(room => room.status === "available").length
+
+  // Get month options (September, current and next two months)
+  const getMonthOptions = () => {
+    const currentMonth = new Date().getMonth()
+    const currentYear = new Date().getFullYear()
+    const options = []
+    
+    // Add September if not already included
+    if (currentMonth !== 8) {
+      options.push({
+        value: "8",
+        label: `September ${currentYear}`
+      })
+    }
+    
+    for (let i = 0; i < 3; i++) {
+      const monthIndex = (currentMonth + i) % 12
+      const year = currentMonth + i >= 12 ? currentYear + 1 : currentYear
+      options.push({
+        value: (currentMonth + i).toString(),
+        label: `${monthNames[monthIndex]} ${year}`
+      })
+    }
+    
+    return options
+  }
   const roomTypes = [
     {
-      id: "ocean-suite",
-      name: "Ocean View Suite",
-      price: 850,
+      id: "premium-room",
+      name: "Premium Room",
+      price: 1480,
       size: "25m²",
       bathroom: "Private",
-      view: "Ocean",
+      view: "Premium",
       available: 2,
       images: [
-        "/luxury-ocean-view-bedroom-with-balcony.png",
-        "/private-bathroom-with-modern-fixtures.png",
-        "/ocean-view-balcony-with-seating.png",
+        "/luxury-ocean-view-bedroom-with-balcony-2.jpg",
+        "/private-bathroom-with-modern-fixtures.jpg",
+        "/ocean-view-balcony-with-seatingjpg.jpg",
       ],
       features: [
         "King-size bed with premium mattress",
-        "Private bathroom with rainfall shower",
-        "Ocean-facing balcony with seating",
+        "Private bathroom",
         "Work desk with ergonomic chair",
-        "Built-in wardrobe with safe",
         "Air conditioning & heating",
-        "Blackout curtains",
         "Premium bed linens included",
       ],
-      description: "Our premium suite offers breathtaking ocean views and maximum comfort for the discerning traveler.",
-    },
-    {
-      id: "garden-room",
-      name: "Garden Room",
-      price: 650,
-      size: "18m²",
-      bathroom: "Shared",
-      view: "Garden",
-      available: 3,
-      images: [
-        "/cozy-garden-view-bedroom-with-plants.png",
-        "/shared-bathroom-modern-design.png",
-        "/garden-terrace-with-outdoor-seating.png",
-      ],
-      features: [
-        "Queen-size bed with quality mattress",
-        "Large windows with garden views",
-        "Work desk with natural lighting",
-        "Built-in storage solutions",
-        "Air conditioning & heating",
-        "Shared bathroom (2 people max)",
-        "Access to garden terrace",
-        "Weekly linen service",
-      ],
-      description: "Perfect balance of comfort and value with serene garden views and natural light.",
-    },
-    {
-      id: "standard-room",
-      name: "Standard Room",
-      price: 550,
-      size: "15m²",
-      bathroom: "Shared",
-      view: "City",
-      available: 0,
-      images: [
-        "/compact-modern-bedroom-with-desk.png",
-        "/shared-bathroom-clean-design.png",
-        "/city-view-window-with-desk.png",
-      ],
-      features: [
-        "Comfortable single bed",
-        "Compact work area",
-        "Built-in storage",
-        "City views",
-        "Air conditioning",
-        "Shared bathroom (3 people max)",
-        "Weekly linen service",
-        "Essential furnishing",
-      ],
-      description: "Great value option for budget-conscious travelers who want quality accommodation.",
+      description: "Our premium room offers maximum comfort and luxury amenities for the discerning traveler.",
     },
   ]
 
@@ -125,7 +206,7 @@ export default function RoomsPage() {
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: "url('/beautiful-coliving-rooms-showcase.png')",
+            backgroundImage: "url('/beautiful-coliving-rooms-showcase.jpg')",
           }}
         >
           <div className="absolute inset-0 bg-black/40"></div>
@@ -170,9 +251,15 @@ export default function RoomsPage() {
                     )}
                   </div>
 
-                  <div className="flex items-baseline mb-6">
-                    <span className="text-4xl font-bold text-lagos-blue-green font-montserrat">€{room.price}</span>
-                    <span className="font-nunito text-gray-600 ml-2">/month</span>
+                  <div className="flex flex-col mb-6">
+                    <div className="flex items-baseline mb-2">
+                      <span className="text-4xl font-bold text-lagos-blue-green font-montserrat">€{room.price}</span>
+                      <span className="font-nunito text-gray-600 ml-2">/month</span>
+                    </div>
+                    <div className="flex items-baseline">
+                      <span className="text-2xl font-bold text-lagos-blue-green font-montserrat">€790</span>
+                      <span className="font-nunito text-gray-600 ml-2">/two weeks</span>
+                    </div>
                   </div>
 
                   <p className="font-nunito text-lg text-gray-600 mb-6 leading-relaxed">{room.description}</p>
@@ -189,9 +276,9 @@ export default function RoomsPage() {
                       <div className="font-nunito text-sm text-gray-600">Bathroom</div>
                     </div>
                     <div className="text-center p-4 bg-gray-50 rounded-lg">
-                      <Eye className="h-6 w-6 text-lagos-amber mx-auto mb-2" />
-                      <div className="font-montserrat font-semibold">{room.view}</div>
-                      <div className="font-nunito text-sm text-gray-600">View</div>
+                      <Laptop className="h-6 w-6 text-lagos-amber mx-auto mb-2" />
+                      <div className="font-montserrat font-semibold">Desk & Chair</div>
+                      <div className="font-nunito text-sm text-gray-600">Workspace</div>
                     </div>
                   </div>
 
@@ -206,44 +293,42 @@ export default function RoomsPage() {
 
                   <div className="flex flex-col sm:flex-row gap-4">
                     <Button
+                      asChild
                       className={`font-montserrat ${
                         room.available > 0 ? "bg-lagos-pink hover:bg-lagos-pink/90" : "bg-gray-400 cursor-not-allowed"
                       }`}
                       disabled={room.available === 0}
                     >
-                      {room.available > 0 ? "Book Now" : "Join Waitlist"}
+                      <a href="#availability">{room.available > 0 ? "Book Now" : "Join Waitlist"}</a>
                     </Button>
                     <Button variant="outline" className="font-montserrat bg-transparent">
-                      Virtual Tour
+                      Get the Guide
                     </Button>
                   </div>
                 </div>
 
                 <div className={index % 2 === 1 ? "lg:col-start-1" : ""}>
                   <Tabs defaultValue="0" className="w-full">
-                    <div className="relative">
-                      <img
-                        src={room.images[0] || "/placeholder.svg"}
-                        alt={`${room.name} main view`}
-                        className="w-full h-96 object-cover rounded-lg shadow-xl"
-                      />
-                    </div>
-                    <TabsList className="grid w-full grid-cols-3 mt-4">
-                      {room.images.map((_, idx) => (
-                        <TabsTrigger key={idx} value={idx.toString()} className="font-nunito">
-                          {idx === 0 ? "Room" : idx === 1 ? "Bathroom" : "View"}
-                        </TabsTrigger>
-                      ))}
-                    </TabsList>
                     {room.images.map((image, idx) => (
                       <TabsContent key={idx} value={idx.toString()}>
                         <img
                           src={image || "/placeholder.svg"}
                           alt={`${room.name} ${idx === 0 ? "room" : idx === 1 ? "bathroom" : "view"}`}
-                          className="w-full h-96 object-cover rounded-lg shadow-xl"
+                          className="w-full h-96 object-cover rounded-t-lg shadow-xl"
                         />
                       </TabsContent>
                     ))}
+                    <TabsList className="grid w-full grid-cols-3 rounded-t-none">
+                      {room.images.map((_, idx) => (
+                        <TabsTrigger 
+                          key={idx} 
+                          value={idx.toString()} 
+                          className="font-nunito rounded-t-none"
+                        >
+                          {idx === 0 ? "Room" : idx === 1 ? "Bathroom" : "View"}
+                        </TabsTrigger>
+                      ))}
+                    </TabsList>
                   </Tabs>
                 </div>
               </div>
@@ -272,16 +357,16 @@ export default function RoomsPage() {
             
             <div className="text-center">
               <div className="w-16 h-16 bg-lagos-pink/20 rounded-lg flex items-center justify-center mx-auto mb-4">
-                <Bath className="h-8 w-8 text-lagos-pink" />
+                <Laptop className="h-8 w-8 text-lagos-pink" />
               </div>
               <h3 className="font-montserrat text-lg font-semibold mb-2">Desk & Chair</h3>
             </div>
             
             <div className="text-center">
               <div className="w-16 h-16 bg-lagos-amber/20 rounded-lg flex items-center justify-center mx-auto mb-4">
-                <Bath className="h-8 w-8 text-lagos-amber" />
+                <Bed className="h-8 w-8 text-lagos-amber" />
               </div>
-              <h3 className="font-montserrat text-lg font-semibold mb-2">Large, comfy Bed</h3>
+              <h3 className="font-montserrat text-lg font-semibold mb-2">Large, comfy Bed (queen size)</h3>
             </div>
             
             <div className="text-center">
@@ -300,14 +385,14 @@ export default function RoomsPage() {
             
             <div className="text-center">
               <div className="w-16 h-16 bg-lagos-pink/20 rounded-lg flex items-center justify-center mx-auto mb-4">
-                <Bath className="h-8 w-8 text-lagos-pink" />
+                <Zap className="h-8 w-8 text-lagos-pink" />
               </div>
               <h3 className="font-montserrat text-lg font-semibold mb-2">Hair Dryer</h3>
             </div>
             
             <div className="text-center">
               <div className="w-16 h-16 bg-lagos-amber/20 rounded-lg flex items-center justify-center mx-auto mb-4">
-                <Bath className="h-8 w-8 text-lagos-amber" />
+                <Shirt className="h-8 w-8 text-lagos-amber" />
               </div>
               <h3 className="font-montserrat text-lg font-semibold mb-2">Cleaning Service</h3>
             </div>
@@ -321,7 +406,7 @@ export default function RoomsPage() {
             
             <div className="text-center">
               <div className="w-16 h-16 bg-lagos-pink/20 rounded-lg flex items-center justify-center mx-auto mb-4">
-                <Bath className="h-8 w-8 text-lagos-pink" />
+                <Monitor className="h-8 w-8 text-lagos-pink" />
               </div>
               <h3 className="font-montserrat text-lg font-semibold mb-2">Flatscreen TV</h3>
             </div>
@@ -329,90 +414,98 @@ export default function RoomsPage() {
         </div>
       </section>
 
-      {/* Comparison Table */}
-      <section className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Room Availability Grid */}
+      <section id="availability" className="py-20 bg-lagos-aquamarine/10">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="font-caveat text-5xl font-bold text-gray-900 mb-4">Compare Rooms</h2>
-            <p className="font-nunito text-xl text-gray-600">
-              Find the perfect room that matches your needs and budget
-            </p>
-          </div>
-
-          <Card className="border-0 shadow-xl overflow-hidden">
-            <CardContent className="p-0">
-              <div className="overflow-x-auto">
-                <Table>
-                  <TableHeader>
-                    <TableRow className="bg-gray-50">
-                      <TableHead className="font-montserrat font-semibold">Features</TableHead>
-                      <TableHead className="font-montserrat font-semibold text-center">Ocean View Suite</TableHead>
-                      <TableHead className="font-montserrat font-semibold text-center">Garden Room</TableHead>
-                      <TableHead className="font-montserrat font-semibold text-center">Standard Room</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    <TableRow className="bg-lagos-aquamarine/10">
-                      <TableCell className="font-montserrat font-semibold">Monthly Price</TableCell>
-                      <TableCell className="text-center font-nunito font-bold text-lagos-blue-green">€850</TableCell>
-                      <TableCell className="text-center font-nunito font-bold text-lagos-blue-green">€650</TableCell>
-                      <TableCell className="text-center font-nunito font-bold text-lagos-blue-green">€550</TableCell>
-                    </TableRow>
-                    {comparisonFeatures.map((feature, index) => (
-                      <TableRow key={index}>
-                        <TableCell className="font-nunito font-medium">{feature}</TableCell>
-                        <TableCell className="text-center font-nunito">
-                          {comparisonData["Ocean View Suite"][index]}
-                        </TableCell>
-                        <TableCell className="text-center font-nunito">
-                          {comparisonData["Garden Room"][index]}
-                        </TableCell>
-                        <TableCell className="text-center font-nunito">
-                          {comparisonData["Standard Room"][index]}
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </div>
-            </CardContent>
-          </Card>
-        </div>
-      </section>
-
-      {/* Availability Calendar Preview */}
-      <section className="py-20 bg-lagos-aquamarine/10">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="font-caveat text-5xl font-bold text-gray-900 mb-4">Check Availability</h2>
-            <p className="font-nunito text-xl text-gray-600">See real-time availability and book your perfect room</p>
+            <h2 className="font-caveat text-5xl font-bold text-gray-900 mb-4">Room Availability</h2>
+            <p className="font-nunito text-xl text-gray-600">Current room status for this month</p>
           </div>
 
           <Card className="border-0 shadow-xl">
             <CardContent className="p-8">
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-                <div className="text-center p-6 bg-green-50 rounded-lg">
-                  <div className="text-3xl font-bold text-green-600 font-montserrat mb-2">2</div>
-                  <div className="font-nunito text-gray-600">Ocean Suites Available</div>
+              {/* Booking Information */}
+              <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                <div className="flex items-start gap-3">
+                  <Info className="h-5 w-5 text-lagos-blue-green mt-0.5 flex-shrink-0" />
+                  <p className="font-nunito text-gray-700 leading-relaxed">
+                    <strong>Important:</strong> Rooms can only be booked after a short call with our team. This helps us ensure the perfect match for your stay and answer any questions you might have.
+                  </p>
                 </div>
-                <div className="text-center p-6 bg-green-50 rounded-lg">
-                  <div className="text-3xl font-bold text-green-600 font-montserrat mb-2">3</div>
-                  <div className="font-nunito text-gray-600">Garden Rooms Available</div>
+              </div>
+              {/* Month Selector and Available Count */}
+              <div className="flex flex-col sm:flex-row justify-between items-center mb-8 gap-4">
+                <div className="flex items-center gap-4">
+                  <label className="font-montserrat font-semibold text-gray-700">Select Month:</label>
+                  <Select value={selectedMonth} onValueChange={setSelectedMonth}>
+                    <SelectTrigger className="w-48">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {getMonthOptions().map((option) => (
+                        <SelectItem key={option.value} value={option.value}>
+                          {option.label}
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                 </div>
-                <div className="text-center p-6 bg-red-50 rounded-lg">
-                  <div className="text-3xl font-bold text-red-600 font-montserrat mb-2">0</div>
-                  <div className="font-nunito text-gray-600">Standard Rooms (Waitlist)</div>
+                
+                <div className="text-center p-4 bg-green-50 rounded-lg">
+                  <div className="text-2xl font-bold text-green-600 font-montserrat mb-1">{availableRoomsCount}</div>
+                  <div className="font-nunito text-gray-600 text-sm">Rooms Available</div>
+                </div>
+              </div>
+
+              {/* Room Grid */}
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4 mb-8">
+                {roomsData.map((room) => (
+                  <div
+                    key={room.id}
+                    className={`p-4 rounded-lg border-2 transition-all duration-200 ${
+                      room.status === "available"
+                        ? "bg-green-50 border-green-200 hover:bg-green-100"
+                        : "bg-red-50 border-red-200 opacity-75"
+                    }`}
+                  >
+                    <div className="text-center">
+                      <div className="font-montserrat font-bold text-lg mb-2">{room.name}</div>
+                      <div
+                        className={`inline-flex items-center px-2 py-1 rounded-full text-xs font-medium ${
+                          room.status === "available"
+                            ? "bg-green-100 text-green-800"
+                            : "bg-red-100 text-red-800"
+                        }`}
+                      >
+                        {room.status === "available" ? "Available" : "Booked"}
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {/* Legend */}
+              <div className="flex items-center justify-center gap-6 mb-6">
+                <div className="flex items-center gap-2">
+                  <div className="w-4 h-4 bg-green-100 border-2 border-green-200 rounded"></div>
+                  <span className="font-nunito text-sm text-gray-600">Available</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <div className="w-4 h-4 bg-red-100 border-2 border-red-200 rounded"></div>
+                  <span className="font-nunito text-sm text-gray-600">Booked</span>
                 </div>
               </div>
 
               <div className="text-center">
-                <Calendar className="h-16 w-16 text-lagos-blue-green mx-auto mb-6" />
-                <h3 className="font-montserrat text-2xl font-semibold mb-4">Interactive Calendar</h3>
-                <p className="font-nunito text-gray-600 mb-6">
-                  Select your check-in and check-out dates to see detailed availability and pricing
-                </p>
-                <Button size="lg" className="bg-lagos-pink hover:bg-lagos-pink/90 text-white font-montserrat">
-                  Open Calendar
+                <Button 
+                  size="lg" 
+                  className="bg-lagos-pink hover:bg-lagos-pink/90 text-white font-montserrat"
+                  onClick={() => {
+                    setIsCalendarOpen(true)
+                    setShowInfoOnCalendarOpen(true)
+                  }}
+                >
+                  View Detailed Calendar
                 </Button>
               </div>
             </CardContent>
@@ -442,7 +535,7 @@ export default function RoomsPage() {
                 <div className="flex items-center">
                   <img src="/young-woman-smiling.webp" alt="Maria" className="w-12 h-12 rounded-full mr-4" />
                   <div>
-                    <div className="font-montserrat font-semibold">Maria Santos</div>
+                    <div className="font-montserrat font-semibold">Fabienne</div>
                     <div className="font-nunito text-sm text-gray-500">Ocean View Suite</div>
                   </div>
                 </div>
@@ -462,7 +555,7 @@ export default function RoomsPage() {
                 <div className="flex items-center">
                   <img src="/young-bearded-man-headshot.webp" alt="Tom" className="w-12 h-12 rounded-full mr-4" />
                   <div>
-                    <div className="font-montserrat font-semibold">Tom Wilson</div>
+                    <div className="font-montserrat font-semibold">Bart</div>
                     <div className="font-nunito text-sm text-gray-500">Garden Room</div>
                   </div>
                 </div>
@@ -482,7 +575,7 @@ export default function RoomsPage() {
                 <div className="flex items-center">
                   <img src="/professional-headshot-of-young-woman-with-curly-ha.webp" alt="Lisa" className="w-12 h-12 rounded-full mr-4" />
                   <div>
-                    <div className="font-montserrat font-semibold">Lisa Chen</div>
+                    <div className="font-montserrat font-semibold">Kiki</div>
                     <div className="font-nunito text-sm text-gray-500">Standard Room</div>
                   </div>
                 </div>
@@ -519,6 +612,221 @@ export default function RoomsPage() {
           </div>
         </div>
       </section>
+
+      {/* Calendar Modal */}
+      {isCalendarOpen && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+            <div className="p-6">
+              <div className="flex justify-between items-center mb-6">
+                <h2 className="font-caveat text-3xl font-bold text-gray-900">Select Your Dates</h2>
+                <Button 
+                  variant="ghost" 
+                  size="sm" 
+                  onClick={() => {
+                    setIsCalendarOpen(false)
+                    setShowInfoOnCalendarOpen(false)
+                  }}
+                  className="p-2"
+                >
+                  <X className="h-5 w-5" />
+                </Button>
+              </div>
+              
+              {/* Room Selector */}
+              <div className="mb-6">
+                <div className="flex items-center gap-4">
+                  <label className="font-montserrat font-semibold text-gray-700">Viewing Room:</label>
+                  <Select value={selectedRoom} onValueChange={setSelectedRoom}>
+                    <SelectTrigger className="w-48">
+                      <SelectValue />
+                    </SelectTrigger>
+                    <SelectContent>
+                      {[
+                        { name: "Room 101" }, { name: "Room 102" }, { name: "Room 103" }, 
+                        { name: "Room 104" }, { name: "Room 105" }, { name: "Room 201" },
+                        { name: "Room 202" }, { name: "Room 203" }, { name: "Room 204" }, 
+                        { name: "Room 205" }
+                      ].map((room) => {
+                        const roomData = generateRoomsForMonth(new Date().getMonth()).find(r => r.name === room.name)
+                        return (
+                          <SelectItem key={room.name} value={room.name}>
+                            {room.name} ({roomData?.status === "available" ? "Available" : "Booked"})
+                          </SelectItem>
+                        )
+                      })}
+                    </SelectContent>
+                  </Select>
+                </div>
+              </div>
+              
+              {/* Booking Information Modal inside Calendar */}
+              {showInfoOnCalendarOpen && (
+                <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                  <div className="flex justify-between items-start mb-3">
+                    <h3 className="font-montserrat text-lg font-semibold text-gray-900 flex items-center gap-2">
+                      <Info className="h-5 w-5 text-lagos-blue-green" />
+                      Booking Information
+                    </h3>
+                    <Button 
+                      variant="ghost" 
+                      size="sm" 
+                      onClick={() => setShowInfoOnCalendarOpen(false)}
+                      className="p-1 h-6 w-6"
+                    >
+                      <X className="h-4 w-4" />
+                    </Button>
+                  </div>
+                  <p className="font-nunito text-gray-600 leading-relaxed">
+                    Rooms can only be booked after a short call with our team. This helps us ensure the perfect match for your stay and answer any questions you might have.
+                  </p>
+                </div>
+              )}
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                {/* Current Month */}
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="font-montserrat text-xl font-semibold">
+                      {monthNames[realCurrentDate.getMonth()]} {realCurrentDate.getFullYear()}
+                    </h3>
+                  </div>
+                  <div className="grid grid-cols-7 gap-1 mb-2">
+                    {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
+                      <div key={day} className="text-center text-sm font-medium text-gray-500 p-2">
+                        {day}
+                      </div>
+                    ))}
+                  </div>
+                  <div className="grid grid-cols-7 gap-1">
+                    {currentMonthData.map((dayData, index) => (
+                      <div key={index} className="aspect-square">
+                        {dayData ? (
+                          <button
+                            className={`w-full h-full text-sm rounded-md transition-colors ${
+                              dayData.isBooked
+                                ? 'bg-red-100 text-red-800 cursor-not-allowed'
+                                : 'bg-green-100 text-green-800 hover:bg-green-200'
+                            } ${dayData.isPast ? 'opacity-50' : ''}`}
+                            disabled={dayData.isBooked}
+                          >
+                            {dayData.day}
+                          </button>
+                        ) : (
+                          <div className="w-full h-full"></div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+                
+                {/* Next Month */}
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="font-montserrat text-xl font-semibold">
+                      {monthNames[nextMonth.getMonth()]} {nextMonth.getFullYear()}
+                    </h3>
+                  </div>
+                  <div className="grid grid-cols-7 gap-1 mb-2">
+                    {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map(day => (
+                      <div key={day} className="text-center text-sm font-medium text-gray-500 p-2">
+                        {day}
+                      </div>
+                    ))}
+                  </div>
+                  <div className="grid grid-cols-7 gap-1">
+                    {nextMonthData.map((dayData, index) => (
+                      <div key={index} className="aspect-square">
+                        {dayData ? (
+                          <button
+                            className={`w-full h-full text-sm rounded-md transition-colors ${
+                              dayData.isBooked
+                                ? 'bg-red-100 text-red-800 cursor-not-allowed'
+                                : 'bg-green-100 text-green-800 hover:bg-green-200'
+                            }`}
+                            disabled={dayData.isBooked}
+                          >
+                            {dayData.day}
+                          </button>
+                        ) : (
+                          <div className="w-full h-full"></div>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                  
+                </div>
+              </div>
+              
+              <div className="mt-6 flex items-center justify-between">
+                <div className="flex items-center space-x-4 text-sm">
+                  <div className="flex items-center">
+                    <div className="w-4 h-4 bg-green-100 rounded mr-2"></div>
+                    <span>Available</span>
+                  </div>
+                  <div className="flex items-center">
+                    <div className="w-4 h-4 bg-red-100 rounded mr-2"></div>
+                    <span>Booked</span>
+                  </div>
+                </div>
+                <div className="flex items-center gap-2">
+                  <Button 
+                    variant="outline"
+                    size="sm"
+                    onClick={() => setShowInfoOnCalendarOpen(!showInfoOnCalendarOpen)}
+                    className="flex items-center gap-2"
+                  >
+                    <Info className="h-4 w-4" />
+                    {showInfoOnCalendarOpen ? 'Hide Info' : 'Show Info'}
+                  </Button>
+                  <Button 
+                    onClick={() => {
+                      setIsCalendarOpen(false)
+                      setShowInfoOnCalendarOpen(false)
+                    }}
+                    className="bg-lagos-pink hover:bg-lagos-pink/90"
+                  >
+                    Close Calendar
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Info Modal */}
+      {isInfoOpen && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg max-w-md w-full p-6">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="font-montserrat text-xl font-semibold text-gray-900">Booking Information</h3>
+              <Button 
+                variant="ghost" 
+                size="sm" 
+                onClick={() => setIsInfoOpen(false)}
+                className="p-2"
+              >
+                <X className="h-5 w-5" />
+              </Button>
+            </div>
+            <div className="flex items-start gap-3">
+              <Info className="h-5 w-5 text-lagos-blue-green mt-0.5 flex-shrink-0" />
+              <p className="font-nunito text-gray-600 leading-relaxed">
+                Rooms can only be booked after a short call with our team. This helps us ensure the perfect match for your stay and answer any questions you might have.
+              </p>
+            </div>
+            <div className="mt-6 flex justify-end">
+              <Button 
+                onClick={() => setIsInfoOpen(false)}
+                className="bg-lagos-pink hover:bg-lagos-pink/90"
+              >
+                Got it
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
 
       <Footer />
     </div>

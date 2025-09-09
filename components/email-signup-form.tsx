@@ -23,7 +23,8 @@ export default function EmailSignupForm({
   showNames = false
 }: EmailSignupFormProps) {
   const [email, setEmail] = useState('')
-  const [name, setName] = useState('')
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
   const [isLoading, setIsLoading] = useState(false)
   const [status, setStatus] = useState<'idle' | 'success' | 'error'>('idle')
   const [message, setMessage] = useState('')
@@ -41,7 +42,8 @@ export default function EmailSignupForm({
         },
         body: JSON.stringify({
           email,
-          firstName: showNames ? name : undefined,
+          firstName: showNames ? firstName : undefined,
+          lastName: showNames ? lastName : undefined,
           source,
           metadata: {
             formType: showNames ? 'detailed' : 'simple',
@@ -56,7 +58,8 @@ export default function EmailSignupForm({
         setStatus('success')
         setMessage('Thank you! We\'ll keep you updated.')
         setEmail('')
-        setName('')
+        setFirstName('')
+        setLastName('')
       } else {
         setStatus('error')
         setMessage(data.error || 'Something went wrong. Please try again.')
@@ -78,18 +81,33 @@ export default function EmailSignupForm({
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-4">
           {showNames && (
-            <div className="space-y-2">
-              <Label htmlFor="firstName" className="font-montserrat">Name</Label>
-              <Input
-                id="firstName"
-                name="firstName"
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                className="font-nunito"
-                disabled={isLoading}
-                placeholder="Your name"
-              />
+            <div className="grid grid-cols-2 gap-4">
+              <div className="space-y-2">
+                <Label htmlFor="firstName" className="font-montserrat">First Name</Label>
+                <Input
+                  id="firstName"
+                  name="firstName"
+                  type="text"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                  className="font-nunito"
+                  disabled={isLoading}
+                  placeholder="First name"
+                />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="lastName" className="font-montserrat">Last Name</Label>
+                <Input
+                  id="lastName"
+                  name="lastName"
+                  type="text"
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
+                  className="font-nunito"
+                  disabled={isLoading}
+                  placeholder="Last name"
+                />
+              </div>
             </div>
           )}
           

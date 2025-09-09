@@ -103,6 +103,32 @@ export default function ColivingPage() {
         </div>
       </section>
 
+      {/* Amenities */}
+      <section className="py-20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="font-montserrat text-5xl font-bold text-gray-900 mb-4">High-Class Amenities</h2>
+            <p className="font-nunito text-xl text-gray-600">
+              Everything you need for comfortable living and productive work
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {amenities.map((amenity, index) => (
+              <div key={index} className="flex items-start space-x-4">
+                <div className="w-12 h-12 bg-lagos-amber/20 rounded-lg flex items-center justify-center flex-shrink-0">
+                  <amenity.icon className="h-6 w-6 text-lagos-amber" />
+                </div>
+                <div>
+                  <h3 className="font-montserrat font-semibold text-lg mb-2">{amenity.title}</h3>
+                  <p className="font-nunito text-gray-600">{amenity.description}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Room Types */}
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -200,7 +226,7 @@ export default function ColivingPage() {
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="font-montserrat text-5xl font-bold text-gray-900 mb-4">World-Class Amenities</h2>
+            <h2 className="font-montserrat text-5xl font-bold text-gray-900 mb-4">High-Class Amenities</h2>
             <p className="font-nunito text-xl text-gray-600">
               Everything you need for comfortable living and productive work
             </p>
@@ -258,8 +284,10 @@ export default function ColivingPage() {
           </div>
 
           <div className="text-center mt-12">
-            <Button size="lg" className="bg-lagos-blue-green hover:bg-lagos-blue-green/90 text-white font-montserrat">
-              Schedule Virtual Tour
+            <Button asChild size="lg" className="bg-lagos-blue-green hover:bg-lagos-blue-green/90 text-white font-montserrat">
+              <a href="https://calendly.com/nomavillagelagos/short-intro" target="_blank" rel="noopener noreferrer">
+                Book a Call
+              </a>
             </Button>
           </div>
         </div>
@@ -310,8 +338,7 @@ export default function ColivingPage() {
                 What's the minimum stay requirement?
               </AccordionTrigger>
               <AccordionContent className="font-nunito text-gray-600">
-                Our minimum stay is one month. This allows you to truly integrate into the community and experience the
-                full benefits of coliving. We offer discounts for stays of 3 months or longer.
+                Currently, we prefer a minimum stay of two weeks. There are exceptions to this rule which have to be determined through a quick conversation with us. 1 month or more is optimal to create a community feeling.
               </AccordionContent>
             </AccordionItem>
 
@@ -327,9 +354,7 @@ export default function ColivingPage() {
             <AccordionItem value="item-4" className="bg-white rounded-lg px-6">
               <AccordionTrigger className="font-montserrat font-semibold">How do I book a room?</AccordionTrigger>
               <AccordionContent className="font-nunito text-gray-600">
-                You can book directly through our website or schedule a virtual tour first. We require a deposit equal
-                to one month's rent plus a refundable security deposit. All bookings are subject to a brief application
-                process to ensure community fit.
+                We are not a regular hotel, but a community. To create a vibe of familiarity, we prefer to have a call with everyone who wants to join us. This is just a quick get-to-know each other.
               </AccordionContent>
             </AccordionItem>
 
@@ -338,9 +363,7 @@ export default function ColivingPage() {
                 What if I need to cancel my booking?
               </AccordionTrigger>
               <AccordionContent className="font-nunito text-gray-600">
-                We offer flexible cancellation policies. Cancellations made 30+ days before arrival receive a full
-                refund minus processing fees. Cancellations within 30 days are subject to our standard cancellation
-                policy outlined in your booking agreement.
+                Cancellations after one week before arrival are non-refundable. Cancellations within one month of arrival result in a waiver of the fee.
               </AccordionContent>
             </AccordionItem>
           </Accordion>
@@ -361,7 +384,7 @@ export default function ColivingPage() {
               size="lg"
               className="bg-white text-lagos-blue-green hover:bg-white/90 font-montserrat text-lg px-8 py-3"
             >
-              <Link href="/join">Apply Now</Link>
+              <a href="https://forms.fillout.com/t/aKuWaUwvaVus" target="_blank" rel="noopener noreferrer">Apply Now</a>
             </Button>
             <Button
               asChild
@@ -369,7 +392,7 @@ export default function ColivingPage() {
               size="lg"
               className="border-white text-white hover:bg-white hover:text-lagos-blue-green font-montserrat text-lg px-8 py-3 bg-transparent"
             >
-              <Link href="#tour">Schedule Tour</Link>
+              <a href="https://calendly.com/nomavillagelagos/short-intro" target="_blank" rel="noopener noreferrer">Book Call</a>
             </Button>
           </div>
         </div>

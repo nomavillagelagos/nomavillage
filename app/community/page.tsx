@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { Calendar, MapPin, Users, Heart, Globe, MessageCircle, Camera } from "lucide-react"
+import { Calendar, MapPin, Users, Heart, Globe, MessageCircle, Camera, Waves } from "lucide-react"
 import Link from "next/link"
 
 export default function CommunityPage() {
@@ -120,12 +120,12 @@ export default function CommunityPage() {
   ]
 
   const galleryImages = [
-    { src: "/community-cooking-together.png", caption: "Community dinner preparation" },
-    { src: "/beach-volleyball-game.png", caption: "Beach volleyball tournament" },
-    { src: "/coworking-collaboration.png", caption: "Collaborative work session" },
-    { src: "/rooftop-sunset-gathering.png", caption: "Sunset gathering on rooftop" },
-    { src: "/portuguese-language-class.png", caption: "Portuguese language exchange" },
-    { src: "/hiking-group-adventure.png", caption: "Weekend hiking adventure" },
+    { src: "/community-cooking-together.jpg", caption: "Community dinner" },
+    { src: "/beach-volleyball-game.jpg", caption: "Beaches next door" },
+    { src: "/coworking-collaboration.jpg", caption: "Yoga and Meditation by the Pool" },
+    { src: "/rooftop-sunset-gathering.jpg", caption: "Cowork Space" },
+    { src: "/portuguese-language-class.jpg", caption: "Pedalboard and Surfing" },
+    { src: "/hiking-group-adventure.jpg", caption: "Workout and Yoga Shala" },
   ]
 
   return (
@@ -133,18 +133,21 @@ export default function CommunityPage() {
       <Navigation />
 
       {/* Hero Section */}
-      <section className="relative h-96 flex items-center justify-center overflow-hidden">
+      <section className="relative h-[600px] flex items-center justify-center overflow-hidden">
         <div
-          className="absolute object-bottom inset-0 bg-cover bg-center bg-no-repeat"
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
             backgroundImage: "url('/images/community.jpg')",
+            backgroundSize: 'cover',
+            backgroundPosition: 'center 30%',
+            transform: 'scale(1.1)'
           }}
         >
           <div className="absolute inset-0 bg-black/40"></div>
         </div>
 
         <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
-          <h1 className="font-caveat text-6xl md:text-7xl font-bold mb-4">Community</h1>
+          <h1 className="font-montserrat text-6xl md:text-7xl font-bold mb-4">Community</h1>
           <p className="font-nunito text-xl md:text-2xl text-balance">
             Make Friends you haven't met yet
           </p>
@@ -209,68 +212,63 @@ export default function CommunityPage() {
             </p>
           </div>
           
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-8">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-lagos-pink/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+            {/* Row 1 */}
+            <div className="text-center p-4 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow">
+              <div className="w-16 h-16 bg-lagos-pink/20 rounded-lg flex items-center justify-center mx-auto mb-3">
                 <Heart className="h-8 w-8 text-lagos-pink" />
               </div>
-              <h3 className="font-montserrat text-lg font-semibold mb-2">Spiritual Practices</h3>
+              <h3 className="font-montserrat text-base sm:text-lg font-semibold">Spiritual Practices</h3>
             </div>
             
-            <div className="text-center">
-              <div className="w-16 h-16 bg-lagos-blue-green/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+            <div className="text-center p-4 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow">
+              <div className="w-16 h-16 bg-lagos-blue-green/20 rounded-lg flex items-center justify-center mx-auto mb-3">
                 <Users className="h-8 w-8 text-lagos-blue-green" />
               </div>
-              <h3 className="font-montserrat text-lg font-semibold mb-2">Yoga, Sports</h3>
+              <h3 className="font-montserrat text-base sm:text-lg font-semibold">Yoga & Sports</h3>
             </div>
             
-            <div className="text-center">
-              <div className="w-16 h-16 bg-lagos-amber/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+            <div className="text-center p-4 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow">
+              <div className="w-16 h-16 bg-lagos-amber/20 rounded-lg flex items-center justify-center mx-auto mb-3">
                 <Globe className="h-8 w-8 text-lagos-amber" />
               </div>
-              <h3 className="font-montserrat text-lg font-semibold mb-2">Group Meals</h3>
+              <h3 className="font-montserrat text-base sm:text-lg font-semibold">Group Meals</h3>
             </div>
             
-            <div className="text-center">
-              <div className="w-16 h-16 bg-lagos-aquamarine/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+            <div className="text-center p-4 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow">
+              <div className="w-16 h-16 bg-lagos-aquamarine/20 rounded-lg flex items-center justify-center mx-auto mb-3">
                 <MapPin className="h-8 w-8 text-lagos-aquamarine" />
               </div>
-              <h3 className="font-montserrat text-lg font-semibold mb-2">Hiking</h3>
+              <h3 className="font-montserrat text-base sm:text-lg font-semibold">Hiking</h3>
             </div>
             
-            <div className="text-center">
-              <div className="w-16 h-16 bg-lagos-pink/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+            {/* Row 2 */}
+            <div className="text-center p-4 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow">
+              <div className="w-16 h-16 bg-lagos-pink/20 rounded-lg flex items-center justify-center mx-auto mb-3">
                 <MessageCircle className="h-8 w-8 text-lagos-pink" />
               </div>
-              <h3 className="font-montserrat text-lg font-semibold mb-2">Ecstatic Dance</h3>
+              <h3 className="font-montserrat text-base sm:text-lg font-semibold">Ecstatic Dance</h3>
             </div>
             
-            <div className="text-center">
-              <div className="w-16 h-16 bg-lagos-blue-green/20 rounded-lg flex items-center justify-center mx-auto mb-4">
-                <Calendar className="h-8 w-8 text-lagos-blue-green" />
+            <div className="text-center p-4 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow">
+              <div className="w-16 h-16 bg-lagos-amber/20 rounded-lg flex items-center justify-center mx-auto mb-3">
+                <Waves className="h-8 w-8 text-lagos-amber" />
               </div>
-              <h3 className="font-montserrat text-lg font-semibold mb-2">Exploration</h3>
+              <h3 className="font-montserrat text-base sm:text-lg font-semibold">Surfing</h3>
             </div>
             
-            <div className="text-center">
-              <div className="w-16 h-16 bg-lagos-amber/20 rounded-lg flex items-center justify-center mx-auto mb-4">
-                <Users className="h-8 w-8 text-lagos-amber" />
-              </div>
-              <h3 className="font-montserrat text-lg font-semibold mb-2">Surfing</h3>
-            </div>
-            
-            <div className="text-center">
-              <div className="w-16 h-16 bg-lagos-aquamarine/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+            <div className="text-center p-4 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow">
+              <div className="w-16 h-16 bg-lagos-aquamarine/20 rounded-lg flex items-center justify-center mx-auto mb-3">
                 <MessageCircle className="h-8 w-8 text-lagos-aquamarine" />
               </div>
-              <h3 className="font-montserrat text-lg font-semibold mb-2">Workshops</h3>
+              <h3 className="font-montserrat text-base sm:text-lg font-semibold">Workshops</h3>
             </div>
             
-            <div className="text-center">
-              <div className="w-16 h-16 bg-lagos-pink/20 rounded-lg flex items-center justify-center mx-auto mb-4">
-                <Camera className="h-8 w-8 text-lagos-pink" />
+            <div className="text-center p-4 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow">
+              <div className="w-16 h-16 bg-lagos-pink/20 rounded-lg flex items-center justify-center mx-auto mb-3">
+                <Globe className="h-8 w-8 text-lagos-pink" />
               </div>
-              <h3 className="font-montserrat text-lg font-semibold mb-2">Beach Time</h3>
+              <h3 className="font-montserrat text-base sm:text-lg font-semibold">Volleyball</h3>
             </div>
           </div>
         </div>
@@ -304,61 +302,6 @@ export default function CommunityPage() {
         </div>
       </section>
 
-      {/* Events Calendar */}
-      <section className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="font-caveat text-5xl font-bold text-gray-900 mb-4">Upcoming Events</h2>
-            <p className="font-nunito text-xl text-gray-600">
-              Join us for exciting activities, learning opportunities, and social gatherings
-            </p>
-          </div>
-
-          <div className="space-y-4">
-            {upcomingEvents.map((event, index) => (
-              <Card key={index} className="border-0 shadow-lg hover:shadow-xl transition-shadow duration-300">
-                <CardContent className="p-6">
-                  <div className="flex flex-col md:flex-row md:items-center justify-between">
-                    <div className="flex items-start space-x-4 mb-4 md:mb-0">
-                      <div className="text-center min-w-[60px]">
-                        <div className="font-montserrat font-bold text-lagos-blue-green">
-                          {new Date(event.date).getDate()}
-                        </div>
-                        <div className="font-nunito text-sm text-gray-600">
-                          {new Date(event.date).toLocaleDateString("en", { month: "short" })}
-                        </div>
-                      </div>
-                      <div className="flex-1">
-                        <h3 className="font-montserrat text-xl font-semibold mb-2">{event.title}</h3>
-                        <div className="flex flex-col sm:flex-row sm:items-center space-y-1 sm:space-y-0 sm:space-x-4">
-                          <div className="flex items-center text-gray-600">
-                            <Calendar className="h-4 w-4 mr-1" />
-                            <span className="font-nunito text-sm">{event.time}</span>
-                          </div>
-                          <div className="flex items-center text-gray-600">
-                            <MapPin className="h-4 w-4 mr-1" />
-                            <span className="font-nunito text-sm">{event.location}</span>
-                          </div>
-                          <div className="flex items-center text-gray-600">
-                            <Users className="h-4 w-4 mr-1" />
-                            <span className="font-nunito text-sm">{event.attendees} attending</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="flex items-center space-x-3">
-                      <Badge className="bg-lagos-amber/20 text-lagos-amber border-0">{event.type}</Badge>
-                      <Button size="sm" className="bg-lagos-pink hover:bg-lagos-pink/90">
-                        Join Event
-                      </Button>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* Photo Gallery */}
       <section className="py-20 bg-lagos-aquamarine/10">
@@ -398,26 +341,22 @@ export default function CommunityPage() {
             Join our community channels to stay updated and connect with fellow members
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <Card className="border-0 shadow-lg">
+          <div className="flex justify-center">
+            <Card className="border-0 shadow-lg max-w-md">
               <CardContent className="p-8 text-center">
                 <MessageCircle className="h-16 w-16 text-green-500 mx-auto mb-6" />
                 <h3 className="font-montserrat text-2xl font-semibold mb-4">WhatsApp Group</h3>
                 <p className="font-nunito text-gray-600 mb-6">
                   Join our active WhatsApp group for daily updates, event announcements, and quick community chat.
                 </p>
-                <Button className="bg-green-500 hover:bg-green-600 text-white font-montserrat">Join WhatsApp</Button>
-              </CardContent>
-            </Card>
-
-            <Card className="border-0 shadow-lg">
-              <CardContent className="p-8 text-center">
-                <MessageCircle className="h-16 w-16 text-purple-500 mx-auto mb-6" />
-                <h3 className="font-montserrat text-2xl font-semibold mb-4">Slack Workspace</h3>
-                <p className="font-nunito text-gray-600 mb-6">
-                  Access our organized Slack workspace with channels for work, events, local tips, and more.
-                </p>
-                <Button className="bg-purple-500 hover:bg-purple-600 text-white font-montserrat">Join Slack</Button>
+                <Button 
+                  asChild
+                  className="bg-green-500 hover:bg-green-600 text-white font-montserrat"
+                >
+                  <Link href="https://api.whatsapp.com/send/?phone=4917669299755&text&type=phone_number&app_absent=0" target="_blank">
+                    Talk to us on WhatsApp
+                  </Link>
+                </Button>
               </CardContent>
             </Card>
           </div>
@@ -432,13 +371,23 @@ export default function CommunityPage() {
             Become part of our vibrant international community in beautiful Lagos
           </p>
 
-          <Button
-            asChild
-            size="lg"
-            className="bg-white text-lagos-blue-green hover:bg-white/90 font-montserrat text-lg px-8 py-3"
-          >
-            <Link href="/join">Apply to Join</Link>
-          </Button>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Button
+              asChild
+              size="lg"
+              className="bg-white text-lagos-blue-green hover:bg-white/90 font-montserrat text-lg px-8 py-3"
+            >
+              <a href="https://forms.fillout.com/t/aKuWaUwvaVus" target="_blank" rel="noopener noreferrer">Apply Now</a>
+            </Button>
+            <Button
+              asChild
+              variant="outline"
+              size="lg"
+              className="border-white text-white hover:bg-white hover:text-lagos-blue-green font-montserrat text-lg px-8 py-3 bg-transparent"
+            >
+              <a href="https://calendly.com/nomavillagelagos/short-intro" target="_blank" rel="noopener noreferrer">Book Call</a>
+            </Button>
+          </div>
         </div>
       </section>
 

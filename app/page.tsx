@@ -6,8 +6,12 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Star, Quote } from "lucide-react"
 import Link from "next/link"
+import Script from "next/script"
+import SmoothScrollLink from "@/components/smooth-scroll-link"
 
 export default function HomePage() {
+  // Using SmoothScrollLink for controlled, smooth in-page scrolling
+
   return (
     <div className="min-h-screen bg-white">
       <Navigation />
@@ -43,14 +47,16 @@ export default function HomePage() {
               size="lg"
               className="border-white text-white hover:bg-white hover:text-gray-900 font-montserrat text-lg px-8 py-3 bg-transparent"
             >
-              <Link href="#learn-more">Learn More</Link>
+              <SmoothScrollLink to="#coming-up" duration={1500} offset={80} className="smooth-scroll">
+                Learn More
+              </SmoothScrollLink>
             </Button>
           </div>
         </div>
       </section>
 
       {/* Coming Up: October Yoga + Surf Colive */}
-      <section className="py-20 bg-white">
+      <section id="coming-up" className="py-20 bg-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="font-montserrat text-5xl font-bold text-gray-900 mb-4">Coming Up</h2>
           <h3 className="font-montserrat text-2xl md:text-3xl text-gray-900 mb-4">Yoga + Surf Colive in October: Work Remotely, Live Fully</h3>
@@ -67,12 +73,20 @@ export default function HomePage() {
             />
           </div>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button asChild size="lg" className="bg-lagos-pink hover:bg-lagos-pink/90 text-white font-montserrat">
-              <Link href="https://noma.fillout.com/t/aKuWaUwvaVus">Join Us</Link>
+            <Button
+              size="lg"
+              className="bg-lagos-pink hover:bg-lagos-pink/90 text-white font-montserrat"
+              data-fillout-id="aKuWaUwvaVus"
+              data-fillout-embed-type="slider"
+              data-fillout-slider-direction="right"
+              data-fillout-inherit-parameters
+              data-fillout-popup-size="medium"
+            >
+              Join Us
             </Button>
-            <Button asChild variant="outline" size="lg" className="font-montserrat">
-              <Link href="#learn-more">More Info</Link>
-            </Button>
+            <SmoothScrollLink to="#stay-connected" duration={1500} offset={80} className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-11 px-8 font-montserrat bg-[#e151af] hover:bg-[#e151af]/90 text-white">
+              Get the Guide
+            </SmoothScrollLink>
           </div>
         </div>
       </section>
@@ -287,7 +301,7 @@ export default function HomePage() {
                   Lagos is absolutely unbeatable!"
                 </p>
                 <div className="flex items-center">
-                  <img src="/young-woman-smiling.webp" alt="Sarah" className="w-12 h-12 mr-4" />
+                  <img src="/young-woman-smiling.webp" alt="Fabienne" className="w-12 h-12 mr-4 rounded-full object-cover" />
                   <div>
                     <div className="font-montserrat font-semibold">Fabienne</div>
                     <div className="font-nunito text-sm text-gray-500">Coach, Berlin</div>
@@ -309,7 +323,7 @@ export default function HomePage() {
                   such an amazing lifestyle and authentic cultural experience."
                 </p>
                 <div className="flex items-center">
-                  <img src="/young-bearded-man-headshot.webp" alt="Marcus" className="w-12 h-12 mr-4" />
+                  <img src="/young-bearded-man-headshot.webp" alt="Bart" className="w-12 h-12 mr-4 rounded-full object-cover" />
                   <div>
                     <div className="font-montserrat font-semibold">Bart</div>
                     <div className="font-nunito text-sm text-gray-500">Social Engineer, Amsterdam</div>
@@ -334,7 +348,7 @@ export default function HomePage() {
                   <img
                     src="/professional-headshot-of-young-woman-with-curly-ha.webp"
                     alt="Ana"
-                    className="w-12 h-12 mr-4"
+                    className="w-12 h-12 mr-4 rounded-full object-cover"
                   />
                   <div>
                     <div className="font-montserrat font-semibold">Kiki</div>
@@ -348,7 +362,7 @@ export default function HomePage() {
       </section>
 
       {/* Newsletter Signup */}
-      <section className="py-20 bg-gradient-to-r from-lagos-blue-green to-lagos-pink">
+      <section id="stay-connected" className="py-20 bg-gradient-to-r from-lagos-blue-green to-lagos-pink">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="font-montserrat text-5xl font-bold text-white mb-4">Stay Connected</h2>
           <p className="font-nunito text-xl text-white/90 mb-8 text-balance">

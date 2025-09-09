@@ -1,15 +1,10 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Caveat, Montserrat, Nunito } from "next/font/google"
+import { Montserrat, Nunito } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { Suspense } from "react"
+import GuideModalProvider from "@/components/guide-modal-provider"
 import "./globals.css"
-
-const caveat = Caveat({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-caveat",
-})
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -37,9 +32,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`font-sans ${caveat.variable} ${montserrat.variable} ${nunito.variable}`}>
+      <body className={`font-sans ${montserrat.variable} ${nunito.variable}`}>
         <Suspense fallback={null}>
-          {children}
+          <GuideModalProvider>
+            {children}
+          </GuideModalProvider>
           <Analytics />
         </Suspense>
       </body>

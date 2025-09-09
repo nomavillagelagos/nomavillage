@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Wifi, Printer, Coffee, Users, Clock, CheckCircle, Star, Headphones, Monitor } from "lucide-react"
+import { Wifi, Printer, Coffee, Users, Clock, CheckCircle, Star, Headphones, Monitor, Waves, MapPin } from "lucide-react"
 import Link from "next/link"
 
 export default function CoworkingPage() {
@@ -94,25 +94,48 @@ export default function CoworkingPage() {
 
   const communityMembers = [
     {
-      name: "Elena Rodriguez",
-      role: "UX Designer",
-      company: "Freelance",
-      image: "/professional-woman-working-on-laptop.png",
-      quote: "The creative energy here is incredible. I've collaborated on three projects just this month!",
+      name: "Fabienne",
+      role: "Coach",
+      company: "Berlin",
+      image: "/young-woman-smiling.webp",
+      quote: "Noma Village transformed my remote work experience. The community is incredible and the location in Lagos is absolutely unbeatable!",
     },
     {
-      name: "James Chen",
-      role: "Software Engineer",
-      company: "Remote Startup",
-      image: "/young-man-coding-at-modern-desk.png",
-      quote: "Perfect setup for deep work. The internet is blazing fast and the community is supportive.",
+      name: "Bart",
+      role: "Social Engineer",
+      company: "Amsterdam",
+      image: "/young-bearded-man-headshot.webp",
+      quote: "Perfect balance of work and Portuguese coastal life. I've never been more productive while enjoying such an amazing lifestyle and authentic cultural experience.",
     },
     {
-      name: "Sofia Andersson",
-      role: "Marketing Consultant",
-      company: "Digital Agency",
-      image: "/blonde-woman-in-video-call.png",
-      quote: "I've grown my network significantly here. The events and workshops are top-notch.",
+      name: "Kiki",
+      role: "Copywriter",
+      company: "Holland",
+      image: "/professional-headshot-of-young-woman-with-curly-ha.webp",
+      quote: "The curated community and networking opportunities at Noma Village have been invaluable for my business growth and personal development.",
+    },
+  ]
+
+  const upcomingColives = [
+    {
+      date: "October",
+      title: "Yoga",
+      showBadge: false,
+    },
+    {
+      date: "November",
+      title: "Pilates",
+      showBadge: true,
+    },
+    {
+      date: "December",
+      title: "Movement",
+      showBadge: true,
+    },
+    {
+      date: "January",
+      title: "Meditation",
+      showBadge: true,
     },
   ]
 
@@ -159,7 +182,7 @@ export default function CoworkingPage() {
         </div>
 
         <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
-          <h1 className="font-caveat text-6xl md:text-7xl font-bold mb-4">Coworking</h1>
+          <h1 className="font-montserrat text-6xl md:text-7xl font-bold mb-4">Coworking</h1>
           <p className="font-nunito text-xl md:text-2xl text-balance">
             Get work done without being alone
           </p>
@@ -176,54 +199,61 @@ export default function CoworkingPage() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="text-center">
-              <div className="w-16 h-16 bg-lagos-blue-green/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div className="flex flex-col items-center p-4 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow">
+              <div className="w-16 h-16 bg-lagos-blue-green/20 rounded-lg flex items-center justify-center mb-3">
                 <Users className="h-8 w-8 text-lagos-blue-green" />
               </div>
-              <h3 className="font-montserrat text-lg font-semibold mb-2">Two Coworking Spaces</h3>
+              <h3 className="font-montserrat text-base font-semibold text-center">Two Coworking Spaces</h3>
             </div>
             
-            <div className="text-center">
-              <div className="w-16 h-16 bg-lagos-pink/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+            <div className="flex flex-col items-center p-4 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow">
+              <div className="w-16 h-16 bg-lagos-pink/20 rounded-lg flex items-center justify-center mb-3">
                 <Monitor className="h-8 w-8 text-lagos-pink" />
               </div>
-              <h3 className="font-montserrat text-lg font-semibold mb-2">Large Tables & Chairs</h3>
+              <h3 className="font-montserrat text-base font-semibold text-center">Large Tables & Chairs</h3>
             </div>
             
-            <div className="text-center">
-              <div className="w-16 h-16 bg-lagos-amber/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+            <div className="flex flex-col items-center p-4 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow">
+              <div className="w-16 h-16 bg-lagos-amber/20 rounded-lg flex items-center justify-center mb-3">
                 <Headphones className="h-8 w-8 text-lagos-amber" />
               </div>
-              <h3 className="font-montserrat text-lg font-semibold mb-2">Living Room</h3>
+              <h3 className="font-montserrat text-base font-semibold text-center">Living Room</h3>
             </div>
             
-            <div className="text-center">
-              <div className="w-16 h-16 bg-lagos-aquamarine/20 rounded-lg flex items-center justify-center mx-auto mb-4">
-                <Users className="h-8 w-8 text-lagos-aquamarine" />
-              </div>
-              <h3 className="font-montserrat text-lg font-semibold mb-2">Shared Bathroom</h3>
-            </div>
-            
-            <div className="text-center">
-              <div className="w-16 h-16 bg-lagos-blue-green/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+            <div className="flex flex-col items-center p-4 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow">
+              <div className="w-16 h-16 bg-lagos-blue-green/20 rounded-lg flex items-center justify-center mb-3">
                 <Coffee className="h-8 w-8 text-lagos-blue-green" />
               </div>
-              <h3 className="font-montserrat text-lg font-semibold mb-2">Two fully equipped Kitchen</h3>
+              <h3 className="font-montserrat text-base font-semibold text-center">Two Fully Equipped Kitchens</h3>
             </div>
             
-            <div className="text-center">
-              <div className="w-16 h-16 bg-lagos-pink/20 rounded-lg flex items-center justify-center mx-auto mb-4">
-                <Printer className="h-8 w-8 text-lagos-pink" />
+            <div className="flex flex-col items-center p-4 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow">
+              <div className="w-16 h-16 bg-lagos-aquamarine/20 rounded-lg flex items-center justify-center mb-3">
+                <Waves className="h-8 w-8 text-lagos-aquamarine" />
               </div>
-              <h3 className="font-montserrat text-lg font-semibold mb-2">Balcony</h3>
+              <h3 className="font-montserrat text-base font-semibold text-center">Balcony with Seaview</h3>
             </div>
             
-            <div className="text-center">
-              <div className="w-16 h-16 bg-lagos-amber/20 rounded-lg flex items-center justify-center mx-auto mb-4">
+            <div className="flex flex-col items-center p-4 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow">
+              <div className="w-16 h-16 bg-lagos-pink/20 rounded-lg flex items-center justify-center mb-3">
+                <Monitor className="h-8 w-8 text-lagos-pink" />
+              </div>
+              <h3 className="font-montserrat text-base font-semibold text-center">Desks in Every Room</h3>
+            </div>
+            
+            <div className="flex flex-col items-center p-4 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow">
+              <div className="w-16 h-16 bg-lagos-amber/20 rounded-lg flex items-center justify-center mb-3">
                 <Wifi className="h-8 w-8 text-lagos-amber" />
               </div>
-              <h3 className="font-montserrat text-lg font-semibold mb-2">Wifi 500 Mbps ↓ 120 Mbps ↑</h3>
+              <h3 className="font-montserrat text-base font-semibold text-center">Wifi 500 Mbps ↓ 120 Mbps ↑</h3>
+            </div>
+            
+            <div className="flex flex-col items-center p-4 bg-white rounded-xl shadow-sm hover:shadow-md transition-shadow">
+              <div className="w-16 h-16 bg-lagos-blue/20 rounded-lg flex items-center justify-center mb-3">
+                <MapPin className="h-8 w-8 text-lagos-blue" />
+              </div>
+              <h3 className="font-montserrat text-base font-semibold text-center">Close to Beach</h3>
             </div>
           </div>
         </div>
@@ -316,30 +346,28 @@ export default function CoworkingPage() {
                 </div>
               </div>
 
-              <Button size="lg" className="bg-lagos-pink hover:bg-lagos-pink/90 text-white font-montserrat">
-                View All Events
-              </Button>
             </div>
 
             <div>
-              <h3 className="font-montserrat text-2xl font-semibold mb-6">Upcoming Events</h3>
+              <h3 className="font-montserrat text-2xl font-semibold mb-6">Upcoming Colives</h3>
               <div className="space-y-4">
-                {upcomingEvents.map((event, index) => (
+                {upcomingColives.map((colive, index) => (
                   <Card key={index} className="border-0 shadow-md">
-                    <CardContent className="p-4">
+                    <CardContent className="p-6">
                       <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-4">
-                          <div className="text-center">
-                            <div className="font-montserrat font-bold text-lagos-blue-green">{event.date}</div>
+                        <div className="flex items-center space-x-6">
+                          <div className="min-w-[100px]">
+                            <div className="font-montserrat font-bold text-lagos-blue-green text-lg">{colive.date}</div>
                           </div>
                           <div>
-                            <h4 className="font-montserrat font-semibold">{event.title}</h4>
-                            <p className="font-nunito text-sm text-gray-600">{event.time}</p>
+                            <h4 className="font-montserrat font-semibold text-lg">{colive.title}</h4>
                           </div>
                         </div>
-                        <Badge variant="outline" className="text-lagos-amber border-lagos-amber">
-                          {event.type}
-                        </Badge>
+                        {colive.showBadge && (
+                          <Badge variant="outline" className="text-lagos-amber border-lagos-amber">
+                            Exploratory
+                          </Badge>
+                        )}
                       </div>
                     </CardContent>
                   </Card>
@@ -350,119 +378,6 @@ export default function CoworkingPage() {
         </div>
       </section>
 
-      {/* Booking System Preview */}
-      <section className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="font-caveat text-5xl font-bold text-gray-900 mb-4">Book Your Space</h2>
-            <p className="font-nunito text-xl text-gray-600">
-              Easy online booking for meeting rooms and workspace access
-            </p>
-          </div>
-
-          <Tabs defaultValue="meeting-rooms" className="max-w-4xl mx-auto">
-            <TabsList className="grid w-full grid-cols-2">
-              <TabsTrigger value="meeting-rooms" className="font-montserrat">
-                Meeting Rooms
-              </TabsTrigger>
-              <TabsTrigger value="day-passes" className="font-montserrat">
-                Day Passes
-              </TabsTrigger>
-            </TabsList>
-
-            <TabsContent value="meeting-rooms" className="mt-8">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <Card className="border-0 shadow-lg">
-                  <CardContent className="p-6">
-                    <img
-                      src="/modern-coworking-space-with-ocean-view-in-portugal.png"
-                      alt="Meeting Room A"
-                      className="w-full h-48 object-cover rounded-lg mb-4"
-                    />
-                    <h3 className="font-montserrat text-xl font-semibold mb-2">Ocean View Conference</h3>
-                    <p className="font-nunito text-gray-600 mb-4">Seats 8 • Video conferencing • Whiteboard</p>
-                    <div className="flex items-center justify-between">
-                      <span className="font-montserrat font-bold text-lagos-blue-green">€15/hour</span>
-                      <Button size="sm" className="bg-lagos-pink hover:bg-lagos-pink/90">
-                        Book Now
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-
-                <Card className="border-0 shadow-lg">
-                  <CardContent className="p-6">
-                    <img
-                      src="/group-of-digital-nomads-working-on-laptops-by-the-.png"
-                      alt="Meeting Room B"
-                      className="w-full h-48 object-cover rounded-lg mb-4"
-                    />
-                    <h3 className="font-montserrat text-xl font-semibold mb-2">Creative Studio</h3>
-                    <p className="font-nunito text-gray-600 mb-4">Seats 4 • Brainstorming setup • Natural light</p>
-                    <div className="flex items-center justify-between">
-                      <span className="font-montserrat font-bold text-lagos-blue-green">€10/hour</span>
-                      <Button size="sm" className="bg-lagos-pink hover:bg-lagos-pink/90">
-                        Book Now
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-            </TabsContent>
-
-            <TabsContent value="day-passes" className="mt-8">
-              <Card className="border-0 shadow-lg max-w-2xl mx-auto">
-                <CardContent className="p-8 text-center">
-                  <Clock className="h-16 w-16 text-lagos-amber mx-auto mb-6" />
-                  <h3 className="font-montserrat text-2xl font-semibold mb-4">Day Pass Access</h3>
-                  <p className="font-nunito text-gray-600 mb-6 leading-relaxed">
-                    Get instant access to our coworking space for a full day. Perfect for trying out our community
-                    before committing to a monthly membership.
-                  </p>
-                  <div className="flex items-center justify-center space-x-4 mb-6">
-                    <span className="text-3xl font-bold text-lagos-blue-green font-montserrat">€25</span>
-                    <span className="font-nunito text-gray-600">/day</span>
-                  </div>
-                  <Button
-                    size="lg"
-                    className="bg-lagos-blue-green hover:bg-lagos-blue-green/90 text-white font-montserrat"
-                  >
-                    Buy Day Pass
-                  </Button>
-                </CardContent>
-              </Card>
-            </TabsContent>
-          </Tabs>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-lagos-blue-green to-lagos-pink">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="font-caveat text-5xl font-bold text-white mb-4">Ready to Boost Your Productivity?</h2>
-          <p className="font-nunito text-xl text-white/90 mb-8 text-balance">
-            Join our thriving community of remote workers and entrepreneurs
-          </p>
-
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button
-              asChild
-              size="lg"
-              className="bg-white text-lagos-blue-green hover:bg-white/90 font-montserrat text-lg px-8 py-3"
-            >
-              <Link href="/join">Start Membership</Link>
-            </Button>
-            <Button
-              asChild
-              variant="outline"
-              size="lg"
-              className="border-white text-white hover:bg-white hover:text-lagos-blue-green font-montserrat text-lg px-8 py-3 bg-transparent"
-            >
-              <Link href="#tour">Book a Tour</Link>
-            </Button>
-          </div>
-        </div>
-      </section>
 
       <Footer />
     </div>

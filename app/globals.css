@@ -84,7 +84,6 @@
   /* Updated font configuration for custom fonts */
   --font-sans: var(--font-nunito);
   --font-mono: var(--font-geist-mono);
-  --font-caveat: var(--font-caveat);
   --font-montserrat: var(--font-montserrat);
   --font-nunito: var(--font-nunito);
 
@@ -143,10 +142,6 @@
 
 /* Added custom utility classes for Lagos theme */
 @layer utilities {
-  .font-caveat {
-    font-family: var(--font-caveat);
-  }
-
   .font-montserrat {
     font-family: var(--font-montserrat);
   }

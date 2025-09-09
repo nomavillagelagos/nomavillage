@@ -5,6 +5,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Menu, X } from "lucide-react"
 import Image from "next/image"
+import Script from "next/script"
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
@@ -45,8 +46,15 @@ export function Navigation() {
                 {item.label}
               </Link>
             ))}
-            <Button asChild className="bg-lagos-pink hover:bg-lagos-pink/90 text-white font-montserrat">
-              <Link href="/join">Join Us</Link>
+            <Button
+              className="bg-lagos-pink hover:bg-lagos-pink/90 text-white font-montserrat"
+              data-fillout-id="aKuWaUwvaVus"
+              data-fillout-embed-type="slider"
+              data-fillout-slider-direction="right"
+              data-fillout-inherit-parameters
+              data-fillout-popup-size="medium"
+            >
+              Join Us
             </Button>
           </div>
 
@@ -73,16 +81,24 @@ export function Navigation() {
                 </Link>
               ))}
               <div className="px-3 py-2">
-                <Button asChild className="w-full bg-lagos-pink hover:bg-lagos-pink/90 text-white font-montserrat">
-                  <Link href="/join" onClick={() => setIsOpen(false)}>
-                    Join Us
-                  </Link>
+                <Button
+                  className="w-full bg-lagos-pink hover:bg-lagos-pink/90 text-white font-montserrat"
+                  data-fillout-id="aKuWaUwvaVus"
+                  data-fillout-embed-type="slider"
+                  data-fillout-slider-direction="right"
+                  data-fillout-inherit-parameters
+                  data-fillout-popup-size="medium"
+                  onClick={() => setIsOpen(false)}
+                >
+                  Join Us
                 </Button>
               </div>
             </div>
           </div>
         )}
       </div>
+      {/* Fillout Script - loaded once via navigation */}
+      <Script src="https://server.fillout.com/embed/v1/" strategy="lazyOnload" />
     </nav>
   )
 }

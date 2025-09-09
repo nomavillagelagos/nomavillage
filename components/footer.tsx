@@ -23,10 +23,10 @@ export function Footer() {
               digital nomads and remote workers.
             </p>
             <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 hover:text-lagos-pink transition-colors">
+              <a href="https://www.instagram.com/nomavillage_lagos/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-lagos-pink transition-colors">
                 <Instagram className="h-5 w-5" />
               </a>
-              <a href="#" className="text-gray-400 hover:text-lagos-pink transition-colors">
+              <a href="https://www.facebook.com/nomavillagelagos" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-lagos-pink transition-colors">
                 <Facebook className="h-5 w-5" />
               </a>
             </div>
@@ -59,7 +59,7 @@ export function Footer() {
               </div>
               <div className="flex items-center space-x-2">
                 <Phone className="h-4 w-4 text-lagos-amber" />
-                <span className="font-nunito text-gray-600 text-sm">+351 XXX XXX XXX</span>
+                <span className="font-nunito text-gray-600 text-sm">+351 926 542 691</span>
               </div>
               <div className="flex items-center space-x-2">
                 <Mail className="h-4 w-4 text-lagos-amber" />
