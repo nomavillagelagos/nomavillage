@@ -4,6 +4,7 @@ import { Montserrat, Nunito } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import { Suspense } from "react"
 import GuideModalProvider from "@/components/guide-modal-provider"
+import GoogleAnalytics from "@/components/GoogleAnalytics"
 import "./globals.css"
 
 const montserrat = Montserrat({
@@ -33,6 +34,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`font-sans ${montserrat.variable} ${nunito.variable}`}>
+        <GoogleAnalytics />
         <Suspense fallback={null}>
           <GuideModalProvider>
             {children}
