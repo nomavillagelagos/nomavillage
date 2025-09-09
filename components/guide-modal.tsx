@@ -95,7 +95,7 @@ export default function GuideModal({ isOpen, onClose }: GuideModalProps) {
               <MapPin className="h-5 w-5 text-lagos-aquamarine flex-shrink-0" />
               <div>
                 <div className="font-montserrat font-semibold text-sm text-gray-900">Local Insights</div>
-                <div className="font-nunito text-xs text-gray-600">Best beaches, restaurants & hidden gems</div>
+                <div className="font-nunito text-xs text-gray-600">Best beaches, restaurants & hidden gems in and around Lagos</div>
               </div>
             </div>
             
@@ -103,7 +103,7 @@ export default function GuideModal({ isOpen, onClose }: GuideModalProps) {
               <Users className="h-5 w-5 text-lagos-blue-green flex-shrink-0" />
               <div>
                 <div className="font-montserrat font-semibold text-sm text-gray-900">Community Tips</div>
-                <div className="font-nunito text-xs text-gray-600">How to make the most of coliving life</div>
+                <div className="font-nunito text-xs text-gray-600">How to make the most of coliving life in Lagos</div>
               </div>
             </div>
           </div>

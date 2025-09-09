@@ -56,7 +56,23 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // Send to Make webhook
+    // Send to Zapier webhook (primary)
+    const zapierWebhookUrl = process.env.ZAPIER_WEBHOOK_URL
+    if (zapierWebhookUrl) {
+      try {
+        await fetch(zapierWebhookUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(emailData)
+        })
+      } catch (error) {
+        console.error('Failed to send to Zapier webhook:', error)
+      }
+    }
+
+    // Send to Make webhook (alternative)
     const makeWebhookUrl = process.env.MAKE_WEBHOOK_URL
     if (makeWebhookUrl) {
       try {
