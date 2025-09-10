@@ -1,20 +1,20 @@
 # Brevo CRM Direct Integration Setup
 
 ## Overview
-Your coliving website now uses direct Brevo CRM API integration as the primary method for capturing leads, with webhook fallbacks for reliability.
+Your coliving website uses direct Brevo CRM API integration as the primary method for capturing leads, with Make.com webhook as backup for reliability.
 
 ## Integration Features
 
-### ✅ Direct Brevo API Integration
+### ✅ Direct Brevo API Integration (Primary)
 - **Primary**: Direct contact creation in Brevo CRM
 - **Smart handling**: Automatically updates existing contacts
 - **List management**: Separate lists for newsletter and guide requests
 - **Rich data**: Captures form type, signup date, and source tracking
 
-### ✅ Fallback System
-- **Zapier webhook**: Activates only if Brevo API fails
-- **Make.com webhook**: Secondary fallback option
+### ✅ Make.com Webhook Fallback
+- **Backup only**: Activates only if Brevo API fails
 - **Reliability**: Ensures no leads are lost
+- **Single fallback**: Simplified integration path
 
 ## Required Environment Variables
 
@@ -23,11 +23,11 @@ Add these to your `.env.local` file:
 ```env
 # Brevo CRM API Configuration (Primary integration)
 BREVO_API_KEY=your-brevo-api-key-here
-BREVO_DEFAULT_LIST_ID=1
-BREVO_GUIDE_LIST_ID=2
+BREVO_DEFAULT_LIST_ID=5
+BREVO_GUIDE_LIST_ID=5
 
-# Zapier Webhook Configuration (Fallback)
-ZAPIER_WEBHOOK_URL=https://hooks.zapier.com/hooks/catch/13042322/udqwdo8/
+# Make.com Webhook Configuration (Fallback - only if Brevo fails)
+MAKE_WEBHOOK_URL=https://hook.eu1.make.com/5vdkJczDgRu8n8dRzChADqvse4d
 ```
 
 ## Getting Your Brevo API Key
@@ -124,5 +124,6 @@ The integration automatically creates these custom attributes:
 2. **Better error handling**: Immediate API response feedback
 3. **Richer data**: More contact attributes and metadata
 4. **List management**: Automatic list assignment based on form type
-5. **Cost effective**: No Zapier task usage for successful Brevo calls
-6. **Reliability**: Multiple fallback options ensure no data loss
+5. **Cost effective**: No Zapier dependency
+6. **Reliability**: Make.com fallback ensures no data loss
+7. **Simplified setup**: Single backup webhook instead of multiple options

@@ -41,14 +41,11 @@ export default function OctoberLandingPage() {
         </div>
 
         <div className="relative z-10 text-center text-white max-w-5xl mx-auto px-4">
-          <Badge className="bg-lagos-pink text-white mb-6 text-lg px-4 py-2">
-            October 2024 • Only 5 Spots Left
-          </Badge>
-          <h1 className="font-montserrat text-5xl md:text-8xl font-bold mb-6 text-balance">
+          <h1 className="font-caveat text-5xl md:text-8xl font-bold mb-6 text-balance">
             Yoga + Surf Colive in Lagos
           </h1>
           <p className="font-nunito text-xl md:text-2xl mb-8 text-balance max-w-4xl mx-auto leading-relaxed">
-            Combine daily yoga, surf, and mindful living with everything you need to work remotely: fast WiFi, inspiring spaces, and like-minded entrepreneurial people in sunny Portugal.
+            Daily yoga, surf, and remote work in sunny Portugal with like-minded people.
           </p>
           
           <div className="flex flex-col items-center mb-8">
@@ -132,7 +129,7 @@ export default function OctoberLandingPage() {
           <div className="text-center mb-16">
             <h2 className="font-montserrat text-5xl font-bold text-gray-900 mb-4">October Yoga Colive Experience</h2>
             <p className="font-nunito text-xl text-gray-600 max-w-4xl mx-auto text-balance">
-              A month dedicated to mindful living, daily yoga practice, surf sessions, and deep connections with like-minded entrepreneurial people
+              Mindful living with daily yoga, surf, and entrepreneurial connections
             </p>
           </div>
 
@@ -143,7 +140,7 @@ export default function OctoberLandingPage() {
               </div>
               <h3 className="font-montserrat text-xl font-semibold mb-4">Daily Yoga Sessions</h3>
               <p className="font-nunito text-gray-600 leading-relaxed">
-                Morning and evening yoga by the pool with certified instructors
+                Daily yoga sessions by the pool
               </p>
             </div>
 
@@ -153,7 +150,7 @@ export default function OctoberLandingPage() {
               </div>
               <h3 className="font-montserrat text-xl font-semibold mb-4">Surf & Beach Access</h3>
               <p className="font-nunito text-gray-600 leading-relaxed">
-                10-minute walk to world-class beaches and surf spots
+                10-minute walk to beaches
               </p>
             </div>
 
@@ -163,7 +160,7 @@ export default function OctoberLandingPage() {
               </div>
               <h3 className="font-montserrat text-xl font-semibold mb-4">Curated Community</h3>
               <p className="font-nunito text-gray-600 leading-relaxed">
-                Hand-selected entrepreneurs and creatives aged 25-45
+                Curated entrepreneurial community
               </p>
             </div>
 
@@ -173,7 +170,7 @@ export default function OctoberLandingPage() {
               </div>
               <h3 className="font-montserrat text-xl font-semibold mb-4">Remote Work Ready</h3>
               <p className="font-nunito text-gray-600 leading-relaxed">
-                500 Mbps WiFi, dedicated coworking spaces, and ergonomic setups
+                Fast WiFi and coworking spaces
               </p>
             </div>
 
@@ -183,7 +180,7 @@ export default function OctoberLandingPage() {
               </div>
               <h3 className="font-montserrat text-xl font-semibold mb-4">Healthy Living</h3>
               <p className="font-nunito text-gray-600 leading-relaxed">
-                Fully equipped kitchens, group meals, and wellness focus
+                Equipped kitchens and wellness focus
               </p>
             </div>
 
@@ -193,7 +190,7 @@ export default function OctoberLandingPage() {
               </div>
               <h3 className="font-montserrat text-xl font-semibold mb-4">Perfect Weather</h3>
               <p className="font-nunito text-gray-600 leading-relaxed">
-                300+ sunny days per year in beautiful Lagos, Portugal
+                300+ sunny days in Lagos, Portugal
               </p>
             </div>
           </div>
@@ -207,7 +204,7 @@ export default function OctoberLandingPage() {
             <div>
               <h2 className="font-montserrat text-5xl font-bold text-gray-900 mb-6">Your Private Sanctuary</h2>
               <p className="font-nunito text-lg text-gray-600 mb-6 leading-relaxed">
-                Each room is your own private oasis designed for comfort and productivity. Wake up refreshed in your queen-size bed, work at your dedicated desk, and unwind in your private bathroom.
+                Private rooms with queen bed, work desk, and private bathroom.
               </p>
 
               <div className="grid grid-cols-3 gap-4 mb-8">
@@ -259,7 +256,7 @@ export default function OctoberLandingPage() {
           <div className="text-center mb-16">
             <h2 className="font-montserrat text-5xl font-bold text-gray-900 mb-4">Live, Work & Connect</h2>
             <p className="font-nunito text-xl text-gray-600">
-              Beautiful shared spaces designed for productivity, relaxation, and community building
+              Shared spaces for work, relaxation, and community
             </p>
           </div>
 
@@ -329,7 +326,7 @@ export default function OctoberLandingPage() {
           <div className="text-center mb-16">
             <h2 className="font-montserrat text-5xl font-bold text-gray-900 mb-4">Life at Noma Village</h2>
             <p className="font-nunito text-xl text-gray-600">
-              Your new home away from home in Lagos, Portugal
+              Home away from home in Lagos
             </p>
           </div>
 
@@ -391,8 +388,7 @@ export default function OctoberLandingPage() {
                 </div>
                 <Quote className="h-8 w-8 text-lagos-aquamarine mb-4" />
                 <p className="font-nunito text-gray-600 mb-6 leading-relaxed">
-                  "Noma Village transformed my remote work experience. The community is incredible and the location in
-                  Lagos is absolutely unbeatable!"
+                  "Incredible community and unbeatable Lagos location!"
                 </p>
                 <div className="flex items-center">
                   <img src="/young-woman-smiling.webp" alt="Fabienne" className="w-12 h-12 mr-4 rounded-full object-cover" />
@@ -413,8 +409,7 @@ export default function OctoberLandingPage() {
                 </div>
                 <Quote className="h-8 w-8 text-lagos-aquamarine mb-4" />
                 <p className="font-nunito text-gray-600 mb-6 leading-relaxed">
-                  "Perfect balance of work and Portuguese coastal life. I've never been more productive while enjoying
-                  such an amazing lifestyle and authentic cultural experience."
+                  "Perfect work-life balance with amazing Portuguese coastal lifestyle."
                 </p>
                 <div className="flex items-center">
                   <img src="/young-bearded-man-headshot.webp" alt="Bart" className="w-12 h-12 mr-4 rounded-full object-cover" />
@@ -435,8 +430,7 @@ export default function OctoberLandingPage() {
                 </div>
                 <Quote className="h-8 w-8 text-lagos-aquamarine mb-4" />
                 <p className="font-nunito text-gray-600 mb-6 leading-relaxed">
-                  "The curated community and networking opportunities at Noma Village have been invaluable for my
-                  business growth and personal development."
+                  "Invaluable community and networking for business growth."
                 </p>
                 <div className="flex items-center">
                   <img
@@ -461,7 +455,7 @@ export default function OctoberLandingPage() {
           <div className="text-center mb-16">
             <h2 className="font-montserrat text-5xl font-bold text-gray-900 mb-4">Why Choose Noma Village?</h2>
             <p className="font-nunito text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
-              We're more than just a coliving space. We're a vibrant community of like-minded entrepreneurial people seeking connection and purpose.
+              A vibrant community of entrepreneurial people seeking connection.
             </p>
           </div>
 
@@ -472,7 +466,7 @@ export default function OctoberLandingPage() {
                   <Heart className="h-8 w-8 text-lagos-pink" />
                 </div>
                 <h3 className="font-montserrat text-xl font-semibold mb-4">Entrepreneurial Community</h3>
-                <p className="font-nunito text-gray-600 leading-relaxed">Hand-selected individuals who value initiative, authenticity, and meaningful connections</p>
+                <p className="font-nunito text-gray-600 leading-relaxed">Authentic, meaningful connections</p>
               </CardContent>
             </Card>
 
@@ -482,7 +476,7 @@ export default function OctoberLandingPage() {
                   <Users className="h-8 w-8 text-lagos-blue-green" />
                 </div>
                 <h3 className="font-montserrat text-xl font-semibold mb-4">Authentic Experience</h3>
-                <p className="font-nunito text-gray-600 leading-relaxed">Owned by a lovely Portuguese family, offering genuine cultural immersion and local connections</p>
+                <p className="font-nunito text-gray-600 leading-relaxed">Portuguese family-owned, genuine cultural immersion</p>
               </CardContent>
             </Card>
 
@@ -492,7 +486,7 @@ export default function OctoberLandingPage() {
                   <Palmtree className="h-8 w-8 text-lagos-amber" />
                 </div>
                 <h3 className="font-montserrat text-xl font-semibold mb-4">Perfect Location</h3>
-                <p className="font-nunito text-gray-600 leading-relaxed">10 minutes walk to stunning beaches, with over 300 sunny days per year in beautiful Lagos</p>
+                <p className="font-nunito text-gray-600 leading-relaxed">10 minutes to beaches, 300+ sunny days</p>
               </CardContent>
             </Card>
 
@@ -502,7 +496,7 @@ export default function OctoberLandingPage() {
                   <Shield className="h-8 w-8 text-lagos-aquamarine" />
                 </div>
                 <h3 className="font-montserrat text-xl font-semibold mb-4">Magic & Synchronicity</h3>
-                <p className="font-nunito text-gray-600 leading-relaxed">Experience the magic that happens when like-minded people come together in this special place</p>
+                <p className="font-nunito text-gray-600 leading-relaxed">Magic happens when like-minded people connect</p>
               </CardContent>
             </Card>
           </div>
@@ -512,9 +506,9 @@ export default function OctoberLandingPage() {
       {/* Final CTA Section */}
       <section className="py-20 bg-gradient-to-r from-lagos-blue-green to-lagos-pink">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="font-montserrat text-5xl font-bold text-white mb-4">Only 5 Spots Left for October</h2>
+          <h2 className="font-montserrat text-5xl font-bold text-white mb-4">Join October Yoga + Surf Colive</h2>
           <p className="font-nunito text-xl text-white/90 mb-8 text-balance">
-            Join our October Yoga + Surf Colive and transform how you live, work, and connect in beautiful Lagos, Portugal
+            Transform how you live, work, and connect in Lagos, Portugal
           </p>
 
           <div className="flex flex-col sm:flex-row gap-6 justify-center">

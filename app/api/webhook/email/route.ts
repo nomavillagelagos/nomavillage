@@ -62,6 +62,10 @@ export async function POST(request: NextRequest) {
     const brevoApiKey = process.env.BREVO_API_KEY
     let brevoSuccess = false
     
+    if (!brevoApiKey) {
+      console.error('BREVO_API_KEY not found in environment variables')
+    }
+    
     if (brevoApiKey) {
       try {
         const brevoContact: BrevoContact = {
@@ -132,38 +136,29 @@ export async function POST(request: NextRequest) {
       }
     }
 
-    // Fallback webhooks (only if Brevo fails)
+    // Fallback to Make.com webhook (only if Brevo fails)
     if (!brevoSuccess) {
-      // Send to Zapier webhook (fallback)
-      const zapierWebhookUrl = process.env.ZAPIER_WEBHOOK_URL
-      if (zapierWebhookUrl) {
-        try {
-          await fetch(zapierWebhookUrl, {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(emailData)
-          })
-        } catch (error) {
-          console.error('Failed to send to Zapier webhook:', error)
-        }
-      }
-
-      // Send to Make webhook (fallback)
       const makeWebhookUrl = process.env.MAKE_WEBHOOK_URL
       if (makeWebhookUrl) {
         try {
-          await fetch(makeWebhookUrl, {
+          const makeResponse = await fetch(makeWebhookUrl, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
             },
             body: JSON.stringify(emailData)
           })
+          
+          if (makeResponse.ok) {
+            console.log('Successfully sent to Make.com webhook as fallback')
+          } else {
+            console.error('Make.com webhook failed with status:', makeResponse.status)
+          }
         } catch (error) {
-          console.error('Failed to send to Make webhook:', error)
+          console.error('Failed to send to Make.com webhook:', error)
         }
+      } else {
+        console.error('No fallback webhook configured and Brevo API failed')
       }
     }
 
