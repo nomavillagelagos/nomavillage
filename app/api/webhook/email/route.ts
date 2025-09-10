@@ -20,6 +20,7 @@ interface BrevoContact {
     FORM_TYPE?: string
   }
   listIds?: number[]
+  updateEnabled?: boolean
 }
 
 export async function POST(request: NextRequest) {
@@ -76,7 +77,8 @@ export async function POST(request: NextRequest) {
             SOURCE: emailData.source,
             SIGNUP_DATE: emailData.timestamp,
             FORM_TYPE: emailData.metadata?.formType || 'unknown'
-          }
+          },
+          updateEnabled: true
         }
 
         // Add to default list if specified
