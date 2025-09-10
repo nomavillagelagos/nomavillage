@@ -136,7 +136,7 @@ export default function EmailSignupForm({
                 Subscribing...
               </>
             ) : (
-              'Subscribe'
+              'Get the Guide'
             )}
           </Button>
 

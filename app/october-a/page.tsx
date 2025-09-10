@@ -6,10 +6,19 @@ import { Badge } from "@/components/ui/badge"
 import { Star, Quote, CheckCircle, Users, Utensils, Wifi, Waves, Coffee, Heart, Globe, MessageCircle, Bath, Laptop, Bed, AirVent, Shirt, Zap, Monitor, MapPin, Shield, Palmtree } from "lucide-react"
 import Link from "next/link"
 import Script from "next/script"
+import Image from "next/image"
 import { CountUp } from "@/components/count-up"
 import { trackEvent } from "@/components/GoogleAnalytics"
+import { useState } from "react"
+import GuideModal from "@/components/guide-modal"
+import EmailSignupForm from "@/components/email-signup-form"
+import FilloutSliderPopup from "@/components/fillout-slider-popup"
+import { useSmoothScroll } from "@/hooks/use-smooth-scroll"
 
 export default function OctoberLandingPage() {
+  const [isGuideModalOpen, setIsGuideModalOpen] = useState(false)
+  const [isFormPopupOpen, setIsFormPopupOpen] = useState(false)
+  const { scrollToSection } = useSmoothScroll()
   const handleFormClick = (location: string) => {
     trackEvent('cta_click', {
       button_text: 'Secure Your Spot Now',
@@ -17,14 +26,23 @@ export default function OctoberLandingPage() {
       location: location,
       form_type: 'application'
     })
+    setIsFormPopupOpen(true)
   }
 
-  const handleCalendlyClick = (location: string) => {
-    trackEvent('calendly_click', {
-      button_text: 'Book a Call',
+  const handleGuideClick = (location: string) => {
+    trackEvent('guide_click', {
+      button_text: 'Get the Guide',
       page: 'october',
       location: location
     })
+    
+    if (location === 'hero') {
+      // Scroll to the email signup section instead of opening modal
+      scrollToSection('email-signup')
+    } else {
+      // For other locations, still open the modal
+      setIsGuideModalOpen(true)
+    }
   }
 
   return (
@@ -34,65 +52,51 @@ export default function OctoberLandingPage() {
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: "url('/images/yoga.jpg')",
+            backgroundImage: "url('/images/surf.jpg')",
           }}
         >
           <div className="absolute inset-0 bg-black/40"></div>
         </div>
 
         <div className="relative z-10 text-center text-white max-w-5xl mx-auto px-4">
-          <h1 className="font-caveat text-5xl md:text-8xl font-bold mb-6 text-balance">
-            Yoga + Surf Colive in Lagos
-          </h1>
-          <p className="font-nunito text-xl md:text-2xl mb-8 text-balance max-w-4xl mx-auto leading-relaxed">
-            Daily yoga, surf, and remote work in sunny Portugal with like-minded people.
-          </p>
+          {/* Noma Logo */}
+          <div className="mb-12">
+            <img 
+              src="/noma-logo.png" 
+              alt="Noma Village Logo" 
+              className="w-24 h-24 mx-auto mb-8"
+            />
+          </div>
           
-          <div className="flex flex-col items-center mb-8">
-            <div className="flex items-baseline mb-2">
-              <span className="text-4xl md:text-6xl font-bold text-white font-montserrat">€790</span>
-              <span className="font-nunito text-white/90 ml-3 text-xl">/2 weeks</span>
-            </div>
-            <div className="flex items-baseline">
-              <span className="text-2xl md:text-4xl font-bold text-white font-montserrat">€1480</span>
-              <span className="font-nunito text-white/90 ml-3 text-lg">/month</span>
-            </div>
+          {/* Main Heading */}
+          <div className="mb-8">
+            <h1 className="text-6xl md:text-8xl font-bold mb-4 text-balance leading-tight" style={{fontFamily: 'Montserrat, sans-serif'}}>
+              <span className="brush-underline" style={{color: 'white', fontSize: '1.4em', fontStyle: 'italic', fontFamily: 'Caveat, cursive'}}>This</span>&nbsp;<span style={{fontSize: '24px', fontFamily: 'Montserrat, sans-serif'}}>is </span><span style={{fontWeight: '300', fontFamily: 'Montserrat, sans-serif'}}>Coliving</span>
+            </h1>
+            <h2 className="text-4xl md:text-6xl font-light mb-6 text-balance" style={{fontFamily: 'Montserrat, sans-serif'}}>
+              A Home by the Ocean
+            </h2>
+            <h3 className="text-4xl md:text-6xl font-bold italic text-balance" style={{fontFamily: 'Caveat, cursive'}}>
+              Work, Surf and Yoga
+            </h3>
+          </div>
+          
+          <div className="mt-12">
+            <Button
+              size="lg"
+              className="text-black font-montserrat text-lg px-8 py-3 h-auto"
+              style={{ backgroundColor: '#50bbb7' }}
+              onClick={() => scrollToSection('stats')}
+            >
+              Learn More
+            </Button>
           </div>
 
-          <div className="flex flex-col sm:flex-row gap-6 justify-center">
-            <Button
-              size="lg"
-              className="bg-lagos-pink hover:bg-lagos-pink/90 text-white font-montserrat text-xl px-12 py-4 h-auto"
-              data-fillout-id="aKuWaUwvaVus"
-              data-fillout-embed-type="slider"
-              data-fillout-slider-direction="right"
-              data-fillout-inherit-parameters
-              data-fillout-popup-size="medium"
-              onClick={() => handleFormClick('hero')}
-            >
-              Secure Your Spot Now
-            </Button>
-            <Button
-              asChild
-              variant="outline"
-              size="lg"
-              className="border-white text-white hover:bg-white hover:text-gray-900 font-montserrat text-xl px-12 py-4 h-auto bg-transparent"
-            >
-              <a 
-                href="https://calendly.com/nomavillagelagos/short-intro" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                onClick={() => handleCalendlyClick('hero')}
-              >
-                Book a Call
-              </a>
-            </Button>
-          </div>
         </div>
       </section>
 
       {/* Stats Section */}
-      <section className="py-16 bg-lagos-aquamarine/20">
+      <section id="stats" className="py-16 bg-lagos-aquamarine/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
             <div className="space-y-2">
@@ -188,7 +192,7 @@ export default function OctoberLandingPage() {
               <div className="w-16 h-16 bg-lagos-blue-green/20 rounded-lg flex items-center justify-center mx-auto mb-4">
                 <Palmtree className="h-8 w-8 text-lagos-blue-green" />
               </div>
-              <h3 className="font-montserrat text-xl font-semibold mb-4">Perfect Weather</h3>
+              <h3 className="font-montserrat text-xl font-semibold mb-4">Sunny Weather</h3>
               <p className="font-nunito text-gray-600 leading-relaxed">
                 300+ sunny days in Lagos, Portugal
               </p>
@@ -202,10 +206,11 @@ export default function OctoberLandingPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="font-montserrat text-5xl font-bold text-gray-900 mb-6">Your Private Sanctuary</h2>
+              <h2 className="font-montserrat text-5xl font-bold text-gray-900 mb-6">Your Private Space</h2>
               <p className="font-nunito text-lg text-gray-600 mb-6 leading-relaxed">
                 Private rooms with queen bed, work desk, and private bathroom.
               </p>
+
 
               <div className="grid grid-cols-3 gap-4 mb-8">
                 <div className="text-center p-4 bg-white rounded-lg shadow-sm">
@@ -243,9 +248,32 @@ export default function OctoberLandingPage() {
               <img
                 src="/luxury-ocean-view-bedroom-with-balcony-2.jpg"
                 alt="Private room at Noma Village"
-                className="w-full h-96 object-cover rounded-lg shadow-xl"
+                className="w-full h-96 object-cover object-left md:object-center rounded-lg shadow-xl"
               />
             </div>
+          </div>
+        </div>
+      </section>
+
+      {/* CTA Buttons */}
+      <section className="py-12 bg-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="flex flex-col sm:flex-row gap-6 justify-center">
+            <Button
+              size="lg"
+              className="bg-lagos-pink hover:bg-lagos-pink/90 text-white font-montserrat text-xl px-12 py-4 h-auto"
+              onClick={() => handleFormClick('private-space')}
+            >
+              Secure Your Spot Now
+            </Button>
+            <Button
+              variant="outline"
+              size="lg"
+              className="bg-[#E879B9] hover:bg-[#E879B9]/90 text-white border-[#E879B9] hover:border-[#E879B9]/90 font-montserrat text-xl px-12 py-4 h-auto"
+              onClick={() => handleGuideClick('hero')}
+            >
+              Get the Guide
+            </Button>
           </div>
         </div>
       </section>
@@ -368,6 +396,22 @@ export default function OctoberLandingPage() {
               />
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Newsletter Signup */}
+      <section id="email-signup" className="py-20 bg-gradient-to-r from-lagos-blue-green to-lagos-pink">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="font-montserrat text-5xl font-bold text-white mb-4">Get the Guide</h2>
+          <p className="font-nunito text-xl text-white/90 mb-8 text-balance">
+            Get updates on community events, new amenities, and exclusive member benefits at Noma Village
+          </p>
+
+          <EmailSignupForm 
+            source="october-newsletter"
+            showNames={true}
+            className="max-w-md mx-auto"
+          />
         </div>
       </section>
 
@@ -515,29 +559,17 @@ export default function OctoberLandingPage() {
             <Button
               size="lg"
               className="bg-white text-lagos-blue-green hover:bg-white/90 font-montserrat text-xl px-12 py-4 h-auto"
-              data-fillout-id="aKuWaUwvaVus"
-              data-fillout-embed-type="slider"
-              data-fillout-slider-direction="right"
-              data-fillout-inherit-parameters
-              data-fillout-popup-size="medium"
               onClick={() => handleFormClick('final_cta')}
             >
               Secure Your Spot Now
             </Button>
             <Button
-              asChild
               variant="outline"
               size="lg"
-              className="border-white text-white hover:bg-white hover:text-lagos-blue-green font-montserrat text-xl px-12 py-4 h-auto bg-transparent"
+              className="bg-[#E879B9] hover:bg-[#E879B9]/90 text-white border-[#E879B9] hover:border-[#E879B9]/90 font-montserrat text-xl px-12 py-4 h-auto"
+              onClick={() => handleGuideClick('final_cta')}
             >
-              <a 
-                href="https://calendly.com/nomavillagelagos/short-intro" 
-                target="_blank" 
-                rel="noopener noreferrer"
-                onClick={() => handleCalendlyClick('final_cta')}
-              >
-                Book a Call
-              </a>
+              Get the Guide
             </Button>
           </div>
         </div>
@@ -547,6 +579,26 @@ export default function OctoberLandingPage() {
       <Script 
         src="https://server.fillout.com/embed/v1/" 
         strategy="afterInteractive"
+      />
+      
+      {/* Plerdy A/B Testing Script */}
+      <Script id="plerdy-ab-testing" strategy="afterInteractive">
+        {`var _suid=65205;`}
+      </Script>
+      <Script 
+        src="https://a.plerdy.com/public/js/click/plerdy_ab-min.js?v=2fbcfb7" 
+        strategy="afterInteractive"
+      />
+      
+      <GuideModal 
+        isOpen={isGuideModalOpen} 
+        onClose={() => setIsGuideModalOpen(false)} 
+      />
+      
+      <FilloutSliderPopup
+        isOpen={isFormPopupOpen}
+        onClose={() => setIsFormPopupOpen(false)}
+        formUrl="https://forms.fillout.com/t/aKuWaUwvaVus"
       />
     </div>
   )

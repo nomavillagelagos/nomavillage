@@ -401,7 +401,7 @@ export default function HomePage() {
       {/* Newsletter Signup */}
       <section id="stay-connected" className="py-20 bg-gradient-to-r from-lagos-blue-green to-lagos-pink">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="font-montserrat text-5xl font-bold text-white mb-4">Stay Connected</h2>
+          <h2 className="font-montserrat text-5xl font-bold text-white mb-4">Get the Guide</h2>
           <p className="font-nunito text-xl text-white/90 mb-8 text-balance">
             Get updates on community events, new amenities, and exclusive member benefits at Noma Village
           </p>
