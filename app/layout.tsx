@@ -56,7 +56,7 @@ export default function RootLayout({
               (function(){
                 try {
                   var key = ${JSON.stringify(process.env.NEXT_PUBLIC_POSTHOG_KEY || '')};
-                  var host = ${JSON.stringify(process.env.NEXT_PUBLIC_POSTHOG_HOST || 'https://eu.posthog.com')};
+                  var host = ${JSON.stringify(process.env.NEXT_PUBLIC_POSTHOG_HOST || 'https://eu.i.posthog.com')};
                   
                   // DEBUG LOGS - Check what values we're actually using
                   console.log('🔍 PostHog Debug Info:');
@@ -90,7 +90,7 @@ export default function RootLayout({
             `,
           }}
         />
-        />
+      
       </head>
       <body className={`font-sans ${montserrat.variable} ${nunito.variable} ${caveat.variable}`}>
         <GoogleAnalytics />
