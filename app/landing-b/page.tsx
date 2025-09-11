@@ -9,6 +9,7 @@ import Script from "next/script"
 import Image from "next/image"
 import { CountUp } from "@/components/count-up"
 import { trackEvent } from "@/components/GoogleAnalytics"
+import { trackEvent as trackPostHogEvent } from "@/lib/posthog"
 import { useState } from "react"
 import GuideModal from "@/components/guide-modal"
 import EmailSignupForm from "@/components/email-signup-form"
@@ -20,19 +21,32 @@ export default function OctoberLandingPage() {
   const [isFormPopupOpen, setIsFormPopupOpen] = useState(false)
   const { scrollToSection } = useSmoothScroll()
   const handleFormClick = (location: string) => {
+    // Google Analytics tracking
     trackEvent('cta_click', {
       button_text: 'Secure Your Spot Now',
-      page: 'october',
+      page: 'landing-b',
       location: location,
       form_type: 'application'
     })
+    
+    // PostHog tracking
+    trackPostHogEvent('cta_clicked', {
+      button_text: 'Secure Your Spot Now',
+      page: 'landing-b',
+      location: location,
+      form_type: 'application',
+      experiment_name: 'landing_page_test',
+      variant: 'B',
+      timestamp: new Date().toISOString()
+    })
+    
     setIsFormPopupOpen(true)
   }
 
   const handleGuideClick = (location: string) => {
     trackEvent('guide_click', {
       button_text: 'Get the Guide',
-      page: 'october',
+      page: 'landing-b',
       location: location
     })
     
@@ -44,7 +58,6 @@ export default function OctoberLandingPage() {
       setIsGuideModalOpen(true)
     }
   }
-
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section - October Yoga Colive */}
@@ -52,7 +65,7 @@ export default function OctoberLandingPage() {
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: "url('/images/surf.jpg')",
+            backgroundImage: "url('/images/cliff2.jpg')",
           }}
         >
           <div className="absolute inset-0 bg-black/40"></div>
@@ -211,7 +224,6 @@ export default function OctoberLandingPage() {
                 Private rooms with queen bed, work desk, and private bathroom.
               </p>
 
-
               <div className="grid grid-cols-3 gap-4 mb-8">
                 <div className="text-center p-4 bg-white rounded-lg shadow-sm">
                   <Bath className="h-6 w-6 text-lagos-amber mx-auto mb-2" />
@@ -354,7 +366,7 @@ export default function OctoberLandingPage() {
           <div className="text-center mb-16">
             <h2 className="font-montserrat text-5xl font-bold text-gray-900 mb-4">Life at Noma Village</h2>
             <p className="font-nunito text-xl text-gray-600">
-              Home away from home in Lagos
+              Your new home away from home in Lagos, Portugal
             </p>
           </div>
 
@@ -399,22 +411,6 @@ export default function OctoberLandingPage() {
         </div>
       </section>
 
-      {/* Newsletter Signup */}
-      <section id="email-signup" className="py-20 bg-gradient-to-r from-lagos-blue-green to-lagos-pink">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="font-montserrat text-5xl font-bold text-white mb-4">Get the Guide</h2>
-          <p className="font-nunito text-xl text-white/90 mb-8 text-balance">
-            Get updates on community events, new amenities, and exclusive member benefits at Noma Village
-          </p>
-
-          <EmailSignupForm 
-            source="october-newsletter"
-            showNames={true}
-            className="max-w-md mx-auto"
-          />
-        </div>
-      </section>
-
       {/* Testimonials */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -432,7 +428,8 @@ export default function OctoberLandingPage() {
                 </div>
                 <Quote className="h-8 w-8 text-lagos-aquamarine mb-4" />
                 <p className="font-nunito text-gray-600 mb-6 leading-relaxed">
-                  "Incredible community and unbeatable Lagos location!"
+                  "Noma Village transformed my remote work experience. The community is incredible and the location in
+                  Lagos is absolutely unbeatable!"
                 </p>
                 <div className="flex items-center">
                   <img src="/young-woman-smiling.webp" alt="Fabienne" className="w-12 h-12 mr-4 rounded-full object-cover" />
@@ -453,7 +450,8 @@ export default function OctoberLandingPage() {
                 </div>
                 <Quote className="h-8 w-8 text-lagos-aquamarine mb-4" />
                 <p className="font-nunito text-gray-600 mb-6 leading-relaxed">
-                  "Perfect work-life balance with amazing Portuguese coastal lifestyle."
+                  "Perfect balance of work and Portuguese coastal life. I've never been more productive while enjoying
+                  such an amazing lifestyle and authentic cultural experience."
                 </p>
                 <div className="flex items-center">
                   <img src="/young-bearded-man-headshot.webp" alt="Bart" className="w-12 h-12 mr-4 rounded-full object-cover" />
@@ -474,7 +472,8 @@ export default function OctoberLandingPage() {
                 </div>
                 <Quote className="h-8 w-8 text-lagos-aquamarine mb-4" />
                 <p className="font-nunito text-gray-600 mb-6 leading-relaxed">
-                  "Invaluable community and networking for business growth."
+                  "The curated community and networking opportunities at Noma Village have been invaluable for my
+                  business growth and personal development."
                 </p>
                 <div className="flex items-center">
                   <img
@@ -499,7 +498,7 @@ export default function OctoberLandingPage() {
           <div className="text-center mb-16">
             <h2 className="font-montserrat text-5xl font-bold text-gray-900 mb-4">Why Choose Noma Village?</h2>
             <p className="font-nunito text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
-              A vibrant community of entrepreneurial people seeking connection.
+              We're more than just a coliving space. We're a vibrant community of like-minded entrepreneurial people seeking connection and purpose.
             </p>
           </div>
 
@@ -510,7 +509,7 @@ export default function OctoberLandingPage() {
                   <Heart className="h-8 w-8 text-lagos-pink" />
                 </div>
                 <h3 className="font-montserrat text-xl font-semibold mb-4">Entrepreneurial Community</h3>
-                <p className="font-nunito text-gray-600 leading-relaxed">Authentic, meaningful connections</p>
+                <p className="font-nunito text-gray-600 leading-relaxed">Hand-selected individuals who value initiative, authenticity, and meaningful connections</p>
               </CardContent>
             </Card>
 
@@ -520,7 +519,7 @@ export default function OctoberLandingPage() {
                   <Users className="h-8 w-8 text-lagos-blue-green" />
                 </div>
                 <h3 className="font-montserrat text-xl font-semibold mb-4">Authentic Experience</h3>
-                <p className="font-nunito text-gray-600 leading-relaxed">Portuguese family-owned, genuine cultural immersion</p>
+                <p className="font-nunito text-gray-600 leading-relaxed">Owned by a lovely Portuguese family, offering genuine cultural immersion and local connections</p>
               </CardContent>
             </Card>
 
@@ -530,7 +529,7 @@ export default function OctoberLandingPage() {
                   <Palmtree className="h-8 w-8 text-lagos-amber" />
                 </div>
                 <h3 className="font-montserrat text-xl font-semibold mb-4">Perfect Location</h3>
-                <p className="font-nunito text-gray-600 leading-relaxed">10 minutes to beaches, 300+ sunny days</p>
+                <p className="font-nunito text-gray-600 leading-relaxed">10 minutes walk to stunning beaches, with over 300 sunny days per year in beautiful Lagos</p>
               </CardContent>
             </Card>
 
@@ -540,10 +539,26 @@ export default function OctoberLandingPage() {
                   <Shield className="h-8 w-8 text-lagos-aquamarine" />
                 </div>
                 <h3 className="font-montserrat text-xl font-semibold mb-4">Magic & Synchronicity</h3>
-                <p className="font-nunito text-gray-600 leading-relaxed">Magic happens when like-minded people connect</p>
+                <p className="font-nunito text-gray-600 leading-relaxed">Experience the magic that happens when like-minded people come together in this special place</p>
               </CardContent>
             </Card>
           </div>
+        </div>
+      </section>
+
+      {/* Newsletter Signup */}
+      <section id="email-signup" className="py-20 bg-gradient-to-r from-lagos-blue-green to-lagos-pink">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="font-montserrat text-5xl font-bold text-white mb-4">Get the Guide</h2>
+          <p className="font-nunito text-xl text-white/90 mb-8 text-balance">
+            Get updates on community events, new amenities, and exclusive member benefits at Noma Village
+          </p>
+
+          <EmailSignupForm 
+            source="landing-b-newsletter"
+            showNames={true}
+            className="max-w-md mx-auto"
+          />
         </div>
       </section>
 

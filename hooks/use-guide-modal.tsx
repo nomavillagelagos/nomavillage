@@ -24,8 +24,8 @@ export function useGuideModal() {
     const pageStartTime = Date.now()
     setStartTime(pageStartTime)
 
-    // Calculate remaining time needed (25 seconds total - accumulated time)
-    const remainingTime = Math.max(0, 25000 - accumulatedTime)
+    // Calculate remaining time needed (8 seconds total - accumulated time)
+    const remainingTime = Math.max(0, 8000 - accumulatedTime)
 
     let timer: NodeJS.Timeout
 
