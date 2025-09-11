@@ -198,9 +198,19 @@
 }
 
 @keyframes nv-slide-in-left {
-  0% { opacity: 0; transform: translateX(-40px); }
-  70% { opacity: 1; transform: translateX(4px); }
+  0% { opacity: 0; transform: translateX(-60px); }
+  70% { opacity: 0.8; transform: translateX(8px); }
   100% { opacity: 1; transform: translateX(0); }
+}
+
+/* Black section specific animation */
+.black-hero-section {
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.black-hero-section.animate-slide-in-left {
+  opacity: 1 !important;
+  transform: translateX(0) !important;
 }
 
 @media (prefers-reduced-motion: reduce) {

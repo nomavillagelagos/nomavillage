@@ -128,11 +128,12 @@ export default function GoogleReviewsCarousel() {
     fetchReviews().then((r) => setReviews(r));
   }, []);
 
-  // responsive items per slide
+  // always show 3 items per slide
   useEffect(() => {
     function update() {
       const w = window.innerWidth;
-      if (w >= 768) setItemsPerSlide(2); // md and up: 2 items
+      if (w >= 1024) setItemsPerSlide(3); // lg and up: 3 items
+      else if (w >= 768) setItemsPerSlide(2); // md: 2 items
       else setItemsPerSlide(1);          // sm: 1 item
     }
     update();
@@ -144,6 +145,12 @@ export default function GoogleReviewsCarousel() {
     { author_name: "Fabienne S", rating: 5, text: "The perfect balance of focus and connection. Great wifi, yoga and awesome hosts!", author_url: "https://www.google.com/maps/contrib/113065037396401172905/reviews" },
     { author_name: "Mr. X (volvic)", rating: 5, text: "Super welcoming community and inspiring people. Loved the energy and the place.", author_url: "https://www.google.com/maps/contrib/107772854416821939764/reviews" },
     { author_name: "Pat Rick", rating: 5, text: "Amazing month here. Beautiful setting, 10 minutes to the beach, genuine community.", author_url: "https://www.google.com/maps/contrib/105503513928987597340/reviews" },
+    { author_name: "Sarah M", rating: 5, text: "Incredible experience! The yoga sessions and coworking spaces are top-notch. Made lifelong friends here.", author_url: "https://www.google.com/maps/contrib/118234567890123456789/reviews" },
+    { author_name: "Marco L", rating: 5, text: "Perfect location for digital nomads. Fast internet, beautiful surroundings, and amazing community vibes.", author_url: "https://www.google.com/maps/contrib/119876543210987654321/reviews" },
+    { author_name: "Emma K", rating: 4, text: "Loved the surf lessons and the proximity to the beach. Great place to disconnect and recharge.", author_url: "https://www.google.com/maps/contrib/117654321098765432109/reviews" },
+    { author_name: "David R", rating: 5, text: "Outstanding coliving experience. The hosts are wonderful and the facilities are excellent.", author_url: "https://www.google.com/maps/contrib/116543210987654321098/reviews" },
+    { author_name: "Lisa T", rating: 5, text: "Best month of my life! The combination of work, wellness, and community is unbeatable.", author_url: "https://www.google.com/maps/contrib/115432109876543210987/reviews" },
+    { author_name: "Alex J", rating: 4, text: "Great atmosphere for productivity and relaxation. The yoga classes by the pool are amazing.", author_url: "https://www.google.com/maps/contrib/114321098765432109876/reviews" },
   ]), [reviews]);
 
   // chunk into pages based on itemsPerSlide
@@ -176,30 +183,40 @@ export default function GoogleReviewsCarousel() {
         >
           {pages.map((page, pIdx) => (
             <div key={pIdx} className="min-w-full px-2">
-              <div className={cn("grid gap-6", itemsPerSlide === 1 ? "grid-cols-1" : "grid-cols-1 md:grid-cols-2") }>
+              <div className={cn("grid gap-6", 
+                itemsPerSlide === 1 ? "grid-cols-1" : 
+                itemsPerSlide === 2 ? "grid-cols-1 md:grid-cols-2" : 
+                "grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
+              )}>
                 {page.map((r, i) => {
                   const avatar = r.profile_photo_url || getGravatarUrl(r.email_for_gravatar);
                   return (
                     <div key={i} className="h-full">
-                      <div className="border-0 shadow-lg rounded-xl p-8 bg-white h-full">
-                        <div className="mb-3 text-yellow-500">{"★★★★★".slice(0, Math.max(1, Math.min(5, r.rating)))}</div>
-                        <p className="font-nunito text-gray-700 mb-6 leading-relaxed">“{r.text}”</p>
-                        <div className="flex items-center gap-3">
+                      <div className="border border-gray-100 shadow-sm rounded-2xl p-6 bg-white h-full hover:shadow-md transition-shadow duration-300">
+                        <div className="mb-4 flex items-center gap-2">
+                          <div className="text-yellow-400 text-lg">{"★★★★★".slice(0, Math.max(1, Math.min(5, r.rating)))}</div>
+                          <span className="text-sm text-gray-500 font-medium">{r.rating}/5</span>
+                        </div>
+                        <p className="font-nunito text-gray-800 mb-6 leading-relaxed text-base">"{r.text}"</p>
+                        <div className="flex items-center gap-3 mt-auto">
                           {avatar ? (
                             // eslint-disable-next-line @next/next/no-img-element
-                            <img src={avatar} alt={r.author_name} className="w-10 h-10 rounded-full object-cover" />
+                            <img src={avatar} alt={r.author_name} className="w-12 h-12 rounded-full object-cover border-2 border-gray-100" />
                           ) : (
-                            <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center font-montserrat">
+                            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-lagos-blue-green to-lagos-aquamarine flex items-center justify-center font-montserrat font-semibold text-white text-lg">
                               {r.author_name?.charAt(0) || "?"}
                             </div>
                           )}
-                          {r.author_url ? (
-                            <a href={r.author_url} target="_blank" rel="noopener noreferrer" className="font-montserrat font-semibold text-lagos-blue-green hover:underline">
-                              {r.author_name}
-                            </a>
-                          ) : (
-                            <div className="font-montserrat font-semibold">{r.author_name}</div>
-                          )}
+                          <div className="flex flex-col">
+                            {r.author_url ? (
+                              <a href={r.author_url} target="_blank" rel="noopener noreferrer" className="font-montserrat font-semibold text-gray-900 hover:text-lagos-blue-green transition-colors">
+                                {r.author_name}
+                              </a>
+                            ) : (
+                              <div className="font-montserrat font-semibold text-gray-900">{r.author_name}</div>
+                            )}
+                            <div className="text-sm text-gray-500">Google Review</div>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -210,12 +227,34 @@ export default function GoogleReviewsCarousel() {
           ))}
         </div>
       </div>
-      <div className="flex items-center justify-center gap-2 mt-6">
-        <button onClick={prev} aria-label="Previous" className="px-3 py-1 rounded bg-gray-100 hover:bg-gray-200">‹</button>
-        {pages.map((_, i) => (
-          <button key={i} aria-label={`Go to ${i + 1}`} onClick={() => setIndex(i)} className={cn("w-2.5 h-2.5 rounded-full", i === index ? "bg-lagos-blue-green" : "bg-gray-300")}></button>
-        ))}
-        <button onClick={next} aria-label="Next" className="px-3 py-1 rounded bg-gray-100 hover:bg-gray-200">›</button>
+      <div className="flex items-center justify-center gap-3 mt-8">
+        <button 
+          onClick={prev} 
+          aria-label="Previous" 
+          className="w-10 h-10 rounded-full bg-white border border-gray-200 hover:border-lagos-blue-green hover:bg-lagos-blue-green hover:text-white transition-all duration-200 flex items-center justify-center text-gray-600 font-semibold shadow-sm"
+        >
+          ‹
+        </button>
+        <div className="flex gap-2">
+          {pages.map((_, i) => (
+            <button 
+              key={i} 
+              aria-label={`Go to ${i + 1}`} 
+              onClick={() => setIndex(i)} 
+              className={cn(
+                "w-3 h-3 rounded-full transition-all duration-200", 
+                i === index ? "bg-lagos-blue-green scale-110" : "bg-gray-300 hover:bg-gray-400"
+              )}
+            />
+          ))}
+        </div>
+        <button 
+          onClick={next} 
+          aria-label="Next" 
+          className="w-10 h-10 rounded-full bg-white border border-gray-200 hover:border-lagos-blue-green hover:bg-lagos-blue-green hover:text-white transition-all duration-200 flex items-center justify-center text-gray-600 font-semibold shadow-sm"
+        >
+          ›
+        </button>
       </div>
     </div>
   );

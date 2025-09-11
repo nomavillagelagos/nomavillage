@@ -15,12 +15,14 @@ import EmailSignupForm from "@/components/email-signup-form"
 import FilloutSliderPopup from "@/components/fillout-slider-popup"
 import { useSmoothScroll } from "@/hooks/use-smooth-scroll"
 import GoogleReviewsCarousel from "@/components/GoogleReviewsCarousel"
+import { useInView } from "@/hooks/use-in-view"
 
 export default function LandingPage() {
   const [isGuideModalOpen, setIsGuideModalOpen] = useState(false)
   const [isFormPopupOpen, setIsFormPopupOpen] = useState(false)
   const { scrollToSection } = useSmoothScroll()
   const [reviewsSummary, setReviewsSummary] = useState<{ rating?: number; user_ratings_total?: number; url?: string } | null>(null)
+  const { ref: blackHeroRef, inView: blackHeroInView } = useInView<HTMLDivElement>({ threshold: 0.1 })
 
   useEffect(() => {
     // Fetch summary for Google reviews (rating, total, url)
@@ -149,7 +151,8 @@ export default function LandingPage() {
 
       {/* Full-width Black Hero Band (below hero) */}
       <section
-        className="black-hero-section animate-slide-in"
+        ref={blackHeroRef}
+        className="black-hero-section"
         style={{
           backgroundColor: '#000000',
           color: '#ffffff',
@@ -161,7 +164,10 @@ export default function LandingPage() {
           marginTop: 0,
           marginBottom: 0,
           border: 'none',
-          outline: 'none'
+          outline: 'none',
+          opacity: blackHeroInView ? 1 : 0,
+          transform: blackHeroInView ? 'translateX(0)' : 'translateX(-100px)',
+          transition: 'all 2s cubic-bezier(0.16, 1, 0.3, 1)'
         }}
       >
         <div className="black-hero-container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 30px', textAlign: 'center' }}>
