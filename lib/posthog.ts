@@ -2,11 +2,14 @@
 declare global {
   interface Window {
     posthog?: any;
+    __PH_INIT?: boolean;
   }
 }
 
 export const initPostHog = () => {
   if (typeof window !== 'undefined' && process.env.NEXT_PUBLIC_POSTHOG_KEY && window.posthog) {
+    // Skip if already initialized by head snippet
+    if (window.__PH_INIT) return
     try {
       window.posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY, {
         api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST || 'https://eu.posthog.com',
@@ -33,6 +36,8 @@ export const initPostHog = () => {
         cross_subdomain_cookie: false,
         secure_cookie: process.env.NODE_ENV === 'production',
       })
+      // mark initialized
+      window.__PH_INIT = true
     } catch (error) {
       console.warn('PostHog initialization failed:', error)
     }
