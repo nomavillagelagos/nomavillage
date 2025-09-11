@@ -48,6 +48,7 @@ export default function RootLayout({
     <html lang="en">
       <head>
         {/* PostHog Web Snippet in head to load on all pages */}
+        {/* PostHog Web Snippet in head to load on all pages */}
         <script
           dangerouslySetInnerHTML={{
             __html: `
@@ -56,14 +57,39 @@ export default function RootLayout({
                 try {
                   var key = ${JSON.stringify(process.env.NEXT_PUBLIC_POSTHOG_KEY || '')};
                   var host = ${JSON.stringify(process.env.NEXT_PUBLIC_POSTHOG_HOST || 'https://eu.posthog.com')};
-                  if (key && window.posthog && typeof window.posthog.init === 'function') {
+                  
+                  // DEBUG LOGS - Check what values we're actually using
+                  console.log('🔍 PostHog Debug Info:');
+                  console.log('PostHog Host:', host);
+                  console.log('PostHog Key exists:', !!key);
+                  console.log('PostHog Key first 10 chars:', key ? key.substring(0, 10) : 'NO KEY');
+                  console.log('PostHog Key last 4 chars:', key ? key.substring(key.length - 4) : 'NO KEY');
+                  
+                  if (!key) {
+                    console.error('❌ PostHog Key is missing!');
+                    return;
+                  }
+                  
+                  if (!host) {
+                    console.error('❌ PostHog Host is missing!');
+                    return;
+                  }
+                  
+                  if (window.posthog && typeof window.posthog.init === 'function') {
+                    console.log('✅ Initializing PostHog...');
                     window.posthog.init(key, { api_host: host, person_profiles: 'identified_only' });
                     window.__PH_INIT = true;
+                    console.log('✅ PostHog initialized successfully');
+                  } else {
+                    console.error('❌ PostHog not available or init function missing');
                   }
-                } catch (e) { console.warn('PostHog init error', e); }
+                } catch (e) { 
+                  console.error('❌ PostHog init error:', e); 
+                }
               })();
             `,
           }}
+        />
         />
       </head>
       <body className={`font-sans ${montserrat.variable} ${nunito.variable} ${caveat.variable}`}>
