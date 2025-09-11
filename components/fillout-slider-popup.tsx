@@ -41,13 +41,13 @@ export default function FilloutSliderPopup({ isOpen, onClose, formUrl }: Fillout
       {/* Slider Panel */}
       <div className={`
         absolute bg-white shadow-2xl transition-all duration-700 ease-out
-        ${isOpen ? 'translate-x-0 translate-y-0' : 'translate-x-full lg:translate-y-0 translate-y-full'}
+        ${isOpen ? 'translate-x-0' : 'translate-x-full lg:translate-x-full -translate-x-full'}
         
         /* Desktop: slide from right */
         lg:top-0 lg:right-0 lg:h-full lg:w-[600px] lg:max-w-[90vw]
         
-        /* Mobile: slide from bottom */
-        bottom-0 left-0 right-0 h-[85vh] lg:h-full
+        /* Mobile: slide from left */
+        top-0 left-0 bottom-0 w-[90vw] max-w-[400px] lg:w-[600px] lg:h-full
         
         flex flex-col
       `}>

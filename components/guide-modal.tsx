@@ -83,7 +83,7 @@ export default function GuideModal({ isOpen, onClose }: GuideModalProps) {
               Get Your Free Lagos Guide
             </h2>
             <p className="font-nunito text-gray-600 text-sm">
-              Discover insider secrets about coliving in Lagos and exploring the beautiful Algarve region
+              Discover insider secrets about our Coliving and Lagos and exploring the beautiful Algarve region
             </p>
           </div>
         </div>
@@ -103,7 +103,7 @@ export default function GuideModal({ isOpen, onClose }: GuideModalProps) {
               <Users className="h-5 w-5 text-lagos-blue-green flex-shrink-0" />
               <div>
                 <div className="font-montserrat font-semibold text-sm text-gray-900">Community Tips</div>
-                <div className="font-nunito text-xs text-gray-600">How to make the most of coliving life in Lagos</div>
+                <div className="font-nunito text-xs text-gray-600">How to make the most of Coliving life in Lagos</div>
               </div>
             </div>
           </div>

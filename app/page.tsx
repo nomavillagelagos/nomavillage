@@ -1,3 +1,6 @@
+'use client'
+
+import { useState } from 'react'
 import EmailSignupForm from '@/components/email-signup-form'
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
@@ -9,9 +12,19 @@ import Link from "next/link"
 import Script from "next/script"
 import SmoothScrollLink from "@/components/smooth-scroll-link"
 import { CountUp } from "@/components/count-up"
+import FilloutSliderPopup from "@/components/fillout-slider-popup"
 
 export default function HomePage() {
   // Using SmoothScrollLink for controlled, smooth in-page scrolling
+  const [isPopupOpen, setIsPopupOpen] = useState(false)
+
+  const handleJoinUsClick = () => {
+    setIsPopupOpen(true)
+  }
+
+  const handleClosePopup = () => {
+    setIsPopupOpen(false)
+  }
 
   return (
     <div className="min-h-screen bg-white">
@@ -77,11 +90,7 @@ export default function HomePage() {
             <Button
               size="lg"
               className="bg-lagos-pink hover:bg-lagos-pink/90 text-white font-montserrat"
-              data-fillout-id="aKuWaUwvaVus"
-              data-fillout-embed-type="slider"
-              data-fillout-slider-direction="right"
-              data-fillout-inherit-parameters
-              data-fillout-popup-size="medium"
+              onClick={handleJoinUsClick}
             >
               Join Us
             </Button>
@@ -250,11 +259,7 @@ export default function HomePage() {
             <Button
               size="lg"
               className="bg-lagos-pink hover:bg-lagos-pink/90 text-white font-montserrat"
-              data-fillout-id="aKuWaUwvaVus"
-              data-fillout-embed-type="slider"
-              data-fillout-slider-direction="right"
-              data-fillout-inherit-parameters
-              data-fillout-popup-size="medium"
+              onClick={handleJoinUsClick}
             >
               Join Us
             </Button>
@@ -415,6 +420,13 @@ export default function HomePage() {
       </section>
 
       <Footer />
+      
+      {/* Fillout Slider Popup */}
+      <FilloutSliderPopup
+        isOpen={isPopupOpen}
+        onClose={handleClosePopup}
+        formUrl="https://forms.fillout.com/t/aKuWaUwvaVus"
+      />
     </div>
   )
 }

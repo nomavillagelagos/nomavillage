@@ -71,3 +71,30 @@ export default function RootLayout({
     </html>
   )
 }
+import Script from 'next/script'
+import './globals.css'
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  return (
+    <html lang="en">
+      <head>
+        <Script
+          src="https://app.posthog.com/static/array.js"
+          strategy="afterInteractive"
+          onLoad={() => {
+            if (typeof window !== 'undefined' && window.posthog && process.env.NEXT_PUBLIC_POSTHOG_KEY) {
+              window.posthog.init(process.env.NEXT_PUBLIC_POSTHOG_KEY, {
+                api_host: process.env.NEXT_PUBLIC_POSTHOG_HOST || 'https://eu.posthog.com'
+              })
+            }
+          }}
+        />
+      </head>
+      <body>{children}</body>
+    </html>
+  )
+}
