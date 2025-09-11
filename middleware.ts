@@ -54,18 +54,11 @@ export function middleware(request: NextRequest) {
       return rewriteResponse
     }
 
-    // For direct variant access, ensure consistency
+    // For direct variant access, respect the URL and don't redirect
     if (request.nextUrl.pathname === '/landing-a' || request.nextUrl.pathname === '/landing-b') {
       const requestedVariant = request.nextUrl.pathname === '/landing-a' ? 'A' : 'B'
       
-      // If user has a different variant assigned, redirect to their variant
-      if (variant && variant !== requestedVariant) {
-        const url = request.nextUrl.clone()
-        url.pathname = `/landing-${variant.toLowerCase()}`
-        return NextResponse.redirect(url)
-      }
-      
-      // Set headers for analytics
+      // Set headers for analytics with the requested variant
       response.headers.set('x-ab-variant', requestedVariant)
       response.headers.set('x-experiment-name', 'landing_page_test')
     }

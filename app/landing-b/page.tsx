@@ -83,9 +83,36 @@ export default function LandingPage() {
           {/* Main Heading */}
           <div className="mb-8">
             <h1 className="text-6xl md:text-8xl font-bold mb-4 text-balance leading-tight" style={{fontFamily: 'Montserrat, sans-serif'}}>
-              <span className="brush-underline" style={{color: 'white', fontSize: '1.4em', fontFamily: 'Caveat, cursive'}}>This</span>&nbsp;<span style={{fontSize: '24px', fontFamily: 'Montserrat, sans-serif'}}>is </span><span style={{fontWeight: '300', fontFamily: 'Montserrat, sans-serif'}}>Coliving</span>
+              <span style={{
+                position: 'relative', 
+                color: 'white', 
+                fontSize: '1.4em', 
+                fontFamily: 'Caveat, cursive'
+              }}>
+                <span style={{
+                  position: 'relative',
+                  zIndex: 1
+                }}>This</span>
+                <span style={{
+                  position: 'absolute',
+                  left: '-10%',
+                  right: '-10%',
+                  bottom: '-3%',
+                  height: '44px',
+                  width: '120%',
+                  backgroundImage: 'url(/brush-underline.webp)',
+                  backgroundRepeat: 'no-repeat',
+                  backgroundSize: 'contain',
+                  backgroundPosition: 'center bottom',
+                  transform: 'rotate(-2deg)',
+                  zIndex: -1,
+                  display: 'block',
+                  filter: 'brightness(0) invert(1)',
+                  opacity: 1
+                }}></span>
+              </span>&nbsp;<span style={{fontSize: '24px', fontFamily: 'Montserrat, sans-serif'}}>is </span><span style={{fontWeight: '300', fontFamily: 'Montserrat, sans-serif'}}>Coliving</span>
             </h1>
-            <h2 className="text-4xl md:text-6xl font-light mb-6 text-balance" style={{fontFamily: 'Montserrat, sans-serif'}}>
+            <h2 className="text-4xl md:text-6xl font-light mb-6 text-balance" style={{fontFamily: 'Caveat, cursive'}}>
               A Home by the Ocean
             </h2>
             <h3 className="text-4xl md:text-6xl font-bold text-balance" style={{fontFamily: 'Caveat, cursive'}}>
@@ -96,7 +123,7 @@ export default function LandingPage() {
           <div className="mt-12">
             <Button
               size="lg"
-              className="text-black font-montserrat text-lg px-8 py-3 h-auto"
+              className="text-black font-montserrat text-lg px-8 py-3 h-auto cta-boost cta-swipe cta-swipe--to-white"
               style={{ backgroundColor: '#50bbb7' }}
               onClick={() => scrollToSection('stats')}
             >
@@ -143,7 +170,7 @@ export default function LandingPage() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="font-montserrat text-5xl font-bold text-gray-900 mb-4">October Yoga Colive Experience</h2>
+            <h2 className="font-caveat text-5xl font-bold text-gray-900 mb-4" style={{fontFamily: 'Caveat, cursive'}}>October Yoga Colive Experience</h2>
             <p className="font-nunito text-xl text-gray-600 max-w-4xl mx-auto text-balance">
               Mindful living with daily yoga, surf, and entrepreneurial connections
             </p>
@@ -218,7 +245,7 @@ export default function LandingPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="font-montserrat text-5xl font-bold text-gray-900 mb-6">Your Private Space</h2>
+              <h2 className="font-caveat text-5xl font-bold text-gray-900 mb-6" style={{fontFamily: 'Caveat, cursive'}}>Your Private Space</h2>
               <p className="font-nunito text-lg text-gray-600 mb-6 leading-relaxed">
                 Private rooms with queen bed, work desk, and private bathroom.
               </p>
@@ -293,7 +320,7 @@ export default function LandingPage() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="font-montserrat text-5xl font-bold text-gray-900 mb-4">Live, Work & Connect</h2>
+            <h2 className="font-caveat text-5xl font-bold text-gray-900 mb-4" style={{fontFamily: 'Caveat, cursive'}}>Live, Work & Connect</h2>
             <p className="font-nunito text-xl text-gray-600">
               Shared spaces for work, relaxation, and community
             </p>
@@ -363,7 +390,7 @@ export default function LandingPage() {
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="font-montserrat text-5xl font-bold text-gray-900 mb-4">Life at Noma Village</h2>
+            <h2 className="font-caveat text-5xl font-bold text-gray-900 mb-4" style={{fontFamily: 'Caveat, cursive'}}>Life at Noma Village</h2>
             <p className="font-nunito text-xl text-gray-600">
               Your new home away from home in Lagos, Portugal
             </p>
@@ -414,7 +441,7 @@ export default function LandingPage() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="font-montserrat text-5xl font-bold text-gray-900 mb-4">What Our Community Says</h2>
+            <h2 className="font-caveat text-5xl font-bold text-gray-900 mb-4" style={{fontFamily: 'Caveat, cursive'}}>What Our Community Says</h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -495,7 +522,7 @@ export default function LandingPage() {
       <section className="py-20 bg-lagos-aquamarine/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="font-montserrat text-5xl font-bold text-gray-900 mb-4">Why Choose Noma Village?</h2>
+            <h2 className="font-caveat text-5xl font-bold text-gray-900 mb-4" style={{fontFamily: 'Caveat, cursive'}}>Why Choose Noma Village?</h2>
             <p className="font-nunito text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
               We're more than just a coliving space. We're a vibrant community of like-minded entrepreneurial people seeking connection and purpose.
             </p>
@@ -548,7 +575,7 @@ export default function LandingPage() {
       {/* Newsletter Signup */}
       <section id="email-signup" className="py-20 bg-gradient-to-r from-lagos-blue-green to-lagos-pink">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="font-montserrat text-5xl font-bold text-white mb-4">Get the Guide</h2>
+          <h2 className="font-caveat text-5xl font-bold text-white mb-4" style={{fontFamily: 'Caveat, cursive'}}>Get the Guide</h2>
           <p className="font-nunito text-xl text-white/90 mb-8 text-balance">
             Get updates on community events, new amenities, and exclusive member benefits at Noma Village
           </p>
@@ -564,7 +591,7 @@ export default function LandingPage() {
       {/* Final CTA Section */}
       <section className="py-20 bg-gradient-to-r from-lagos-blue-green to-lagos-pink">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="font-montserrat text-5xl font-bold text-white mb-4">Join October Yoga + Surf Colive</h2>
+          <h2 className="font-caveat text-5xl font-bold text-white mb-4" style={{fontFamily: 'Caveat, cursive'}}>Join October Yoga + Surf Colive</h2>
           <p className="font-nunito text-xl text-white/90 mb-8 text-balance">
             Transform how you live, work, and connect in Lagos, Portugal
           </p>

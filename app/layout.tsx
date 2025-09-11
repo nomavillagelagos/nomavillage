@@ -93,7 +93,7 @@ export default function RootLayout({
   }}
 />
       </head>
-      <body className={`font-sans ${montserrat.variable} ${nunito.variable} ${caveat.variable}`}>
+      <body className={`${montserrat.variable} ${nunito.variable} ${caveat.variable} font-sans`}>
         <GuideModalProvider>
           <Suspense fallback={null}>
             {children}

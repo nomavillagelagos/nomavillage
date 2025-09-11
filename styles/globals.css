@@ -174,3 +174,10 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Map font utility classes to Next.js font variables */
+@layer utilities {
+  .font-caveat {
+    font-family: var(--font-caveat), cursive;
+  }
+}
