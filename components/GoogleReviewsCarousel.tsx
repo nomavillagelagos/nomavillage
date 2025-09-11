@@ -121,10 +121,23 @@ async function fetchReviews(): Promise<Review[]> {
 export default function GoogleReviewsCarousel() {
   const [reviews, setReviews] = useState<Review[]>([]);
   const [index, setIndex] = useState(0);
+  const [itemsPerSlide, setItemsPerSlide] = useState(1);
   const intervalRef = useRef<number | null>(null);
 
   useEffect(() => {
     fetchReviews().then((r) => setReviews(r));
+  }, []);
+
+  // responsive items per slide
+  useEffect(() => {
+    function update() {
+      const w = window.innerWidth;
+      if (w >= 768) setItemsPerSlide(2); // md and up: 2 items
+      else setItemsPerSlide(1);          // sm: 1 item
+    }
+    update();
+    window.addEventListener('resize', update);
+    return () => window.removeEventListener('resize', update);
   }, []);
 
   const items = useMemo(() => (reviews.length ? reviews : [
@@ -133,17 +146,26 @@ export default function GoogleReviewsCarousel() {
     { author_name: "Pat Rick", rating: 5, text: "Amazing month here. Beautiful setting, 10 minutes to the beach, genuine community.", author_url: "https://www.google.com/maps/contrib/105503513928987597340/reviews" },
   ]), [reviews]);
 
+  // chunk into pages based on itemsPerSlide
+  const pages = useMemo(() => {
+    const arr: Review[][] = [];
+    for (let i = 0; i < items.length; i += itemsPerSlide) {
+      arr.push(items.slice(i, i + itemsPerSlide));
+    }
+    return arr.length ? arr : [items];
+  }, [items, itemsPerSlide]);
+
   useEffect(() => {
-    if (!items.length) return;
+    if (!pages.length) return;
     intervalRef.current && clearInterval(intervalRef.current);
     intervalRef.current = window.setInterval(() => {
-      setIndex((i) => (i + 1) % items.length);
+      setIndex((i) => (i + 1) % pages.length);
     }, 5000);
     return () => { if (intervalRef.current) clearInterval(intervalRef.current); };
-  }, [items.length]);
+  }, [pages.length]);
 
-  const prev = () => setIndex((i) => (i - 1 + items.length) % items.length);
-  const next = () => setIndex((i) => (i + 1) % items.length);
+  const prev = () => setIndex((i) => (i - 1 + pages.length) % pages.length);
+  const next = () => setIndex((i) => (i + 1) % pages.length);
 
   return (
     <div className="relative">
@@ -152,39 +174,45 @@ export default function GoogleReviewsCarousel() {
           className="flex transition-transform duration-500"
           style={{ transform: `translateX(-${index * 100}%)` }}
         >
-          {items.map((r, i) => {
-            const avatar = r.profile_photo_url || getGravatarUrl(r.email_for_gravatar);
-            return (
-              <div key={i} className="min-w-full px-2">
-                <div className="border-0 shadow-lg rounded-xl p-8 bg-white h-full">
-                  <div className="mb-3 text-yellow-500">{"★★★★★".slice(0, Math.max(1, Math.min(5, r.rating)))}</div>
-                  <p className="font-nunito text-gray-700 mb-6 leading-relaxed">“{r.text}”</p>
-                  <div className="flex items-center gap-3">
-                    {avatar ? (
-                      // eslint-disable-next-line @next/next/no-img-element
-                      <img src={avatar} alt={r.author_name} className="w-10 h-10 rounded-full object-cover" />
-                    ) : (
-                      <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center font-montserrat">
-                        {r.author_name?.charAt(0) || "?"}
+          {pages.map((page, pIdx) => (
+            <div key={pIdx} className="min-w-full px-2">
+              <div className={cn("grid gap-6", itemsPerSlide === 1 ? "grid-cols-1" : "grid-cols-1 md:grid-cols-2") }>
+                {page.map((r, i) => {
+                  const avatar = r.profile_photo_url || getGravatarUrl(r.email_for_gravatar);
+                  return (
+                    <div key={i} className="h-full">
+                      <div className="border-0 shadow-lg rounded-xl p-8 bg-white h-full">
+                        <div className="mb-3 text-yellow-500">{"★★★★★".slice(0, Math.max(1, Math.min(5, r.rating)))}</div>
+                        <p className="font-nunito text-gray-700 mb-6 leading-relaxed">“{r.text}”</p>
+                        <div className="flex items-center gap-3">
+                          {avatar ? (
+                            // eslint-disable-next-line @next/next/no-img-element
+                            <img src={avatar} alt={r.author_name} className="w-10 h-10 rounded-full object-cover" />
+                          ) : (
+                            <div className="w-10 h-10 rounded-full bg-gray-200 flex items-center justify-center font-montserrat">
+                              {r.author_name?.charAt(0) || "?"}
+                            </div>
+                          )}
+                          {r.author_url ? (
+                            <a href={r.author_url} target="_blank" rel="noopener noreferrer" className="font-montserrat font-semibold text-lagos-blue-green hover:underline">
+                              {r.author_name}
+                            </a>
+                          ) : (
+                            <div className="font-montserrat font-semibold">{r.author_name}</div>
+                          )}
+                        </div>
                       </div>
-                    )}
-                    {r.author_url ? (
-                      <a href={r.author_url} target="_blank" rel="noopener noreferrer" className="font-montserrat font-semibold text-lagos-blue-green hover:underline">
-                        {r.author_name}
-                      </a>
-                    ) : (
-                      <div className="font-montserrat font-semibold">{r.author_name}</div>
-                    )}
-                  </div>
-                </div>
+                    </div>
+                  );
+                })}
               </div>
-            );
-          })}
+            </div>
+          ))}
         </div>
       </div>
       <div className="flex items-center justify-center gap-2 mt-6">
         <button onClick={prev} aria-label="Previous" className="px-3 py-1 rounded bg-gray-100 hover:bg-gray-200">‹</button>
-        {items.map((_, i) => (
+        {pages.map((_, i) => (
           <button key={i} aria-label={`Go to ${i + 1}`} onClick={() => setIndex(i)} className={cn("w-2.5 h-2.5 rounded-full", i === index ? "bg-lagos-blue-green" : "bg-gray-300")}></button>
         ))}
         <button onClick={next} aria-label="Next" className="px-3 py-1 rounded bg-gray-100 hover:bg-gray-200">›</button>

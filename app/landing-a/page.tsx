@@ -147,6 +147,30 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* Full-width Black Hero Band (below hero) */}
+      <section
+        className="black-hero-section animate-slide-in"
+        style={{
+          backgroundColor: '#000000',
+          color: '#ffffff',
+          width: '100vw',
+          marginLeft: 'calc(-50vw + 50%)',
+          position: 'relative',
+          overflowX: 'hidden',
+          padding: '60px 0',
+          marginTop: 0,
+          marginBottom: 0,
+          border: 'none',
+          outline: 'none'
+        }}
+      >
+        <div className="black-hero-container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 30px', textAlign: 'center' }}>
+          <h2 className="black-hero-title" style={{ fontSize: '2.5rem', fontWeight: 300, letterSpacing: '-0.5px', lineHeight: 1.2, color: '#ffffff', margin: 0, padding: 0 }}>
+            Join us for 2+ weeks — private Room, Shared Coworking, Yoga, and Surf
+          </h2>
+        </div>
+      </section>
+
       {/* Stats Section */}
       <section id="stats" className="py-16 bg-lagos-aquamarine/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -573,7 +597,7 @@ export default function LandingPage() {
           <div className="text-center mb-10">
             <h2 className="font-caveat text-5xl font-normal text-gray-900 mb-3" style={{fontFamily: 'Caveat, cursive'}}>What Guests Say on Google</h2>
             <div className="flex items-center justify-center gap-3 font-nunito text-gray-700">
-              <img src="/google-g.svg" alt="Google" className="h-6 w-6" />
+              <img src="https://img.icons8.com/color/48/google-logo.png" alt="Google" className="h-6 w-6" />
               <span className="font-montserrat font-semibold">Noma Village Lagos</span>
               <span>•</span>
               <span className="font-montserrat">{reviewsSummary?.rating?.toFixed ? reviewsSummary.rating.toFixed(1) : '4.8'}</span>
