@@ -251,7 +251,7 @@ export default function LandingPage() {
             </p>
           </div>
 
-          <div className="relative w-full rounded-xl shadow-xl overflow-hidden" style={{paddingTop: '56.25%'}}>
+          <div className="relative w-full md:w-1/2 mx-auto rounded-xl shadow-xl overflow-hidden" style={{paddingTop: '56.25%'}}>
             <iframe
               src="https://www.youtube.com/embed/7hPyCSk-6pM"
               title="Noma Village Preview"
