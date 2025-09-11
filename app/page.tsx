@@ -94,7 +94,7 @@ export default function HomePage() {
             >
               Join Us
             </Button>
-            <SmoothScrollLink to="#stay-connected" duration={1500} offset={80} className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-11 px-8 font-montserrat bg-[#e151af] hover:bg-[#e151af]/90 text-white">
+            <SmoothScrollLink to="#stay-connected" duration={1500} offset={80} className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 h-11 px-8 font-montserrat bg-[#e151af] hover:bg-[#e151af]/90 text-white cta-pop">
               Get the Guide
             </SmoothScrollLink>
           </div>

@@ -15,7 +15,7 @@ import EmailSignupForm from "@/components/email-signup-form"
 import FilloutSliderPopup from "@/components/fillout-slider-popup"
 import { useSmoothScroll } from "@/hooks/use-smooth-scroll"
 
-export default function OctoberLandingPage() {
+export default function LandingPage() {
   const [isGuideModalOpen, setIsGuideModalOpen] = useState(false)
   const [isFormPopupOpen, setIsFormPopupOpen] = useState(false)
   const { scrollToSection } = useSmoothScroll()
@@ -84,12 +84,12 @@ export default function OctoberLandingPage() {
           {/* Main Heading */}
           <div className="mb-8">
             <h1 className="text-6xl md:text-8xl font-bold mb-4 text-balance leading-tight" style={{fontFamily: 'Montserrat, sans-serif'}}>
-              <span className="brush-underline" style={{color: 'white', fontSize: '1.4em', fontStyle: 'italic', fontFamily: 'Caveat, cursive'}}>This</span>&nbsp;<span style={{fontSize: '24px', fontFamily: 'Montserrat, sans-serif'}}>is </span><span style={{fontWeight: '300', fontFamily: 'Montserrat, sans-serif'}}>Coliving</span>
+              <span className="brush-underline" style={{color: 'white', fontSize: '1.4em', fontFamily: 'Caveat, cursive'}}>This</span>&nbsp;<span style={{fontSize: '24px', fontFamily: 'Montserrat, sans-serif'}}>is </span><span style={{fontWeight: '300', fontFamily: 'Montserrat, sans-serif'}}>Coliving</span>
             </h1>
             <h2 className="text-4xl md:text-6xl font-light mb-6 text-balance" style={{fontFamily: 'Montserrat, sans-serif'}}>
               A Home by the Ocean
             </h2>
-            <h3 className="text-4xl md:text-6xl font-bold italic text-balance" style={{fontFamily: 'Caveat, cursive'}}>
+            <h3 className="text-4xl md:text-6xl font-bold text-balance" style={{fontFamily: 'Caveat, cursive'}}>
               Work, Surf and Yoga
             </h3>
           </div>
@@ -97,7 +97,7 @@ export default function OctoberLandingPage() {
           <div className="mt-12">
             <Button
               size="lg"
-              className="text-black font-montserrat text-lg px-8 py-3 h-auto"
+              className="text-black font-montserrat text-lg px-8 py-3 h-auto cta-boost cta-swipe cta-swipe--to-white"
               style={{ backgroundColor: '#50bbb7' }}
               onClick={() => scrollToSection('stats')}
             >
@@ -274,7 +274,7 @@ export default function OctoberLandingPage() {
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
             <Button
               size="lg"
-              className="bg-lagos-pink hover:bg-lagos-pink/90 text-white font-montserrat text-xl px-12 py-4 h-auto"
+              className="bg-lagos-pink hover:bg-lagos-pink/90 text-white font-montserrat text-xl px-12 py-4 h-auto cta-boost cta-swipe cta-swipe--to-black"
               onClick={() => handleFormClick('private-space')}
             >
               Secure Your Spot Now
@@ -282,7 +282,7 @@ export default function OctoberLandingPage() {
             <Button
               variant="outline"
               size="lg"
-              className="bg-[#E879B9] hover:bg-[#E879B9]/90 text-white border-[#E879B9] hover:border-[#E879B9]/90 font-montserrat text-xl px-12 py-4 h-auto"
+              className="bg-[#E879B9] hover:bg-[#E879B9]/90 text-white border-[#E879B9] hover:border-[#E879B9]/90 font-montserrat text-xl px-12 py-4 h-auto cta-boost cta-swipe cta-swipe--to-black"
               onClick={() => handleGuideClick('hero')}
             >
               Get the Guide
@@ -571,7 +571,7 @@ export default function OctoberLandingPage() {
           <div className="flex flex-col sm:flex-row gap-6 justify-center">
             <Button
               size="lg"
-              className="bg-white text-lagos-blue-green hover:bg-white/90 font-montserrat text-xl px-12 py-4 h-auto"
+              className="bg-white text-lagos-blue-green hover:bg-white/90 font-montserrat text-xl px-12 py-4 h-auto cta-boost cta-swipe cta-swipe--to-black"
               onClick={() => handleFormClick('final_cta')}
             >
               Secure Your Spot Now
@@ -579,7 +579,7 @@ export default function OctoberLandingPage() {
             <Button
               variant="outline"
               size="lg"
-              className="bg-[#E879B9] hover:bg-[#E879B9]/90 text-white border-[#E879B9] hover:border-[#E879B9]/90 font-montserrat text-xl px-12 py-4 h-auto"
+              className="bg-[#E879B9] hover:bg-[#E879B9]/90 text-white border-[#E879B9] hover:border-[#E879B9]/90 font-montserrat text-xl px-12 py-4 h-auto cta-boost cta-swipe cta-swipe--to-black"
               onClick={() => handleGuideClick('final_cta')}
             >
               Get the Guide

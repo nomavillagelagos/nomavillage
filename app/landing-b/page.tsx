@@ -15,7 +15,7 @@ import EmailSignupForm from "@/components/email-signup-form"
 import FilloutSliderPopup from "@/components/fillout-slider-popup"
 import { useSmoothScroll } from "@/hooks/use-smooth-scroll"
 
-export default function OctoberLandingPage() {
+export default function LandingPage() {
   const [isGuideModalOpen, setIsGuideModalOpen] = useState(false)
   const [isFormPopupOpen, setIsFormPopupOpen] = useState(false)
   const { scrollToSection } = useSmoothScroll()
@@ -83,12 +83,12 @@ export default function OctoberLandingPage() {
           {/* Main Heading */}
           <div className="mb-8">
             <h1 className="text-6xl md:text-8xl font-bold mb-4 text-balance leading-tight" style={{fontFamily: 'Montserrat, sans-serif'}}>
-              <span className="brush-underline" style={{color: 'white', fontSize: '1.4em', fontStyle: 'italic', fontFamily: 'Caveat, cursive'}}>This</span>&nbsp;<span style={{fontSize: '24px', fontFamily: 'Montserrat, sans-serif'}}>is </span><span style={{fontWeight: '300', fontFamily: 'Montserrat, sans-serif'}}>Coliving</span>
+              <span className="brush-underline" style={{color: 'white', fontSize: '1.4em', fontFamily: 'Caveat, cursive'}}>This</span>&nbsp;<span style={{fontSize: '24px', fontFamily: 'Montserrat, sans-serif'}}>is </span><span style={{fontWeight: '300', fontFamily: 'Montserrat, sans-serif'}}>Coliving</span>
             </h1>
             <h2 className="text-4xl md:text-6xl font-light mb-6 text-balance" style={{fontFamily: 'Montserrat, sans-serif'}}>
               A Home by the Ocean
             </h2>
-            <h3 className="text-4xl md:text-6xl font-bold italic text-balance" style={{fontFamily: 'Caveat, cursive'}}>
+            <h3 className="text-4xl md:text-6xl font-bold text-balance" style={{fontFamily: 'Caveat, cursive'}}>
               Work, Surf and Yoga
             </h3>
           </div>

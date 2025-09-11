@@ -80,7 +80,7 @@ export default function GuideModal({ isOpen, onClose }: GuideModalProps) {
               <FileText className="h-8 w-8 text-lagos-pink" />
             </div>
             <h2 className="font-montserrat text-2xl font-bold text-gray-900 mb-2">
-              Get Your Free Lagos Guide
+              Get Our Free Lagos + Coliving Guide
             </h2>
             <p className="font-nunito text-gray-600 text-sm">
               Discover insider secrets about our Coliving and Lagos and exploring the beautiful Algarve region

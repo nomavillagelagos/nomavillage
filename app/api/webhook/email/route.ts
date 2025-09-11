@@ -69,7 +69,8 @@ export async function POST(request: NextRequest) {
     
     if (brevoApiKey) {
       try {
-        const brevoContact: BrevoContact = {
+        // Build the contact object matching the working format
+        const brevoContact = {
           email: emailData.email,
           attributes: {
             FIRSTNAME: emailData.firstName || emailData.name || '',
@@ -78,22 +79,21 @@ export async function POST(request: NextRequest) {
             SIGNUP_DATE: emailData.timestamp,
             FORM_TYPE: emailData.metadata?.formType || 'unknown'
           },
+          listIds: [] as number[],
           updateEnabled: true
         }
 
         // Add to default list if specified
         const defaultListId = process.env.BREVO_DEFAULT_LIST_ID
         if (defaultListId) {
-          brevoContact.listIds = [parseInt(defaultListId)]
+          brevoContact.listIds.push(parseInt(defaultListId))
         }
 
         // Add to guide-specific list for guide requests
         if (emailData.metadata?.requestType === 'lagos-algarve-guide') {
           const guideListId = process.env.BREVO_GUIDE_LIST_ID
           if (guideListId) {
-            brevoContact.listIds = brevoContact.listIds 
-              ? [...brevoContact.listIds, parseInt(guideListId)]
-              : [parseInt(guideListId)]
+            brevoContact.listIds.push(parseInt(guideListId))
           }
         }
 
@@ -102,6 +102,7 @@ export async function POST(request: NextRequest) {
         const brevoResponse = await fetch('https://api.brevo.com/v3/contacts', {
           method: 'POST',
           headers: {
+            'accept': 'application/json',
             'Content-Type': 'application/json',
             'api-key': brevoApiKey
           },
