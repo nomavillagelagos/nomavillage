@@ -5,8 +5,6 @@ import { Analytics } from "@vercel/analytics/next"
 import { Suspense } from "react"
 import GuideModalProvider from "@/components/guide-modal-provider"
 import GoogleAnalytics from "@/components/GoogleAnalytics"
-import PostHogProvider from "@/components/PostHogProvider"
-import ABTestDebugger from "@/components/ABTestDebugger"
 import "./globals.css"
 
 const montserrat = Montserrat({
@@ -47,62 +45,38 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        {/* PostHog Web Snippet in head to load on all pages */}
-        {/* PostHog Web Snippet in head to load on all pages */}
+        <GoogleAnalytics />
         <script
           dangerouslySetInnerHTML={{
             __html: `
               !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]);t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.async=!0,p.src=s.api_host+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],u.toString=function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e},u.people.toString=function(){return u.toString(1)+".people (stub)"},o="capture identify alias people.set people.set_once set_config register register_once unregister opt_out_capturing has_opted_out_capturing opt_in_capturing reset isFeatureEnabled onFeatureFlags getFeatureFlag getFeatureFlagPayload reloadFeatureFlags group updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures getActiveMatchingSurveys getSurveys".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
-              (function(){
-                try {
-                  var key = 'phc_UfN3a0MHqVk1VzHz2os4M1BHLxzj5JTEdrhzLP3Bj8z';
-var host = 'https://eu.i.posthog.com';
-                  // DEBUG LOGS - Check what values we're actually using
-                  console.log('🔍 PostHog Debug Info:');
-                  console.log('PostHog Host:', host);
-                  console.log('PostHog Key exists:', !!key);
-                  console.log('PostHog Key first 10 chars:', key ? key.substring(0, 10) : 'NO KEY');
-                  console.log('PostHog Key last 4 chars:', key ? key.substring(key.length - 4) : 'NO KEY');
-                  
-                  if (!key) {
-                    console.error('❌ PostHog Key is missing!');
-                    return;
-                  }
-                  
-                  if (!host) {
-                    console.error('❌ PostHog Host is missing!');
-                    return;
-                  }
-                  
-                  if (window.posthog && typeof window.posthog.init === 'function') {
-                    console.log('✅ Initializing PostHog...');
-                    window.posthog.init(key, { api_host: host, person_profiles: 'identified_only' });
-                    window.__PH_INIT = true;
-                    console.log('✅ PostHog initialized successfully');
-                  } else {
-                    console.error('❌ PostHog not available or init function missing');
-                  }
-                } catch (e) { 
-                  console.error('❌ PostHog init error:', e); 
+              
+              // Initialize PostHog with hardcoded values
+              window.posthog.init('phc_UfN3a0MHqVk1VzHz2os4M1BHLxzj5JTEdrhzLP3Bj8z', {
+                api_host: 'https://eu.i.posthog.com',
+                person_profiles: 'identified_only',
+                capture_pageview: true,
+                capture_heatmaps: true,
+                session_recording: {
+                  enabled: true,
+                  recordCrossOriginIframes: true
                 }
-              })();
+              });
             `,
           }}
         />
-      
       </head>
       <body className={`font-sans ${montserrat.variable} ${nunito.variable} ${caveat.variable}`}>
-        <GoogleAnalytics />
-        <Suspense fallback={null}>
-          <PostHogProvider>
-            <GuideModalProvider>
-              {children}
-            </GuideModalProvider>
-          </PostHogProvider>
-          <Analytics />
-        </Suspense>
-        <ABTestDebugger />
+        <GuideModalProvider>
+          <Suspense fallback={null}>
+            {children}
+          </Suspense>
+        </GuideModalProvider>
+        <Analytics />
       </body>
     </html>
   )
 }
+// For later reuse with environment variables:
+// var key = ${JSON.stringify(process.env.NEXT_PUBLIC_POSTHOG_KEY || '')};
+// var host = ${JSON.stringify(process.env.NEXT_PUBLIC_POSTHOG_HOST || 'https://eu.i.posthog.com')};

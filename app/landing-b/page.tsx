@@ -9,7 +9,6 @@ import Script from "next/script"
 import Image from "next/image"
 import { CountUp } from "@/components/count-up"
 import { trackEvent } from "@/components/GoogleAnalytics"
-import { trackEvent as trackPostHogEvent } from "@/lib/posthog"
 import { useState } from "react"
 import GuideModal from "@/components/guide-modal"
 import EmailSignupForm from "@/components/email-signup-form"
@@ -29,8 +28,8 @@ export default function OctoberLandingPage() {
       form_type: 'application'
     })
     
-    // PostHog tracking
-    trackPostHogEvent('cta_clicked', {
+    // Track CTA click with Google Analytics
+    trackEvent('cta_clicked', {
       button_text: 'Secure Your Spot Now',
       page: 'landing-b',
       location: location,
