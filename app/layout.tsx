@@ -55,7 +55,7 @@ export default function RootLayout({
               (function(){
                 try {
                   var key = ${JSON.stringify(process.env.NEXT_PUBLIC_POSTHOG_KEY || '')};
-                  var host = ${JSON.stringify(process.env.NEXT_PUBLIC_POSTHOG_HOST || 'https://eu1.posthog.com')};
+                  var host = ${JSON.stringify(process.env.NEXT_PUBLIC_POSTHOG_HOST || 'https://eu.posthog.com')};
                   if (key && window.posthog && typeof window.posthog.init === 'function') {
                     window.posthog.init(key, { api_host: host, person_profiles: 'identified_only' });
                     window.__PH_INIT = true;
