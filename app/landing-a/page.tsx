@@ -9,16 +9,28 @@ import Script from "next/script"
 import Image from "next/image"
 import { CountUp } from "@/components/count-up"
 import { trackEvent } from "@/components/GoogleAnalytics"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import GuideModal from "@/components/guide-modal"
 import EmailSignupForm from "@/components/email-signup-form"
 import FilloutSliderPopup from "@/components/fillout-slider-popup"
 import { useSmoothScroll } from "@/hooks/use-smooth-scroll"
+import GoogleReviewsCarousel from "@/components/GoogleReviewsCarousel"
 
 export default function LandingPage() {
   const [isGuideModalOpen, setIsGuideModalOpen] = useState(false)
   const [isFormPopupOpen, setIsFormPopupOpen] = useState(false)
   const { scrollToSection } = useSmoothScroll()
+  const [reviewsSummary, setReviewsSummary] = useState<{ rating?: number; user_ratings_total?: number; url?: string } | null>(null)
+
+  useEffect(() => {
+    // Fetch summary for Google reviews (rating, total, url)
+    fetch('/api/google-reviews', { cache: 'no-store' })
+      .then(r => r.ok ? r.json() : null)
+      .then((data) => {
+        if (data) setReviewsSummary({ rating: data.rating, user_ratings_total: data.user_ratings_total, url: data.url })
+      })
+      .catch(() => {})
+  }, [])
   const handleFormClick = (location: string) => {
     // Google Analytics tracking
     trackEvent('cta_click', {
@@ -555,6 +567,43 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* Google Reviews */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-10">
+            <h2 className="font-caveat text-5xl font-normal text-gray-900 mb-3" style={{fontFamily: 'Caveat, cursive'}}>What Guests Say on Google</h2>
+            <div className="flex items-center justify-center gap-3 font-nunito text-gray-700">
+              <img src="/google-g.svg" alt="Google" className="h-6 w-6" />
+              <span className="font-montserrat font-semibold">Noma Village Lagos</span>
+              <span>•</span>
+              <span className="font-montserrat">{reviewsSummary?.rating?.toFixed ? reviewsSummary.rating.toFixed(1) : '4.8'}</span>
+              <span className="text-yellow-500">★★★★★</span>
+              <a
+                href={reviewsSummary?.url || "https://maps.google.com/?cid=12085466010589542175"}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline hover:no-underline text-lagos-blue-green"
+              >
+                {reviewsSummary?.user_ratings_total ? `${reviewsSummary.user_ratings_total} Google Reviews` : '18 Google Reviews'}
+              </a>
+            </div>
+          </div>
+
+          <GoogleReviewsCarousel />
+
+          <div className="text-center mt-10">
+            <a
+              href="https://maps.google.com/?cid=12085466010589542175"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-block px-6 py-3 rounded-lg bg-lagos-blue-green text-black font-montserrat font-semibold shadow cta-boost"
+            >
+              Read all Google Reviews
+            </a>
+          </div>
+        </div>
+      </section>
+
       {/* Why Choose Noma Village */}
       <section className="py-20 bg-lagos-aquamarine/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -605,6 +654,26 @@ export default function LandingPage() {
                 <p className="font-nunito text-gray-600 leading-relaxed">Magic happens when like-minded people connect</p>
               </CardContent>
             </Card>
+          </div>
+        </div>
+      </section>
+
+      {/* Video Testimonial */}
+      <section className="py-20 bg-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-10">
+            <h2 className="font-caveat text-5xl font-normal text-gray-900 mb-4" style={{fontFamily: 'Caveat, cursive'}}>Guest Story</h2>
+            <p className="font-nunito text-lg text-gray-600 max-w-3xl mx-auto">Listen to a Glenn sharing their experience at Noma Village</p>
+          </div>
+
+          <div className="relative w-full md:w-2/3 mx-auto rounded-xl shadow-xl overflow-hidden" style={{paddingTop: '56.25%'}}>
+            <iframe
+              src="https://www.youtube.com/embed/WnkUn11HMh8"
+              title="Noma Village Testimonial"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+              className="absolute inset-0 w-full h-full"
+            />
           </div>
         </div>
       </section>
