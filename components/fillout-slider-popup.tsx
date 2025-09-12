@@ -1,16 +1,33 @@
 "use client"
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { X } from 'lucide-react'
 
 interface FilloutSliderPopupProps {
   isOpen: boolean
   onClose: () => void
   formUrl: string
+  onFormSubmit?: () => void
 }
 
-export default function FilloutSliderPopup({ isOpen, onClose, formUrl }: FilloutSliderPopupProps) {
+export default function FilloutSliderPopup({ isOpen, onClose, formUrl, onFormSubmit }: FilloutSliderPopupProps) {
   const [isLoading, setIsLoading] = useState(true)
+  const iframeRef = useRef<HTMLIFrameElement>(null)
+
+  // Listen for form submission messages from Fillout
+  useEffect(() => {
+    if (!onFormSubmit) return
+    
+    const handleMessage = (event: MessageEvent) => {
+      // Check if the message is from Fillout form submission
+      if (event.data?.type === 'fillout:submitted') {
+        onFormSubmit()
+      }
+    }
+
+    window.addEventListener('message', handleMessage)
+    return () => window.removeEventListener('message', handleMessage)
+  }, [onFormSubmit])
 
   useEffect(() => {
     if (isOpen) {
@@ -75,10 +92,12 @@ export default function FilloutSliderPopup({ isOpen, onClose, formUrl }: Fillout
           )}
           
           <iframe
+            ref={iframeRef}
             src={formUrl}
             className="w-full h-full border-0"
             onLoad={handleIframeLoad}
             title="Application Form"
+            allow="autoplay; camera; microphone; geolocation; fullscreen"
           />
         </div>
       </div>

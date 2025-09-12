@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import EmailSignupForm from '@/components/email-signup-form'
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
@@ -10,6 +10,8 @@ import { Input } from "@/components/ui/input"
 import { Star, Quote } from "lucide-react"
 import Link from "next/link"
 import Script from "next/script"
+import { usePathname, useSearchParams } from 'next/navigation'
+import posthog from '@/lib/posthog'
 import SmoothScrollLink from "@/components/smooth-scroll-link"
 import { CountUp } from "@/components/count-up"
 import FilloutSliderPopup from "@/components/fillout-slider-popup"
@@ -19,6 +21,11 @@ export default function HomePage() {
   const [isPopupOpen, setIsPopupOpen] = useState(false)
 
   const handleJoinUsClick = () => {
+    posthog.capture('cta_clicked', {
+      location: 'hero',
+      button_text: 'Join Us',
+      page_url: window.location.pathname
+    })
     setIsPopupOpen(true)
   }
 
@@ -426,6 +433,13 @@ export default function HomePage() {
         isOpen={isPopupOpen}
         onClose={handleClosePopup}
         formUrl="https://forms.fillout.com/t/aKuWaUwvaVus"
+        onFormSubmit={() => {
+          posthog.capture('form_submitted', {
+            form_name: 'Join Us Form',
+            form_location: 'popup',
+            page_url: window.location.pathname
+          })
+        }}
       />
     </div>
   )
