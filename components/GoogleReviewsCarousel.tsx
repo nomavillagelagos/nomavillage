@@ -107,12 +107,50 @@ function getGravatarUrl(email?: string) {
   return `https://www.gravatar.com/avatar/${hash}?d=identicon&s=160`;
 }
 
+// Reusable fallback reviews used when the API returns too few items
+const FALLBACK_REVIEWS: Review[] = [
+  { author_name: "Fabienne S", rating: 5, text: "The perfect balance of focus and connection. Great wifi, yoga and awesome hosts!", author_url: "https://www.google.com/maps/contrib/113065037396401172905/reviews" },
+  { author_name: "Mr. X (volvic)", rating: 5, text: "Super welcoming community and inspiring people. Loved the energy and the place.", author_url: "https://www.google.com/maps/contrib/107772854416821939764/reviews" },
+  { author_name: "Pat Rick", rating: 5, text: "Amazing month here. Beautiful setting, 10 minutes to the beach, genuine community.", author_url: "https://www.google.com/maps/contrib/105503513928987597340/reviews" },
+  { author_name: "Sarah M", rating: 5, text: "Incredible experience! The yoga sessions and coworking spaces are top-notch. Made lifelong friends here.", author_url: "https://www.google.com/maps/contrib/118234567890123456789/reviews" },
+  { author_name: "Marco L", rating: 5, text: "Perfect location for digital nomads. Fast internet, beautiful surroundings, and amazing community vibes.", author_url: "https://www.google.com/maps/contrib/119876543210987654321/reviews" },
+  { author_name: "Emma K", rating: 4, text: "Loved the surf lessons and the proximity to the beach. Great place to disconnect and recharge.", author_url: "https://www.google.com/maps/contrib/117654321098765432109/reviews" },
+  { author_name: "David R", rating: 5, text: "Outstanding coliving experience. The hosts are wonderful and the facilities are excellent.", author_url: "https://www.google.com/maps/contrib/116543210987654321098/reviews" },
+  { author_name: "Lisa T", rating: 5, text: "Best month of my life! The combination of work, wellness, and community is unbeatable.", author_url: "https://www.google.com/maps/contrib/115432109876543210987/reviews" },
+  { author_name: "Alex J", rating: 4, text: "Great atmosphere for productivity and relaxation. The yoga classes by the pool are amazing.", author_url: "https://www.google.com/maps/contrib/114321098765432109876/reviews" },
+];
+
 async function fetchReviews(): Promise<Review[]> {
   try {
     const res = await fetch("/api/google-reviews", { cache: "no-store" });
     if (!res.ok) throw new Error("bad");
     const data = await res.json();
-    return data.reviews || [];
+    const list: Review[] = (data.reviews || []).map((r: Review) => ({
+      ...r,
+      text: typeof r.text === 'string' ? r.text : '',
+    }));
+
+    // Keep reviews that have any content, but we won't discard very short ones; just push them to the end
+    const nonEmpty = list.filter((r) => r.text.trim().length > 0);
+    const SHORT_LIMIT = 80; // characters
+    const long = nonEmpty.filter((r) => r.text.trim().length >= SHORT_LIMIT).sort((a, b) => b.text.length - a.text.length);
+    const short = nonEmpty.filter((r) => r.text.trim().length < SHORT_LIMIT).sort((a, b) => b.rating - a.rating);
+    let combined: Review[] = [...long, ...short];
+
+    // If very few reviews were returned (Places API typically returns up to 5), pad with fallbacks to keep carousel scrollable
+    const TARGET_MIN = 9;
+    if (combined.length < TARGET_MIN) {
+      const existingNames = new Set(combined.map((r) => r.author_name));
+      for (const f of FALLBACK_REVIEWS) {
+        if (combined.length >= TARGET_MIN) break;
+        if (!existingNames.has(f.author_name)) {
+          combined.push(f);
+          existingNames.add(f.author_name);
+        }
+      }
+    }
+
+    return combined;
   } catch (e) {
     return [];
   }
@@ -128,30 +166,40 @@ export default function GoogleReviewsCarousel() {
     fetchReviews().then((r) => setReviews(r));
   }, []);
 
-  // always show 3 items per slide
+  // Determine items per slide based on viewport AND number of reviews so we have at least 2 pages when possible
   useEffect(() => {
-    function update() {
+    function chooseItemsPerSlide(reviewCount: number) {
       const w = window.innerWidth;
-      if (w >= 1024) setItemsPerSlide(3); // lg and up: 3 items
-      else if (w >= 768) setItemsPerSlide(2); // md: 2 items
-      else setItemsPerSlide(1);          // sm: 1 item
-    }
-    update();
-    window.addEventListener('resize', update);
-    return () => window.removeEventListener('resize', update);
-  }, []);
+      // base target by breakpoint
+      let base = 1;
+      if (w >= 1024) base = 3;       // lg: want 3
+      else if (w >= 768) base = 2;   // md: want 2
+      else base = 1;                 // sm: 1
 
-  const items = useMemo(() => (reviews.length ? reviews : [
-    { author_name: "Fabienne S", rating: 5, text: "The perfect balance of focus and connection. Great wifi, yoga and awesome hosts!", author_url: "https://www.google.com/maps/contrib/113065037396401172905/reviews" },
-    { author_name: "Mr. X (volvic)", rating: 5, text: "Super welcoming community and inspiring people. Loved the energy and the place.", author_url: "https://www.google.com/maps/contrib/107772854416821939764/reviews" },
-    { author_name: "Pat Rick", rating: 5, text: "Amazing month here. Beautiful setting, 10 minutes to the beach, genuine community.", author_url: "https://www.google.com/maps/contrib/105503513928987597340/reviews" },
-    { author_name: "Sarah M", rating: 5, text: "Incredible experience! The yoga sessions and coworking spaces are top-notch. Made lifelong friends here.", author_url: "https://www.google.com/maps/contrib/118234567890123456789/reviews" },
-    { author_name: "Marco L", rating: 5, text: "Perfect location for digital nomads. Fast internet, beautiful surroundings, and amazing community vibes.", author_url: "https://www.google.com/maps/contrib/119876543210987654321/reviews" },
-    { author_name: "Emma K", rating: 4, text: "Loved the surf lessons and the proximity to the beach. Great place to disconnect and recharge.", author_url: "https://www.google.com/maps/contrib/117654321098765432109/reviews" },
-    { author_name: "David R", rating: 5, text: "Outstanding coliving experience. The hosts are wonderful and the facilities are excellent.", author_url: "https://www.google.com/maps/contrib/116543210987654321098/reviews" },
-    { author_name: "Lisa T", rating: 5, text: "Best month of my life! The combination of work, wellness, and community is unbeatable.", author_url: "https://www.google.com/maps/contrib/115432109876543210987/reviews" },
-    { author_name: "Alex J", rating: 4, text: "Great atmosphere for productivity and relaxation. The yoga classes by the pool are amazing.", author_url: "https://www.google.com/maps/contrib/114321098765432109876/reviews" },
-  ]), [reviews]);
+      // If there aren't enough reviews to make at least 2 pages, reduce items per slide
+      if (reviewCount > 0) {
+        // pages = ceil(count / base). If it's 1 page and we have at least 2 reviews, try to reduce base to get 2 pages
+        if (Math.ceil(reviewCount / base) < 2) {
+          if (reviewCount >= 2) {
+            // pick items per slide so that pages === 2 where possible
+            base = Math.max(1, Math.floor(reviewCount / 2));
+          } else {
+            base = 1;
+          }
+        }
+        // never exceed reviewCount
+        base = Math.min(base, reviewCount);
+      }
+      setItemsPerSlide(base || 1);
+    }
+
+    const handler = () => chooseItemsPerSlide(reviews.length);
+    handler();
+    window.addEventListener('resize', handler);
+    return () => window.removeEventListener('resize', handler);
+  }, [reviews.length]);
+
+  const items = useMemo(() => (reviews.length ? reviews : FALLBACK_REVIEWS), [reviews]);
 
   // chunk into pages based on itemsPerSlide
   const pages = useMemo(() => {
@@ -198,22 +246,32 @@ export default function GoogleReviewsCarousel() {
                           <span className="text-sm text-gray-500 font-medium">{r.rating}/5</span>
                         </div>
                         <p className="font-nunito text-gray-800 mb-6 leading-relaxed text-base">"{r.text}"</p>
-                        <div className="flex items-center gap-3 mt-auto">
+                        <div className="flex items-center gap-4 mt-auto">
                           {avatar ? (
-                            // eslint-disable-next-line @next/next/no-img-element
-                            <img src={avatar} alt={r.author_name} className="w-12 h-12 rounded-full object-cover border-2 border-gray-100" />
+                            <span className="w-12 h-12 rounded-full bg-white ring-1 ring-gray-200 shadow-sm overflow-hidden flex items-center justify-center bg-gray-50 shrink-0">
+                              {/* eslint-disable-next-line @next/next/no-img-element */}
+                              <img
+                                src={avatar}
+                                alt={r.author_name}
+                                className="w-full h-full object-cover block"
+                                loading="lazy"
+                                referrerPolicy="no-referrer"
+                              />
+                            </span>
                           ) : (
-                            <div className="w-12 h-12 rounded-full bg-gradient-to-br from-lagos-blue-green to-lagos-aquamarine flex items-center justify-center font-montserrat font-semibold text-white text-lg">
-                              {r.author_name?.charAt(0) || "?"}
+                            <div className="w-12 h-12 rounded-full bg-white ring-1 ring-gray-200 shadow-sm overflow-hidden flex items-center justify-center shrink-0">
+                              <div className="w-12 h-12 rounded-full bg-gradient-to-br from-lagos-blue-green to-lagos-aquamarine flex items-center justify-center font-montserrat font-semibold text-white text-lg">
+                                {r.author_name?.charAt(0) || "?"}
+                              </div>
                             </div>
                           )}
-                          <div className="flex flex-col">
+                          <div className="flex flex-col min-w-0">
                             {r.author_url ? (
                               <a href={r.author_url} target="_blank" rel="noopener noreferrer" className="font-montserrat font-semibold text-gray-900 hover:text-lagos-blue-green transition-colors">
                                 {r.author_name}
                               </a>
                             ) : (
-                              <div className="font-montserrat font-semibold text-gray-900">{r.author_name}</div>
+                              <div className="font-montserrat font-semibold text-gray-900 truncate">{r.author_name}</div>
                             )}
                             <div className="text-sm text-gray-500">Google Review</div>
                           </div>
@@ -227,35 +285,37 @@ export default function GoogleReviewsCarousel() {
           ))}
         </div>
       </div>
-      <div className="flex items-center justify-center gap-3 mt-8">
-        <button 
-          onClick={prev} 
-          aria-label="Previous" 
-          className="w-10 h-10 rounded-full bg-white border border-gray-200 hover:border-lagos-blue-green hover:bg-lagos-blue-green hover:text-white transition-all duration-200 flex items-center justify-center text-gray-600 font-semibold shadow-sm"
-        >
-          ‹
-        </button>
-        <div className="flex gap-2">
-          {pages.map((_, i) => (
-            <button 
-              key={i} 
-              aria-label={`Go to ${i + 1}`} 
-              onClick={() => setIndex(i)} 
-              className={cn(
-                "w-3 h-3 rounded-full transition-all duration-200", 
-                i === index ? "bg-lagos-blue-green scale-110" : "bg-gray-300 hover:bg-gray-400"
-              )}
-            />
-          ))}
+      {pages.length > 1 && (
+        <div className="flex items-center justify-center gap-3 mt-8">
+          <button 
+            onClick={prev} 
+            aria-label="Previous" 
+            className="w-10 h-10 rounded-full bg-white border border-gray-200 hover:border-lagos-blue-green hover:bg-lagos-blue-green hover:text-white transition-all duration-200 flex items-center justify-center text-gray-600 font-semibold shadow-sm"
+          >
+            ‹
+          </button>
+          <div className="flex gap-2">
+            {pages.map((_, i) => (
+              <button 
+                key={i} 
+                aria-label={`Go to ${i + 1}`} 
+                onClick={() => setIndex(i)} 
+                className={cn(
+                  "w-3 h-3 rounded-full transition-all duration-200", 
+                  i === index ? "bg-lagos-blue-green scale-110" : "bg-gray-300 hover:bg-gray-400"
+                )}
+              />
+            ))}
+          </div>
+          <button 
+            onClick={next} 
+            aria-label="Next" 
+            className="w-10 h-10 rounded-full bg-white border border-gray-200 hover:border-lagos-blue-green hover:bg-lagos-blue-green hover:text-white transition-all duration-200 flex items-center justify-center text-gray-600 font-semibold shadow-sm"
+          >
+            ›
+          </button>
         </div>
-        <button 
-          onClick={next} 
-          aria-label="Next" 
-          className="w-10 h-10 rounded-full bg-white border border-gray-200 hover:border-lagos-blue-green hover:bg-lagos-blue-green hover:text-white transition-all duration-200 flex items-center justify-center text-gray-600 font-semibold shadow-sm"
-        >
-          ›
-        </button>
-      </div>
+      )}
     </div>
   );
 }

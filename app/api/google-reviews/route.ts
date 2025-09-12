@@ -1,4 +1,6 @@
 import { NextResponse } from 'next/server'
+import { promises as fs } from 'fs'
+import path from 'path'
 
 // GET /api/google-reviews
 // Requires env: GOOGLE_PLACES_API_KEY and GOOGLE_PLACES_PLACE_ID
@@ -39,21 +41,55 @@ export async function GET() {
     }
 
     const result = data.result
-    // Normalize:
+
+    // Normalize Google reviews
+    const liveReviews = (result.reviews || []).map((r: any) => ({
+      author_name: r.author_name,
+      rating: r.rating,
+      text: r.text,
+      relative_time_description: r.relative_time_description,
+      profile_photo_url: r.profile_photo_url,
+      author_url: r.author_url,
+    }))
+
+    // Read static extra reviews if present
+    let extraReviews: any[] = []
+    try {
+      const file = path.join(process.cwd(), 'data', 'extra-reviews.json')
+      const raw = await fs.readFile(file, 'utf8')
+      extraReviews = JSON.parse(raw)
+    } catch (_) {
+      extraReviews = []
+    }
+
+    // Merge, de-dupe (by text+author), sort: longer text first; short texts go to the end
+    const all = [...liveReviews, ...extraReviews]
+      .filter((r) => r && typeof r.text === 'string')
+
+    const keyOf = (r: any) => `${(r.author_name || '').trim()}__${r.text.trim()}`
+    const seen = new Set<string>()
+    const deduped: any[] = []
+    for (const r of all) {
+      const k = keyOf(r)
+      if (!seen.has(k)) {
+        seen.add(k)
+        deduped.push(r)
+      }
+    }
+
+    const SHORT_LIMIT = 80
+    const withText = deduped.filter(r => r.text.trim().length > 0)
+    const long = withText.filter(r => r.text.trim().length >= SHORT_LIMIT).sort((a, b) => b.text.length - a.text.length)
+    const short = withText.filter(r => r.text.trim().length < SHORT_LIMIT).sort((a, b) => b.rating - a.rating)
+    const mergedReviews = [...long, ...short]
+
     const payload = {
       source: 'google-places',
       name: result.name,
       rating: result.rating,
       user_ratings_total: result.user_ratings_total,
       url: result.url,
-      reviews: (result.reviews || []).map((r: any) => ({
-        author_name: r.author_name,
-        rating: r.rating,
-        text: r.text,
-        relative_time_description: r.relative_time_description,
-        profile_photo_url: r.profile_photo_url,
-        author_url: r.author_url,
-      }))
+      reviews: mergedReviews,
     }
 
     return NextResponse.json(payload)

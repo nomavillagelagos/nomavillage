@@ -16,6 +16,7 @@ import FilloutSliderPopup from "@/components/fillout-slider-popup"
 import { useSmoothScroll } from "@/hooks/use-smooth-scroll"
 import GoogleReviewsCarousel from "@/components/GoogleReviewsCarousel"
 import { useInView } from "@/hooks/use-in-view"
+import posthog from "@/lib/posthog"
 
 export default function LandingPage() {
   const [isGuideModalOpen, setIsGuideModalOpen] = useState(false)
@@ -53,6 +54,15 @@ export default function LandingPage() {
       timestamp: new Date().toISOString()
     })
     
+    // PostHog: record primary application CTA button click
+    posthog.capture('apply_click', {
+      page: 'landing-a',
+      location,
+      form_type: 'application',
+      experiment_name: 'landing_page_test',
+      variant: 'A'
+    })
+
     setIsFormPopupOpen(true)
   }
 
@@ -63,6 +73,12 @@ export default function LandingPage() {
       location: location
     })
     
+    // PostHog: record guide button click
+    posthog.capture('guide_click', {
+      page: 'landing-a',
+      location
+    })
+
     if (location === 'hero') {
       // Scroll to the email signup section instead of opening modal
       scrollToSection('email-signup')
@@ -140,7 +156,11 @@ export default function LandingPage() {
               size="lg"
               className="text-black font-montserrat text-lg px-8 py-3 h-auto cta-boost cta-swipe cta-swipe--to-white"
               style={{ backgroundColor: '#50bbb7' }}
-              onClick={() => scrollToSection('stats')}
+              onClick={() => { 
+                // PostHog: record learn more button click in hero
+                posthog.capture('learn_more_click', { page: 'landing-a', location: 'hero' })
+                scrollToSection('stats') 
+              }}
             >
               Learn More
             </Button>
