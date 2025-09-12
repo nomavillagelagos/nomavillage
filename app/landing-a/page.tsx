@@ -143,7 +143,9 @@ export default function LandingPage() {
                 }}></span>
               </span>&nbsp;<span style={{fontSize: '24px', fontFamily: 'Montserrat, sans-serif'}}>is </span><span style={{fontWeight: '300', fontFamily: 'Montserrat, sans-serif'}}>Coliving</span>
             </h1>
-            <h2 className="text-4xl md:text-6xl font-normal mb-6 text-balance" style={{fontFamily: 'Caveat, cursive'}}>
+            <h2 className="text-4xl md:text-6xl font-normal mb-6 text-balance" style={{ fontFamily: 'Montserrat',
+    fontWeight: 200,
+    letterSpacing: '-5px'}}>
               A Home by the Ocean
             </h2>
             <h3 className="text-4xl md:text-6xl font-normal text-balance" style={{fontFamily: 'Caveat, cursive'}}>
@@ -759,15 +761,6 @@ export default function LandingPage() {
       {/* Fillout Script */}
       <Script 
         src="https://server.fillout.com/embed/v1/" 
-        strategy="afterInteractive"
-      />
-      
-      {/* Plerdy A/B Testing Script */}
-      <Script id="plerdy-ab-testing" strategy="afterInteractive">
-        {`var _suid=65205;`}
-      </Script>
-      <Script 
-        src="https://a.plerdy.com/public/js/click/plerdy_ab-min.js?v=2fbcfb7" 
         strategy="afterInteractive"
       />
       

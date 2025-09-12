@@ -641,15 +641,6 @@ export default function LandingPage() {
         strategy="afterInteractive"
       />
       
-      {/* Plerdy A/B Testing Script */}
-      <Script id="plerdy-ab-testing" strategy="afterInteractive">
-        {`var _suid=65205;`}
-      </Script>
-      <Script 
-        src="https://a.plerdy.com/public/js/click/plerdy_ab-min.js?v=2fbcfb7" 
-        strategy="afterInteractive"
-      />
-      
       <GuideModal 
         isOpen={isGuideModalOpen} 
         onClose={() => setIsGuideModalOpen(false)} 
