@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { Users, Utensils, Wifi, Car, Waves, Coffee, Shield, CheckCircle } from "lucide-react"
 import Link from "next/link"
+import { UTMAnchor } from "@/components/utm-link"
 
 export default function ColivingPage() {
   const roomTypes = [
@@ -384,7 +385,7 @@ export default function ColivingPage() {
               size="lg"
               className="bg-white text-lagos-blue-green hover:bg-white/90 font-montserrat text-lg px-8 py-3"
             >
-              <a href="https://forms.fillout.com/t/aKuWaUwvaVus" target="_blank" rel="noopener noreferrer">Apply Now</a>
+              <UTMAnchor baseUrl="https://forms.fillout.com/t/aKuWaUwvaVus" target="_blank" rel="noopener noreferrer">Apply Now</UTMAnchor>
             </Button>
             <Button
               asChild

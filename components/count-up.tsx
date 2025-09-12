@@ -15,27 +15,38 @@ export function CountUp({ end, duration = 2000, className = "" }: CountUpProps) 
   const elementRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting && !hasAnimated) {
-          setIsVisible(true)
-          setHasAnimated(true)
-        }
-      },
-      {
-        threshold: 0.5, // Trigger when 50% of the element is visible
-        rootMargin: "0px 0px -50px 0px" // Start animation slightly before fully visible
-      }
-    )
+    if (!elementRef.current) return
 
-    if (elementRef.current) {
-      observer.observe(elementRef.current)
+    // Immediate check in case the element is already in view on mount
+    const checkInViewNow = () => {
+      if (!elementRef.current || hasAnimated) return
+      const rect = elementRef.current.getBoundingClientRect()
+      const viewportHeight = window.innerHeight || document.documentElement.clientHeight
+      const elementHalf = rect.height / 2
+      const topVisible = rect.top >= 0 && rect.top <= viewportHeight - elementHalf
+      const bottomVisible = rect.bottom >= elementHalf && rect.bottom <= viewportHeight
+      if ((topVisible || bottomVisible) && !hasAnimated) {
+        setIsVisible(true)
+        setHasAnimated(true)
+      }
     }
 
-    return () => {
-      if (elementRef.current) {
-        observer.unobserve(elementRef.current)
+    checkInViewNow()
+
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting && !hasAnimated) {
+        setIsVisible(true)
+        setHasAnimated(true)
       }
+    }, {
+      threshold: 0.5,
+      rootMargin: "0px 0px -50px 0px"
+    })
+
+    observer.observe(elementRef.current)
+
+    return () => {
+      observer.disconnect()
     }
   }, [hasAnimated])
 

@@ -42,14 +42,14 @@ export default function HomePage() {
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
-            backgroundImage: "url('/stunning-lagos-portugal-coastline-with-golden-clif.png')",
+            backgroundImage: "url('/images/cliff2.jpg')",
           }}
         >
           <div className="absolute inset-0 bg-black/30"></div>
         </div>
 
         <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
-          <h1 className="font-montserrat text-6xl md:text-8xl font-bold mb-6 text-balance">Live, Work & Thrive Together</h1>
+          <h1 className="font-montserrat text-6xl md:text-8xl font-medium mb-6 text-balance">This is Coliving</h1>
           <p className="font-nunitor text-xl md:text-2xl mb-8 text-balance max-w-3xl mx-auto leading-relaxed">
             Experience with a curated community of like-minded entrepreneurial people. Connect, explore and thrive in a colorful space you can call home in sunny Lagos, Portugal.
           </p>

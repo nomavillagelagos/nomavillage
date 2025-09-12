@@ -4,10 +4,33 @@ import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { Card, CardContent } from "@/components/ui/card"
 import { Shield, Users, Palmtree, Heart, ExternalLink, X } from "lucide-react"
-import { useState } from "react"
+import { useMemo, useState } from "react"
 
 export default function JoinPage() {
   const [isSliderOpen, setIsSliderOpen] = useState(false)
+
+  // Compute Fillout URL with current page UTM parameters for the fallback slider iframe
+  const filloutUrlWithUtms = useMemo(() => {
+    const base = "https://forms.fillout.com/t/aKuWaUwvaVus"
+    try {
+      const url = new URL(base)
+      if (typeof window !== "undefined") {
+        const params = new URLSearchParams(window.location.search)
+        params.forEach((value, key) => {
+          const lower = key.toLowerCase()
+          if (lower.startsWith("utm_")) {
+            url.searchParams.set(lower, value)
+          }
+        })
+        if (document.referrer && !url.searchParams.has("referrer")) {
+          url.searchParams.set("referrer", document.referrer)
+        }
+      }
+      return url.toString()
+    } catch {
+      return base
+    }
+  }, [])
 
   const openSlider = () => {
     setIsSliderOpen(true)
@@ -182,7 +205,7 @@ export default function JoinPage() {
             <div className="relative h-[calc(100vh-88px)] overflow-hidden">
               {/* Iframe */}
               <iframe
-                src="https://forms.fillout.com/t/aKuWaUwvaVus"
+                src={filloutUrlWithUtms}
                 className="w-full h-full border-none"
                 title="Join Noma Village Application Form"
                 allow="camera; microphone; geolocation"

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, useMemo } from 'react'
 import { X } from 'lucide-react'
 
 interface FilloutSliderPopupProps {
@@ -44,6 +44,30 @@ export default function FilloutSliderPopup({ isOpen, onClose, formUrl, onFormSub
   const handleIframeLoad = () => {
     setIsLoading(false)
   }
+
+  // Compute form URL with UTM params from current page
+  const computedFormUrl = useMemo(() => {
+    try {
+      const url = new URL(formUrl)
+      if (typeof window !== 'undefined') {
+        const pageParams = new URLSearchParams(window.location.search)
+        // Copy through only utm_* params and referrer if present
+        pageParams.forEach((value, key) => {
+          const lower = key.toLowerCase()
+          if (lower.startsWith('utm_')) {
+            url.searchParams.set(lower, value)
+          }
+        })
+        // Optionally include ref using document.referrer
+        if (document.referrer && !url.searchParams.has('referrer')) {
+          url.searchParams.set('referrer', document.referrer)
+        }
+      }
+      return url.toString()
+    } catch {
+      return formUrl
+    }
+  }, [formUrl])
 
   if (!isOpen) return null
 
@@ -93,7 +117,7 @@ export default function FilloutSliderPopup({ isOpen, onClose, formUrl, onFormSub
           
           <iframe
             ref={iframeRef}
-            src={formUrl}
+            src={computedFormUrl}
             className="w-full h-full border-0"
             onLoad={handleIframeLoad}
             title="Application Form"

@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Calendar, MapPin, Users, Heart, Globe, MessageCircle, Camera, Waves } from "lucide-react"
 import Link from "next/link"
+import { UTMAnchor } from "@/components/utm-link"
 
 export default function CommunityPage() {
   const communityMembers = [
@@ -377,7 +378,7 @@ export default function CommunityPage() {
               size="lg"
               className="bg-white text-lagos-blue-green hover:bg-white/90 font-montserrat text-lg px-8 py-3"
             >
-              <a href="https://forms.fillout.com/t/aKuWaUwvaVus" target="_blank" rel="noopener noreferrer">Apply Now</a>
+              <UTMAnchor baseUrl="https://forms.fillout.com/t/aKuWaUwvaVus" target="_blank" rel="noopener noreferrer">Apply Now</UTMAnchor>
             </Button>
             <Button
               asChild
