@@ -25,6 +25,7 @@ export default function MapWithZoom({
 }: MapWithZoomProps) {
   const containerRef = useRef<HTMLDivElement | null>(null)
   const mapRef = useRef<any>(null)
+  const markerRef = useRef<any>(null)
   const playedRef = useRef(false)
   const [apiReady, setApiReady] = useState<boolean>(typeof window !== "undefined" && !!(window as any).google?.maps)
 
@@ -56,6 +57,14 @@ export default function MapWithZoom({
         gestureHandling: "greedy",
         mapTypeControl: false,
       })
+      // Add center marker (dot)
+      try {
+        markerRef.current = new (window as any).google.maps.Marker({
+          position: center,
+          map: mapRef.current,
+          title: "Selected Location",
+        })
+      } catch {}
     }
 
     const el = containerRef.current
@@ -74,6 +83,18 @@ export default function MapWithZoom({
     io.observe(el)
     return () => io.disconnect()
   }, [apiReady, center, initialZoom, targetZoom, durationMs])
+
+  // Keep marker in sync if center prop changes after init
+  useEffect(() => {
+    if (mapRef.current) {
+      try {
+        mapRef.current.setCenter(center)
+        if (markerRef.current) {
+          markerRef.current.setPosition(center)
+        }
+      } catch {}
+    }
+  }, [center])
 
   // Smooth zoom animation using requestAnimationFrame with easeInOutQuad
   function animateZoom(map: any, from: number, to: number, duration: number) {

@@ -4,7 +4,7 @@ export const usePricingSection = () => {
   const pricingData = useMemo(() => ({
     monthlyPrice: '€1,480',
     dailyRate: '€49',
-    title: '€49/day for the Coastal Nomad Life',
+    title: '€49/day for the Coastal Noma Life',
     description: 'Yoga, surf-friendly schedule, coworking, community meals, and personal growth — not just accommodation, but a lifestyle transformation in Lagos.',
     
     // Cost comparison data

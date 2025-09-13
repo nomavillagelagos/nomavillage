@@ -86,7 +86,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onJoinClick }) =
             <div className="absolute -top-3 right-6 bg-lagos-pink text-white text-xs font-montserrat font-semibold px-3 py-1 rounded-full">
               Noma Lagos Value
             </div>
-            <h3 className="font-montserrat text-xl font-semibold text-gray-900 mb-4">All-Inclusive at Noma Lagos</h3>
+            <h3 className="font-montserrat text-xl font-semibold text-gray-900 mb-4">All There at Noma Lagos</h3>
             <div className="divide-y divide-gray-200">
               {comparison.noma.map((item, index) => (
                 <div
@@ -110,11 +110,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onJoinClick }) =
           </div>
         </div>
 
-        <div className="text-center mt-2 mb-8">
-          <p className="font-montserrat text-base md:text-lg text-gray-900">
-            Save <span className="text-[#3db4b8]  font-bold">€740</span> in monthly expenses + get community & lifestyle included
-          </p>
-        </div>
+        
 
         {/* Pricing Tiers - simplified & standardized */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-20">

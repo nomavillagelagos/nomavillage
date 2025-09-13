@@ -219,24 +219,11 @@ export default function LandingPage() {
             >
               Learn More
             </Button>
-            <Button
-              size="lg"
-              className="ml-4 bg-[#ea86c0] text-white font-montserrat text-lg px-8 py-3 h-auto relative overflow-hidden group transition-colors"
-              onClick={() => {
-                posthog.capture('see_pricing_click', { page: 'landing-b', location: 'hero' })
-                scrollToSection('pricing')
-              }}
-            >
-              <span className="relative z-10 transition-colors duration-300 group-hover:text-black">See Pricing</span>
-              <span className="pointer-events-none absolute inset-0 -z-0 before:content-[''] before:absolute before:inset-0 before:bg-white before:-translate-x-full group-hover:before:translate-x-0 before:transition-transform before:duration-300 before:ease-out"></span>
-            </Button>
           </div>
 
         </div>
       </section>
 
-      {/* Pricing & Value Section */}
-      <PricingSection onJoinClick={() => handleFormClick('pricing')} />
       {/* Full-width Black Hero Band (below hero) */}
       <section
         ref={blackHeroRef}

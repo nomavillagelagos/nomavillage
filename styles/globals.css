@@ -173,6 +173,10 @@
   body {
     @apply bg-background text-foreground;
   }
+  h2 {
+    font-family: var(--font-caveat), cursive !important;
+    font-weight: 400;
+  }
 }
 
 /* Map font utility classes to Next.js font variables */

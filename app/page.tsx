@@ -51,10 +51,42 @@ export default function HomePage() {
         </div>
 
         <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
-          <h1 className="font-montserrat text-6xl md:text-8xl font-medium mb-6 text-balance">This is Coliving</h1>
-          <p className="font-nunitor text-xl md:text-2xl mb-8 text-balance max-w-3xl mx-auto leading-relaxed">
-            Experience living with a curated community of like-minded entrepreneurial people. Connect, explore and thrive in a colorful space you can call home in sunny Lagos, Portugal.
-          </p>
+          <h1 className="text-6xl md:text-8xl font-bold mb-4 text-balance leading-tight" style={{fontFamily: 'Montserrat, sans-serif'}}>
+            <span style={{
+              position: 'relative', 
+              color: 'white', 
+              fontSize: '1.4em', 
+              fontFamily: 'Caveat, cursive'
+            }}>
+              <span style={{
+                position: 'relative',
+                zIndex: 1
+              }}>This</span>
+              <span style={{
+                position: 'absolute',
+                left: '-10%',
+                right: '-10%',
+                bottom: '-4%',
+                height: '50px',
+                width: '120%',
+                backgroundImage: 'url(/brush-underline.webp)',
+                backgroundRepeat: 'no-repeat',
+                backgroundSize: 'contain',
+                backgroundPosition: 'center bottom',
+                transform: 'rotate(-2deg)',
+                zIndex: -1,
+                display: 'block',
+                filter: 'brightness(0) invert(1)',
+                opacity: 1
+              }}></span>
+            </span>&nbsp;<span style={{fontSize: '24px', fontFamily: 'Montserrat, sans-serif'}}>is </span><span style={{fontWeight: '300', fontFamily: 'Montserrat, sans-serif'}}>Coliving</span>
+          </h1>
+          <h2 className="text-4xl md:text-6xl font-normal mb-6 text-balance" style={{ fontFamily: 'Montserrat', fontWeight: 200, letterSpacing: '-3px'}}>
+            A Home by the Ocean
+          </h2>
+          <h3 className="text-4xl md:text-6xl font-normal text-balance mb-8" style={{fontFamily: 'Caveat, cursive'}}>
+            Work, Surf and Yoga
+          </h3>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button
