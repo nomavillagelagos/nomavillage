@@ -26,7 +26,7 @@ function LocationHighlights() {
   const items = [
     { icon: '🏖️', title: '15-minute walk to Praia Porto de Mós', desc: 'One of the Algarve’s most iconic beaches' },
     { icon: '🌊', title: 'Surrounded by world-famous golden cliffs', desc: 'Dramatic coastline right on your doorstep' },
-    { icon: '🏛️', title: '5-minute walk to Lagos historic center', desc: 'Cafés, culture, and charming streets' },
+    { icon: '🏛️', title: '15-minute walk to Lagos historic center', desc: 'Cafés, culture, and charming streets' },
     { icon: '✈️', title: '1 hour from Faro Airport', desc: 'Easy access for national and international flights' },
     { icon: '🏄‍♀️', title: 'Surf breaks within walking distance', desc: 'Multiple spots for all levels nearby' },
     { icon: '🍽️', title: 'Restaurants & nightlife next door', desc: 'Vibrant food scene and evening energy' },
