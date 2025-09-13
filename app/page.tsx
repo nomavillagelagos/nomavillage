@@ -15,6 +15,8 @@ import posthog from '@/lib/posthog'
 import SmoothScrollLink from "@/components/smooth-scroll-link"
 import { CountUp } from "@/components/count-up"
 import FilloutSliderPopup from "@/components/fillout-slider-popup"
+import WhatsAppDirectButton from "@/components/WhatsAppDirectButton"
+import FAQSection from "@/components/FAQ"
 
 export default function HomePage() {
   // Using SmoothScrollLink for controlled, smooth in-page scrolling
@@ -51,7 +53,7 @@ export default function HomePage() {
         <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
           <h1 className="font-montserrat text-6xl md:text-8xl font-medium mb-6 text-balance">This is Coliving</h1>
           <p className="font-nunitor text-xl md:text-2xl mb-8 text-balance max-w-3xl mx-auto leading-relaxed">
-            Experience with a curated community of like-minded entrepreneurial people. Connect, explore and thrive in a colorful space you can call home in sunny Lagos, Portugal.
+            Experience living with a curated community of like-minded entrepreneurial people. Connect, explore and thrive in a colorful space you can call home in sunny Lagos, Portugal.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -410,6 +412,9 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* FAQ Section */}
+      <FAQSection showViewAllLink={true} />
+
       {/* Newsletter Signup */}
       <section id="stay-connected" className="py-20 bg-gradient-to-r from-lagos-blue-green to-lagos-pink">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -440,6 +445,12 @@ export default function HomePage() {
             page_url: window.location.pathname
           })
         }}
+      />
+
+      {/* Floating WhatsApp Direct Button (homepage) */}
+      <WhatsAppDirectButton
+        source="homepage"
+        messagePreset="october_interest"
       />
     </div>
   )

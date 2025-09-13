@@ -17,6 +17,57 @@ import { useSmoothScroll } from "@/hooks/use-smooth-scroll"
 import GoogleReviewsCarousel from "@/components/GoogleReviewsCarousel"
 import { useInView } from "@/hooks/use-in-view"
 import posthog from "@/lib/posthog"
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
+import WhatsAppDirectButton from "@/components/WhatsAppDirectButton"
+
+// Proximity cards with in-view animation
+function LocationHighlights() {
+  const items = [
+    { icon: '🏖️', title: '3-minute walk to Praia da Dona Ana', desc: 'One of the Algarve’s most iconic beaches' },
+    { icon: '🌊', title: 'Surrounded by world-famous golden cliffs', desc: 'Dramatic coastline right on your doorstep' },
+    { icon: '🏛️', title: '5-minute walk to Lagos historic center', desc: 'Cafés, culture, and charming streets' },
+    { icon: '✈️', title: '1 hour from Faro Airport', desc: 'Easy access for national and international flights' },
+    { icon: '🏄‍♀️', title: 'Surf breaks within walking distance', desc: 'Multiple spots for all levels nearby' },
+    { icon: '🍽️', title: 'Restaurants & nightlife next door', desc: 'Vibrant food scene and evening energy' },
+  ]
+
+  useEffect(() => {
+    const cards = document.querySelectorAll('.loc-card')
+    const obs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add('opacity-100', 'translate-y-0')
+            e.target.classList.remove('opacity-0', 'translate-y-4')
+          }
+        })
+      },
+      { threshold: 0.2 }
+    )
+    cards.forEach((c) => obs.observe(c))
+    return () => obs.disconnect()
+  }, [])
+
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {items.map((it, i) => (
+        <div
+          key={i}
+          className="loc-card opacity-0 translate-y-4 transition-all duration-500 ease-out border rounded-xl p-5 bg-white shadow-sm hover:shadow-md hover:-translate-y-0.5"
+          style={{ transitionDelay: `${i * 60}ms` }}
+        >
+          <div className="flex items-center gap-3 mb-2">
+            <div className="h-9 w-9 rounded-full bg-lagos-aquamarine/20 flex items-center justify-center text-lg">
+              <span aria-hidden>{it.icon}</span>
+            </div>
+            <h4 className="font-montserrat font-semibold text-gray-900 text-base">{it.title}</h4>
+          </div>
+          <p className="font-nunito text-sm text-gray-600">{it.desc}</p>
+        </div>
+      ))}
+    </div>
+  )
+}
 
 export default function LandingPage() {
   const [isGuideModalOpen, setIsGuideModalOpen] = useState(false)
@@ -145,7 +196,7 @@ export default function LandingPage() {
             </h1>
             <h2 className="text-4xl md:text-6xl font-normal mb-6 text-balance" style={{ fontFamily: 'Montserrat',
     fontWeight: 200,
-    letterSpacing: '-5px'}}>
+    letterSpacing: '-3px'}}>
               A Home by the Ocean
             </h2>
             <h3 className="text-4xl md:text-6xl font-normal text-balance" style={{fontFamily: 'Caveat, cursive'}}>
@@ -166,11 +217,181 @@ export default function LandingPage() {
             >
               Learn More
             </Button>
+            <Button
+              size="lg"
+              className="ml-4 bg-[#ea86c0] text-white font-montserrat text-lg px-8 py-3 h-auto relative overflow-hidden group transition-colors"
+              onClick={() => {
+                posthog.capture('see_pricing_click', { page: 'landing-b', location: 'hero' })
+                scrollToSection('pricing')
+              }}
+            >
+              <span className="relative z-10 transition-colors duration-300 group-hover:text-black">See Pricing</span>
+              <span className="pointer-events-none absolute inset-0 -z-0 before:content-[''] before:absolute before:inset-0 before:bg-white before:-translate-x-full group-hover:before:translate-x-0 before:transition-transform before:duration-300 before:ease-out"></span>
+            </Button>
           </div>
 
         </div>
       </section>
 
+      {/* Pricing & Value Section */}
+      <section id="pricing" className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Hero hint */}
+          <div className="text-center mb-2">
+            <p className="font-montserrat text-sm text-gray-500">From <span className="font-semibold text-gray-800">€1,480/month</span></p>
+          </div>
+
+          {/* Value justification */}
+          <div className="text-center mb-12">
+            <h2 className="font-montserrat text-4xl md:text-5xl font-bold text-gray-900 mb-3">€49/day for a complete lifestyle</h2>
+            <p className="font-nunito text-lg text-gray-600 max-w-3xl mx-auto">Yoga, surf-friendly schedule, coworking, community meals, and personal growth — not just accommodation, but a lifestyle transformation in Lagos.</p>
+          </div>
+
+          {/* Cost breakdown comparison */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+            <div className="border rounded-xl p-6 bg-gray-50">
+              <h3 className="font-montserrat text-xl font-semibold text-gray-900 mb-4">Separate Costs in Lagos (per month)</h3>
+              <div className="divide-y divide-gray-200">
+                <div className="flex items-center justify-between py-3">
+                  <span className="font-nunito text-gray-700">Decent room in shared flat</span>
+                  <span className="font-montserrat text-gray-900">€1,000</span>
+                </div>
+                <div className="flex items-center justify-between py-3">
+                  <span className="font-nunito text-gray-700">Yoga classes (2x/week)</span>
+                  <span className="font-montserrat text-gray-900">€120</span>
+                </div>
+                <div className="flex items-center justify-between py-3">
+                  <span className="font-nunito text-gray-700">Surf sessions (4)</span>
+                  <span className="font-montserrat text-gray-900">€160</span>
+                </div>
+                <div className="flex items-center justify-between py-3">
+                  <span className="font-nunito text-gray-700">Coworking desk</span>
+                  <span className="font-montserrat text-gray-900">€200</span>
+                </div>
+                <div className="flex items-center justify-between py-3">
+                  <span className="font-nunito text-gray-700">Community meals & events</span>
+                  <span className="font-montserrat text-gray-900">€200</span>
+                </div>
+                <div className="flex items-center justify-between py-3 font-montserrat">
+                  <span className="text-gray-900 font-semibold">Estimated total</span>
+                  <span className="text-gray-900 font-bold">€1,680</span>
+                </div>
+              </div>
+            </div>
+
+            <div className="border rounded-xl p-6 bg-white shadow-sm">
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="font-montserrat text-xl font-semibold text-gray-900">Noma Lagos Colive</h3>
+                <Badge className="bg-lagos-blue-green text-black">All-Inclusive</Badge>
+              </div>
+              <ul className="space-y-3">
+                {[
+                  'Private room in beautiful community house',
+                  'Daily yoga-inspired routine and mindfulness',
+                  'Surf-friendly schedules and coastal living',
+                  'Coworking spaces designed for deep work',
+                  'Community dinners and curated connections',
+                  'Growth workshops and accountability culture',
+                ].map((item, idx) => (
+                  <li key={idx} className="flex items-start gap-3">
+                    <CheckCircle className="h-5 w-5 text-green-500 mt-0.5" />
+                    <span className="font-nunito text-gray-700">{item}</span>
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-6 flex items-center justify-between">
+                <div>
+                  <div className="text-sm text-gray-500">Our price</div>
+                  <div className="font-montserrat text-3xl font-bold text-gray-900">€1,480</div>
+                </div>
+                <Button
+                  className="bg-lagos-pink hover:bg-lagos-pink/90 text-white font-montserrat"
+                  onClick={() => handleFormClick('pricing_lagos_all_in')}
+                >
+                  Apply Now
+                </Button>
+              </div>
+            </div>
+          </div>
+
+          {/* Social proof + scarcity */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-12">
+            <div className="lg:col-span-2 border rounded-xl p-6 bg-white">
+              <div className="grid gap-6 md:grid-cols-2">
+                <div>
+                  <div className="flex items-center gap-2 mb-2">
+                    <Star className="h-5 w-5 text-lagos-amber" />
+                    <span className="font-montserrat font-semibold text-gray-900">Incredible value for money</span>
+                  </div>
+                  <p className="font-nunito text-gray-700">“I paid less than renting alone and got yoga, community, and accountability that helped me grow personally and professionally.”</p>
+                  <div className="mt-2 text-sm text-gray-500">— Ana, Berlin</div>
+                </div>
+                <div>
+                  <div className="flex items-center gap-2 mb-2">
+                    <Star className="h-5 w-5 text-lagos-amber" />
+                    <span className="font-montserrat font-semibold text-gray-900">Worth every euro</span>
+                  </div>
+                  <p className="font-nunito text-gray-700">“The lifestyle structure and community are priceless. I left energized, focused, and with lifelong friends.”</p>
+                  <div className="mt-2 text-sm text-gray-500">— Daniel, Amsterdam</div>
+                </div>
+              </div>
+            </div>
+            <div className="border rounded-xl p-6 bg-gray-50">
+              <div className="font-montserrat text-gray-900 font-semibold mb-2">Availability</div>
+              <div className="text-sm text-gray-600 mb-3">6 of 12 spots confirmed</div>
+              <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
+                <div className="h-full bg-lagos-pink rounded-full" style={{ width: '50%' }}></div>
+              </div>
+              <div className="text-xs text-gray-500 mt-2">Limited capacity to protect quality and connection</div>
+            </div>
+          </div>
+
+          {/* Pricing options */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* 2 Weeks */}
+            <div className="relative border rounded-2xl p-6 bg-white hover:shadow-lg transition-shadow duration-300">
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="font-montserrat text-xl font-semibold text-gray-900">2 Weeks</h3>
+              </div>
+              <div className="font-montserrat text-4xl font-bold text-gray-900">€790</div>
+              <div className="text-sm text-gray-500 mb-4">Great to get started</div>
+              <ul className="space-y-2 mb-6">
+                {['Private room', 'Coworking access', 'Community dinners', 'Yoga-inspired routine'].map((item, i) => (
+                  <li key={i} className="flex items-center gap-2 text-gray-700"><CheckCircle className="h-4 w-4 text-green-500" /> <span className="font-nunito">{item}</span></li>
+                ))}
+              </ul>
+              <Button
+                variant="outline"
+                className="w-full font-montserrat"
+                onClick={() => handleFormClick('pricing_2weeks')}
+              >
+                Choose 2 Weeks
+              </Button>
+            </div>
+
+            {/* 1 Month - Best Value */}
+            <div className="relative border-2 border-lagos-blue-green rounded-2xl p-6 bg-white shadow-xl hover:shadow-2xl transition-all duration-300">
+              <Badge className="absolute -top-3 right-4 bg-lagos-blue-green text-black">Best Value</Badge>
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="font-montserrat text-xl font-semibold text-gray-900">1 Month</h3>
+              </div>
+              <div className="font-montserrat text-5xl font-bold text-gray-900">€1,480</div>
+              <div className="text-sm text-gray-500 mb-4">Most popular • Save vs daily rate</div>
+              <ul className="space-y-2 mb-6">
+                {['Private room', 'Coworking access', 'Community dinners', 'Yoga & surf-friendly schedule', 'Growth & accountability'].map((item, i) => (
+                  <li key={i} className="flex items-center gap-2 text-gray-700"><CheckCircle className="h-4 w-4 text-green-500" /> <span className="font-nunito">{item}</span></li>
+                ))}
+              </ul>
+              <Button
+                className="w-full bg-lagos-pink hover:bg-lagos-pink/90 text-white font-montserrat"
+                onClick={() => handleFormClick('pricing_1month')}
+              >
+                Choose 1 Month
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
       {/* Full-width Black Hero Band (below hero) */}
       <section
         ref={blackHeroRef}
@@ -327,6 +548,41 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* Location Section */}
+      <section id="location" className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Header */}
+          <div className="text-center mb-10">
+            <div className="inline-flex items-center gap-2 text-lagos-blue-green">
+              <MapPin className="h-5 w-5" />
+              <span className="font-montserrat text-sm tracking-wide">Your Transformation Base</span>
+            </div>
+            <h2 className="font-montserrat text-4xl md:text-5xl font-bold text-gray-900 mt-2">Noma Village Lagos</h2>
+            <p className="font-nunito text-gray-600 mt-2">Nature • Culture • Convenience — the golden triangle of Praia da Dona Ana, dramatic cliffs, and Lagos historic center</p>
+          </div>
+
+          {/* Map */}
+          <div className="mb-10">
+            <div className="relative overflow-hidden rounded-2xl shadow-xl ring-1 ring-black/5">
+              <iframe
+                title="Noma Village Lagos Location Map"
+                src="https://www.google.com/maps?q=37.0925267,-8.6828956&hl=en&z=11&output=embed"
+                className="w-full h-[360px] md:h-[440px]" 
+                style={{ filter: 'grayscale(10%) saturate(110%) contrast(95%)' }}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+              <div className="absolute top-3 left-3 bg-white/90 backdrop-blur rounded-md px-3 py-1 text-xs font-montserrat shadow">
+                37.0925267, -8.6828956 • Lagos, Portugal
+              </div>
+            </div>
+          </div>
+
+          {/* Proximity Highlights */}
+          <LocationHighlights />
+        </div>
+      </section>
+
       {/* Photo Gallery */}
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -422,11 +678,29 @@ export default function LandingPage() {
             </div>
 
             <div>
-              <img
-                src="/luxury-ocean-view-bedroom-with-balcony-2.jpg"
-                alt="Private room at Noma Village"
-                className="w-full h-96 object-cover object-left md:object-center rounded-lg shadow-xl"
-              />
+              <div className="rounded-2xl shadow-xl bg-white p-2">
+                <Tabs defaultValue="room" className="w-full">
+                  <div className="relative w-full rounded-xl overflow-hidden" style={{paddingTop: '56.25%'}}>
+                    <TabsContent value="room" className="absolute inset-0">
+                      <img src="/images/room4.jpg" alt="Room" className="w-full h-full object-cover rounded-xl" />
+                    </TabsContent>
+                    <TabsContent value="bath" className="absolute inset-0">
+                      <img src="/images/private-bathroom-with-modern-fixtures.jpg" alt="Bathroom" className="w-full h-full object-cover rounded-xl" />
+                    </TabsContent>
+                    <TabsContent value="view" className="absolute inset-0">
+                      <img src="/images/balcony2.jpg" alt="View from room" className="w-full h-full object-cover rounded-xl" />
+                    </TabsContent>
+                  </div>
+
+                  <div className="mt-2 flex justify-center">
+                    <TabsList className="bg-gray-100">
+                      <TabsTrigger value="room">Room</TabsTrigger>
+                      <TabsTrigger value="bath">Bathroom</TabsTrigger>
+                      <TabsTrigger value="view">View</TabsTrigger>
+                    </TabsList>
+                  </div>
+                </Tabs>
+              </div>
             </div>
           </div>
         </div>
@@ -773,6 +1047,12 @@ export default function LandingPage() {
         isOpen={isFormPopupOpen}
         onClose={() => setIsFormPopupOpen(false)}
         formUrl="https://forms.fillout.com/t/aKuWaUwvaVus"
+      />
+
+      {/* Floating WhatsApp Direct Button */}
+      <WhatsAppDirectButton
+        messagePreset="october_interest"
+        source="landing-b"
       />
     </div>
   )

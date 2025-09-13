@@ -6,8 +6,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Loader2, CheckCircle, AlertCircle } from 'lucide-react'
-import { trackEvent } from '@/components/GoogleAnalytics'
-import posthog from '@/lib/posthog'
+import { trackEventWithAttribution, captureWithAttribution } from '@/lib/track'
 
 interface EmailSignupFormProps {
   title?: string
@@ -36,12 +35,11 @@ export default function EmailSignupForm({
     setIsLoading(true)
     setStatus('idle')
 
-    // Track form submission attempt
-    trackEvent('form_submit_attempt', {
+    // Track form submission attempt (GA + PostHog with attribution)
+    trackEventWithAttribution('form_submit_attempt', {
       form_name: 'email_signup',
       form_type: showNames ? 'detailed' : 'simple',
       source,
-      variant: window?.location.pathname.includes('landing-b') ? 'B' : 'A'
     })
 
     try {
@@ -65,20 +63,17 @@ export default function EmailSignupForm({
       const data = await response.json()
 
       if (response.ok) {
-        // Track successful submission
-        trackEvent('form_submit_success', {
+        // Track successful submission (GA) and capture in PostHog with attribution
+        trackEventWithAttribution('form_submit_success', {
           form_name: 'email_signup',
           form_type: showNames ? 'detailed' : 'simple',
           source,
-          variant: window?.location.pathname.includes('landing-b') ? 'B' : 'A'
         })
 
-        // PostHog capture
-        posthog.capture('form_submit_success', {
+        captureWithAttribution('form_submit_success', {
           form_name: 'email_signup',
           form_type: showNames ? 'detailed' : 'simple',
           source,
-          variant: window?.location.pathname.includes('landing-b') ? 'B' : 'A',
           email_provided: Boolean(email)
         })
 
@@ -88,20 +83,18 @@ export default function EmailSignupForm({
         setFirstName('')
         setLastName('')
       } else {
-        // Track form submission error
-        trackEvent('form_submit_error', {
+        // Track form submission error (GA) and PostHog with attribution
+        trackEventWithAttribution('form_submit_error', {
           form_name: 'email_signup',
           form_type: showNames ? 'detailed' : 'simple',
           source,
-          variant: window?.location.pathname.includes('landing-b') ? 'B' : 'A',
           error: data.error || 'unknown_error'
         })
 
-        posthog.capture('form_submit_error', {
+        captureWithAttribution('form_submit_error', {
           form_name: 'email_signup',
           form_type: showNames ? 'detailed' : 'simple',
           source,
-          variant: window?.location.pathname.includes('landing-b') ? 'B' : 'A',
           error: data.error || 'unknown_error'
         })
 

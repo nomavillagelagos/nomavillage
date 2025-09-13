@@ -33,6 +33,8 @@ export function middleware(request: NextRequest) {
     if (request.nextUrl.pathname === '/landing') {
       const url = request.nextUrl.clone()
       url.pathname = `/landing-${variant.toLowerCase()}`
+      // Preserve all query parameters (UTMs, etc.)
+      url.search = request.nextUrl.search
       
       // Add variant info to headers for analytics
       const rewriteResponse = NextResponse.rewrite(url)

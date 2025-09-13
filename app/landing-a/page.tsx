@@ -1,8 +1,8 @@
 "use client"
 
-import { Button } from "@/components/ui/button"
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
+import PricingSection from "@/components/PricingSection";
 import { Star, Quote, CheckCircle, Users, Utensils, Wifi, Waves, Coffee, Heart, Globe, MessageCircle, Bath, Laptop, Bed, AirVent, Shirt, Zap, Monitor, MapPin, Shield, Palmtree } from "lucide-react"
 import Link from "next/link"
 import Script from "next/script"
@@ -17,8 +17,65 @@ import { useSmoothScroll } from "@/hooks/use-smooth-scroll"
 import GoogleReviewsCarousel from "@/components/GoogleReviewsCarousel"
 import { useInView } from "@/hooks/use-in-view"
 import posthog from "@/lib/posthog"
+import WhatsAppDirectButton from "@/components/WhatsAppDirectButton"
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
+
+// Proximity cards with in-view animation
+function LocationHighlights() {
+  const items = [
+    { icon: '🏖️', title: '3-minute walk to Praia da Dona Ana', desc: 'One of the Algarve’s most iconic beaches' },
+    { icon: '🌊', title: 'Surrounded by world-famous golden cliffs', desc: 'Dramatic coastline right on your doorstep' },
+    { icon: '🏛️', title: '5-minute walk to Lagos historic center', desc: 'Cafés, culture, and charming streets' },
+    { icon: '✈️', title: '1 hour from Faro Airport', desc: 'Easy access for national and international flights' },
+    { icon: '🏄‍♀️', title: 'Surf breaks within walking distance', desc: 'Multiple spots for all levels nearby' },
+    { icon: '🍽️', title: 'Restaurants & nightlife next door', desc: 'Vibrant food scene and evening energy' },
+  ]
+
+  // simple IntersectionObserver for reveal-on-scroll
+  useEffect(() => {
+    const cards = document.querySelectorAll('.loc-card')
+    const obs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) {
+            e.target.classList.add('opacity-100', 'translate-y-0')
+            e.target.classList.remove('opacity-0', 'translate-y-4')
+          }
+        })
+      },
+      { threshold: 0.2 }
+    )
+    cards.forEach((c) => obs.observe(c))
+    return () => obs.disconnect()
+  }, [])
+
+  return (
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {items.map((it, i) => (
+        <div
+          key={i}
+          className="loc-card opacity-0 translate-y-4 transition-all duration-500 ease-out border rounded-xl p-5 bg-white shadow-sm hover:shadow-md hover:-translate-y-0.5"
+          style={{ transitionDelay: `${i * 60}ms` }}
+        >
+          <div className="flex items-center gap-3 mb-2">
+            <div className="h-9 w-9 rounded-full bg-lagos-aquamarine/20 flex items-center justify-center text-lg">
+              <span aria-hidden>{it.icon}</span>
+            </div>
+            <h4 className="font-montserrat font-semibold text-gray-900 text-base">{it.title}</h4>
+          </div>
+          <p className="font-nunito text-sm text-gray-600">{it.desc}</p>
+        </div>
+      ))}
+    </div>
+  )
+}
 
 export default function LandingPage() {
+  const handleJoinClick = () => {
+    // Handle join click logic here
+    // This will be passed to the PricingSection component
+    console.log('Join button clicked');
+  };
   const [isGuideModalOpen, setIsGuideModalOpen] = useState(false)
   const [isFormPopupOpen, setIsFormPopupOpen] = useState(false)
   const { scrollToSection } = useSmoothScroll()
@@ -145,7 +202,7 @@ export default function LandingPage() {
             </h1>
             <h2 className="text-4xl md:text-6xl font-normal mb-6 text-balance" style={{ fontFamily: 'Montserrat',
     fontWeight: 200,
-    letterSpacing: '-5px'}}>
+    letterSpacing: '-3px'}}>
               A Home by the Ocean
             </h2>
             <h3 className="text-4xl md:text-6xl font-normal text-balance" style={{fontFamily: 'Caveat, cursive'}}>
@@ -165,6 +222,17 @@ export default function LandingPage() {
               }}
             >
               Learn More
+            </Button>
+            <Button
+              size="lg"
+              className="ml-4 bg-[#ea86c0] text-white font-montserrat text-lg px-8 py-3 h-auto relative overflow-hidden group transition-colors"
+              onClick={() => {
+                posthog.capture('see_pricing_click', { page: 'landing-a', location: 'hero' })
+                scrollToSection('pricing')
+              }}
+            >
+              <span className="relative z-10 transition-colors duration-300 group-hover:text-black">See Pricing</span>
+              <span className="pointer-events-none absolute inset-0 -z-0 before:content-[''] before:absolute before:inset-0 before:bg-white before:-translate-x-full group-hover:before:translate-x-0 before:transition-transform before:duration-300 before:ease-out"></span>
             </Button>
           </div>
 
@@ -327,8 +395,43 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* Location Section */}
+      <section id="location" className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Header */}
+          <div className="text-center mb-10">
+            <div className="inline-flex items-center gap-2 text-lagos-blue-green">
+              <MapPin className="h-5 w-5" />
+              <span className="font-montserrat text-sm tracking-wide">Your Transformation Base</span>
+            </div>
+            <h2 className="font-montserrat text-4xl md:text-5xl font-bold text-gray-900 mt-2">Noma Village Lagos</h2>
+            <p className="font-nunito text-gray-600 mt-2">Nature • Culture • Convenience — the golden triangle of Praia da Dona Ana, dramatic cliffs, and Lagos historic center</p>
+          </div>
+
+          {/* Map */}
+          <div className="mb-10">
+            <div className="relative overflow-hidden rounded-2xl shadow-xl ring-1 ring-black/5">
+              <iframe
+                title="Noma Village Lagos Location Map"
+                src="https://www.google.com/maps?q=37.0925267,-8.6828956&hl=en&z=11&output=embed"
+                className="w-full h-[360px] md:h-[440px]" 
+                style={{ filter: 'grayscale(10%) saturate(110%) contrast(95%)' }}
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+              <div className="absolute top-3 left-3 bg-white/90 backdrop-blur rounded-md px-3 py-1 text-xs font-montserrat shadow">
+                37.0925267, -8.6828956 • Lagos, Portugal
+              </div>
+            </div>
+          </div>
+
+          {/* Proximity Highlights */}
+          <LocationHighlights />
+        </div>
+      </section>
+
       {/* Photo Gallery */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="font-caveat text-5xl font-normal text-gray-900 mb-4" style={{fontFamily: 'Caveat, cursive'}}>Life at Noma Village</h2>
@@ -422,11 +525,29 @@ export default function LandingPage() {
             </div>
 
             <div>
-              <img
-                src="/luxury-ocean-view-bedroom-with-balcony-2.jpg"
-                alt="Private room at Noma Village"
-                className="w-full h-96 object-cover object-left md:object-center rounded-lg shadow-xl"
-              />
+              <div className="rounded-2xl shadow-xl bg-white p-2">
+                <Tabs defaultValue="room" className="w-full">
+                  <div className="relative w-full rounded-xl overflow-hidden" style={{paddingTop: '56.25%'}}>
+                    <TabsContent value="room" className="absolute inset-0">
+                      <img src="/images/room4.jpg" alt="Room" className="w-full h-full object-cover rounded-xl" />
+                    </TabsContent>
+                    <TabsContent value="bath" className="absolute inset-0">
+                      <img src="/images/private-bathroom-with-modern-fixtures.jpg" alt="Bathroom" className="w-full h-full object-cover rounded-xl" />
+                    </TabsContent>
+                    <TabsContent value="view" className="absolute inset-0">
+                      <img src="/images/balcony2.jpg" alt="View from room" className="w-full h-full object-cover rounded-xl" />
+                    </TabsContent>
+                  </div>
+
+                  <div className="mt-2 flex justify-center">
+                    <TabsList className="bg-gray-100">
+                      <TabsTrigger value="room">Room</TabsTrigger>
+                      <TabsTrigger value="bath">Bathroom</TabsTrigger>
+                      <TabsTrigger value="view">View</TabsTrigger>
+                    </TabsList>
+                  </div>
+                </Tabs>
+              </div>
             </div>
           </div>
         </div>
@@ -710,6 +831,9 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* Pricing & Value Section */}
+      <PricingSection onJoinClick={handleJoinClick} />
+
       {/* Video Testimonial */}
       <section className="py-20 bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -773,6 +897,12 @@ export default function LandingPage() {
         isOpen={isFormPopupOpen}
         onClose={() => setIsFormPopupOpen(false)}
         formUrl="https://forms.fillout.com/t/aKuWaUwvaVus"
+      />
+
+      {/* Floating WhatsApp Direct Button */}
+      <WhatsAppDirectButton
+        messagePreset="october_interest"
+        source="landing-a"
       />
     </div>
   )
