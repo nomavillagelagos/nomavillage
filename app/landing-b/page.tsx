@@ -8,6 +8,7 @@ import Link from "next/link"
 import Script from "next/script"
 import Image from "next/image"
 import { CountUp } from "@/components/count-up"
+import MapWithZoom from "@/components/MapWithZoom"
 import PricingSection from "@/components/PricingSection"
 import { trackEvent } from "@/components/GoogleAnalytics"
 import { useEffect, useState } from "react"
@@ -405,16 +406,15 @@ export default function LandingPage() {
             <p className="font-nunito text-gray-600 mt-2">Nature • Culture • Convenience — the golden triangle of Praia da Dona Ana, dramatic cliffs, and Lagos historic center</p>
           </div>
 
-          {/* Map */}
+          {/* Map (animated zoom on visibility) */}
           <div className="mb-10">
             <div className="relative overflow-hidden rounded-2xl shadow-xl ring-1 ring-black/5">
-              <iframe
-                title="Noma Village Lagos Location Map"
-                src="https://www.google.com/maps?q=37.0925267,-8.6828956&hl=en&z=11&output=embed"
-                className="w-full h-[360px] md:h-[440px]" 
-                style={{ filter: 'grayscale(10%) saturate(110%) contrast(95%)' }}
-                loading="lazy"
-                referrerPolicy="no-referrer-when-downgrade"
+              <MapWithZoom
+                className="w-full rounded-2xl"
+                style={{ height: '360px' }}
+                initialZoom={3}
+                targetZoom={12}
+                durationMs={2500}
               />
               <div className="absolute top-3 left-3 bg-white/90 backdrop-blur rounded-md px-3 py-1 text-xs font-montserrat shadow">
                 37.0925267, -8.6828956 • Lagos, Portugal

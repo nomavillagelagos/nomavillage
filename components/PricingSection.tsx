@@ -95,7 +95,11 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onJoinClick }) =
                   style={{ transitionDelay: `${index * 80}ms` }}
                 >
                   <span className="font-nunito text-gray-700">{item.item}</span>
-                  <span className="font-montserrat font-semibold text-green-700">{mapIncludedToYes(item.price)}</span>
+                  {mapIncludedToYes(item.price) === 'Yes' ? (
+                    <span className="font-montserrat font-semibold" style={{ color: '#3db4b8' }}>Yes</span>
+                  ) : (
+                    <span className="font-montserrat font-semibold text-green-700">{mapIncludedToYes(item.price)}</span>
+                  )}
                 </div>
               ))}
               <div className="flex items-center justify-between pt-4 mt-4 border-t-2 border-lagos-pink/50">
@@ -108,7 +112,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onJoinClick }) =
 
         <div className="text-center mt-2 mb-8">
           <p className="font-montserrat text-base md:text-lg text-gray-900">
-            Save <span className="text-green-700 font-bold">€740</span> in monthly expenses + get community & lifestyle included
+            Save <span className="text-[#3db4b8]  font-bold">€740</span> in monthly expenses + get community & lifestyle included
           </p>
         </div>
 
