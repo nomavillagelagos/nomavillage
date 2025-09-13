@@ -2,6 +2,8 @@
 
 import { useState, useEffect, useRef, useMemo } from 'react'
 import { X } from 'lucide-react'
+import { trackEvent } from '@/components/GoogleAnalytics'
+import posthog from '@/lib/posthog'
 
 interface FilloutSliderPopupProps {
   isOpen: boolean
@@ -14,6 +16,25 @@ export default function FilloutSliderPopup({ isOpen, onClose, formUrl, onFormSub
   const [isLoading, setIsLoading] = useState(true)
   const iframeRef = useRef<HTMLIFrameElement>(null)
 
+  // Track when the popup is opened
+  useEffect(() => {
+    if (isOpen) {
+      const variant = window?.location.pathname.includes('landing-b') ? 'B' : 'A'
+      const eventProps = {
+        form_name: 'fillout_application',
+        variant,
+        source: 'popup',
+        timestamp: new Date().toISOString()
+      }
+      
+      // Track in Google Analytics
+      trackEvent('form_open', eventProps)
+      
+      // Track in PostHog
+      posthog.capture('form_open', eventProps)
+    }
+  }, [isOpen])
+
   // Listen for form submission messages from Fillout
   useEffect(() => {
     if (!onFormSubmit) return
@@ -21,6 +42,21 @@ export default function FilloutSliderPopup({ isOpen, onClose, formUrl, onFormSub
     const handleMessage = (event: MessageEvent) => {
       // Check if the message is from Fillout form submission
       if (event.data?.type === 'fillout:submitted') {
+        const variant = window?.location.pathname.includes('landing-b') ? 'B' : 'A'
+        const eventProps = {
+          form_name: 'fillout_application',
+          variant,
+          source: 'popup',
+          timestamp: new Date().toISOString()
+        }
+        
+        // Track in Google Analytics
+        trackEvent('form_submit_success', eventProps)
+        
+        // Track in PostHog
+        posthog.capture('form_submit_success', eventProps)
+        
+        // Call the original onFormSubmit handler
         onFormSubmit()
       }
     }

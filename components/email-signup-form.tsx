@@ -6,6 +6,8 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Loader2, CheckCircle, AlertCircle } from 'lucide-react'
+import { trackEvent } from '@/components/GoogleAnalytics'
+import posthog from '@/lib/posthog'
 
 interface EmailSignupFormProps {
   title?: string
@@ -34,6 +36,14 @@ export default function EmailSignupForm({
     setIsLoading(true)
     setStatus('idle')
 
+    // Track form submission attempt
+    trackEvent('form_submit_attempt', {
+      form_name: 'email_signup',
+      form_type: showNames ? 'detailed' : 'simple',
+      source,
+      variant: window?.location.pathname.includes('landing-b') ? 'B' : 'A'
+    })
+
     try {
       const response = await fetch('/api/webhook/email', {
         method: 'POST',
@@ -55,12 +65,46 @@ export default function EmailSignupForm({
       const data = await response.json()
 
       if (response.ok) {
+        // Track successful submission
+        trackEvent('form_submit_success', {
+          form_name: 'email_signup',
+          form_type: showNames ? 'detailed' : 'simple',
+          source,
+          variant: window?.location.pathname.includes('landing-b') ? 'B' : 'A'
+        })
+
+        // PostHog capture
+        posthog.capture('form_submit_success', {
+          form_name: 'email_signup',
+          form_type: showNames ? 'detailed' : 'simple',
+          source,
+          variant: window?.location.pathname.includes('landing-b') ? 'B' : 'A',
+          email_provided: Boolean(email)
+        })
+
         setStatus('success')
         setMessage('Thank you! We\'ll keep you updated.')
         setEmail('')
         setFirstName('')
         setLastName('')
       } else {
+        // Track form submission error
+        trackEvent('form_submit_error', {
+          form_name: 'email_signup',
+          form_type: showNames ? 'detailed' : 'simple',
+          source,
+          variant: window?.location.pathname.includes('landing-b') ? 'B' : 'A',
+          error: data.error || 'unknown_error'
+        })
+
+        posthog.capture('form_submit_error', {
+          form_name: 'email_signup',
+          form_type: showNames ? 'detailed' : 'simple',
+          source,
+          variant: window?.location.pathname.includes('landing-b') ? 'B' : 'A',
+          error: data.error || 'unknown_error'
+        })
+
         setStatus('error')
         setMessage(data.error || 'Something went wrong. Please try again.')
       }

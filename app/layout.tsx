@@ -8,6 +8,7 @@ import GuideModalProvider from "@/components/guide-modal-provider"
 import GoogleAnalytics from "@/components/GoogleAnalytics"
 import "./globals.css"
 import PostHogProvider from "@/components/PostHogProvider"
+import ScrollDepthTracker from "@/components/ScrollDepthTracker"
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -66,6 +67,7 @@ export default function RootLayout({
       <body className={`${montserrat.variable} ${nunito.variable} ${caveat.variable} font-sans`}>
         <PostHogProvider>
           <GuideModalProvider>
+            <ScrollDepthTracker />
             <Suspense fallback={null}>
               {children}
             </Suspense>
