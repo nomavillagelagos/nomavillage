@@ -29,22 +29,24 @@ export function middleware(request: NextRequest) {
       })
     }
 
-    // Route to appropriate variant
+    // Route to appropriate variant using a redirect so the browser URL updates
+    // This ensures analytics (PostHog) record the final destination path (/landing-a or /landing-b)
     if (request.nextUrl.pathname === '/landing') {
       const url = request.nextUrl.clone()
       url.pathname = `/landing-${variant.toLowerCase()}`
       // Preserve all query parameters (UTMs, etc.)
       url.search = request.nextUrl.search
-      
-      // Add variant info to headers for analytics
-      const rewriteResponse = NextResponse.rewrite(url)
-      rewriteResponse.headers.set('x-ab-variant', variant)
-      rewriteResponse.headers.set('x-experiment-name', 'landing_page_test')
-      
-      // Copy the cookie to the rewrite response
+
+      // Create a redirect response (307 by default)
+      const redirectResponse = NextResponse.redirect(url)
+      // Add variant info to headers for analytics/debugging if needed
+      redirectResponse.headers.set('x-ab-variant', variant)
+      redirectResponse.headers.set('x-experiment-name', 'landing_page_test')
+
+      // Copy the cookie to the redirect response
       const cookieValue = response.cookies.get(EXPERIMENT_COOKIE)
       if (cookieValue) {
-        rewriteResponse.cookies.set(EXPERIMENT_COOKIE, cookieValue.value, {
+        redirectResponse.cookies.set(EXPERIMENT_COOKIE, cookieValue.value, {
           maxAge: COOKIE_MAX_AGE,
           httpOnly: false,
           secure: process.env.NODE_ENV === 'production',
@@ -52,8 +54,8 @@ export function middleware(request: NextRequest) {
           path: '/'
         })
       }
-      
-      return rewriteResponse
+
+      return redirectResponse
     }
 
     // For direct variant access, respect the URL and don't redirect
@@ -73,7 +75,7 @@ export function middleware(request: NextRequest) {
     if (request.nextUrl.pathname === '/landing') {
       const url = request.nextUrl.clone()
       url.pathname = '/landing-a'
-      return NextResponse.rewrite(url)
+      return NextResponse.redirect(url)
     }
     
     return response

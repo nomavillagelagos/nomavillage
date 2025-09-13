@@ -29,6 +29,8 @@ function PostHogTracker() {
     // Ensure PostHog is loaded; importing '@/lib/posthog' initializes it in the browser
     // Track pageviews on route change (Next.js App Router SPA)
     if (typeof window === "undefined" || !pathname) return
+    // Safety net: never track the placeholder /landing page
+    if (pathname === "/landing") return
 
     // Determine A/B variant from cookie or URL
     const getCookie = (name: string) =>
@@ -64,7 +66,6 @@ function PostHogTracker() {
 
     // Override page path for PostHog pageview so variants show as separate paths
     const effectivePath = (() => {
-      if (pathname === "/landing") return `/landing-${variant.toLowerCase()}`
       if (pathname === "/landing-a" || pathname === "/landing-b") return pathname
       return pathname
     })()

@@ -23,7 +23,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
 // Proximity cards with in-view animation
 function LocationHighlights() {
   const items = [
-    { icon: '🏖️', title: '3-minute walk to Praia da Dona Ana', desc: 'One of the Algarve’s most iconic beaches' },
+    { icon: '🏖️', title: '15-minute walk to Praia Port de Moz', desc: 'One of the Algarve’s most iconic beaches' },
     { icon: '🌊', title: 'Surrounded by world-famous golden cliffs', desc: 'Dramatic coastline right on your doorstep' },
     { icon: '🏛️', title: '5-minute walk to Lagos historic center', desc: 'Cafés, culture, and charming streets' },
     { icon: '✈️', title: '1 hour from Faro Airport', desc: 'Easy access for national and international flights' },
@@ -72,9 +72,10 @@ function LocationHighlights() {
 
 export default function LandingPage() {
   const handleJoinClick = () => {
-    // Handle join click logic here
-    // This will be passed to the PricingSection component
-    console.log('Join button clicked');
+    // Open the Fillout slider popup from the pricing section buttons
+    setIsFormPopupOpen(true)
+    // Optional: add analytics here if desired
+    try { trackEvent('apply_click', { page: 'landing-a', location: 'pricing' }) } catch {}
   };
   const [isGuideModalOpen, setIsGuideModalOpen] = useState(false)
   const [isFormPopupOpen, setIsFormPopupOpen] = useState(false)

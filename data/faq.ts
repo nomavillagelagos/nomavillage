@@ -41,7 +41,7 @@ export const faqItems: FAQItem[] = [
   {
     question: "What's the price for a room?",
     answer:
-      "Depends on the length of stay. Please refer to the <a href=\"https://nomavillagelagos.com/landing-a#pricing\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-lagos-pink hover:underline\">pricing section</a> for more details.",
+      "Depends on the length of stay. Please refer to the <a href=\"https://nomavillage.com/landing-a#pricing\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"text-lagos-pink hover:underline\">pricing section</a> for more details.",
   },
   {
     question: "Can I bring my dog?",
