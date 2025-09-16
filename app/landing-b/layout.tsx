@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import { Suspense } from 'react'
 import AnalyticsWrapper from '@/components/AnalyticsWrapper'
 
 export const metadata: Metadata = {
@@ -25,7 +26,9 @@ export default function LandingBLayout({ children }: { children: React.ReactNode
   return (
     <>
       {children}
-      <AnalyticsWrapper />
+      <Suspense fallback={null}>
+        <AnalyticsWrapper />
+      </Suspense>
     </>
   )
 }

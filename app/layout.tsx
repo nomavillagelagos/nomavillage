@@ -111,7 +111,9 @@ export default function RootLayout({
             <Suspense fallback={null}>
               {children}
             </Suspense>
-            <AnalyticsWrapper />
+            <Suspense fallback={null}>
+              <AnalyticsWrapper />
+            </Suspense>
             <ScrollDepthTracker />
           </GuideModalProvider>
         </PostHogProvider>

@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import AnalyticsWrapper from '@/components/AnalyticsWrapper'
+import { Suspense } from 'react'
 
 export const metadata: Metadata = {
   title: 'October Yoga + Surf Colive | Noma Village',
@@ -25,7 +26,9 @@ export default function LandingALayout({ children }: { children: React.ReactNode
   return (
     <>
       {children}
-      <AnalyticsWrapper />
+      <Suspense fallback={null}>
+        <AnalyticsWrapper />
+      </Suspense>
     </>
   )
 }
