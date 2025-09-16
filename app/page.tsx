@@ -11,6 +11,8 @@ import { Star, Quote, MapPin } from "lucide-react"
 import Link from "next/link"
 import Script from "next/script"
 import { usePathname, useSearchParams } from 'next/navigation'
+import Head from 'next/head'
+import Image from 'next/image'
 import posthog from '@/lib/posthog'
 import SmoothScrollLink from "@/components/smooth-scroll-link"
 import { CountUp } from "@/components/count-up"
@@ -40,6 +42,8 @@ export default function HomePage() {
   const handleClosePopup = () => {
     setIsPopupOpen(false)
   }
+
+  // Removed auto-open logic for Fillout slider; popup opens only via CTA
 
   useEffect(() => {
     // Fetch summary for Google reviews (rating, total, url)
@@ -104,14 +108,57 @@ export default function HomePage() {
     <div className="min-h-screen bg-white">
       <Navigation />
 
+      {/* VideoObject JSON-LD Schema */}
+      <Head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify([
+              {
+                "@context": "https://schema.org",
+                "@type": "VideoObject",
+                "name": "NomaVillage Coliving Experience",
+                "description": "Experience the beauty of coliving by the ocean at NomaVillage Lagos",
+                "thumbnailUrl": "https://www.nomavillagelagos.com/images/cliff2.jpg",
+                "uploadDate": "2024-01-01T08:00:00+08:00",
+                "duration": "PT1M33S",
+                "contentUrl": "https://www.youtube.com/watch?v=YOUR_VIDEO_ID_1",
+                "embedUrl": "https://www.youtube.com/embed/YOUR_VIDEO_ID_1",
+                "interactionStatistic": {
+                  "@type": "InteractionCounter",
+                  "interactionType": { "@type": "WatchAction" },
+                  "userInteractionCount": 1200
+                },
+                "regionsAllowed": "PT,ES,FR,DE,GB,US,CA,AU,NZ"
+              },
+              {
+                "@context": "https://schema.org",
+                "@type": "VideoObject",
+                "name": "Life at NomaVillage Lagos",
+                "description": "A day in the life at our coliving space in Lagos, Portugal",
+                "thumbnailUrl": "https://www.nomavillagelagos.com/images/hero.jpg",
+                "uploadDate": "2024-01-15T10:30:00+08:00",
+                "duration": "PT2M15S",
+                "contentUrl": "https://www.youtube.com/watch?v=YOUR_VIDEO_ID_2",
+                "embedUrl": "https://www.youtube.com/embed/YOUR_VIDEO_ID_2"
+              }
+            ])
+          }}
+        />
+      </Head>
+
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{
-            backgroundImage: "url('/images/cliff2.jpg')",
-          }}
-        >
+        <div className="absolute inset-0 w-full h-full">
+          <Image
+            src="/images/cliff2.jpg"
+            alt="Cliff view at NomaVillage Lagos"
+            fill
+            priority
+            quality={85}
+            className="object-cover"
+            sizes="100vw"
+          />
           <div className="absolute inset-0 bg-black/30"></div>
         </div>
 

@@ -7,6 +7,26 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Users, Utensils, Wifi, Car, Waves, Coffee, Shield, CheckCircle } from "lucide-react"
 import Link from "next/link"
 import { UTMAnchor } from "@/components/utm-link"
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: "Coliving in Lagos, Portugal | Noma Village",
+  description:
+    "Private rooms with bathrooms, coworking spaces, pools, and a curated community. Long-stay friendly coliving in Lagos, Algarve.",
+  alternates: {
+    canonical: "/coliving",
+  },
+  openGraph: {
+    type: 'article',
+    title: "Coliving in Lagos, Portugal | Noma Village",
+    description:
+      "Private rooms with bathrooms, coworking spaces, pools, and a curated community. Long-stay friendly coliving in Lagos, Algarve.",
+    url: '/coliving',
+    images: [
+      { url: '/images/house2.webp', width: 1200, height: 630, alt: 'Noma Village Coliving Lagos' },
+    ],
+  },
+}
 
 export default function ColivingPage() {
   const roomTypes = [

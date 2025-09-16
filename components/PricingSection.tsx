@@ -136,7 +136,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onJoinClick }) =
               onClick={onJoinClick}
               className="w-full bg-lagos-pink hover:bg-lagos-pink/90 text-white font-montserrat py-3 px-6 rounded-lg transition-colors"
             >
-              Book Now
+              Join Us
             </button>
           </div>
 
@@ -163,7 +163,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onJoinClick }) =
               onClick={onJoinClick}
               className="w-full bg-lagos-pink hover:bg-lagos-pink/90 text-white font-montserrat py-3 px-6 rounded-lg transition-colors"
             >
-              Book Now
+              Join Us
             </button>
           </div>
         </div>

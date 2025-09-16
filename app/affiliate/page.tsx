@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { Button } from "@/components/ui/button"
@@ -12,11 +12,49 @@ import Link from "next/link"
 
 export default function AffiliatePage() {
   const [isPopupOpen, setIsPopupOpen] = useState(false)
+  const hasAutoTriggeredRef = useRef(false)
+  const hasUserInteractedRef = useRef(false)
 
   const openSignup = (location: string) => {
     posthog.capture('affiliate_cta_click', { page: 'affiliate', location })
+    hasUserInteractedRef.current = true
     setIsPopupOpen(true)
   }
+
+  const handleClose = () => {
+    hasUserInteractedRef.current = true
+    setIsPopupOpen(false)
+  }
+
+  // Auto-open logic: once after 75% scroll OR after 25 seconds
+  useEffect(() => {
+    const tryAutoOpen = () => {
+      if (hasAutoTriggeredRef.current || hasUserInteractedRef.current || isPopupOpen) return
+      hasAutoTriggeredRef.current = true
+      setIsPopupOpen(true)
+      try { posthog.capture('popup_auto_opened', { page: 'affiliate', reason: 'scroll_or_timer' }) } catch {}
+      window.removeEventListener('scroll', onScrollCheck)
+    }
+
+    const onScrollCheck = () => {
+      const doc = document.documentElement
+      const scrollProgress = (window.scrollY + window.innerHeight) / (doc.scrollHeight || 1)
+      if (scrollProgress >= 0.75) {
+        tryAutoOpen()
+      }
+    }
+
+    const timerId = window.setTimeout(() => {
+      tryAutoOpen()
+    }, 25000)
+
+    window.addEventListener('scroll', onScrollCheck, { passive: true })
+    onScrollCheck()
+    return () => {
+      window.clearTimeout(timerId)
+      window.removeEventListener('scroll', onScrollCheck)
+    }
+  }, [isPopupOpen])
 
   return (
     <div className="min-h-screen bg-white">
@@ -215,9 +253,10 @@ export default function AffiliatePage() {
       {/* Fillout Slider Popup */}
       <FilloutSliderPopup
         isOpen={isPopupOpen}
-        onClose={() => setIsPopupOpen(false)}
+        onClose={handleClose}
         formUrl="https://forms.fillout.com/t/aKuWaUwvaVus"
         onFormSubmit={() => {
+          hasUserInteractedRef.current = true
           posthog.capture('affiliate_form_submitted', { page: 'affiliate' })
         }}
       />

@@ -24,7 +24,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
 // Proximity cards with in-view animation
 function LocationHighlights() {
   const items = [
-    { icon: '🏖️', title: '15-minute walk to Praia Porto de Mós', desc: 'One of the Algarve’s most iconic beaches' },
+    { icon: 'w🏖️', title: '15-minute walk to Praia Porto de Mós', desc: 'One of the Algarve’s most iconic beaches' },
     { icon: '🌊', title: 'Surrounded by world-famous golden cliffs', desc: 'Dramatic coastline right on your doorstep' },
     { icon: '🏛️', title: '15-minute walk to Lagos historic center', desc: 'Cafés, culture, and charming streets' },
     { icon: '✈️', title: '1 hour from Faro Airport', desc: 'Easy access for national and international flights' },
@@ -233,7 +233,7 @@ export default function LandingPage() {
                 scrollToSection('pricing')
               }}
             >
-              <span className="relative z-10 transition-colors duration-300 group-hover:text-black">See Pricing</span>
+              <span className="relative z-10 transition-colors duration-300 group-hover:text-black">Join Us</span>
               <span className="pointer-events-none absolute inset-0 -z-0 before:content-[''] before:absolute before:inset-0 before:bg-white before:-translate-x-full group-hover:before:translate-x-0 before:transition-transform before:duration-300 before:ease-out"></span>
             </Button>
           </div>

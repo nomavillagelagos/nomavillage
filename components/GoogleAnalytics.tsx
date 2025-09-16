@@ -2,7 +2,7 @@
 
 import Script from 'next/script'
 
-const GA_MEASUREMENT_ID = 'G-YGG6PPL28M'
+const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID || ''
 
 export default function GoogleAnalytics() {
   return (
@@ -34,10 +34,12 @@ export const trackEvent = (eventName: string, parameters?: Record<string, any>) 
 }
 
 // Helper function for tracking page views
-export const trackPageView = (url: string) => {
-  if (typeof window !== 'undefined' && 'gtag' in window) {
+export const trackPageView = (url: string, title?: string) => {
+  if (typeof window !== 'undefined' && 'gtag' in window && GA_MEASUREMENT_ID) {
     window.gtag('config', GA_MEASUREMENT_ID, {
       page_path: url,
+      page_title: title || document.title,
+      page_location: window.location.href
     })
   }
 }

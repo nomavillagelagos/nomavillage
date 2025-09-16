@@ -7,6 +7,20 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Calendar, MapPin, Users, Heart, Globe, MessageCircle, Camera, Waves } from "lucide-react"
 import Link from "next/link"
 import { UTMAnchor } from "@/components/utm-link"
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Community at Noma Village | Lagos, Portugal',
+  description: 'Entrepreneurial, like-minded community with weekly activities, yoga, surf, communal meals, and events in Lagos.',
+  alternates: { canonical: '/community' },
+  openGraph: {
+    type: 'website',
+    title: 'Community at Noma Village | Lagos, Portugal',
+    description: 'Entrepreneurial, like-minded community with weekly activities and events in Lagos.',
+    url: '/community',
+    images: [{ url: '/images/community.jpg', width: 1200, height: 630, alt: 'Noma Village Community' }],
+  },
+}
 
 export default function CommunityPage() {
   const communityMembers = [

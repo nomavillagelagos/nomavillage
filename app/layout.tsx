@@ -2,13 +2,13 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Montserrat, Nunito, Caveat } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
-import Script from "next/script"
 import { Suspense } from "react"
+import Script from "next/script"
 import GuideModalProvider from "@/components/guide-modal-provider"
-import GoogleAnalytics from "@/components/GoogleAnalytics"
 import "./globals.css"
 import PostHogProvider from "@/components/PostHogProvider"
 import ScrollDepthTracker from "@/components/ScrollDepthTracker"
+import AnalyticsWrapper from "@/components/AnalyticsWrapper"
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -28,10 +28,41 @@ const caveat = Caveat({
   variable: "--font-caveat",
 })
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.nomavillage.com"
+
 export const metadata: Metadata = {
-  title: "Lagos Coliving & Coworking - Portugal",
+  metadataBase: new URL(siteUrl),
+  title: {
+    default: "Noma Village | Coliving & Coworking in Lagos, Portugal",
+    template: "%s | Noma Village",
+  },
   description:
     "Modern coliving and coworking space in beautiful Lagos, Portugal. Join our vibrant community of digital nomads and remote workers.",
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+    },
+  },
+  openGraph: {
+    type: "website",
+    url: siteUrl,
+    siteName: "Noma Village",
+    title: "Noma Village | Coliving & Coworking in Lagos, Portugal",
+    description:
+      "Modern coliving and coworking space in beautiful Lagos, Portugal. Join our vibrant community of digital nomads and remote workers.",
+    images: [
+      {
+        url: "/images/noma1.webp",
+        width: 1200,
+        height: 630,
+        alt: "Noma Village Lagos Coliving",
+      },
+    ],
+    locale: "en_US",
+  },
   generator: "v0.app",
   icons: {
     icon: '/favicon.svg',
@@ -48,29 +79,40 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <GoogleAnalytics />
-        <Script id="fb-pixel" strategy="afterInteractive">
-          {`
-            !function(f,b,e,v,n,t,s){
-              if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-              n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-              if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-              n.queue=[];t=b.createElement(e);t.async=!0;
-              t.src=v;s=b.getElementsByTagName(e)[0];
-              s.parentNode.insertBefore(t,s)
-            }(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');
-            fbq('init', '1087343619857001');
-            fbq('track', 'PageView');
-          `}
+        {/* LocalBusiness Structured Data */}
+        <Script id="schema-localbusiness" type="application/ld+json" strategy="afterInteractive">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "LocalBusiness",
+            name: "Noma Village",
+            url: siteUrl,
+            image: `${siteUrl}/images/noma1.webp`,
+            description:
+              "Modern coliving and coworking space in beautiful Lagos, Portugal. Join our vibrant community of digital nomads and remote workers.",
+            address: {
+              "@type": "PostalAddress",
+              addressLocality: "Lagos",
+              addressRegion: "Faro",
+              addressCountry: "PT",
+            },
+            geo: {
+              "@type": "GeoCoordinates",
+              latitude: 37.0925267,
+              longitude: -8.6828956,
+            },
+            sameAs: [],
+            priceRange: "€€",
+          })}
         </Script>
       </head>
-      <body className={`${montserrat.variable} ${nunito.variable} ${caveat.variable} font-sans`}>
+      <body className={`${montserrat.variable} ${nunito.variable} ${caveat.variable} font-sans antialiased`}>
         <PostHogProvider>
           <GuideModalProvider>
-            <ScrollDepthTracker />
             <Suspense fallback={null}>
               {children}
             </Suspense>
+            <AnalyticsWrapper />
+            <ScrollDepthTracker />
           </GuideModalProvider>
         </PostHogProvider>
         <Analytics />
