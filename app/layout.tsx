@@ -115,6 +115,20 @@ export default function RootLayout({
           `}
         </Script>
         {/* End Google Tag Manager */}
+        {/* Google Ads global site tag (gtag.js) */}
+        <Script
+          id="gads-base"
+          src="https://www.googletagmanager.com/gtag/js?id=AW-17556363510"
+          strategy="afterInteractive"
+        />
+        <Script id="gads-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);} 
+            gtag('js', new Date());
+            gtag('config', 'AW-17556363510');
+          `}
+        </Script>
       </head>
       <body className={`${montserrat.variable} ${nunito.variable} ${caveat.variable} font-sans antialiased`}>
         <PostHogProvider>
