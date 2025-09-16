@@ -58,6 +58,17 @@ export default function FilloutSliderPopup({ isOpen, onClose, formUrl, onFormSub
         
         // Call the original onFormSubmit handler
         onFormSubmit()
+
+        // After successful submit, redirect to absolute '/thankyou' and preserve query params (e.g., gclid, utm)
+        try {
+          const qs = window.location.search || ''
+          const dest = `/thankyou${qs}`
+          // Use replace to avoid user navigating back into the form accidentally
+          window.location.replace(dest)
+        } catch (_) {
+          // fallback
+          window.location.href = '/thankyou'
+        }
       }
     }
 
