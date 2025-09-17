@@ -6,9 +6,11 @@ import { Button } from "@/components/ui/button"
 import { Menu, X } from "lucide-react"
 import Image from "next/image"
 import Script from "next/script"
+import FilloutSliderPopup from "@/components/fillout-slider-popup"
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
+  const [isFormOpen, setIsFormOpen] = useState(false)
 
   const navItems = [
     { href: "/", label: "Home" },
@@ -49,11 +51,7 @@ export function Navigation() {
             ))}
             <Button
               className="bg-lagos-pink hover:bg-lagos-pink/90 text-white font-montserrat inline-flex items-center h-16 px-5 rounded-none"
-              data-fillout-id="aKuWaUwvaVus"
-              data-fillout-embed-type="slider"
-              data-fillout-slider-direction="right"
-              data-fillout-inherit-parameters
-              data-fillout-popup-size="medium"
+              onClick={() => setIsFormOpen(true)}
             >
               Join Us
             </Button>
@@ -84,12 +82,7 @@ export function Navigation() {
               <div className="px-3 py-2">
                 <Button
                   className="w-full bg-lagos-pink hover:bg-lagos-pink/90 text-white font-montserrat"
-                  data-fillout-id="aKuWaUwvaVus"
-                  data-fillout-embed-type="slider"
-                  data-fillout-slider-direction="right"
-                  data-fillout-inherit-parameters
-                  data-fillout-popup-size="medium"
-                  onClick={() => setIsOpen(false)}
+                  onClick={() => { setIsOpen(false); setIsFormOpen(true) }}
                 >
                   Join Us
                 </Button>
@@ -100,7 +93,13 @@ export function Navigation() {
       </div>
       {/* Fillout Script - loaded once via navigation */}
       <Script src="https://server.fillout.com/embed/v1/" strategy="lazyOnload" />
+
+      {/* Custom Fillout Slider Popup for reliable mobile/desktop behavior */}
+      <FilloutSliderPopup
+        isOpen={isFormOpen}
+        onClose={() => setIsFormOpen(false)}
+        formUrl="https://forms.fillout.com/t/aKuWaUwvaVus"
+      />
     </nav>
   )
 }
-
