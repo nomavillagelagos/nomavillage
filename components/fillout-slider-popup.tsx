@@ -119,28 +119,19 @@ export default function FilloutSliderPopup({ isOpen, onClose, formUrl, onFormSub
   if (!isOpen) return null
 
   return (
-    <div className="fixed inset-0 z-50">
+    <div className="fixed inset-0 z-50 flex">
       {/* Backdrop */}
       <div 
-        className="absolute inset-0 bg-black/50 transition-opacity duration-500"
+        className="absolute inset-0 bg-black/50 backdrop-blur-sm transition-opacity duration-300"
         onClick={onClose}
       />
       
-      {/* Slider Panel */}
-      <div className={`
-        absolute bg-white shadow-2xl transition-all duration-700 ease-out
-        ${isOpen ? 'translate-x-0' : 'translate-x-full lg:translate-x-full -translate-x-full'}
-        
-        /* Desktop: slide from right */
-        lg:top-0 lg:right-0 lg:h-full lg:w-[600px] lg:max-w-[90vw]
-        
-        /* Mobile: slide from left */
-        top-0 left-0 bottom-0 w-[90vw] max-w-[400px] lg:w-[600px] lg:h-full
-        
-        flex flex-col
-      `}>
+      {/* Slider Panel - match /join page style */}
+      <div 
+        className={`relative ml-auto h-full w-full max-w-2xl bg-white shadow-2xl transform transition-transform duration-300 ease-in-out ${isOpen ? 'translate-x-0' : 'translate-x-full'}`}
+      >
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b bg-gray-50">
+        <div className="flex items-center justify-between p-6 border-b border-gray-200 bg-gray-50">
           <h3 className="text-lg font-semibold text-gray-900">Secure Your Spot</h3>
           <button
             onClick={onClose}
@@ -152,7 +143,7 @@ export default function FilloutSliderPopup({ isOpen, onClose, formUrl, onFormSub
         </div>
 
         {/* Form Content */}
-        <div className="flex-1 relative">
+        <div className="relative h-[calc(100vh-88px)] overflow-hidden">
           {isLoading && (
             <div className="absolute inset-0 flex items-center justify-center bg-white">
               <div className="text-center">
@@ -165,7 +156,7 @@ export default function FilloutSliderPopup({ isOpen, onClose, formUrl, onFormSub
           <iframe
             ref={iframeRef}
             src={computedFormUrl}
-            className="w-full h-full border-0"
+            className="w-full h-full border-none"
             onLoad={handleIframeLoad}
             title="Application Form"
             allow="autoplay; camera; microphone; geolocation; fullscreen"

@@ -229,8 +229,9 @@ export default function LandingPage() {
               size="lg"
               className="ml-4 bg-[#ea86c0] text-white font-montserrat text-lg px-8 py-3 h-auto relative overflow-hidden group transition-colors"
               onClick={() => {
-                posthog.capture('see_pricing_click', { page: 'landing-a', location: 'hero' })
-                scrollToSection('pricing')
+                // Track apply click for hero
+                try { posthog.capture('apply_click', { page: 'landing-a', location: 'hero' }) } catch {}
+                setIsFormPopupOpen(true)
               }}
             >
               <span className="relative z-10 transition-colors duration-300 group-hover:text-black">Join Us</span>
