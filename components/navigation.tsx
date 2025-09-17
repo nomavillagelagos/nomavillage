@@ -51,7 +51,16 @@ export function Navigation() {
             ))}
             <Button
               className="bg-lagos-pink hover:bg-lagos-pink/90 text-white font-montserrat inline-flex items-center h-16 px-5 rounded-none"
-              onClick={() => setIsFormOpen(true)}
+              onClick={() => {
+                const isMobile = typeof window !== 'undefined' && (window.innerWidth < 768 || /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent))
+                if (isMobile) {
+                  const qs = typeof window !== 'undefined' ? (window.location.search || '') : ''
+                  const dest = `/apply${qs}`
+                  window.open(dest, '_blank')
+                } else {
+                  setIsFormOpen(true)
+                }
+              }}
             >
               Join Us
             </Button>
@@ -82,7 +91,18 @@ export function Navigation() {
               <div className="px-3 py-2">
                 <Button
                   className="w-full bg-lagos-pink hover:bg-lagos-pink/90 text-white font-montserrat"
-                  onClick={() => { setIsOpen(false); setIsFormOpen(true) }}
+                  onClick={() => {
+                    const isMobile = typeof window !== 'undefined' && (window.innerWidth < 768 || /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent))
+                    if (isMobile) {
+                      const qs = typeof window !== 'undefined' ? (window.location.search || '') : ''
+                      const dest = `/apply${qs}`
+                      window.open(dest, '_blank')
+                      setIsOpen(false)
+                    } else {
+                      setIsOpen(false)
+                      setIsFormOpen(true)
+                    }
+                  }}
                 >
                   Join Us
                 </Button>

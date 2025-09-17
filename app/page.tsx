@@ -36,7 +36,14 @@ export default function HomePage() {
       button_text: 'Join Us',
       page_url: window.location.pathname
     })
-    setIsPopupOpen(true)
+    const isMobile = typeof window !== 'undefined' && (window.innerWidth < 768 || /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent))
+    if (isMobile) {
+      const qs = typeof window !== 'undefined' ? (window.location.search || '') : ''
+      const dest = `/apply${qs}`
+      window.open(dest, '_blank')
+    } else {
+      setIsPopupOpen(true)
+    }
   }
 
   const handleClosePopup = () => {
