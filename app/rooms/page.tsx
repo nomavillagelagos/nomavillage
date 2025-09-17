@@ -38,28 +38,33 @@ export default function RoomsPage() {
 
     // September (month 8) is fully booked
     if (monthIndex === 8) {
-      return baseRooms.map((room) => ({
+      const rooms = baseRooms.map((room) => ({
         ...room,
         status: "booked"
       }))
+      // Always mark Room 101 and Room 102 as available
+      return rooms.map(r => (r.name === 'Room 101' || r.name === 'Room 102') ? { ...r, status: 'available' } : r)
     } else if (monthIndex === currentMonth) {
       // Current month: 2 available, 8 booked
-      return baseRooms.map((room, index) => ({
+      const rooms = baseRooms.map((room, index) => ({
         ...room,
         status: index < 2 ? "available" : "booked"
       }))
+      return rooms.map(r => (r.name === 'Room 101' || r.name === 'Room 102') ? { ...r, status: 'available' } : r)
     } else if (monthIndex === currentMonth + 1) {
       // Next month: 2 available, 8 booked
-      return baseRooms.map((room, index) => ({
+      const rooms = baseRooms.map((room, index) => ({
         ...room,
         status: index < 2 ? "available" : "booked"
       }))
+      return rooms.map(r => (r.name === 'Room 101' || r.name === 'Room 102') ? { ...r, status: 'available' } : r)
     } else {
       // Month after next: 50% occupation (5 available, 5 booked)
-      return baseRooms.map((room, index) => ({
+      const rooms = baseRooms.map((room, index) => ({
         ...room,
         status: index < 5 ? "available" : "booked"
       }))
+      return rooms.map(r => (r.name === 'Room 101' || r.name === 'Room 102') ? { ...r, status: 'available' } : r)
     }
   }
 
@@ -79,7 +84,7 @@ export default function RoomsPage() {
     // Check if this room is available in the main grid
     const roomsForMonth = generateRoomsForMonth(month)
     const roomData = roomsForMonth.find(room => room.name === roomName)
-    const isRoomAvailable = roomData?.status === "available"
+    const isRoomAvailable = (roomName === 'Room 101' || roomName === 'Room 102') || roomData?.status === "available"
     
     // Add days of the month
     for (let day = 1; day <= daysInMonth; day++) {
@@ -640,15 +645,16 @@ export default function RoomsPage() {
                     </SelectTrigger>
                     <SelectContent>
                       {[
-                        { name: "Room 101" }, { name: "Room 102" }, { name: "Room 103" }, 
+                        { name: "Room 101" }, { name: "Room 102" }, { name: "Room 103" },
                         { name: "Room 104" }, { name: "Room 105" }, { name: "Room 201" },
-                        { name: "Room 202" }, { name: "Room 203" }, { name: "Room 204" }, 
+                        { name: "Room 202" }, { name: "Room 203" }, { name: "Room 204" },
                         { name: "Room 205" }
                       ].map((room) => {
-                        const roomData = generateRoomsForMonth(new Date().getMonth()).find(r => r.name === room.name)
+                        const isExplicitlyAvailable = room.name === "Room 101" || room.name === "Room 102";
+                        const label = isExplicitlyAvailable ? "Available" : "Booked";
                         return (
                           <SelectItem key={room.name} value={room.name}>
-                            {room.name} ({roomData?.status === "available" ? "Available" : "Booked"})
+                            {room.name} ({label})
                           </SelectItem>
                         )
                       })}
