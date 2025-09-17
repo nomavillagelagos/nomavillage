@@ -2,6 +2,7 @@
 
 import { usePricingSection } from '@/hooks/usePricingSection';
 import React, { useEffect, useState } from 'react';
+import ScarcityBadge from '@/components/ScarcityBadge';
 
 interface PricingSectionProps {
   onJoinClick: () => void;
@@ -115,7 +116,8 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onJoinClick }) =
         {/* Pricing Tiers - simplified & standardized */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mt-20">
           {/* 2 Weeks */}
-          <div className="border rounded-xl p-8 shadow-sm hover:shadow-md transition-all bg-white">
+          <div className="relative border rounded-xl p-8 shadow-sm hover:shadow-md transition-all bg-white">
+            <ScarcityBadge />
             <h3 className="font-montserrat text-2xl font-bold text-gray-900 mb-2">2 Weeks</h3>
             <div className="flex items-end gap-3 mb-1">
               <p className="text-lagos-pink font-montserrat text-4xl font-bold">€790</p>
@@ -141,7 +143,8 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onJoinClick }) =
           </div>
 
           {/* 1 Month */}
-          <div className="border-2 border-lagos-pink rounded-xl p-8 shadow-lg transition-all bg-white">
+          <div className="relative border-2 border-lagos-pink rounded-xl p-8 shadow-lg transition-all bg-white">
+            <ScarcityBadge />
             <h3 className="font-montserrat text-2xl font-bold text-gray-900 mb-2">1 Month</h3>
             <div className="flex items-end gap-3 mb-1">
               <p className="text-lagos-pink font-montserrat text-4xl font-bold">€1,480</p>
