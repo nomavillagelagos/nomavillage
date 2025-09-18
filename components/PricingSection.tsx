@@ -119,7 +119,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onJoinClick }) =
           <div className="relative border rounded-xl p-8 shadow-sm hover:shadow-md transition-all bg-white">
             <ScarcityBadge />
             <h3 className="font-montserrat text-2xl font-bold text-gray-900 mb-2">2 Weeks</h3>
-            <div className="flex items-end gap-3 mb-1">https://now.nomavillage.com/terms/
+            <div className="flex items-end gap-3 mb-1">
               <p className="text-lagos-pink font-montserrat text-4xl font-bold">€790</p>
               {/* No daily rate shown for 2 weeks per request; compute but keep hidden if needed: <span className=\"font-montserrat text-sm text-gray-500\">{daily2w}</span> */}
             </div>
