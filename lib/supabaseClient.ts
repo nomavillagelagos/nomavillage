@@ -17,7 +17,15 @@ const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
 const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
 if (!supabaseUrl || !supabaseAnonKey) {
-  throw new Error('Missing Supabase environment variables')
+  // During build/server, don't crash the build – just warn.
+  if (typeof window === 'undefined') {
+    // eslint-disable-next-line no-console
+    console.warn('Supabase env vars missing at build/server time: NEXT_PUBLIC_SUPABASE_URL / NEXT_PUBLIC_SUPABASE_ANON_KEY')
+  } else {
+    // In the browser (runtime), fail fast so we notice misconfiguration.
+    throw new Error('Missing Supabase environment variables')
+  }
 }
 
-export const supabase = createClient(supabaseUrl, supabaseAnonKey)
+// After the guard above, we assert non-null for TypeScript.
+export const supabase = createClient(supabaseUrl!, supabaseAnonKey!)
