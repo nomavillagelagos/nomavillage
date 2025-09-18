@@ -7,8 +7,8 @@ export function useGuideModal() {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [hasShown, setHasShown] = useState(false)
   const pathname = usePathname()
-  // Enabled by default; set to 'false' to disable globally
-  const autoOpenEnabled = process.env.NEXT_PUBLIC_ENABLE_GUIDE_MODAL_AUTOOPEN !== 'false'
+  // Disabled by default; set to 'true' to enable globally
+  const autoOpenEnabled = process.env.NEXT_PUBLIC_ENABLE_GUIDE_MODAL_AUTOOPEN === 'true'
   const STORAGE_KEY = 'guide-modal-shown-v2'
 
   useEffect(() => {
@@ -29,7 +29,7 @@ export function useGuideModal() {
 
     // Auto-open after 75% scroll OR 20 seconds on page (whichever first)
     const OPEN_AFTER_MS = 20000
-    let timer: NodeJS.Timeout | undefined
+    let timer: ReturnType<typeof setTimeout> | undefined
 
     const openOnce = () => {
       if (hasShown) return

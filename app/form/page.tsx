@@ -1,10 +1,10 @@
  'use client';
 
- import { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ArrowRight, ArrowLeft, Check, Mail, User, Phone, Flag } from 'lucide-react';
 import { createClient } from '@supabase/supabase-js';
- import { captureWithAttribution } from '@/lib/track';
+import { captureWithAttribution } from '@/lib/track';
 // Client component; no server-side route config exports here
 
 // Rest of your form page code...
@@ -32,13 +32,30 @@ const FormPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [submitSuccess, setSubmitSuccess] = useState(false);
+  const [sessionId, setSessionId] = useState<string | null>(null);
+  const [showResumeBanner, setShowResumeBanner] = useState(false);
   const router = useRouter();
 
   // Supabase client will be created on-demand inside handleSubmit
+  // For progressive saving we will create it when needed in savePartialData as well
 
   // Persist form data between steps and refreshes
   useEffect(() => {
     try {
+      // Load or generate session_id
+      let sid = localStorage.getItem('nomavillage_session_id');
+      if (!sid) {
+        if (typeof crypto !== 'undefined' && 'randomUUID' in crypto) {
+          sid = crypto.randomUUID();
+        } else {
+          // Fallback simple UUID if needed
+          sid = `${Date.now()}-${Math.random().toString(36).slice(2)}`;
+        }
+        localStorage.setItem('nomavillage_session_id', sid);
+      }
+      setSessionId(sid);
+
+      // Load any locally saved form data as immediate fallback
       const raw = localStorage.getItem('nomavillage_form');
       if (raw) {
         const parsed = JSON.parse(raw);
@@ -48,11 +65,99 @@ const FormPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // If we have a session_id, try to load the partial record from Supabase and resume progress
+  useEffect(() => {
+    const loadPartial = async () => {
+      if (!sessionId) return;
+
+      const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+      const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+      if (!supabaseUrl || !supabaseAnonKey) return;
+      const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
+      try {
+        const { data, error } = await supabase
+          .from('partial_signups')
+          .select('*')
+          .eq('session_id', sessionId)
+          .maybeSingle();
+        if (error) return;
+        if (data && !data.is_completed) {
+          // Merge remote partial data into form and resume step
+          setFormData(prev => ({
+            ...prev,
+            email: data.email ?? prev.email,
+            entrepreneurStatus: data.is_entrepreneur ?? prev.entrepreneurStatus,
+            colivePreference: data.colive_preference ?? prev.colivePreference,
+            firstName: data.first_name ?? prev.firstName,
+            lastName: data.last_name ?? prev.lastName,
+            countryCode: data.country_code ?? prev.countryCode,
+            phoneNumber: data.phone_number ?? prev.phoneNumber,
+          }));
+          if (typeof data.current_step === 'number' && data.current_step >= 1 && data.current_step <= 7) {
+            setStep(data.current_step);
+          }
+          setShowResumeBanner(true);
+        }
+      } catch {}
+    };
+    loadPartial();
+  }, [sessionId]);
+
+  // Once we have a session, perform an initial partial save for the current step (on first load)
+  useEffect(() => {
+    if (sessionId) {
+      savePartialData(step);
+    }
+  }, [sessionId]);
+
   useEffect(() => {
     try {
       localStorage.setItem('nomavillage_form', JSON.stringify(formData));
     } catch {}
   }, [formData]);
+
+  // Debounced autosave on field changes
+  useEffect(() => {
+    if (!sessionId) return;
+    const t = setTimeout(() => {
+      savePartialData(step);
+    }, 800);
+    return () => clearTimeout(t);
+  }, [formData, step, sessionId]);
+
+  // Helper to upsert partial progress to Supabase
+  const savePartialData = async (current_step: number) => {
+    if (!sessionId) return;
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+    if (!supabaseUrl || !supabaseAnonKey) return;
+    const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
+    const payload = {
+      session_id: sessionId,
+      email: formData.email || null,
+      is_entrepreneur: formData.entrepreneurStatus || null,
+      colive_preference: formData.colivePreference || null,
+      first_name: formData.firstName || null,
+      last_name: formData.lastName || null,
+      country_code: formData.countryCode || null,
+      phone_number: formData.phoneNumber || null,
+      current_step,
+      is_completed: false,
+      updated_at: new Date().toISOString(),
+      // created_at handled by DB default on first insert if available
+    } as const;
+
+    try {
+      await supabase
+        .from('partial_signups')
+        .upsert(payload, { onConflict: 'session_id' });
+    } catch (e) {
+      // Non-blocking; rely on localStorage as backup
+      console.warn('Partial save failed', e);
+    }
+  };
 
   const validateEmail = (email: string) => {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -101,12 +206,17 @@ const FormPage = () => {
 
   const handleNext = () => {
     if (validateCurrentStep()) {
-      setStep(prev => Math.min(prev + 1, 7));
+      const nextStep = Math.min(step + 1, 7);
+      // Save partial progress for the next step index
+      savePartialData(nextStep);
+      setStep(nextStep);
     }
   };
 
   const handlePrev = () => {
-    setStep(prev => Math.max(prev - 1, 1));
+    const prevStep = Math.max(step - 1, 1);
+    savePartialData(prevStep);
+    setStep(prevStep);
   };
 
   const handleSubmit = async () => {
@@ -150,11 +260,22 @@ const FormPage = () => {
         throw new Error(error.message);
       }
 
+      // Mark partial as completed
+      try {
+        if (sessionId) {
+          await supabase
+            .from('partial_signups')
+            .update({ is_completed: true, current_step: 7, updated_at: new Date().toISOString() })
+            .eq('session_id', sessionId);
+        }
+      } catch {}
+
       setSubmitSuccess(true);
       captureWithAttribution('form_submit_success', { step: 7 });
 
       // Clear persisted data on success
       try { localStorage.removeItem('nomavillage_form'); } catch {}
+      try { localStorage.removeItem('nomavillage_session_id'); } catch {}
 
       router.push('/thankyou');
     } catch (err: any) {
@@ -194,10 +315,7 @@ const FormPage = () => {
       case 2:
         return (
           <div>
-            <div className="flex items-center justify-between mb-2">
-              <h2 className="text-2xl font-semibold">What's your email?</h2>
-              <span className="text-sm text-gray-500">Step 2 of 7</span>
-            </div>
+            <h2 className="text-2xl font-semibold mb-4">What's your email?</h2>
             <div className="relative">
               <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
               <input
@@ -217,10 +335,7 @@ const FormPage = () => {
       case 3:
         return (
           <div>
-            <div className="flex items-center justify-between mb-2">
-              <h2 className="text-2xl font-semibold">Are you an entrepreneur, working online or a freelancer?</h2>
-              <span className="text-sm text-gray-500">Step 3 of 7</span>
-            </div>
+            <h2 className="text-2xl font-semibold mb-4">Are you an entrepreneur, working online or a freelancer?</h2>
             <div className="space-y-4">
               {['Yes', 'No. But on the way', 'No'].map((option) => (
                 <label key={option} className="flex items-center space-x-3 cursor-pointer">
@@ -241,10 +356,7 @@ const FormPage = () => {
       case 4:
         return (
           <div>
-            <div className="flex items-center justify-between mb-2">
-              <h2 className="text-2xl font-semibold">What would you like to see at our Colive?</h2>
-              <span className="text-sm text-gray-500">Step 4 of 7</span>
-            </div>
+            <h2 className="text-2xl font-semibold mb-4">What would you like to see at our Colive?</h2>
             <div className="space-y-4">
               {[
                 'A Place with a Strong Community Vibe',
@@ -269,10 +381,7 @@ const FormPage = () => {
       case 5:
         return (
           <div>
-            <div className="flex items-center justify-between mb-2">
-              <h2 className="text-2xl font-semibold">What's your first name?</h2>
-              <span className="text-sm text-gray-500">Step 5 of 7</span>
-            </div>
+            <h2 className="text-2xl font-semibold mb-4">What's your first name?</h2>
             <div className="relative">
               <User className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
               <input
@@ -292,10 +401,7 @@ const FormPage = () => {
       case 6:
         return (
           <div>
-            <div className="flex items-center justify-between mb-2">
-              <h2 className="text-2xl font-semibold">What's your last name?</h2>
-              <span className="text-sm text-gray-500">Step 6 of 7</span>
-            </div>
+            <h2 className="text-2xl font-semibold mb-4">What's your last name?</h2>
             <div className="relative">
               <User className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
               <input
@@ -315,10 +421,7 @@ const FormPage = () => {
       case 7:
         return (
           <div>
-            <div className="flex items-center justify-between mb-2">
-              <h2 className="text-2xl font-semibold">What's your phone number?</h2>
-              <span className="text-sm text-gray-500">Step 7 of 7</span>
-            </div>
+            <h2 className="text-2xl font-semibold mb-4">What's your phone number?</h2>
             <div className="flex space-x-3">
               <div className="relative w-1/3">
                 <Flag className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5" />
@@ -381,6 +484,22 @@ const FormPage = () => {
       {/* Form Section */}
       <div className="w-full md:w-1/2 bg-white p-8 md:p-12 flex flex-col justify-center">
         <div className="max-w-md mx-auto w-full">
+          {showResumeBanner && (
+            <div className="mb-4 rounded-lg border border-teal-200 bg-teal-50 px-4 py-3 text-teal-800 flex items-start justify-between gap-3">
+              <div>
+                <p className="font-semibold">Resume where you left off</p>
+                <p className="text-sm">We loaded your previous progress so you can continue your application.</p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setShowResumeBanner(false)}
+                className="text-teal-700 hover:text-teal-900"
+                aria-label="Dismiss resume banner"
+              >
+                ×
+              </button>
+            </div>
+          )}
           {/* Progress Bar */}
           {step < 8 && (
             <div className="w-full bg-gray-200 rounded-full h-2.5 mb-8">
@@ -389,10 +508,6 @@ const FormPage = () => {
                 style={{ width: `${(step / 7) * 100}%` }}
               ></div>
             </div>
-          )}
-
-          {step < 8 && (
-            <div className="mb-4 text-sm text-gray-500">Step {Math.min(step, 7)} of 7</div>
           )}
 
           <div key={step} className="mb-8 transition-opacity duration-300">
