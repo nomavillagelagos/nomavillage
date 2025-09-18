@@ -3,7 +3,7 @@
  import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ArrowRight, ArrowLeft, Check, Mail, User, Phone, Flag } from 'lucide-react';
- import { supabase } from '@/lib/supabaseClient';
+import { createClient } from '@supabase/supabase-js';
  import { captureWithAttribution } from '@/lib/track';
 // Force dynamic rendering
 export const dynamic = 'force-dynamic';
@@ -34,6 +34,12 @@ const FormPage = () => {
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const router = useRouter();
+
+  // Create Supabase client at runtime inside the client component
+  const supabase = createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  );
 
   // Persist form data between steps and refreshes
   useEffect(() => {
