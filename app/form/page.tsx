@@ -144,7 +144,7 @@ const FormPage = () => {
         created_at: new Date().toISOString(),
       };
 
-      const { error } = await supabase.from('signups').insert([payload]);
+      const { error } = await supabase.from('user_signups').insert([payload]);
       if (error) {
         captureWithAttribution('form_submit_failed', { step, error: error.message });
         throw new Error(error.message);
