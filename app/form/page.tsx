@@ -136,11 +136,11 @@ const FormPage = () => {
       const payload = {
         email: formData.email,
         is_entrepreneur: formData.entrepreneurStatus || null,
-        colive_prefer: formData.colivePreference || null,
+        colive_preference: formData.colivePreference || null,
         first_name: formData.firstName,
         last_name: formData.lastName,
         country_code: formData.countryCode || null,
-        phone_numb: formData.phoneNumber || null,
+        phone_number: formData.phoneNumber || null,
         created_at: new Date().toISOString(),
       };
 
