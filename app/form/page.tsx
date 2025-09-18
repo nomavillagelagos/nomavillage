@@ -5,7 +5,10 @@ import { useRouter } from 'next/navigation';
 import { ArrowRight, ArrowLeft, Check, Mail, User, Phone, Flag } from 'lucide-react';
  import { supabase } from '@/lib/supabaseClient';
  import { captureWithAttribution } from '@/lib/track';
+// Force dynamic rendering
+export const dynamic = 'force-dynamic';
 
+// Rest of your form page code...
 // Supabase integration prep (commented):
 // 1) Install client:  npm i @supabase/supabase-js
 // 2) Add env vars to .env.local:
