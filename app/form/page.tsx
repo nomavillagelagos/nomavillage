@@ -5,11 +5,7 @@ import { useRouter } from 'next/navigation';
 import { ArrowRight, ArrowLeft, Check, Mail, User, Phone, Flag } from 'lucide-react';
 import { createClient } from '@supabase/supabase-js';
  import { captureWithAttribution } from '@/lib/track';
-// Force dynamic rendering
-export const dynamic = 'force-dynamic';
-export const revalidate = 0;
-export const fetchCache = 'force-no-store';
-export const dynamicParams = true;
+// Client component; no server-side route config exports here
 
 // Rest of your form page code...
 // Supabase integration prep (commented):
