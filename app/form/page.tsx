@@ -1,8 +1,10 @@
-'use client';
+ 'use client';
 
-import { useState } from 'react';
+ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { ArrowRight, ArrowLeft, Check, Mail, User, Phone, Flag } from 'lucide-react';
+ import { supabase } from '@/lib/supabaseClient';
+ import { captureWithAttribution } from '@/lib/track';
 
 // Supabase integration prep (commented):
 // 1) Install client:  npm i @supabase/supabase-js
@@ -25,9 +27,28 @@ const FormPage = () => {
     countryCode: '+351'
   });
   const [errors, setErrors] = useState<Record<string, string>>({});
-  const [loading, setLoading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const [submitSuccess, setSubmitSuccess] = useState(false);
   const router = useRouter();
+
+  // Persist form data between steps and refreshes
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem('nomavillage_form');
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        setFormData(prev => ({ ...prev, ...parsed }));
+      }
+    } catch {}
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('nomavillage_form', JSON.stringify(formData));
+    } catch {}
+  }, [formData]);
 
   const validateEmail = (email: string) => {
     const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -54,9 +75,7 @@ const FormPage = () => {
       newErrors.firstName = 'First name is required';
     } else if (step === 6 && !formData.lastName.trim()) {
       newErrors.lastName = 'Last name is required';
-    } else if (step === 7 && !formData.phoneNumber) {
-      newErrors.phone = 'Phone number is required';
-    } else if (step === 7 && !validatePhone(formData.phoneNumber)) {
+    } else if (step === 7 && formData.phoneNumber && !validatePhone(formData.phoneNumber)) {
       newErrors.phone = 'Please enter a valid phone number';
     }
 
@@ -72,13 +91,13 @@ const FormPage = () => {
     if (step === 4) return !!formData.colivePreference;
     if (step === 5) return !!formData.firstName.trim();
     if (step === 6) return !!formData.lastName.trim();
-    if (step === 7) return !!formData.phoneNumber && validatePhone(formData.phoneNumber);
+    if (step === 7) return !formData.phoneNumber || validatePhone(formData.phoneNumber);
     return true;
   };
 
   const handleNext = () => {
     if (validateCurrentStep()) {
-      setStep(prev => Math.min(prev + 1, 8));
+      setStep(prev => Math.min(prev + 1, 7));
     }
   };
 
@@ -91,37 +110,45 @@ const FormPage = () => {
     const ok = validateCurrentStep();
     if (!ok) return;
 
-    setLoading(true);
+    // Offline handling
+    if (typeof navigator !== 'undefined' && !navigator.onLine) {
+      setSubmitError('You appear to be offline. Please reconnect and try again.');
+      return;
+    }
+
+    setIsSubmitting(true);
     setSubmitError(null);
     try {
-      // Log form data
-      console.log('Submitting noma_signups:', formData);
+      // Map to DB schema
+      const payload = {
+        email: formData.email,
+        is_entrepreneur: formData.entrepreneurStatus || null,
+        colive_prefer: formData.colivePreference || null,
+        first_name: formData.firstName,
+        last_name: formData.lastName,
+        country_code: formData.countryCode || null,
+        phone_numb: formData.phoneNumber || null,
+        created_at: new Date().toISOString(),
+      };
 
-      // Example: Insert into Supabase (commented out until configured)
-      /*
-      const { error } = await supabase.from('noma_signups').insert([
-        {
-          email: formData.email,
-          entrepreneur_status: formData.entrepreneurStatus,
-          colive_preference: formData.colivePreference,
-          first_name: formData.firstName,
-          last_name: formData.lastName,
-          phone_number: formData.phoneNumber,
-          country_code: formData.countryCode,
-          created_at: new Date().toISOString(),
-        },
-      ]);
-      if (error) throw error;
-      */
+      const { error } = await supabase.from('signups').insert([payload]);
+      if (error) {
+        captureWithAttribution('form_submit_failed', { step, error: error.message });
+        throw new Error(error.message);
+      }
 
-      // Simulate async work for UX
-      await new Promise((res) => setTimeout(res, 800));
-      setStep(8);
+      setSubmitSuccess(true);
+      captureWithAttribution('form_submit_success', { step: 7 });
+
+      // Clear persisted data on success
+      try { localStorage.removeItem('nomavillage_form'); } catch {}
+
+      router.push('/thankyou');
     } catch (err: any) {
       console.error('Submit error:', err);
       setSubmitError(err?.message || 'Something went wrong while saving your info.');
     } finally {
-      setLoading(false);
+      setIsSubmitting(false);
     }
   };
 
@@ -138,8 +165,17 @@ const FormPage = () => {
       case 1:
         return (
           <div className="text-center">
-            <h1 className="text-4xl font-bold mb-4">Welcome to NomaVillage!</h1>
-            <p className="text-xl text-gray-600 mb-8">The right people mean everything to us</p>
+            <h1 className="text-4xl font-bold mb-4 text-gray-900">Welcome to NomaVillage!</h1>
+            <p className="text-3xl text-gray-600 mb-4">
+              The right people mean everything to us.
+              <br />
+              Please answer 2 questions.
+            </p>
+            <p className="text-2xl text-gray-500">
+              Your information is safe with us. We do not share your data with third parties.
+              <br />
+              (It takes less than 1 minute to answer)
+            </p>
           </div>
         );
       case 2:
@@ -156,7 +192,9 @@ const FormPage = () => {
                 name="email"
                 value={formData.email}
                 onChange={handleInputChange}
-                className={`w-full pl-10 p-3 border rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent ${errors.email ? 'border-red-500' : 'border-gray-300'}`}
+                disabled={isSubmitting}
+                aria-busy={isSubmitting}
+                className={`w-full pl-10 p-3 border rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent ${errors.email ? 'border-red-500' : 'border-gray-300'} ${isSubmitting ? 'opacity-80 cursor-not-allowed' : ''}`}
                 placeholder="Enter your email"
               />
             </div>
@@ -229,7 +267,9 @@ const FormPage = () => {
                 name="firstName"
                 value={formData.firstName}
                 onChange={handleInputChange}
-                className={`w-full pl-10 p-3 border rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent ${errors.firstName ? 'border-red-500' : 'border-gray-300'}`}
+                disabled={isSubmitting}
+                aria-busy={isSubmitting}
+                className={`w-full pl-10 p-3 border rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent ${errors.firstName ? 'border-red-500' : 'border-gray-300'} ${isSubmitting ? 'opacity-80 cursor-not-allowed' : ''}`}
                 placeholder="Enter your first name"
               />
             </div>
@@ -250,7 +290,9 @@ const FormPage = () => {
                 name="lastName"
                 value={formData.lastName}
                 onChange={handleInputChange}
-                className={`w-full pl-10 p-3 border rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent ${errors.lastName ? 'border-red-500' : 'border-gray-300'}`}
+                disabled={isSubmitting}
+                aria-busy={isSubmitting}
+                className={`w-full pl-10 p-3 border rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent ${errors.lastName ? 'border-red-500' : 'border-gray-300'} ${isSubmitting ? 'opacity-80 cursor-not-allowed' : ''}`}
                 placeholder="Enter your last name"
               />
             </div>
@@ -271,7 +313,9 @@ const FormPage = () => {
                   name="countryCode"
                   value={formData.countryCode}
                   onChange={handleInputChange}
-                  className="w-full pl-10 pr-3 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                  disabled={isSubmitting}
+                  aria-busy={isSubmitting}
+                  className={`w-full pl-10 pr-3 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent ${isSubmitting ? 'opacity-80 cursor-not-allowed' : ''}`}
                 >
                   <option value="+351">+351 (PT)</option>
                   <option value="+1">+1 (US)</option>
@@ -288,7 +332,9 @@ const FormPage = () => {
                   name="phoneNumber"
                   value={formData.phoneNumber}
                   onChange={handleInputChange}
-                  className={`w-full pl-10 p-3 border rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent ${errors.phone ? 'border-red-500' : 'border-gray-300'}`}
+                  disabled={isSubmitting}
+                  aria-busy={isSubmitting}
+                  className={`w-full pl-10 p-3 border rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent ${errors.phone ? 'border-red-500' : 'border-gray-300'} ${isSubmitting ? 'opacity-80 cursor-not-allowed' : ''}`}
                   placeholder="Enter your phone number"
                 />
               </div>
@@ -373,12 +419,12 @@ const FormPage = () => {
               <button
                 type="button"
                 onClick={handleSubmit}
-                disabled={!isCurrentStepValid() || loading}
+                disabled={!isCurrentStepValid() || isSubmitting}
                 className={`flex items-center px-6 py-2 rounded-lg transition-colors text-white ${
-                  !isCurrentStepValid() || loading ? 'bg-teal-400 cursor-not-allowed' : 'bg-teal-600 hover:bg-teal-700'
+                  !isCurrentStepValid() || isSubmitting ? 'bg-teal-400 cursor-not-allowed' : 'bg-teal-600 hover:bg-teal-700'
                 }`}
               >
-                {loading ? 'Submitting...' : 'Submit'} <ArrowRight className="ml-2 h-5 w-5" />
+                {isSubmitting ? 'Submitting...' : 'Submit'} <ArrowRight className="ml-2 h-5 w-5" />
               </button>
             </div>
           ) : null}
