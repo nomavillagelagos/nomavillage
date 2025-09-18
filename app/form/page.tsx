@@ -7,6 +7,9 @@ import { createClient } from '@supabase/supabase-js';
  import { captureWithAttribution } from '@/lib/track';
 // Force dynamic rendering
 export const dynamic = 'force-dynamic';
+export const revalidate = 0;
+export const fetchCache = 'force-no-store';
+export const dynamicParams = true;
 
 // Rest of your form page code...
 // Supabase integration prep (commented):
@@ -35,11 +38,7 @@ const FormPage = () => {
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const router = useRouter();
 
-  // Create Supabase client at runtime inside the client component
-  const supabase = createClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-  );
+  // Supabase client will be created on-demand inside handleSubmit
 
   // Persist form data between steps and refreshes
   useEffect(() => {
@@ -118,6 +117,15 @@ const FormPage = () => {
     if (!isCurrentStepValid()) return;
     const ok = validateCurrentStep();
     if (!ok) return;
+
+    // Create Supabase client only when needed (runtime)
+    const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+    const supabaseAnonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
+    if (!supabaseUrl || !supabaseAnonKey) {
+      setSubmitError('Configuration error. Please try again later.');
+      return;
+    }
+    const supabase = createClient(supabaseUrl, supabaseAnonKey);
 
     // Offline handling
     if (typeof navigator !== 'undefined' && !navigator.onLine) {
