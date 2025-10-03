@@ -18,6 +18,7 @@ export function Navigation() {
     { href: "/coworking", label: "Coworking" },
     { href: "/rooms", label: "Rooms" },
     { href: "/community", label: "Community" },
+    { href: "/blog", label: "Blog" },
   ]
 
   return (
