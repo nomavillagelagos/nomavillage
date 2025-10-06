@@ -4,6 +4,14 @@ const EXPERIMENT_COOKIE = 'ab_test_variant'
 const COOKIE_MAX_AGE = 30 * 24 * 60 * 60 // 30 days in seconds
 
 export function middleware(request: NextRequest) {
+  // Enforce canonical host: redirect www -> non-www
+  const host = request.headers.get('host')
+  if (host?.startsWith('www.')) {
+    const url = request.nextUrl.clone()
+    url.host = host.replace(/^www\./, '')
+    return NextResponse.redirect(url, 301)
+  }
+
   // Only run A/B test on landing page routes
   if (!request.nextUrl.pathname.startsWith('/landing')) {
     return NextResponse.next()
@@ -84,8 +92,7 @@ export function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    '/landing',
-    '/landing-a',
-    '/landing-b'
+    '/:path*'
   ]
 }
+
