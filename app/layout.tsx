@@ -9,6 +9,7 @@ import "./globals.css"
 import PostHogProvider from "@/components/PostHogProvider"
 import ScrollDepthTracker from "@/components/ScrollDepthTracker"
 import AnalyticsWrapper from "@/components/AnalyticsWrapper"
+import MetaPixelEvents from "@/components/MetaPixelEvents"
 
 const montserrat = Montserrat({
   subsets: ["latin"],
@@ -132,6 +133,20 @@ export default function RootLayout({
             gtag('config', 'AW-17556363510');
           `}
         </Script>
+        {/* Meta Pixel (Facebook) base code */}
+        <Script id="fb-pixel" strategy="afterInteractive">
+          {`
+            !function(f,b,e,v,n,t,s)
+            {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+            n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+            if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+            n.queue=[];t=b.createElement(e);t.async=!0;
+            t.src=v;s=b.getElementsByTagName(e)[0];
+            s.parentNode.insertBefore(t,s)}(window, document,'script',
+            'https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', '1087343619857001');
+          `}
+        </Script>
       </head>
       <body className={`${montserrat.variable} ${nunito.variable} ${caveat.variable} font-sans antialiased`}>
         <PostHogProvider>
@@ -143,6 +158,7 @@ export default function RootLayout({
               <AnalyticsWrapper />
             </Suspense>
             <ScrollDepthTracker />
+            <MetaPixelEvents />
           </GuideModalProvider>
         </PostHogProvider>
         <Analytics />
