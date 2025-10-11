@@ -75,16 +75,16 @@ export default function HomePage() {
           <div className="absolute inset-0 bg-gradient-to-br from-gray-900/70 via-gray-900/80 to-gray-900/70"></div>
         </div>
 
-        <div className="relative z-10 text-center text-white max-w-5xl mx-auto px-4">
+        <div className="relative z-10 text-center text-white max-w-5xl mx-auto pt-20 md:pt-16 px-4">
           {/* Primary Headline - Clear hierarchy */}
-          <h1 className="font-caveat italic font-bold text-6xl md:text-7xl lg:text-8xl mb-8 leading-[1.1] tracking-normal drop-shadow-2xl">
+          <h1 className="font-caveat italic font-bold text-5xl md:text-7xl lg:text-7xl mb-4 md:mb-8 leading-[0.9] md:leading-[1] tracking-normal drop-shadow-2xl">
             Coliving & Coworking Community
           </h1>
-          <h2 className="font-montserrat text-xl md:text-2xl lg:text-3xl font-light italic mb-8 text-white max-w-3xl mx-auto leading-snug drop-shadow-lg">
+          <h2 className="font-montserrat text-xl md:text-2xl lg:text-2xl font-light italic mb-4 md:mb-8 text-white max-w-3xl mx-auto leading-snug drop-shadow-lg">
             <span className="not-italic text-2xl md:text-3xl">📍</span> Lagos, Algarve, Portugal
           </h2>
 
-          <p className="mt-4 font-montserrat text-lg md:text-xl lg:text-2xl font-normal mb-10 text-white max-w-4xl mx-auto leading-relaxed drop-shadow-lg">
+          <p className="mt-4 font-montserrat text-lg md:text-xl lg:text-2xl font-normal mb-10 md:mb-12 text-white max-w-4xl mx-auto leading-relaxed drop-shadow-lg">
             Live, work, and connect with like-minded nomads in Portugal's most vibrant coastal community. Your colorful home by the ocean awaits.
           </p>
 
@@ -1054,13 +1054,17 @@ export default function HomePage() {
           <div className="border-t border-gray-200 pt-16">
             <div className="text-center mb-10">
               <h3 className="font-montserrat text-3xl font-bold text-gray-900 mb-4">Google Reviews</h3>
-              <div className="flex items-center justify-center gap-3 font-nunito text-gray-700">
-                <img src="https://img.icons8.com/color/48/google-logo.png" alt="Google" className="h-6 w-6" />
-                <span className="font-montserrat font-semibold">Noma Village Lagos</span>
-                <span>•</span>
-                <span className="font-montserrat">4.8</span>
-                <span className="text-yellow-500">★★★★★</span>
-                <GoogleReviewsWrapper />
+              <div className="flex flex-col sm:flex-row flex-wrap items-center justify-center gap-2 md:gap-3 font-nunito text-gray-700 text-sm md:text-base px-4">
+                <div className="flex items-center gap-2">
+                  <img src="https://img.icons8.com/color/48/google-logo.png" alt="Google" className="h-5 w-5 md:h-6 md:w-6" />
+                  <span className="font-montserrat font-semibold">Noma Village Lagos</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="hidden sm:inline">•</span>
+                  <span className="font-montserrat">4.8</span>
+                  <span className="text-yellow-500">★★★★★</span>
+                  <GoogleReviewsWrapper />
+                </div>
               </div>
             </div>
             <GoogleReviewsCarousel />

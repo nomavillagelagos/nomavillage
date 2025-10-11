@@ -21,8 +21,8 @@ export function Navigation() {
 
   return (
     <nav className="fixed top-4 left-0 right-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pr-0">
-        <div className="rounded-2xl bg-white/80 backdrop-blur-md shadow-lg px-4 sm:px-6 !pr-0 overflow-hidden">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="rounded-2xl bg-white/80 backdrop-blur-md shadow-lg px-4 sm:px-6 overflow-hidden">
           <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">

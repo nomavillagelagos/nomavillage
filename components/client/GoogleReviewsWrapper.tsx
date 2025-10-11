@@ -35,27 +35,16 @@ export function GoogleReviewsWrapper() {
 
   return (
     <div className="flex items-center justify-center gap-1 text-sm font-nunito">
-      <div className="flex">
-        {Array.from({ length: 5 }).map((_, i) => (
-          <Star
-            key={i}
-            className={`w-4 h-4 ${
-              i < Math.floor(reviewsSummary.rating || 0)
-                ? 'fill-yellow-400 text-yellow-400'
-                : 'text-white/30'
-            }`}
-          />
-        ))}
-      </div>
-      <span className="ml-1">{reviewsSummary.rating?.toFixed(1) || '4.8'}</span>
-      <span className="mx-1">·</span>
+      <span className="mx-1 hidden sm:inline">·</span>
       <Link
         href={reviewsSummary.url || "https://maps.google.com/?cid=12085466010589542175"}
         target="_blank"
         rel="noopener noreferrer"
-        className="underline hover:no-underline"
+        className="underline hover:no-underline whitespace-nowrap"
       >
-        {reviewsSummary.user_ratings_total ? `${reviewsSummary.user_ratings_total} Google Reviews` : '18 Google Reviews'}
+        <span className="hidden sm:inline">{reviewsSummary.user_ratings_total || '17'} </span>
+        <span className="sm:hidden">{reviewsSummary.user_ratings_total || '17'}</span>
+        <span className="hidden sm:inline">Google Reviews</span>
       </Link>
     </div>
   )
