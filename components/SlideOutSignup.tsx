@@ -270,7 +270,7 @@ export default function SlideOutSignup() {
           setOpen(true);
           setStep(1);
         }}
-        className="inline-flex items-center gap-2 bg-teal-600 text-white px-5 py-2.5 rounded-lg hover:bg-teal-700 transition-colors shadow"
+        className="inline-flex items-center gap-2 bg-teal-600 text-white px-5 py-2.5 rounded-lg hover:bg-teal-700 transition-colors shadow cursor-pointer"
       >
         Join NomaVillage
       </button>
@@ -301,7 +301,7 @@ export default function SlideOutSignup() {
             <button
               onClick={close}
               aria-label="Close"
-              className="absolute top-3 right-3 z-10 p-2 rounded-full bg-white/80 hover:bg-white text-gray-700 shadow"
+              className="absolute top-3 right-3 z-10 p-2 rounded-full bg-white/80 hover:bg-white text-gray-700 shadow cursor-pointer"
             >
               <X className="w-5 h-5" />
             </button>
@@ -341,7 +341,7 @@ export default function SlideOutSignup() {
                       disabled={!canGoBack}
                       className={`inline-flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
                         canGoBack
-                          ? "text-teal-700 hover:bg-teal-50"
+                          ? "text-teal-700 hover:bg-teal-50 cursor-pointer"
                           : "text-gray-400 cursor-not-allowed"
                       }`}
                     >
@@ -359,7 +359,7 @@ export default function SlideOutSignup() {
                           next();
                         }
                       }}
-                      className="inline-flex items-center gap-2 bg-teal-600 text-white px-5 py-2.5 rounded-lg hover:bg-teal-700 transition-colors disabled:opacity-60"
+                      className="inline-flex items-center gap-2 bg-teal-600 text-white px-5 py-2.5 rounded-lg hover:bg-teal-700 transition-colors disabled:opacity-60 cursor-pointer"
                     >
                       {step === 7 ? "Submit" : "Next"}
                       <ArrowRight className="w-5 h-5" />

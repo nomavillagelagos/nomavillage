@@ -290,7 +290,7 @@ export default function GoogleReviewsCarousel() {
           <button 
             onClick={prev} 
             aria-label="Previous" 
-            className="w-10 h-10 rounded-full bg-white border border-gray-200 hover:border-lagos-blue-green hover:bg-lagos-blue-green hover:text-white transition-all duration-200 flex items-center justify-center text-gray-600 font-semibold shadow-sm"
+            className="w-10 h-10 rounded-full bg-white border border-gray-200 hover:border-lagos-blue-green hover:bg-lagos-blue-green hover:text-white transition-all duration-200 flex items-center justify-center text-gray-600 font-semibold shadow-sm cursor-pointer"
           >
             ‹
           </button>
@@ -301,7 +301,7 @@ export default function GoogleReviewsCarousel() {
                 aria-label={`Go to ${i + 1}`} 
                 onClick={() => setIndex(i)} 
                 className={cn(
-                  "w-3 h-3 rounded-full transition-all duration-200", 
+                  "w-3 h-3 rounded-full transition-all duration-200 cursor-pointer", 
                   i === index ? "bg-lagos-blue-green scale-110" : "bg-gray-300 hover:bg-gray-400"
                 )}
               />
@@ -310,7 +310,7 @@ export default function GoogleReviewsCarousel() {
           <button 
             onClick={next} 
             aria-label="Next" 
-            className="w-10 h-10 rounded-full bg-white border border-gray-200 hover:border-lagos-blue-green hover:bg-lagos-blue-green hover:text-white transition-all duration-200 flex items-center justify-center text-gray-600 font-semibold shadow-sm"
+            className="w-10 h-10 rounded-full bg-white border border-gray-200 hover:border-lagos-blue-green hover:bg-lagos-blue-green hover:text-white transition-all duration-200 flex items-center justify-center text-gray-600 font-semibold shadow-sm cursor-pointer"
           >
             ›
           </button>

@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next'
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://nomavillage.com'
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.nomavillage.com'
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -11,6 +11,7 @@ export default function robots(): MetadataRoute.Robots {
         // Disallow internal/testing routes if any
         '/api/',
         '/archive/',
+        '/thankyou', // Thank you page should not be indexed
       ],
     },
     sitemap: `${siteUrl}/sitemap.xml`,

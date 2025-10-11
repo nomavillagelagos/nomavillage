@@ -4,7 +4,6 @@ import type React from "react"
 import { Suspense, useEffect } from "react"
 import { usePathname, useSearchParams } from "next/navigation"
 import posthog from "@/lib/posthog"
-import { usePostHog } from "posthog-js/react"
 import { buildAttribution, storeAttribution, getStoredAttribution } from "@/lib/utm"
 
 // Initializes PostHog via import and tracks SPA pageviews on route changes
@@ -23,7 +22,6 @@ export default function PostHogProvider({ children }: { children?: React.ReactNo
 function PostHogTracker() {
   const pathname = usePathname()
   const searchParams = useSearchParams()
-  const ph = usePostHog()
 
   useEffect(() => {
     // Ensure PostHog is loaded; importing '@/lib/posthog' initializes it in the browser
@@ -51,7 +49,7 @@ function PostHogTracker() {
 
     // Register persistent properties so ALL events carry the variant automatically
     try {
-      ph?.register?.({
+      posthog?.register?.({
         experiment_name: "landing_page_test",
         variant,
         ab_variant: variant.toLowerCase(),

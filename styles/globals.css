@@ -217,7 +217,263 @@
   transform: translateX(0) !important;
 }
 
+/* Form animations */
+.animate-fade-in {
+  animation: fadeIn 0.5s ease-in;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.3s ease-out;
+}
+
+.animate-bounce-slow {
+  animation: bounceSlow 2s infinite;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes bounceSlow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .animate-slide-in { animation: none !important; }
   .animate-slide-in-left { animation: none !important; }
+  .animate-fade-in { animation: none !important; }
+  .animate-scale-in { animation: none !important; }
+  .animate-bounce-slow { animation: none !important; }
+}
+
+/* DayPicker custom styling to match form */
+.daypicker-custom {
+  --rdp-accent-color: #14b8a6;
+  --rdp-background-color: #f0fdfa;
+  font-family: inherit;
+}
+
+.daypicker-custom .rdp-day_button {
+  border-radius: 0.5rem;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.daypicker-custom .rdp-day_button:hover:not([disabled]) {
+  background-color: #ccfbf1;
+  color: #0f766e;
+}
+
+.daypicker-custom .rdp-day_button:focus-visible {
+  outline: 2px solid #14b8a6;
+  outline-offset: 2px;
+}
+
+.daypicker-custom .rdp-selected .rdp-day_button {
+  background-color: #14b8a6;
+  color: white;
+  font-weight: 600;
+}
+
+.daypicker-custom .rdp-selected .rdp-day_button:hover {
+  background-color: #0d9488;
+}
+
+.daypicker-custom .rdp-today:not(.rdp-selected) .rdp-day_button {
+  font-weight: 700;
+  color: #14b8a6;
+}
+
+.daypicker-custom .rdp-disabled .rdp-day_button {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.daypicker-custom .rdp-month_caption {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #0f766e;
+  margin-bottom: 1rem;
+}
+
+.daypicker-custom .rdp-nav {
+  gap: 0.5rem;
+}
+
+.daypicker-custom .rdp-nav_button {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 0.5rem;
+  transition: all 0.2s;
+}
+
+.daypicker-custom .rdp-nav_button:hover:not([disabled]) {
+  background-color: #ccfbf1;
+  color: #0f766e;
+}
+
+.daypicker-custom .rdp-weekday {
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: #6b7280;
+}
+
+/* Phone input custom styling - FORCE ONE SEAMLESS FIELD */
+.phone-wrapper .react-international-phone-input-container {
+  width: 100% !important;
+  position: static !important;
+  display: flex !important;
+  align-items: center !important;
+  border: none !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  transition: none !important;
+  height: auto !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  gap: 0.75rem !important;
+  box-shadow: none !important;
+  flex: 1 !important;
+}
+
+/* Focus state for wrapper */
+.phone-wrapper:focus-within {
+  border-color: #14b8a6 !important;
+  box-shadow: 0 0 0 2px rgba(20, 184, 166, 0.1) !important;
+}
+
+/* Country selector button - REMOVE ALL BORDERS AND STYLING */
+.react-international-phone-country-selector-button {
+  cursor: pointer !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  transition: opacity 0.15s !important;
+  height: auto !important;
+  min-height: auto !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.25rem !important;
+  flex-shrink: 0 !important;
+
+}
+
+.react-international-phone-country-selector {
+  padding-right: 1.5rem !important;
+}
+
+.react-international-phone-country-selector-button:hover {
+  opacity: 0.7 !important;
+  background: transparent !important;
+  border: none !important;
+}
+
+.react-international-phone-country-selector-button:focus {
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.react-international-phone-country-selector-button__button-content {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.25rem !important;
+}
+
+.react-international-phone-country-selector-button__flag-emoji {
+  font-size: 1.5rem !important;
+  line-height: 1 !important;
+}
+
+.react-international-phone-country-selector-button__dropdown-arrow {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  color: #9ca3af !important;
+  font-size: 0.875rem !important;
+  width: 12px !important;
+  height: 12px !important;
+}
+
+/* Phone input field - COMPLETELY TRANSPARENT NO BORDERS */
+.react-international-phone-input {
+  padding: 0 !important;
+  margin: 0 !important;
+  font-size: 1.125rem !important;
+  line-height: 1.75rem !important;
+  border: none !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  outline: none !important;
+  flex: 1 !important;
+  height: auto !important;
+  min-height: auto !important;
+  width: 100% !important;
+}
+
+.react-international-phone-input:focus {
+  border: none !important;
+  box-shadow: none !important;
+  outline: none !important;
+  background: transparent !important;
+}
+
+.react-international-phone-input:hover {
+  border: none !important;
+  background: transparent !important;
+}
+
+/* Country dropdown */
+.react-international-phone-country-selector-dropdown {
+  max-height: 320px !important;
+  border-radius: 0.75rem !important;
+  border: 2px solid #14b8a6 !important;
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
+  margin-top: 0.5rem !important;
+  overflow: hidden !important;
+}
+
+.react-international-phone-country-selector-dropdown__list-item {
+  padding: 0.75rem 1rem !important;
+  cursor: pointer !important;
+  transition: background-color 0.15s !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.75rem !important;
+}
+
+.react-international-phone-country-selector-dropdown__list-item:hover {
+  background-color: #f0fdfa !important;
+}
+
+.react-international-phone-country-selector-dropdown__list-item--selected {
+  background-color: #ccfbf1 !important;
+  font-weight: 500 !important;
+}
+
+.react-international-phone-country-selector-dropdown__list-item--focused {
+  background-color: #f0fdfa !important;
+}
+
+/* Disabled state */
+.react-international-phone-input:disabled {
+  opacity: 0.8 !important;
+  cursor: not-allowed !important;
+  background-color: #f9fafb !important;
+}
+
+.react-international-phone-country-selector-button:disabled {
+  opacity: 0.8 !important;
+  cursor: not-allowed !important;
+  background-color: #f9fafb !important;
 }

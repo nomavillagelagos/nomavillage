@@ -70,7 +70,7 @@ export default function GuideModal({ isOpen, onClose }: GuideModalProps) {
         <div className="relative p-6 pb-4">
           <button
             onClick={onClose}
-            className="absolute top-4 right-4 p-2 hover:bg-gray-100 rounded-full transition-colors"
+            className="absolute top-4 right-4 p-2 hover:bg-gray-100 rounded-full transition-colors cursor-pointer"
           >
             <X className="h-5 w-5 text-gray-500" />
           </button>

@@ -90,7 +90,7 @@ export default function RootLayout({
             url: siteUrl,
             image: `${siteUrl}/images/noma1.webp`,
             description:
-              "Modern coliving and coworking space in beautiful Lagos, Portugal. Join our vibrant community of digital nomads and remote workers.",
+              "Modern coliving and coworking space in beautiful Lagos, Algarve, Portugal. Join our vibrant community of digital nomads and remote workers.",
             address: {
               "@type": "PostalAddress",
               addressLocality: "Lagos",
@@ -102,8 +102,80 @@ export default function RootLayout({
               latitude: 37.0925267,
               longitude: -8.6828956,
             },
-            sameAs: [],
+            openingHours: "Mo-Su 00:00-24:00",
+            telephone: "+4917669299755",
+            hasMap: "https://maps.google.com/?cid=12085466010589542175",
+            aggregateRating: {
+              "@type": "AggregateRating",
+              ratingValue: "4.8",
+              reviewCount: "18",
+              bestRating: "5",
+              worstRating: "1"
+            },
+            sameAs: [
+              "https://www.instagram.com/nomavillage_lagos",
+              "https://www.facebook.com/nomavillagelagos",
+              "https://maps.google.com/?cid=12085466010589542175"
+            ],
             priceRange: "€€",
+            amenityFeature: [
+              {
+                "@type": "LocationFeatureSpecification",
+                "name": "High-Speed WiFi",
+                "value": true
+              },
+              {
+                "@type": "LocationFeatureSpecification",
+                "name": "Swimming Pool",
+                "value": true
+              },
+              {
+                "@type": "LocationFeatureSpecification",
+                "name": "Coworking Space",
+                "value": true
+              },
+              {
+                "@type": "LocationFeatureSpecification",
+                "name": "Private Rooms",
+                "value": true
+              },
+              {
+                "@type": "LocationFeatureSpecification",
+                "name": "Shared Kitchen",
+                "value": true
+              }
+            ]
+          })}
+        </Script>
+        {/* Organization Structured Data */}
+        <Script id="schema-organization" type="application/ld+json" strategy="afterInteractive">
+          {JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            name: "Noma Village",
+            alternateName: "Noma Village Lagos",
+            url: siteUrl,
+            logo: `${siteUrl}/logo.svg`,
+            description:
+              "Premium coliving and coworking space for digital nomads and remote workers in Lagos, Algarve, Portugal. We create meaningful connections and provide the perfect environment for work and life balance in the Algarve.",
+            address: {
+              "@type": "PostalAddress",
+              addressLocality: "Lagos",
+              addressRegion: "Faro",
+              addressCountry: "PT",
+            },
+            sameAs: [
+              "https://www.instagram.com/nomavillage_lagos",
+              "https://www.facebook.com/nomavillage_lagos",
+              "https://maps.google.com/?cid=12085466010589542175"
+            ],
+            contactPoint: {
+              "@type": "ContactPoint",
+              telephone: "+4917669299755",
+              contactType: "customer service",
+              availableLanguage: ["English", "Portuguese"],
+              areaServed: "PT"
+            }
           })}
         </Script>
         {/* Google Tag Manager (conditional via NEXT_PUBLIC_GTM_ID) */}
@@ -128,7 +200,7 @@ export default function RootLayout({
         <Script id="gads-init" strategy="afterInteractive">
           {`
             window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);} 
+            function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
             gtag('config', 'AW-17556363510');
           `}

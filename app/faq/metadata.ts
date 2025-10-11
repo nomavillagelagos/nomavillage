@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Frequently Asked Questions | Noma Village Lagos',
     description: 'Get answers to common questions about our coliving space, amenities, booking process, and life in Lagos, Portugal.',
-    url: 'https://nomavillagelagos.com/faq',
+    url: 'https://www.nomavillage.com/faq',
     siteName: 'Noma Village',
     images: [
       {
@@ -26,6 +26,6 @@ export const metadata: Metadata = {
     images: ['/images/faq/faq-hero.jpg'],
   },
   alternates: {
-    canonical: 'https://nomavillagelagos.com/faq',
+    canonical: 'https://www.nomavillage.com/faq',
   },
 }

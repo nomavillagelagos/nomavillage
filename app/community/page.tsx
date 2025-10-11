@@ -162,9 +162,9 @@ export default function CommunityPage() {
         </div>
 
         <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
-          <h1 className="font-montserrat text-6xl md:text-7xl font-bold mb-4">Community</h1>
+          <h1 className="font-montserrat text-5xl md:text-6xl font-bold mb-4">Coliving Community in Lagos</h1>
           <p className="font-nunito text-xl md:text-2xl text-balance">
-            Make Friends you haven't met yet
+            Digital Nomads & Remote Workers in Portugal
           </p>
         </div>
       </section>
@@ -392,7 +392,7 @@ export default function CommunityPage() {
               size="lg"
               className="bg-white text-lagos-blue-green hover:bg-white/90 font-montserrat text-lg px-8 py-3"
             >
-              <UTMAnchor baseUrl="https://forms.fillout.com/t/aKuWaUwvaVus" target="_blank" rel="noopener noreferrer">Apply Now</UTMAnchor>
+              <Link href="/form">Apply Now</Link>
             </Button>
             <Button
               asChild
