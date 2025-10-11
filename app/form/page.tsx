@@ -1151,14 +1151,8 @@ const FormPage = () => {
     <div className="min-h-screen flex relative" onKeyDown={handleKeyDown}>
       {/* Mobile Background Image */}
       <div className="md:hidden absolute inset-0 z-0">
-        <Image
-          src="/images/pool-view.webp"
-          alt="NomaVillage Pool View"
-          fill
-          className="object-cover blur-xs"
-          priority
-        />
-        <div className="absolute inset-0 bg-white/80" />
+
+        <div className="absolute inset-0 bg-white" />
       </div>
 
       {/* Confetti Effect */}

@@ -133,34 +133,6 @@ export default function HomePage() {
                 A 2-week immersive retreat combining daily yoga, surf sessions, and focused remote work time - all while building meaningful connections with like-minded nomads.
               </p>
 
-              {/* What's Included */}
-              <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 mb-6">
-                <h3 className="font-montserrat font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                  <span>✓</span> What's Included
-                </h3>
-                <ul className="space-y-3 font-nunito text-gray-700">
-                  <li className="flex items-start gap-2">
-                    <span className="text-lagos-blue-green mt-0.5">•</span>
-                    <span>Daily yoga sessions (morning & evening)</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-lagos-blue-green mt-0.5">•</span>
-                    <span>3 surf lessons per week with local instructors</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-lagos-blue-green mt-0.5">•</span>
-                    <span>Private room with ensuite bathroom</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-lagos-blue-green mt-0.5">•</span>
-                    <span>24/7 coworking space with 500 Mbps WiFi</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-lagos-blue-green mt-0.5">•</span>
-                    <span>2 community dinners & weekly social events</span>
-                  </li>
-                </ul>
-              </div>
 
               {/* Pricing & CTA */}
               <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-6">
