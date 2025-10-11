@@ -193,6 +193,14 @@
     animation: nv-slide-in-left 800ms ease-out both;
     will-change: transform, opacity;
   }
+  /* Hide scrollbar */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 @keyframes nv-slide-in-up {

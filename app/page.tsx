@@ -77,7 +77,7 @@ export default function HomePage() {
 
         <div className="relative z-10 text-center text-white max-w-5xl mx-auto px-4">
           {/* Primary Headline - Clear hierarchy */}
-          <h1 className="font-caveat italic font-bold text-4xl md:text-7xl lg:text-8xl mb-8 leading-[1.1] tracking-normal drop-shadow-2xl">
+          <h1 className="font-caveat italic font-bold text-6xl md:text-7xl lg:text-8xl mb-8 leading-[1.1] tracking-normal drop-shadow-2xl">
             Coliving & Coworking Community
           </h1>
           <h2 className="font-montserrat text-xl md:text-2xl lg:text-3xl font-light italic mb-8 text-white max-w-3xl mx-auto leading-snug drop-shadow-lg">
@@ -125,7 +125,7 @@ export default function HomePage() {
                 UPCOMING RETREAT
               </div>
 
-              <h2 className="font-montserrat text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+              <h2 className="font-montserrat text-3xl md:text-5xl font-bold text-gray-900 mb-4">
                 October Yoga + Surf Experience
               </h2>
 
@@ -188,7 +188,7 @@ export default function HomePage() {
       {/* Stats Section */}
       <section className="py-10 bg-gradient-to-br from-lagos-aquamarine/30 to-lagos-blue-green/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
+          <div className="grid grid-cols-3 gap-4 md:gap-12 text-center">
             <div className="space-y-3">
               <div className="flex items-center justify-center mb-2">
                 <div className="h-12 w-12 rounded-full bg-lagos-blue-green/10 flex items-center justify-center">
@@ -198,10 +198,10 @@ export default function HomePage() {
               <CountUp
                 end={175}
                 duration={2500}
-                className="text-5xl font-bold text-lagos-blue-green font-montserrat"
+                className="text-3xl md:text-5xl font-bold text-lagos-blue-green font-montserrat"
               />
-              <div className="font-montserrat font-semibold text-gray-900">Guests</div>
-              <div className="font-nunito text-sm text-gray-600">Global community of remote workers</div>
+              <div className="font-montserrat font-semibold text-gray-900 text-sm md:text-base">Guests</div>
+              <div className="font-nunito text-xs md:text-sm text-gray-600">Global community of remote workers</div>
             </div>
             <div className="space-y-3">
               <div className="flex items-center justify-center mb-2">
@@ -212,10 +212,10 @@ export default function HomePage() {
               <CountUp
                 end={28}
                 duration={2200}
-                className="text-5xl font-bold text-lagos-blue-green font-montserrat"
+                className="text-3xl md:text-5xl font-bold text-lagos-blue-green font-montserrat"
               />
-              <div className="font-montserrat font-semibold text-gray-900">Countries</div>
-              <div className="font-nunito text-sm text-gray-600">Diverse, international atmosphere</div>
+              <div className="font-montserrat font-semibold text-gray-900 text-sm md:text-base">Countries</div>
+              <div className="font-nunito text-xs md:text-sm text-gray-600">Diverse, international atmosphere</div>
             </div>
             <div className="space-y-3">
               <div className="flex items-center justify-center mb-2">
@@ -223,9 +223,9 @@ export default function HomePage() {
                   <span className="text-2xl">❤️</span>
                 </div>
               </div>
-              <div className="text-5xl font-bold text-lagos-blue-green font-montserrat">One</div>
-              <div className="font-montserrat font-semibold text-gray-900">Community</div>
-              <div className="font-nunito text-sm text-gray-600">United by adventure & ambition</div>
+              <div className="text-3xl md:text-5xl font-bold text-lagos-blue-green font-montserrat">One</div>
+              <div className="font-montserrat font-semibold text-gray-900 text-sm md:text-base">Community</div>
+              <div className="font-nunito text-xs md:text-sm text-gray-600">United by adventure & ambition</div>
             </div>
           </div>
         </div>
@@ -235,7 +235,7 @@ export default function HomePage() {
       <section className="py-20 bg-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
-            <h2 className="font-montserrat text-4xl md:text-5xl font-bold text-gray-900 mb-4">A Day in the Life at Noma Village</h2>
+            <h2 className="font-montserrat text-3xl md:text-5xl font-bold text-gray-900 mb-4">A Day in the Life at Noma Village</h2>
             <p className="font-nunito text-lg text-gray-600 max-w-3xl mx-auto">
               Watch: Morning yoga on the terrace, focused coworking sessions, golden hour at the cliffs, and community dinners <span className="text-gray-400">(1:33)</span>
             </p>
@@ -260,7 +260,7 @@ export default function HomePage() {
               <MapPin className="h-5 w-5" />
               <span className="font-montserrat text-sm tracking-wide uppercase">Prime Location</span>
             </div>
-            <h2 className="font-montserrat text-4xl md:text-5xl font-bold text-gray-900 mt-2">Your Base in the Algarve</h2>
+            <h2 className="font-montserrat text-3xl md:text-5xl font-bold text-gray-900 mt-2">Your Base in the Algarve</h2>
             <p className="font-nunito text-lg text-gray-600 mt-2 max-w-3xl mx-auto">Perfectly positioned between golden beaches, dramatic cliffs, and Lagos historic center - the ideal setting for remote work and coastal living</p>
           </div>
           <div className="mb-10">
@@ -285,7 +285,7 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="font-montserrat text-4xl md:text-5xl font-bold text-gray-900 mb-6">Live & Work by the Ocean</h2>
+              <h2 className="font-montserrat text-3xl md:text-5xl font-bold text-gray-900 mb-6">Live & Work by the Ocean</h2>
               <p className="font-nunito text-xl text-gray-700 mb-8 leading-relaxed">
                 Imagine starting your day with sunrise yoga, tackling your most important work with ocean views, and ending with sunset at the cliffs - all while building lasting connections with talented remote workers from around the world.
               </p>
@@ -363,13 +363,13 @@ export default function HomePage() {
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
-            <h2 className="font-montserrat text-4xl md:text-5xl font-bold text-gray-900 mb-4">What Makes Us Special</h2>
+            <h2 className="font-montserrat text-3xl md:text-5xl font-bold text-gray-900 mb-4">What Makes Us Special</h2>
             <p className="font-nunito text-xl text-gray-600 max-w-3xl mx-auto">
               Everything you need for productive remote work and an unforgettable Portuguese coastal experience
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Private Rooms */}
             <div className="group bg-white rounded-xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-300">
               <div className="relative h-64 overflow-hidden">
@@ -563,6 +563,203 @@ export default function HomePage() {
             </div>
           </div>
 
+          {/* Mobile Horizontal Scroll */}
+          <div className="md:hidden overflow-x-auto snap-x snap-mandatory scrollbar-hide -mx-4 px-4">
+            <div className="flex gap-4 pb-4">
+              {/* Private Rooms */}
+              <div className="flex-none w-[85vw] snap-center group bg-white rounded-xl overflow-hidden shadow-md">
+                <div className="relative h-64 overflow-hidden">
+                  <img
+                    src="/images/room3.jpg"
+                    alt="Private room with workspace at Noma Village"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="p-6">
+                  <h3 className="font-montserrat text-xl font-bold text-gray-900 mb-3">Your Private Sanctuary</h3>
+                  <ul className="space-y-2 font-nunito text-sm text-gray-600">
+                    <li className="flex items-start gap-2">
+                      <span className="text-lagos-blue-green mt-0.5">✓</span>
+                      <span>Ensuite bathroom with rain shower</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-lagos-blue-green mt-0.5">✓</span>
+                      <span>Queen-size bed with premium linens</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-lagos-blue-green mt-0.5">✓</span>
+                      <span>Dedicated workspace with desk</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-lagos-blue-green mt-0.5">✓</span>
+                      <span>A/C, heating & weekly cleaning</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              {/* Coworking */}
+              <div className="flex-none w-[85vw] snap-center group bg-white rounded-xl overflow-hidden shadow-md">
+                <div className="relative h-64 overflow-hidden">
+                  <img
+                    src="/images/cowork.jpg"
+                    alt="Coworking space with high-speed WiFi"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="p-6">
+                  <h3 className="font-montserrat text-xl font-bold text-gray-900 mb-3">Professional Workspace</h3>
+                  <ul className="space-y-2 font-nunito text-sm text-gray-600">
+                    <li className="flex items-start gap-2">
+                      <span className="text-lagos-blue-green mt-0.5">✓</span>
+                      <span>100+ Mbps fiber WiFi</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-lagos-blue-green mt-0.5">✓</span>
+                      <span>Indoor & poolside work areas</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-lagos-blue-green mt-0.5">✓</span>
+                      <span>24/7 access to coworking space</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-lagos-blue-green mt-0.5">✓</span>
+                      <span>Quiet zones for focused work</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              {/* Community */}
+              <div className="flex-none w-[85vw] snap-center group bg-white rounded-xl overflow-hidden shadow-md">
+                <div className="relative h-64 overflow-hidden">
+                  <img
+                    src="/images/community.jpg"
+                    alt="Global community of digital nomads"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="p-6">
+                  <h3 className="font-montserrat text-xl font-bold text-gray-900 mb-3">Curated Community</h3>
+                  <ul className="space-y-2 font-nunito text-sm text-gray-600">
+                    <li className="flex items-start gap-2">
+                      <span className="text-lagos-blue-green mt-0.5">✓</span>
+                      <span>Like-minded remote professionals & nomads</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-lagos-blue-green mt-0.5">✓</span>
+                      <span>Weekly social events & dinners</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-lagos-blue-green mt-0.5">✓</span>
+                      <span>Skill shares & networking</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-lagos-blue-green mt-0.5">✓</span>
+                      <span>International community</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              {/* Outdoor Areas */}
+              <div className="flex-none w-[85vw] snap-center group bg-white rounded-xl overflow-hidden shadow-md">
+                <div className="relative h-64 overflow-hidden">
+                  <img
+                    src="/images/pool.jpg"
+                    alt="Pool and outdoor relaxation areas"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="p-6">
+                  <h3 className="font-montserrat text-xl font-bold text-gray-900 mb-3">Outdoor Oasis</h3>
+                  <ul className="space-y-2 font-nunito text-sm text-gray-600">
+                    <li className="flex items-start gap-2">
+                      <span className="text-lagos-blue-green mt-0.5">✓</span>
+                      <span>Two swimming pools</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-lagos-blue-green mt-0.5">✓</span>
+                      <span>Shaded work & lounge areas</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-lagos-blue-green mt-0.5">✓</span>
+                      <span>Rooftop terrace with ocean views</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-lagos-blue-green mt-0.5">✓</span>
+                      <span>Vibrant colors & natural elements</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              {/* Home Feeling */}
+              <div className="flex-none w-[85vw] snap-center group bg-white rounded-xl overflow-hidden shadow-md">
+                <div className="relative h-64 overflow-hidden">
+                  <img
+                    src="/images/house2.webp"
+                    alt="Colorful Portuguese house in Lagos"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="p-6">
+                  <h3 className="font-montserrat text-xl font-bold text-gray-900 mb-3">Your Home Away from Home</h3>
+                  <ul className="space-y-2 font-nunito text-sm text-gray-600">
+                    <li className="flex items-start gap-2">
+                      <span className="text-lagos-blue-green mt-0.5">✓</span>
+                      <span>Authentic Portuguese architecture</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-lagos-blue-green mt-0.5">✓</span>
+                      <span>Fully equipped shared kitchen</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-lagos-blue-green mt-0.5">✓</span>
+                      <span>Cozy common areas & lounges</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-lagos-blue-green mt-0.5">✓</span>
+                      <span>Safe, welcoming atmosphere</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
+              {/* Beaches */}
+              <div className="flex-none w-[85vw] snap-center group bg-white rounded-xl overflow-hidden shadow-md">
+                <div className="relative h-64 overflow-hidden">
+                  <img
+                    src="/images/beach2.jpg"
+                    alt="Golden beaches of Lagos Algarve"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className="p-6">
+                  <h3 className="font-montserrat text-xl font-bold text-gray-900 mb-3">Beach Paradise</h3>
+                  <ul className="space-y-2 font-nunito text-sm text-gray-600">
+                    <li className="flex items-start gap-2">
+                      <span className="text-lagos-blue-green mt-0.5">✓</span>
+                      <span>10-min walk to Praia Porto de Mós</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-lagos-blue-green mt-0.5">✓</span>
+                      <span>Dozens of beaches within 15 min</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-lagos-blue-green mt-0.5">✓</span>
+                      <span>World-class surf spots nearby</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-lagos-blue-green mt-0.5">✓</span>
+                      <span>Iconic golden cliffs & grottoes</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
           {/* CTA Section - Prominent Buttons */}
           <div className="mt-20 text-center">
             <div className="max-w-4xl mx-auto bg-gradient-to-br from-lagos-aquamarine/5 to-lagos-pink/5 rounded-3xl p-12 border-2 border-lagos-blue-green/10">
@@ -599,47 +796,47 @@ export default function HomePage() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
-            <h2 className="font-montserrat text-5xl font-bold text-gray-900 mb-4">Life at Noma Village</h2>
+            <h2 className="font-montserrat text-3xl md:text-5xl font-bold text-gray-900 mb-4">Life at Noma Village</h2>
             <p className="font-nunito text-xl text-gray-600">
               Discover your new home away from home in Lagos, Portugal
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div className="space-y-6">
+          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-6">
+            <div className="space-y-3 md:space-y-6">
               <img
                 src="/images/community2.jpg"
                 alt="Coworking space"
-                className="w-full h-64 object-cover shadow-md rounded-md"
+                className="w-full h-48 md:h-64 object-cover shadow-md rounded-md"
               />
               <img
                 src="/images/community3.jpg"
                 alt="Coliving room"
-                className="w-full h-48 object-cover object-[50%_90%] shadow-md rounded-md"
+                className="w-full h-36 md:h-48 object-cover object-[50%_90%] shadow-md rounded-md"
               />
             </div>
-            <div className="space-y-6">
+            <div className="space-y-3 md:space-y-6">
               <img
                 src="/images/community5.jpg"
                 alt="Rooftop terrace"
-                className="w-full h-48 object-cover shadow-md rounded-md"
+                className="w-full h-36 md:h-48 object-cover shadow-md rounded-md"
               />
               <img
                 src="/images/community6.jpg"
                 alt="Community kitchen"
-                className="w-full h-64 object-cover shadow-md rounded-md"
+                className="w-full h-48 md:h-64 object-cover shadow-md rounded-md"
               />
             </div>
-            <div className="space-y-6">
+            <div className="space-y-3 md:space-y-6 col-span-2 lg:col-span-1">
               <img
                 src="/images/cliff.jpg"
                 alt="Beach working"
-                className="w-full h-64 object-cover object-[50%_70%] shadow-md rounded-md"
+                className="w-full h-48 md:h-64 object-cover object-[50%_70%] shadow-md rounded-md"
               />
               <img
                 src="/images/bedroom.jpg"
                 alt="Yoga session"
-                className="w-full h-48 object-cover shadow-md rounded-md"
+                className="w-full h-36 md:h-48 object-cover shadow-md rounded-md"
               />
             </div>
           </div>
@@ -649,7 +846,7 @@ export default function HomePage() {
       {/* Final CTA: Ready to Join? */}
       <section className="py-20 bg-gradient-to-br from-lagos-aquamarine/5 via-white to-lagos-blue-green/5">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="font-montserrat text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+          <h2 className="font-montserrat text-3xl md:text-5xl font-bold text-gray-900 mb-6">
             Ready to Start Your Journey?
           </h2>
           <p className="font-nunito text-xl text-gray-700 mb-10 max-w-2xl mx-auto leading-relaxed">
@@ -702,13 +899,13 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Main Heading */}
           <div className="text-center mb-10">
-            <h2 className="font-montserrat text-5xl font-bold text-gray-900 mb-4">What Our Community Says</h2>
+            <h2 className="font-montserrat text-3xl md:text-5xl font-bold text-gray-900 mb-4">What Our Community Says</h2>
           </div>
 
-          {/* Featured Testimonials */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
+          {/* Featured Testimonials - Desktop Grid */}
+          <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-20">
             <Card className="border-0 shadow-lg">
-              <CardContent className="p-8">
+              <CardContent className="p-4 md:p-8">
                 <div className="flex items-center mb-4">
                   {[...Array(5)].map((_, i) => (
                     <Star key={i} className="h-5 w-5 text-lagos-amber fill-current" />
@@ -730,7 +927,7 @@ export default function HomePage() {
             </Card>
 
             <Card className="border-0 shadow-lg">
-              <CardContent className="p-8">
+              <CardContent className="p-4 md:p-8">
                 <div className="flex items-center mb-4">
                   {[...Array(5)].map((_, i) => (
                     <Star key={i} className="h-5 w-5 text-lagos-amber fill-current" />
@@ -752,7 +949,7 @@ export default function HomePage() {
             </Card>
 
             <Card className="border-0 shadow-lg">
-              <CardContent className="p-8">
+              <CardContent className="p-4 md:p-8">
                 <div className="flex items-center mb-4">
                   {[...Array(5)].map((_, i) => (
                     <Star key={i} className="h-5 w-5 text-lagos-amber fill-current" />
@@ -776,6 +973,81 @@ export default function HomePage() {
                 </div>
               </CardContent>
             </Card>
+          </div>
+
+          {/* Featured Testimonials - Mobile Horizontal Scroll */}
+          <div className="md:hidden overflow-x-auto snap-x snap-mandatory scrollbar-hide -mx-4 px-4 mb-20">
+            <div className="flex gap-4 pb-4">
+              <Card className="flex-none w-[85vw] snap-center border-0 shadow-lg">
+                <CardContent className="p-8">
+                  <div className="flex items-center mb-4">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="h-5 w-5 text-lagos-amber fill-current" />
+                    ))}
+                  </div>
+                  <Quote className="h-8 w-8 text-lagos-aquamarine mb-4" />
+                  <p className="font-nunito text-gray-600 mb-6 leading-relaxed">
+                    "Noma Village transformed my remote work experience. The community is incredible and the location in
+                    Lagos is absolutely unbeatable!"
+                  </p>
+                  <div className="flex items-center">
+                    <img src="/young-woman-smiling.webp" alt="Fabienne" className="w-12 h-12 mr-4 rounded-full object-cover" />
+                    <div>
+                      <div className="font-montserrat font-semibold">Fabienne</div>
+                      <div className="font-nunito text-sm text-gray-500">Coach, Berlin</div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="flex-none w-[85vw] snap-center border-0 shadow-lg">
+                <CardContent className="p-8">
+                  <div className="flex items-center mb-4">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="h-5 w-5 text-lagos-amber fill-current" />
+                    ))}
+                  </div>
+                  <Quote className="h-8 w-8 text-lagos-aquamarine mb-4" />
+                  <p className="font-nunito text-gray-600 mb-6 leading-relaxed">
+                    "Perfect balance of work and Portuguese coastal life. I've never been more productive while enjoying
+                    such an amazing lifestyle and authentic cultural experience."
+                  </p>
+                  <div className="flex items-center">
+                    <img src="/young-bearded-man-headshot.webp" alt="Bart" className="w-12 h-12 mr-4 rounded-full object-cover" />
+                    <div>
+                      <div className="font-montserrat font-semibold">Bart</div>
+                      <div className="font-nunito text-sm text-gray-500">Social Engineer, Amsterdam</div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              <Card className="flex-none w-[85vw] snap-center border-0 shadow-lg">
+                <CardContent className="p-8">
+                  <div className="flex items-center mb-4">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="h-5 w-5 text-lagos-amber fill-current" />
+                    ))}
+                  </div>
+                  <Quote className="h-8 w-8 text-lagos-aquamarine mb-4" />
+                  <p className="font-nunito text-gray-600 mb-6 leading-relaxed">
+                    "The curated community and networking opportunities at Noma Village have been invaluable for my
+                    business growth and personal development."
+                  </p>
+                  <div className="flex items-center">
+                    <img
+                      src="/professional-headshot-of-young-woman-with-curly-ha.webp"
+                      alt="Ana"
+                      className="w-12 h-12 mr-4 rounded-full object-cover"
+                    />
+                    <div>
+                      <div className="font-montserrat font-semibold">Kiki</div>
+                      <div className="font-nunito text-sm text-gray-500">Copywriter, Holland</div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
           </div>
 
           {/* Google Reviews Section */}
@@ -813,7 +1085,7 @@ export default function HomePage() {
       <section className="py-20 bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
-            <h2 className="font-montserrat text-5xl font-bold text-gray-900 mb-4">Guest Story</h2>
+            <h2 className="font-montserrat text-3xl md:text-5xl font-bold text-gray-900 mb-4">Guest Story</h2>
             <p className="font-nunito text-lg text-gray-600 max-w-3xl mx-auto">Listen to Jeremy sharing his experience at Noma Village</p>
           </div>
 
@@ -847,7 +1119,7 @@ export default function HomePage() {
             <div className="inline-block bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full mb-6">
               <span className="text-white font-montserrat font-semibold text-sm">📖 FREE DOWNLOAD</span>
             </div>
-            <h2 className="font-montserrat text-5xl md:text-6xl font-bold text-white mb-6">
+            <h2 className="font-montserrat text-3xl md:text-5xl font-bold text-white mb-6">
               Get the Noma Village Guide
             </h2>
             <p className="font-nunito text-xl md:text-2xl text-white/95 mb-4 max-w-3xl mx-auto">

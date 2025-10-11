@@ -48,8 +48,8 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onJoinClick }) =
     {
       id: '3weeks',
       label: '3 Weeks',
-      price: '€1,110',
-      dailyRate: '€53/day',
+      price: '€1,185',
+      dailyRate: '€56/day',
       savings: 'Save €75 vs. 2-week rate',
       description: 'Great balance of time and value',
     },
@@ -163,8 +163,8 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onJoinClick }) =
             </p>
           </div>
 
-          {/* Comparison Table */}
-          <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto mb-12">
+          {/* Comparison Table - Desktop Grid */}
+          <div className="hidden md:grid md:grid-cols-2 gap-8 max-w-5xl mx-auto mb-12">
           {/* DIY Lisbon Column */}
           <div className="bg-gray-50 rounded-2xl p-8 border-2 border-gray-200 relative">
             <div className="absolute -top-3 -right-3 bg-red-500 text-white px-3 py-1 rounded-full text-xs font-montserrat font-semibold shadow-lg rotate-12">
@@ -363,7 +363,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onJoinClick }) =
             <div className="pt-4 border-t-2 border-lagos-blue-green bg-gradient-to-r from-green-50 to-blue-50 -mx-4 px-4 pb-4">
               <div className="flex justify-between items-center mb-3">
                 <span className="font-montserrat font-bold text-gray-900">Your Monthly Total</span>
-                <span className="font-montserrat text-4xl font-bold text-lagos-blue-green">€1,450</span>
+                <span className="font-montserrat text-4xl font-bold text-lagos-blue-green">€1,480</span>
               </div>
               <div className="bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg px-4 py-3 mb-3 shadow-md">
                 <p className="text-base font-montserrat font-bold">
@@ -377,6 +377,226 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onJoinClick }) =
                 <p className="text-sm text-gray-800 font-semibold">
                   ✨ <strong>Plus:</strong> Instant friends, weekly events, beach lifestyle, surf lessons, yoga, and memories that last forever
                 </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Comparison Table - Mobile Horizontal Scroll */}
+        <div className="md:hidden overflow-x-auto snap-x snap-mandatory scrollbar-hide -mx-4 px-4 mb-10 overflow-y-visible">
+          <div className="flex gap-4 pb-4 pt-6">
+            {/* DIY Lisbon Column */}
+            <div className="flex-none w-[85vw] snap-center bg-gray-50 rounded-2xl p-6 border-2 border-gray-200 relative">
+              <div className="absolute -top-3 -right-3 bg-red-500 text-white px-3 py-1 rounded-full text-xs font-montserrat font-semibold shadow-lg rotate-12">
+                ⚠️ HASSLE
+              </div>
+              <h3 className="font-montserrat text-xl font-bold text-gray-900 mb-2">
+                Do-It-Yourself in Lisbon
+              </h3>
+              <p className="font-nunito text-sm text-gray-600 mb-6">
+                Monthly cost to recreate this lifestyle on your own
+              </p>
+
+              <div className="space-y-3 mb-6">
+                <div className="flex justify-between items-start pb-3 border-b border-gray-200">
+                  <div className="flex items-start gap-2">
+                    <span className="text-red-500 mt-1">❌</span>
+                    <div>
+                      <div className="font-nunito text-gray-700 text-sm">Room in shared flat on Airbnb</div>
+                      <div className="text-xs text-gray-500">No ensuite, bills extra, roommate roulette</div>
+                    </div>
+                  </div>
+                  <span className="font-montserrat font-semibold text-gray-900">€1000+</span>
+                </div>
+
+                <div className="flex justify-between items-start pb-3 border-b border-gray-200">
+                  <div className="flex items-start gap-2">
+                    <span className="text-red-500 mt-1">❌</span>
+                    <div>
+                      <div className="font-nunito text-gray-700 text-sm">Utilities & WiFi</div>
+                      <div className="text-xs text-gray-500">Power, water, internet, gas - separate bills</div>
+                    </div>
+                  </div>
+                  <span className="font-montserrat font-semibold text-gray-900">€120+</span>
+                </div>
+
+                <div className="flex justify-between items-start pb-3 border-b border-gray-200">
+                  <div className="flex items-start gap-2">
+                    <span className="text-red-500 mt-1">❌</span>
+                    <div>
+                      <div className="font-nunito text-gray-700 text-sm">Coworking space</div>
+                      <div className="text-xs text-gray-500">Hot desk, limited hours, no dedicated area</div>
+                    </div>
+                  </div>
+                  <span className="font-montserrat font-semibold text-gray-900">€250+</span>
+                </div>
+
+                <div className="flex justify-between items-start pb-3 border-b border-gray-200">
+                  <div className="flex items-start gap-2">
+                    <span className="text-red-500 mt-1">❌</span>
+                    <div>
+                      <div className="font-nunito text-gray-700 text-sm">Yoga & fitness</div>
+                      <div className="text-xs text-gray-500">Drop-in rates, gym membership extra</div>
+                    </div>
+                  </div>
+                  <span className="font-montserrat font-semibold text-gray-900">€150+</span>
+                </div>
+
+                <div className="flex justify-between items-start pb-3 border-b border-gray-200">
+                  <div className="flex items-start gap-2">
+                    <span className="text-red-500 mt-1">❌</span>
+                    <div>
+                      <div className="font-nunito text-gray-700 text-sm">Cleaning & laundry</div>
+                      <div className="text-xs text-gray-500">Laundromat, cleaning products, your time</div>
+                    </div>
+                  </div>
+                  <span className="font-montserrat font-semibold text-gray-900">€80+</span>
+                </div>
+
+                <div className="flex justify-between items-start pb-3 border-b border-gray-200">
+                  <div className="flex items-start gap-2">
+                    <span className="text-red-500 mt-1">❌</span>
+                    <div>
+                      <div className="font-nunito text-gray-700 text-sm">Transport to beach</div>
+                      <div className="text-xs text-gray-500">Uber/bus to Cascais, time wasted commuting</div>
+                    </div>
+                  </div>
+                  <span className="font-montserrat font-semibold text-gray-900">€100+</span>
+                </div>
+
+                <div className="flex justify-between items-start pb-3 border-b border-gray-200 bg-red-50/50 -mx-2 px-2 py-2">
+                  <div className="flex items-start gap-2">
+                    <span className="text-red-500 mt-1">❌</span>
+                    <div>
+                      <div className="font-nunito text-gray-700 font-semibold text-sm">Community & social life</div>
+                      <div className="text-xs text-red-600 font-medium">Good luck finding like-minded people...</div>
+                    </div>
+                  </div>
+                  <span className="font-montserrat font-semibold text-gray-400 italic">???</span>
+                </div>
+
+                <div className="flex justify-between items-start pb-3 bg-red-50/50 -mx-2 px-2 py-2">
+                  <div className="flex items-start gap-2">
+                    <span className="text-red-500 mt-1">❌</span>
+                    <div>
+                      <div className="font-nunito text-gray-700 font-semibold text-sm">Your time & energy</div>
+                      <div className="text-xs text-red-600 font-medium">Coordinating everything yourself</div>
+                    </div>
+                  </div>
+                  <span className="font-montserrat font-semibold text-gray-400 italic">∞</span>
+                </div>
+              </div>
+
+              <div className="pt-4 border-t-2 border-red-300 bg-red-50/30 -mx-4 px-4 pb-4">
+                <div className="flex justify-between items-center mb-2">
+                  <span className="font-montserrat font-bold text-gray-900">Monthly Total</span>
+                  <span className="font-montserrat text-2xl font-bold text-red-600">€1,700+</span>
+                </div>
+                <p className="text-xs text-red-700 font-semibold mt-2">
+                  ⚠️ Plus: Lonely, time-consuming, stressful - still no community or coastal lifestyle
+                </p>
+              </div>
+            </div>
+
+            {/* Noma Lagos Column */}
+            <div className="flex-none w-[85vw] snap-center bg-gradient-to-br from-lagos-aquamarine/10 to-lagos-blue-green/10 rounded-2xl p-6 border-2 border-lagos-blue-green relative overflow-visible shadow-xl">
+              <div className="absolute -top-3 -right-3 bg-gradient-to-r from-lagos-pink to-[#E362B7] text-white px-4 py-1 rounded-full text-xs font-montserrat font-semibold shadow-lg">
+                ✨ BEST VALUE
+              </div>
+
+              <h3 className="font-montserrat text-xl font-bold text-gray-900 mb-2">
+                All-Inclusive at Noma Lagos
+              </h3>
+              <p className="font-nunito text-sm text-gray-600 mb-6">
+                Everything you need in one beautiful package
+              </p>
+
+              <div className="space-y-4 mb-6">
+                <div className="flex justify-between items-start pb-3 border-b border-lagos-blue-green/20">
+                  <div className="flex items-start gap-2">
+                    <span className="text-lagos-blue-green mt-1">✓</span>
+                    <div>
+                      <div className="font-nunito text-gray-900 font-semibold text-sm">Private room with ensuite</div>
+                      <div className="text-xs text-gray-600">Queen bed, desk, A/C, cleaning</div>
+                    </div>
+                  </div>
+                  <span className="font-montserrat font-semibold text-lagos-blue-green">✓</span>
+                </div>
+
+                <div className="flex justify-between items-start pb-3 border-b border-lagos-blue-green/20">
+                  <div className="flex items-start gap-2">
+                    <span className="text-lagos-blue-green mt-1">✓</span>
+                    <div>
+                      <div className="font-nunito text-gray-900 font-semibold text-sm">Dedicated coworking space</div>
+                      <div className="text-xs text-gray-600">24/7 access, multiple zones</div>
+                    </div>
+                  </div>
+                  <span className="font-montserrat font-semibold text-lagos-blue-green">✓</span>
+                </div>
+
+                <div className="flex justify-between items-start pb-3 border-b border-lagos-blue-green/20">
+                  <div className="flex items-start gap-2">
+                    <span className="text-lagos-blue-green mt-1">✓</span>
+                    <div>
+                      <div className="font-nunito text-gray-900 font-semibold text-sm">2 pools & large outdoor area</div>
+                      <div className="text-xs text-gray-600">Perfect space to relax and recharge</div>
+                    </div>
+                  </div>
+                  <span className="font-montserrat font-semibold text-lagos-blue-green">✓</span>
+                </div>
+
+                <div className="flex justify-between items-start pb-3 border-b border-lagos-blue-green/20">
+                  <div className="flex items-start gap-2">
+                    <span className="text-lagos-blue-green mt-1">✓</span>
+                    <div>
+                      <div className="font-nunito text-gray-900 font-semibold text-sm">All utilities + 100 Mbps WiFi</div>
+                      <div className="text-xs text-gray-600">No surprise bills, ever</div>
+                    </div>
+                  </div>
+                  <span className="font-montserrat font-semibold text-lagos-blue-green">✓</span>
+                </div>
+
+                <div className="flex justify-between items-start pb-3 border-b border-lagos-blue-green/20">
+                  <div className="flex items-start gap-2">
+                    <span className="text-lagos-blue-green mt-1">✓</span>
+                    <div>
+                      <div className="font-nunito text-gray-900 font-semibold text-sm">Curated community</div>
+                      <div className="text-xs text-gray-600">145+ vetted remote professionals</div>
+                    </div>
+                  </div>
+                  <span className="font-montserrat font-semibold text-lagos-blue-green">✓</span>
+                </div>
+
+                <div className="flex justify-between items-start pb-3">
+                  <div className="flex items-start gap-2">
+                    <span className="text-lagos-blue-green mt-1">✓</span>
+                    <div>
+                      <div className="font-nunito text-gray-900 font-semibold text-sm">Golden beaches & surf</div>
+                      <div className="text-xs text-gray-600">10-min walk, year-round sunshine</div>
+                    </div>
+                  </div>
+                  <span className="font-montserrat font-semibold text-lagos-blue-green">✓</span>
+                </div>
+              </div>
+
+              <div className="pt-4 border-t-2 border-lagos-blue-green bg-gradient-to-r from-green-50 to-blue-50 -mx-4 px-4 pb-4">
+                <div className="flex justify-between items-center mb-3">
+                  <span className="font-montserrat font-bold text-gray-900 text-sm">Your Monthly Total</span>
+                  <span className="font-montserrat text-3xl font-bold text-lagos-blue-green">€1,450</span>
+                </div>
+                <div className="bg-gradient-to-r from-green-500 to-green-600 text-white rounded-lg px-3 py-2 mb-3 shadow-md">
+                  <p className="text-sm font-montserrat font-bold">
+                    💰 Actually CHEAPER than DIY!
+                  </p>
+                  <p className="text-xs font-nunito mt-1">
+                    Save €200+/month • Zero hassle • Instant community
+                  </p>
+                </div>
+                <div className="bg-lagos-blue-green/10 border-2 border-lagos-blue-green rounded-lg px-3 py-2">
+                  <p className="text-xs text-gray-800 font-semibold">
+                    ✨ <strong>Plus:</strong> Instant friends, weekly events, beach lifestyle, surf lessons, yoga, and memories that last forever
+                  </p>
+                </div>
               </div>
             </div>
           </div>
