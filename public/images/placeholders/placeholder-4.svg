@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900">
+  <defs>
+    <pattern id="dots" width="40" height="40" patternUnits="userSpaceOnUse">
+      <circle cx="4" cy="4" r="4" fill="#d1d5db"/>
+    </pattern>
+  </defs>
+  <rect width="1600" height="900" fill="#eef2f7"/>
+  <rect x="0" y="0" width="1600" height="900" fill="url(#dots)"/>
+  <text x="800" y="450" text-anchor="middle" font-family="Arial, Helvetica, sans-serif" font-size="56" fill="#334155" font-weight="700">Placeholder 4 — 1600×900</text>
+</svg>

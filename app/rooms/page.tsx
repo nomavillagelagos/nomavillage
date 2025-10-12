@@ -11,6 +11,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Bath, Maximize, Wifi, AirVent, Car, Utensils, Shirt, CheckCircle, Calendar, Eye, Star, X, ChevronLeft, ChevronRight, Info, Laptop, Zap, Monitor, Bed, ChevronDown } from "lucide-react"
 import Link from "next/link"
 import { useState } from "react"
+import Carousel from "@/components/Carousel"
 
 export default function RoomsPage() {
   const [isCalendarOpen, setIsCalendarOpen] = useState(false)
@@ -336,6 +337,13 @@ export default function RoomsPage() {
               </div>
             ))}
           </div>
+        </div>
+      </section>
+
+      {/* Rooms Carousel */}
+      <section className="py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <Carousel />
         </div>
       </section>
 

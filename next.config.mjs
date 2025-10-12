@@ -18,6 +18,16 @@ const nextConfig = {
       { source: '/october-b', destination: '/landing-b', permanent: true },
     ]
   },
+  async rewrites() {
+    // Map subfolder-friendly names to existing JPGs. You can later drop real files in public/images/rooms and remove these.
+    return [
+      { source: '/images/rooms/kitchen.jpg', destination: '/community-kitchen-with-people-cooking-together.jpg' },
+      { source: '/images/rooms/room1.jpg', destination: '/images/room.jpg' },
+      { source: '/images/rooms/room2.jpg', destination: '/images/room3.jpg' },
+      { source: '/images/rooms/room3.jpg', destination: '/beautiful-coliving-rooms-showcase.jpg' },
+      { source: '/images/rooms/bath.jpg', destination: '/images/private-bathroom-with-modern-fixtures.jpg' },
+    ]
+  },
 }
 
 export default nextConfig
