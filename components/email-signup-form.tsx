@@ -111,10 +111,12 @@ export default function EmailSignupForm({
 
   return (
     <Card className={className}>
-      <CardHeader>
-        <CardTitle className="font-caveat text-2xl">{title}</CardTitle>
-        <CardDescription className="font-nunito">{description}</CardDescription>
-      </CardHeader>
+      {(title || description) && (
+        <CardHeader>
+          {title && <CardTitle className="font-caveat text-2xl">{title}</CardTitle>}
+          {description && <CardDescription className="font-nunito">{description}</CardDescription>}
+        </CardHeader>
+      )}
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-4">
           {showNames && (

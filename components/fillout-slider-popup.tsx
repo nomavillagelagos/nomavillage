@@ -135,7 +135,7 @@ export default function FilloutSliderPopup({ isOpen, onClose, formUrl, onFormSub
           <h3 className="text-lg font-semibold text-gray-900">Secure Your Spot</h3>
           <button
             onClick={onClose}
-            className="p-2 hover:bg-gray-200 rounded-full transition-colors"
+            className="p-2 hover:bg-gray-200 rounded-full transition-colors cursor-pointer"
             aria-label="Close form"
           >
             <X className="h-5 w-5" />

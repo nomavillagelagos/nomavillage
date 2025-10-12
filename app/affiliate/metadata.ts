@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     title: 'Noma Village Affiliate Program — Earn €100, Give €100',
     description:
       'Share transformation: help others join our premium Yoga + Co‑Living program and earn €100 per referral while they save €100.',
-    url: 'https://nomavillage.com/affiliate',
+    url: 'https://www.nomavillage.com/affiliate',
     siteName: 'Noma Village',
     images: [
       {

@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Contact Us | Noma Village Lagos',
     description: 'Reach out to our team for any inquiries about our coliving space, availability, or life in Lagos, Portugal.',
-    url: 'https://nomavillagelagos.com/contact',
+    url: 'https://www.nomavillage.com/contact',
     siteName: 'Noma Village',
     images: [
       {
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     images: ['/images/contact/contact-hero.jpg'],
   },
   alternates: {
-    canonical: 'https://nomavillagelagos.com/contact',
+    canonical: 'https://www.nomavillage.com/contact',
   },
 };
 

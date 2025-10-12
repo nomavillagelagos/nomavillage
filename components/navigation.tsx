@@ -6,11 +6,9 @@ import { Button } from "@/components/ui/button"
 import { Menu, X } from "lucide-react"
 import Image from "next/image"
 import Script from "next/script"
-import FilloutSliderPopup from "@/components/fillout-slider-popup"
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
-  const [isFormOpen, setIsFormOpen] = useState(false)
 
   const navItems = [
     { href: "/", label: "Home" },
@@ -22,9 +20,9 @@ export function Navigation() {
   ]
 
   return (
-    <nav className="bg-transparent backdrop-blur-sm border-b border-transparent absolute top-4 left-0 right-0 z-50">
+    <nav className="fixed top-4 left-0 right-0 z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="rounded-2xl bg-lagos-aquamarine/20 backdrop-blur-sm shadow-sm px-4 sm:px-6">
+        <div className="rounded-2xl bg-white/80 backdrop-blur-md shadow-lg px-4 sm:px-6 overflow-hidden">
           <div className="flex justify-between items-center h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
@@ -36,7 +34,7 @@ export function Navigation() {
                 height={50}
               />
 
-            <span className="font-caveat text-2xl font-bold text-lagos-amber">Noma Village</span>
+            <span className="font-caveat text-2xl font-semibold text-gray-700 tracking-tighter">Noma Village</span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -50,12 +48,13 @@ export function Navigation() {
                 {item.label}
               </Link>
             ))}
-            <Button
-              className="bg-lagos-pink hover:bg-lagos-pink/90 text-white font-montserrat inline-flex items-center h-16 px-5 rounded-none"
-              onClick={() => setIsFormOpen(true)}
-            >
-              Join Us
-            </Button>
+            <Link href="/form">
+              <Button
+                className="bg-lagos-pink hover:bg-lagos-pink/90 cursor-pointer text-white font-montserrat font-bold  text-md inline-flex items-center h-16 px-5 rounded-none"
+              >
+                Join Us
+              </Button>
+            </Link>
             </div>
             {/* Mobile menu button */}
             <div className="md:hidden">
@@ -81,26 +80,18 @@ export function Navigation() {
                 </Link>
               ))}
               <div className="px-3 py-2">
-                <Button
-                  className="w-full bg-lagos-pink hover:bg-lagos-pink/90 text-white font-montserrat"
-                  onClick={() => { setIsOpen(false); setIsFormOpen(true) }}
-                >
-                  Join Us
-                </Button>
+                <Link href="/form" className="block" onClick={() => setIsOpen(false)}>
+                  <Button
+                    className="w-full bg-lagos-pink hover:bg-lagos-pink/90 text-white font-montserrat"
+                  >
+                    Join Us
+                  </Button>
+                </Link>
               </div>
             </div>
           </div>
         )}
       </div>
-      {/* Fillout Script - loaded once via navigation */}
-      <Script src="https://server.fillout.com/embed/v1/" strategy="lazyOnload" />
-
-      {/* Custom Fillout Slider Popup for reliable mobile/desktop behavior */}
-      <FilloutSliderPopup
-        isOpen={isFormOpen}
-        onClose={() => setIsFormOpen(false)}
-        formUrl="https://forms.fillout.com/t/aKuWaUwvaVus"
-      />
     </nav>
   )
 }

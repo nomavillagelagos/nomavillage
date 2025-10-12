@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Join Our Community | Noma Village Lagos',
     description: 'Apply now to join our vibrant coliving and coworking community in Lagos, Portugal. Limited spots available for digital nomads and remote workers.',
-    url: 'https://nomavillagelagos.com/join',
+    url: 'https://www.nomavillage.com/join',
     siteName: 'Noma Village',
     images: [
       {
@@ -26,6 +26,6 @@ export const metadata: Metadata = {
     images: ['/images/community/community-hero.jpg'],
   },
   alternates: {
-    canonical: 'https://nomavillagelagos.com/join',
+    canonical: 'https://www.nomavillage.com/join',
   },
 }
