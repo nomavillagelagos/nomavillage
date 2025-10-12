@@ -20,10 +20,10 @@ export function Navigation() {
   ]
 
   return (
-    <nav className="fixed top-4 left-0 right-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="rounded-2xl bg-white/80 backdrop-blur-md shadow-lg px-4 sm:px-6 overflow-hidden">
-          <div className="flex justify-between items-center h-16">
+    <nav className="sticky top-0 left-0 right-0 z-50 w-full">
+      <div className="w-full">
+        <div className="bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-100/50 px-4 sm:px-6 lg:px-8 overflow-hidden">
+          <div className="max-w-7xl mx-auto flex justify-between items-center h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
 
@@ -67,8 +67,9 @@ export function Navigation() {
 
         {/* Mobile Navigation */}
         {isOpen && (
-          <div className="md:hidden">
-            <div className="px-0 pt-2 pb-3 bg-white border-t border-gray-100">
+          <div className="md:hidden w-full">
+            <div className="px-4 sm:px-6 lg:px-8 pt-2 pb-3 bg-white/95 backdrop-blur-md border-t border-gray-100/50">
+              <div className="max-w-7xl mx-auto">
               {navItems.map((item) => (
                 <Link
                   key={item.href}
@@ -87,6 +88,7 @@ export function Navigation() {
                     Join Us
                   </Button>
                 </Link>
+              </div>
               </div>
             </div>
           </div>

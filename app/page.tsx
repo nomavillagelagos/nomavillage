@@ -14,7 +14,9 @@ import WhatsAppDirectButton from "@/components/WhatsAppDirectButton"
 import FAQSection from "@/components/FAQ"
 import MapWithZoom from "@/components/MapWithZoom"
 import GoogleReviewsCarousel from "@/components/GoogleReviewsCarousel"
-import { HeroCTA, CTAButton, GoogleReviewsWrapper, LocationHighlights, PricingSectionWrapper, TrustBar } from "@/components/client"
+import { CTAButton, GoogleReviewsWrapper, LocationHighlights, PricingSectionWrapper, TrustBar } from "@/components/client"
+import BlackHeroSection from "@/components/BlackHeroSection"
+import HeroButtons from "@/components/HeroButtons"
 
 export default function HomePage() {
   return (
@@ -61,39 +63,53 @@ export default function HomePage() {
       </Head>
 
       {/* Hero Section */}
-      <section className="relative h-[92vh] flex items-center justify-center overflow-hidden">
+      <section className="relative h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 w-full h-full">
           <Image
-            src="/images/noma-background2.jpg"
+            src="/images/noma_background.webp"
             alt="Cliff view at NomaVillage Lagos"
             fill
             priority
-            quality={85}
-            className="object-cover blur-[1px]"
+            quality={95}
+            className="object-cover object-[50%_35%]"
             sizes="100vw"
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-gray-900/70 via-gray-900/80 to-gray-900/70"></div>
+          <div
+            className="absolute inset-0"
+            style={{ background: 'linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.6))' }}
+          ></div>
         </div>
 
-        <div className="relative z-10 text-center text-white max-w-5xl mx-auto pt-20 md:pt-16 px-4">
-          {/* Primary Headline - Clear hierarchy */}
-          <h1 className="font-caveat italic font-bold text-5xl md:text-7xl lg:text-7xl mb-4 md:mb-8 leading-[0.9] md:leading-[1] tracking-normal drop-shadow-2xl">
-            Coliving & Coworking Community
-          </h1>
-          <h2 className="font-montserrat text-xl md:text-2xl lg:text-2xl font-light italic mb-4 md:mb-8 text-white max-w-3xl mx-auto leading-snug drop-shadow-lg">
-            <span className="not-italic text-2xl md:text-3xl">📍</span> Lagos, Algarve, Portugal
-          </h2>
+        <div className="relative z-10 text-center text-white max-w-3xl mx-auto px-4 pt-20 md:pt-24 pb-16">
+          <div className="flex items-center justify-center gap-2 mb-6 md:mb-8">
+            <MapPin className="h-5 w-5 md:h-5 md:w-5" color="#ffffff" />
+            <span className="font-sans text-white text-[18px] font-normal" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.3)' }}>
+              Lagos, Algarve, Portugal
+            </span>
+          </div>
 
-          <p className="mt-4 font-montserrat text-lg md:text-xl lg:text-2xl font-normal mb-10 md:mb-12 text-white max-w-4xl mx-auto leading-relaxed drop-shadow-lg">
-            Live, work, and connect with like-minded nomads in Portugal's most vibrant coastal community. Your colorful home by the ocean awaits.
-          </p>
+          <div className="mx-auto max-w-3xl">
+            <h1
+              className="font-montserrat font-light text-[40px] sm:text-[48px] md:text-[56px] tracking-[-0.5px] leading-tight mb-6 md:mb-8 text-white"
+              style={{ textShadow: '0 3px 10px rgba(0,0,0,0.4)' }}
+            >
+              Coliving & Coworking Community
+            </h1>
 
+            <p
+              className="font-sans text-[18px] font-normal max-w-[600px] mx-auto leading-[1.6] text-white/95 mb-8 md:mb-10"
+              style={{ textShadow: '0 2px 8px rgba(0,0,0,0.35)' }}
+            >
+              Live, work, and connect with like‑minded people in Portugal’s most vibrant coastal community. Your home by the ocean awaits.
+            </p>
 
-
-          {/* CTAs with better spacing */}
-          <HeroCTA />
+            <HeroButtons />
+          </div>
         </div>
       </section>
+
+      {/* Full-width Black Hero Band (below hero) */}
+      <BlackHeroSection />
 
       {/* Trust & Benefits Bar */}
       <TrustBar />
@@ -122,15 +138,19 @@ export default function HomePage() {
             {/* Content Column */}
             <div className="order-1 lg:order-2">
               <div className="inline-block bg-lagos-aquamarine/20 text-lagos-blue-green px-4 py-1 rounded-full text-sm font-montserrat font-semibold mb-4">
-                UPCOMING RETREAT
+                Permanent Colive
               </div>
 
               <h2 className="font-montserrat text-3xl md:text-5xl font-bold text-gray-900 mb-4">
-                October Yoga + Surf Experience
+                Life is better Shared
               </h2>
 
               <p className="font-nunito text-xl text-gray-700 mb-6 leading-relaxed">
-                A 2-week immersive retreat combining daily yoga, surf sessions, and focused remote work time - all while building meaningful connections with like-minded nomads.
+                Make our permanent coliving space by the ocean your home base. We combine uninterrupted remote work with a strong focus on community, featuring daily yoga classes to start your day right.
+              </p>
+              
+              <p className="font-nunito text-xl text-gray-700 mb-6 leading-relaxed">
+                We are building meaningful connections with like-minded nomads through community events and shared living.
               </p>
 
 
@@ -162,11 +182,6 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-3 gap-4 md:gap-12 text-center">
             <div className="space-y-3">
-              <div className="flex items-center justify-center mb-2">
-                <div className="h-12 w-12 rounded-full bg-lagos-blue-green/10 flex items-center justify-center">
-                  <span className="text-2xl">👥</span>
-                </div>
-              </div>
               <CountUp
                 end={175}
                 duration={2500}
@@ -176,11 +191,6 @@ export default function HomePage() {
               <div className="font-nunito text-xs md:text-sm text-gray-600">Global community of remote workers</div>
             </div>
             <div className="space-y-3">
-              <div className="flex items-center justify-center mb-2">
-                <div className="h-12 w-12 rounded-full bg-lagos-blue-green/10 flex items-center justify-center">
-                  <span className="text-2xl">🌍</span>
-                </div>
-              </div>
               <CountUp
                 end={28}
                 duration={2200}
@@ -190,11 +200,6 @@ export default function HomePage() {
               <div className="font-nunito text-xs md:text-sm text-gray-600">Diverse, international atmosphere</div>
             </div>
             <div className="space-y-3">
-              <div className="flex items-center justify-center mb-2">
-                <div className="h-12 w-12 rounded-full bg-lagos-blue-green/10 flex items-center justify-center">
-                  <span className="text-2xl">❤️</span>
-                </div>
-              </div>
               <div className="text-3xl md:text-5xl font-bold text-lagos-blue-green font-montserrat">One</div>
               <div className="font-montserrat font-semibold text-gray-900 text-sm md:text-base">Community</div>
               <div className="font-nunito text-xs md:text-sm text-gray-600">United by adventure & ambition</div>
