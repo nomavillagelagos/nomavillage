@@ -66,7 +66,7 @@ export default function HomePage() {
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 w-full h-full">
           <Image
-            src="/images/noma_background.webp"
+            src="/images/noma-background3.jpg"
             alt="Cliff view at NomaVillage Lagos"
             fill
             priority
@@ -80,28 +80,30 @@ export default function HomePage() {
           ></div>
         </div>
 
-        <div className="relative z-10 text-center text-white max-w-3xl mx-auto px-4 pt-20 md:pt-24 pb-16">
-          <div className="flex items-center justify-center gap-2 mb-6 md:mb-8">
-            <MapPin className="h-5 w-5 md:h-5 md:w-5" color="#ffffff" />
-            <span className="font-sans text-white text-[18px] font-normal" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.3)' }}>
-              Lagos, Algarve, Portugal
-            </span>
-          </div>
+        <div className="relative z-10 text-center text-white mx-auto max-w-none lg:max-w-6xl px-4 pt-20 md:pt-24 pb-16">
+          {/* removed top location badge */}
 
-          <div className="mx-auto max-w-3xl">
+          <div className="mx-auto max-w-none lg:max-w-6xl">
             <h1
-              className="font-montserrat font-light text-[40px] sm:text-[48px] md:text-[56px] tracking-[-0.5px] leading-tight mb-6 md:mb-8 text-white"
+              className="font-montserrat font-light text-[40px] sm:text-[48px] md:text-[56px] tracking-[-0.5px] leading-tight mb-6 md:mb-8 text-white lg:whitespace-nowrap"
               style={{ textShadow: '0 3px 10px rgba(0,0,0,0.4)' }}
             >
-              Coliving & Coworking Community
+              Find a Home on your Journey
             </h1>
 
             <p
-              className="font-sans text-[18px] font-normal max-w-[600px] mx-auto leading-[1.6] text-white/95 mb-8 md:mb-10"
+              className="font-sans text-[18px] font-normal max-w-[600px] mx-auto leading-[1.6] text-white/95 mb-6 md:mb-8"
               style={{ textShadow: '0 2px 8px rgba(0,0,0,0.35)' }}
             >
-              Live, work, and connect with like‑minded people in Portugal’s most vibrant coastal community. Your home by the ocean awaits.
+              Coliving & Coworking Community <br></br> Live, work, and connect with like‑minded people in Portugal's most vibrant coastal community. 
             </p>
+
+            <div className="flex items-center justify-center gap-2 mb-8 md:mb-10">
+              <MapPin className="h-4 w-4 md:h-5 md:w-5" color="#ffffff" />
+              <span className="font-sans text-white text-[16px] font-normal" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.3)' }}>
+                Lagos, Portugal
+              </span>
+            </div>
 
             <HeroButtons />
           </div>
@@ -158,7 +160,7 @@ export default function HomePage() {
               <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-6">
                 <div>
                   <div className="text-4xl font-montserrat font-bold text-gray-900">€790</div>
-                  <div className="text-sm font-nunito text-gray-600">for 2 weeks • Oct 14-28</div>
+                  <div className="text-sm font-nunito text-gray-600">for 2 weeks • Permanently</div>
                 </div>
                 <CTAButton
                   size="lg"
@@ -1097,9 +1099,6 @@ export default function HomePage() {
 
         <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <div className="inline-block bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full mb-6">
-              <span className="text-white font-montserrat font-semibold text-sm">📖 FREE DOWNLOAD</span>
-            </div>
             <h2 className="font-montserrat text-3xl md:text-5xl font-bold text-white mb-6">
               Get the Noma Village Guide
             </h2>

@@ -22,7 +22,7 @@ export default function HeroButtons() {
         size="lg"
         className="w-full sm:flex-1 sm:w-auto sm:min-w-[200px] bg-white/10 text-white font-montserrat text-lg px-8 py-3 h-auto relative overflow-hidden group transition-colors border border-white/90"
         onClick={() => {
-          scrollToSection('coming-up')
+          scrollToSection('stay-connected')
         }}
       >
         <span className="relative z-10 transition-colors duration-300 group-hover:text-black">Get the Guide</span>

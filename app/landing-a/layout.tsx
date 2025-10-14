@@ -3,8 +3,8 @@ import AnalyticsWrapper from '@/components/AnalyticsWrapper'
 import { Suspense } from 'react'
 
 export const metadata: Metadata = {
-  title: 'October Yoga + Surf Colive | Noma Village',
-  description: 'Limited October cohort in Lagos: private rooms, coworking, daily yoga, surf, and a curated community.',
+  title: 'Join our Yoga + Surf Colive | Noma Village',
+  description: 'Limited cohort in Lagos: private rooms, coworking, daily yoga, surf, and a curated community.',
   robots: {
     index: false,
     follow: true,
@@ -14,10 +14,10 @@ export const metadata: Metadata = {
     canonical: '/landing',
   },
   openGraph: {
-    title: 'October Yoga + Surf Colive | Noma Village',
+    title: 'Join our Yoga + Surf Colive | Noma Village',
     description: 'Private rooms, coworking, daily yoga, surf. Limited spots in Lagos, Portugal.',
     url: '/landing',
-    images: [{ url: '/images/yoga.jpg', width: 1200, height: 630, alt: 'October Yoga + Surf Colive' }],
+    images: [{ url: '/images/yoga.jpg', width: 1200, height: 630, alt: 'Join our Yoga + Surf Colive' }],
     type: 'website',
   },
 }

@@ -24,7 +24,7 @@ import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
 // Proximity cards with in-view animation
 function LocationHighlights() {
   const items = [
-    { icon: 'w🏖️', title: '15-minute walk to Praia Porto de Mós', desc: 'One of the Algarve’s most iconic beaches' },
+    { icon: '🏖️', title: '15-minute walk to Praia Porto de Mós', desc: 'One of the Algarve’s most iconic beaches' },
     { icon: '🌊', title: 'Surrounded by world-famous golden cliffs', desc: 'Dramatic coastline right on your doorstep' },
     { icon: '🏛️', title: '15-minute walk to Lagos historic center', desc: 'Cafés, culture, and charming streets' },
     { icon: '✈️', title: '1 hour from Faro Airport', desc: 'Easy access for national and international flights' },
@@ -149,7 +149,7 @@ export default function LandingPage() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Hero Section - October Yoga Colive */}
+      {/* Hero Section - Join our Yoga Colive */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -301,11 +301,11 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* What Makes October Special */}
+      {/* What Makes Our Experience Special */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="font-caveat text-5xl font-normal text-gray-900 mb-4" style={{fontFamily: 'Caveat, cursive'}}>October Yoga Colive Experience</h2>
+            <h2 className="font-caveat text-5xl font-normal text-gray-900 mb-4" style={{fontFamily: 'Caveat, cursive'}}>Join our Yoga Colive Experience</h2>
             <p className="font-nunito text-xl text-gray-600 max-w-4xl mx-auto text-balance">
               Mindful living with daily yoga, surf, and entrepreneurial connections
             </p>
@@ -858,7 +858,7 @@ export default function LandingPage() {
       {/* Final CTA Section */}
       <section className="py-20 bg-gradient-to-r from-lagos-blue-green to-lagos-pink">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="font-caveat text-5xl font-normal text-white mb-4" style={{fontFamily: 'Caveat, cursive'}}>Join October Yoga + Surf Colive</h2>
+          <h2 className="font-caveat text-5xl font-normal text-white mb-4" style={{fontFamily: 'Caveat, cursive'}}>Join our Yoga + Surf Colive</h2>
           <p className="font-nunito text-xl text-white/90 mb-8 text-balance">
             Transform how you live, work, and connect in Lagos, Portugal
           </p>

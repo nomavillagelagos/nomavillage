@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { Menu, X } from "lucide-react"
@@ -9,6 +9,7 @@ import Script from "next/script"
 
 export function Navigation() {
   const [isOpen, setIsOpen] = useState(false)
+  const [scrolled, setScrolled] = useState(false)
 
   const navItems = [
     { href: "/", label: "Home" },
@@ -19,10 +20,23 @@ export function Navigation() {
     { href: "/blog", label: "Blog" },
   ]
 
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 10)
+    onScroll()
+    window.addEventListener("scroll", onScroll, { passive: true })
+    return () => window.removeEventListener("scroll", onScroll)
+  }, [])
+
   return (
     <nav className="sticky top-0 left-0 right-0 z-50 w-full">
       <div className="w-full">
-        <div className="bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-100/50 px-4 sm:px-6 lg:px-8 overflow-hidden">
+        <div
+          className={`${
+            scrolled || isOpen
+              ? "bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-100/50"
+              : "bg-white/70 backdrop-blur-md border-b border-white/20"
+          } transition-all duration-300 px-4 sm:px-6 lg:px-8 overflow-hidden`}
+        >
           <div className="max-w-7xl mx-auto flex justify-between items-center h-16">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-2">
