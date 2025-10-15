@@ -111,7 +111,7 @@ export default function HomePage() {
       </section>
 
       {/* Full-width Black Hero Band (below hero) */}
-      <BlackHeroSection />
+      <></>
 
       {/* Trust & Benefits Bar */}
       <TrustBar />
@@ -230,6 +230,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+
+      <BlackHeroSection />
 
       {/* Location Section */}
       <section id="location" className="py-20 bg-white">
