@@ -41,6 +41,7 @@ const FormPage = () => {
   const [numberOfDays, setNumberOfDays] = useState<number>(0);
   const [showArrivalCalendar, setShowArrivalCalendar] = useState(false);
   const [showDepartureCalendar, setShowDepartureCalendar] = useState(false);
+  const [notSureDates, setNotSureDates] = useState(false);
   const inputRefs = useRef<Record<number, HTMLInputElement | HTMLSelectElement | null>>({});
   const router = useRouter();
 
@@ -70,7 +71,7 @@ const FormPage = () => {
     const names: Record<number, string> = {
       1: 'welcome',
       2: 'email',
-      3: 'age_range',
+      // 3 removed: age_range step skipped
       4: 'work_style',
       5: 'colive_preference',
       6: 'dates',
@@ -304,12 +305,15 @@ const FormPage = () => {
       newErrors.email = 'Email is required';
     } else if (step === 2 && !validateEmail(formData.email)) {
       newErrors.email = 'Please enter a valid email';
-    } else if (step === 3 && !formData.ageRange) {
-      newErrors.ageRange = 'Please select an option';
     } else if (step === 4 && !formData.workStyle) {
       newErrors.workStyle = 'Please select an option';
     } else if (step === 5 && !formData.colivePreference) {
       newErrors.colivePreference = 'Please select an option';
+    } else if (step === 6 && notSureDates) {
+      // If user chose "Not sure yet" for dates, skip date validation entirely
+      // and clear any previous date errors
+      setErrors({});
+      return true;
     } else if (step === 6 && !formData.arrivalDate) {
       newErrors.arrivalDate = 'Arrival date is required';
     } else if (step === 6 && !formData.departureDate) {
@@ -341,10 +345,10 @@ const FormPage = () => {
   const isCurrentStepValid = () => {
     if (step === 1) return true;
     if (step === 2) return !!formData.email && validateEmail(formData.email);
-    if (step === 3) return !!formData.ageRange;
     if (step === 4) return !!formData.workStyle;
     if (step === 5) return !!formData.colivePreference;
     if (step === 6) {
+      if (notSureDates) return true;
       if (!formData.arrivalDate || !formData.departureDate) return false;
       const arrivalDate = new Date(formData.arrivalDate);
       const departureDate = new Date(formData.departureDate);
@@ -370,7 +374,9 @@ const FormPage = () => {
         has_errors: Object.keys(errors).length > 0
       });
 
-      const nextStep = step + 1;
+      let nextStep = step + 1;
+      // Skip removed step 3 (age)
+      if (nextStep === 3) nextStep = 4;
       // Save partial progress for the next step index
       savePartialData(nextStep);
       setStep(nextStep);
@@ -391,7 +397,9 @@ const FormPage = () => {
       to_step: step - 1
     });
 
-    const prevStep = Math.max(step - 1, 1);
+    let prevStep = Math.max(step - 1, 1);
+    // Skip removed step 3 (age)
+    if (prevStep === 3) prevStep = 2;
     savePartialData(prevStep);
     setStep(prevStep);
   };
@@ -566,6 +574,8 @@ const FormPage = () => {
 
     // Calculate number of days when dates change
     if (name === 'arrivalDate' || name === 'departureDate') {
+      // If user starts entering dates after choosing "Not sure yet", disable that flag
+      if (notSureDates) setNotSureDates(false);
       const arrival = name === 'arrivalDate' ? value : formData.arrivalDate;
       const departure = name === 'departureDate' ? value : formData.departureDate;
 
@@ -592,7 +602,7 @@ const FormPage = () => {
         return (
           <div className="text-center space-y-6 animate-fade-in">
             <h1 className="text-4xl md:text-5xl font-bold text-gray-500">
-              Welcome to <br /> <span className="text-lagos-amber">Noma Village</span>
+              Welcome to <br /> <span className="text-lagos-amber">NomaVillage</span>
             </h1>
             <div className="inline-flex items-center justify-center gap-2 text-teal-700 bg-teal-50 px-4 py-2 rounded-full mx-auto shadow-sm">
               <UsersIcon className="w-4 h-4" />
@@ -644,55 +654,7 @@ const FormPage = () => {
           </div>
         );
       case 3:
-        return (
-          <div className="space-y-6 animate-slide-in">
-            <div>
-              <h2 className="text-2xl md:text-3xl font-semibold mb-2 text-gray-900">What's your age range?</h2>
-              <p className="text-sm text-gray-500">Most of our community is in their 20s and 30s</p>
-            </div>
-            <div className="space-y-3">
-              {['18-25', '26-32', '33-40', '41+'].map((option) => (
-                <label
-                  key={option}
-                  className={`flex items-center space-x-3 p-4 border-2 rounded-xl cursor-pointer transition-all hover:border-teal-400 hover:bg-teal-50/50 bg-white ${
-                    formData.ageRange === option
-                      ? 'border-teal-500 bg-teal-50 shadow-md'
-                      : 'border-gray-200'
-                  }`}
-                >
-                  <input
-                    type="radio"
-                    name="ageRange"
-                    checked={formData.ageRange === option}
-                    onChange={() => {
-                      setFormData(prev => ({ ...prev, ageRange: option }));
-                      setErrors({}); // Clear any errors
-                      setTimeout(() => {
-                        // Advance without validation since selection is inherently valid
-                        const nextStep = step + 1;
-                        const timeSpent = Math.round((Date.now() - stepStartTime) / 1000);
-                        captureWithAttribution('form_step_completed', {
-                          step,
-                          step_name: getStepName(step),
-                          time_spent_seconds: timeSpent,
-                          has_errors: false
-                        });
-                        savePartialData(nextStep);
-                        setStep(nextStep);
-                      }, 400);
-                    }}
-                    className="h-5 w-5 text-teal-600 focus:ring-teal-500"
-                  />
-                  <span className="text-lg text-gray-700 font-medium flex-1">{option}</span>
-                  {formData.ageRange === option && (
-                    <Check className="text-teal-500 w-5 h-5 animate-scale-in" />
-                  )}
-                </label>
-              ))}
-              {errors.ageRange && <p className="text-red-500 text-sm mt-1">{errors.ageRange}</p>}
-            </div>
-          </div>
-        );
+        return null; // Step removed
       case 4:
         return (
           <div className="space-y-6 animate-slide-in">
@@ -835,6 +797,7 @@ const FormPage = () => {
                           if (date) {
                             const formatted = format(date, 'yyyy-MM-dd');
                             setFormData(prev => ({ ...prev, arrivalDate: formatted }));
+                            if (notSureDates) setNotSureDates(false);
 
                             // Calculate days
                             if (formData.departureDate) {
@@ -879,6 +842,7 @@ const FormPage = () => {
                           if (date) {
                             const formatted = format(date, 'yyyy-MM-dd');
                             setFormData(prev => ({ ...prev, departureDate: formatted }));
+                            if (notSureDates) setNotSureDates(false);
 
                             // Calculate days
                             if (formData.arrivalDate) {
@@ -919,6 +883,29 @@ const FormPage = () => {
                 </div>
               </div>
             )}
+            {/* Alternative path: Not sure about dates */}
+            <div className="mt-2 pt-2 border-t border-gray-200">
+              <button
+                type="button"
+                onClick={() => {
+                  setNotSureDates(true);
+                  setErrors((prev) => {
+                    const n = { ...prev };
+                    delete n.arrivalDate;
+                    delete n.departureDate;
+                    return n;
+                  });
+                  captureWithAttribution('form_dates_unsure_selected', { step: 6 });
+                  const nextStep = step + 1;
+                  savePartialData(nextStep);
+                  setStep(nextStep);
+                }}
+                className="w-full text-center px-6 py-3 rounded-lg border-2 border-gray-300 text-gray-700 hover:bg-gray-50 cursor-pointer"
+              >
+                Not sure yet
+              </button>
+              <p className="text-xs text-gray-500 mt-2 text-center">You can always tell us later or we can help you pick dates.</p>
+            </div>
           </div>
         );
       case 7:

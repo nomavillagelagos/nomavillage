@@ -88,7 +88,17 @@ export default function HomePage() {
               className="font-montserrat font-light text-[40px] sm:text-[48px] md:text-[56px] tracking-[-0.5px] leading-tight mb-6 md:mb-8 text-white lg:whitespace-nowrap"
               style={{ textShadow: '0 3px 10px rgba(0,0,0,0.4)' }}
             >
-              Find a <span className="font-caveat">Home</span> on your Journey
+              <span className="text-[90%] md:text-[90%] lg:text-[90%]">
+                Find a <span className="font-caveat text-6xl md:text-7xl lg:text-8xl text-white relative -top-1 md:-top-2">
+                  <span className="relative z-10">Home</span>
+                  <div 
+                    className="absolute left-[-10%] right-[-10%] bottom-[-4%] h-[20px] w-[120%] 
+                              bg-[url('/brush-underline.webp')] bg-no-repeat bg-center
+                              bg-[length:100%_100%] -rotate-1 -z-10
+                              brightness-0 invert opacity-100"
+                  />
+                </span> on your <span className="text-[120%] md:text-[120%] lg:text-[120%] relative">Journey</span>
+              </span>
             </h1>
 
             <p
@@ -144,7 +154,7 @@ export default function HomePage() {
               </div>
 
               <h2 className="font-montserrat text-3xl md:text-5xl font-bold text-gray-900 mb-4">
-                Life is better Shared
+                Life is better <span className="font-caveat text-[1.5em] leading-none">Shared</span>
               </h2>
 
               <p className="font-nunito text-xl text-gray-700 mb-6 leading-relaxed">
@@ -214,9 +224,9 @@ export default function HomePage() {
       <section className="py-20 bg-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
-            <h2 className="font-montserrat text-3xl md:text-5xl font-bold text-gray-900 mb-4">A Day in the Life at Noma Village</h2>
+            <h2 className="font-montserrat text-3xl md:text-5xl font-bold text-gray-700 mb-4">A Day in the Life at <span className="font-caveat text-[1.5em] leading-none">NomaVillage</span></h2>
             <p className="font-nunito text-lg text-gray-600 max-w-3xl mx-auto">
-              Watch: Morning yoga on the terrace, focused coworking sessions, golden hour at the cliffs, and community dinners <span className="text-gray-400">(1:33)</span>
+              Watch: Morning yoga on the terrace, focused coworking sessions, golden hour at the cliffs, and community dinners <span className="text-gray-500">(1:33)</span>
             </p>
           </div>
           <div className="relative w-full rounded-2xl shadow-2xl overflow-hidden border border-gray-100" style={{paddingTop: '56.25%'}}>
@@ -242,7 +252,7 @@ export default function HomePage() {
               <span className="font-montserrat text-sm tracking-wide uppercase">Prime Location</span>
             </div>
             <h2 className="font-montserrat text-3xl md:text-5xl font-bold text-gray-900 mt-2">Your Base in the Algarve</h2>
-            <p className="font-nunito text-lg text-gray-600 mt-2 max-w-3xl mx-auto">Perfectly positioned between golden beaches, dramatic cliffs, and Lagos historic center - the ideal setting for remote work and coastal living</p>
+            <p className="font-nunito text-lg text-gray-700 mt-2 max-w-3xl mx-auto">Perfectly positioned between golden beaches, dramatic cliffs, and Lagos historic center - the ideal setting for remote work and coastal living</p>
           </div>
           <div className="mb-10">
             <div className="relative overflow-hidden rounded-2xl ring-1 ring-black/5">
@@ -265,7 +275,7 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="font-montserrat text-3xl md:text-5xl font-bold text-gray-900 mb-6">Live & Work by the Ocean</h2>
+              <h2 className="font-montserrat text-3xl md:text-5xl font-bold text-gray-900 mb-6"><span className="font-caveat text-[1.5em] leading-none">Live & Work</span> <br></br> by the Ocean</h2>
               <p className="font-nunito text-xl text-gray-700 mb-8 leading-relaxed">
                 Imagine starting your day with sunrise yoga, tackling your most important work with ocean views, and ending with sunset at the cliffs - all while building lasting connections with talented remote workers from around the world.
               </p>
@@ -277,7 +287,7 @@ export default function HomePage() {
                     <span className="text-lg">🏠</span>
                   </div>
                   <div>
-                    <h3 className="font-montserrat font-semibold text-gray-900 mb-1">Private Workspace</h3>
+                    <h3 className="font-montserrat font-semibold text-gray-800 mb-1">Private Workspace</h3>
                     <p className="font-nunito text-sm text-gray-600">Ensuite rooms with dedicated desk</p>
                   </div>
                 </div>
@@ -287,7 +297,7 @@ export default function HomePage() {
                     <span className="text-lg">📶</span>
                   </div>
                   <div>
-                    <h3 className="font-montserrat font-semibold text-gray-900 mb-1">Fast WiFi</h3>
+                    <h3 className="font-montserrat font-semibold text-gray-800 mb-1">Fast WiFi</h3>
                     <p className="font-nunito text-sm text-gray-600">500 Mbps for video calls</p>
                   </div>
                 </div>
@@ -326,7 +336,7 @@ export default function HomePage() {
             <div className="space-y-4">
               <img
                 src="/images/noma1.webp"
-                alt="Noma Village exterior in Lagos, Portugal"
+                alt="NomaVillage exterior in Lagos, Portugal"
                 className="w-full h-72 object-cover rounded-xl shadow-lg"
               />
               <img
@@ -776,7 +786,7 @@ export default function HomePage() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
-            <h2 className="font-montserrat text-3xl md:text-5xl font-bold text-gray-900 mb-4">Life at Noma Village</h2>
+            <h2 className="font-montserrat text-3xl md:text-5xl font-bold text-gray-900 mb-4">Life at <span className="font-caveat text-[1.5em] leading-none">NomaVillage</span></h2>
             <p className="font-nunito text-xl text-gray-600">
               Discover your new home away from home in Lagos, Portugal
             </p>
@@ -1101,7 +1111,7 @@ export default function HomePage() {
         <div className="relative max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="font-montserrat text-3xl md:text-5xl font-bold text-white mb-6">
-              Get the Noma Village Guide
+              Get the <span className="font-caveat text-[1.5em] leading-none">NomaVillage</span> Guide
             </h2>
             <p className="font-nunito text-xl md:text-2xl text-white/95 mb-4 max-w-3xl mx-auto">
               Everything you need to know about our Coliving & Coworking in Lagos, Portugal
