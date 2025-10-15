@@ -88,7 +88,7 @@ export default function HomePage() {
               className="font-montserrat font-light text-[40px] sm:text-[48px] md:text-[56px] tracking-[-0.5px] leading-tight mb-6 md:mb-8 text-white lg:whitespace-nowrap"
               style={{ textShadow: '0 3px 10px rgba(0,0,0,0.4)' }}
             >
-              Find a Home on your Journey
+              Find a <span className="font-caveat">Home</span> on your Journey
             </h1>
 
             <p
@@ -251,7 +251,6 @@ export default function HomePage() {
                 style={{ height: '360px' }}
                 initialZoom={3}
                 targetZoom={12}
-                durationMs={2500}
               />
               <div className="absolute top-3 left-3 bg-white/90 backdrop-blur rounded-md px-3 py-1 text-xs font-montserrat shadow">
                 37.0925267, -8.6828956 • Lagos, Portugal

@@ -143,7 +143,7 @@ export default function LandingPage() {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Hero Section - Join our Yoga Colive */
+      {/* Hero Section - Join our Yoga Colive */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         <div
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
@@ -401,7 +401,6 @@ export default function LandingPage() {
                 style={{ height: '360px' }}
                 initialZoom={3}
                 targetZoom={12}
-                durationMs={2500}
               />
               <div className="absolute top-3 left-3 bg-white/90 backdrop-blur rounded-md px-3 py-1 text-xs font-montserrat shadow">
                 37.0925267, -8.6828956 • Lagos, Portugal
