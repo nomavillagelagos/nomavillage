@@ -21,21 +21,26 @@ export function Navigation() {
   ]
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 10)
+    const onScroll = () => setScrolled(window.scrollY > 80)
     onScroll()
     window.addEventListener("scroll", onScroll, { passive: true })
     return () => window.removeEventListener("scroll", onScroll)
   }, [])
 
   return (
-    <nav className="sticky top-0 left-0 right-0 z-50 w-full">
+    <nav className="fixed top-0 left-0 right-0 w-full" style={{ zIndex: 1000 }}>
       <div className="w-full">
         <div
           className={`${
             scrolled || isOpen
-              ? "bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-100/50"
-              : "bg-white/70 backdrop-blur-md border-b border-white/20"
-          } transition-all duration-300 px-4 sm:px-6 lg:px-8 overflow-hidden`}
+              ? "bg-white/98 backdrop-blur-[8px] saturate-[180%] shadow-[0_4px_20px_rgba(0,0,0,0.08)]"
+              : "bg-white/75 backdrop-blur-[16px] saturate-[180%] border-b border-white/20"
+          } px-4 sm:px-6 lg:px-8 overflow-hidden`}
+          style={{
+            backdropFilter: scrolled || isOpen ? 'blur(8px) saturate(180%)' : 'blur(16px) saturate(180%)',
+            WebkitBackdropFilter: scrolled || isOpen ? 'blur(8px) saturate(180%)' : 'blur(16px) saturate(180%)',
+            transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)'
+          }}
         >
           <div className="max-w-7xl mx-auto flex justify-between items-center h-16">
           {/* Logo */}
@@ -82,7 +87,13 @@ export function Navigation() {
         {/* Mobile Navigation */}
         {isOpen && (
           <div className="md:hidden w-full">
-            <div className="px-4 sm:px-6 lg:px-8 pt-2 pb-3 bg-white/95 backdrop-blur-md border-t border-gray-100/50">
+            <div 
+              className="px-4 sm:px-6 lg:px-8 pt-2 pb-3 bg-white/98 shadow-[0_4px_20px_rgba(0,0,0,0.08)]"
+              style={{
+                backdropFilter: 'blur(8px) saturate(180%)',
+                WebkitBackdropFilter: 'blur(8px) saturate(180%)'
+              }}
+            >
               <div className="max-w-7xl mx-auto">
               {navItems.map((item) => (
                 <Link

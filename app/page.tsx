@@ -80,7 +80,7 @@ export default function HomePage() {
           ></div>
         </div>
 
-        <div className="relative z-10 text-center text-white mx-auto max-w-none lg:max-w-6xl px-4 pt-20 md:pt-24 pb-16">
+        <div className="relative z-10 text-center text-white mx-auto max-w-none lg:max-w-6xl px-4 pt-32 pb-16">
           {/* removed top location badge */}
 
           <div className="mx-auto max-w-none lg:max-w-6xl">
