@@ -1,0 +1,15 @@
+# *
+User-agent: *
+Allow: /
+
+# *
+User-agent: *
+Disallow: /api/
+Disallow: /landing-a
+Disallow: /landing-b
+
+# Host
+Host: https://www.nomavillage.com
+
+# Sitemaps
+Sitemap: https://www.nomavillage.com/sitemap.xml
