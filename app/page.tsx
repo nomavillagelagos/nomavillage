@@ -17,6 +17,7 @@ import GoogleReviewsCarousel from "@/components/GoogleReviewsCarousel"
 import { CTAButton, GoogleReviewsWrapper, LocationHighlights, PricingSectionWrapper, TrustBar } from "@/components/client"
 import BlackHeroSection from "@/components/BlackHeroSection"
 import HeroButtons from "@/components/HeroButtons"
+import { ChevronDown } from "lucide-react"
 
 export { metadata } from './metadata'
 
@@ -65,7 +66,7 @@ export default function HomePage() {
       </Head>
 
       {/* Hero Section */}
-      <section className="relative h-[93vh] flex items-center justify-center overflow-hidden">
+      <section className="relative h-[93vh] flex flex-col items-center justify-center overflow-hidden">
         <div className="absolute inset-0 w-full h-full">
           {/* Mobile image - shown only on mobile devices */}
           <Image
@@ -93,46 +94,44 @@ export default function HomePage() {
           ></div>
         </div>
 
-        <div className="relative z-10 text-center text-white mx-auto max-w-none lg:max-w-6xl px-4 pt-32 pb-16">
-          {/* removed top location badge */}
-
-          <div className="mx-auto max-w-none lg:max-w-6xl">
-            {/* Emotional tagline - keeps the heart */}
-            <div
-              className="font-montserrat font-light text-[32px] sm:text-[36px] md:text-[42px] tracking-[-0.5px] leading-tight mb-10 text-white/90"
-              style={{ textShadow: '0 3px 10px rgba(0,0,0,0.4)' }}
-            >
-              <span className="text-[90%] md:text-[90%] lg:text-[90%]">
-                Find a <span className="font-caveat text-5xl md:text-6xl lg:text-6xl text-white relative -top-0 md:-top-0">
-                  <span className="relative z-10">Home</span>
-                  <div
-                    className="absolute left-[-10%] right-[-10%] bottom-[-5%] h-[16px] w-[120%]
-                              bg-[url('/brush-underline.webp')] bg-no-repeat bg-center
-                              bg-[length:100%_100%] -rotate-1 -z-10
-                              brightness-0 invert opacity-80"
-                  />
-                </span> on your <span className="text-[110%] md:text-[110%] lg:text-[110%] relative">Journey</span>
-              </span>
-            </div>
-
-            {/* SEO-optimized H1 with location emphasis */}
+        <div className="relative z-10 text-center text-white mx-auto max-w-none lg:max-w-7xl px-4 pt-40 pb-20">
+          <div className="mx-auto max-w-5xl space-y-8">
+            {/* Main Headline - Clean and Bold */}
             <h1
-              className="font-montserrat font-semibold text-[24px] sm:text-[28px] md:text-[32px] tracking-[-0.3px] leading-tight mb-6 md:mb-8 text-white"
-              style={{ textShadow: '0 3px 10px rgba(0,0,0,0.4)' }}
+              className="font-montserrat font-light text-5xl md:text-6xl lg:text-7xl tracking-[-2.5px] leading-[1.1] text-white"
+              style={{ textShadow: '0 4px 20px rgba(0,0,0,0.5)' }}
             >
-              Coliving & Coworking in <br/><span className="font-bold">Lagos, Algarve, Portugal</span>
+              Find a <span className="font-caveat text-[1.3em] relative inline-block">
+                <span className="relative z-10">Home</span>
+                <div
+                  className="absolute left-[-8%] right-[-8%] bottom-[2%] h-[18px] w-[116%]
+                            bg-[url('/brush-underline.webp')] bg-no-repeat bg-center
+                            bg-[length:100%_100%] -rotate-1 -z-10
+                            brightness-0 invert opacity-70"
+                />
+              </span> on your Journey
             </h1>
 
+            {/* Subtitle - SEO Keywords */}
             <p
-              className="font-sans text-[20px] font-normal max-w-[600px] mx-auto leading-[1.6] text-white/95 mb-6 md:mb-8"
-              style={{ textShadow: '0 2px 8px rgba(0,0,0,0.35)' }}
+              className="font-montserrat text-[20px] md:text-[22px] font-normal tracking-wide text-white/80 uppercase"
+              style={{ textShadow: '0 2px 10px rgba(0,0,0,0.4)', letterSpacing: '0.1em' }}
             >
-              Live, work, and connect with like‑minded people in Portugal's most vibrant coastal community.
+              Coliving & Coworking in Lagos, Algarve, Portugal
             </p>
 
-
-            <HeroButtons />
+            {/* CTA Buttons - Increased spacing */}
+            <div className="pt-5">
+              <HeroButtons />
+            </div>
           </div>
+
+        </div>
+
+        {/* Scroll Indicator */}
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center opacity-60 animate-bounce">
+          <ChevronDown className="w-6 h-6 text-white" />
+          <span className="text-white/60 text-xs mt-1 tracking-wider uppercase">Discover More</span>
         </div>
       </section>
 
