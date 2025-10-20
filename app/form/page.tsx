@@ -288,8 +288,20 @@ const FormPage = () => {
   };
 
   const validateEmail = (email: string) => {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(email);
+    // More robust email validation that ensures:
+    // - Valid characters only (alphanumeric, dots, hyphens, underscores, plus)
+    // - Proper format with @ and domain
+    // - No consecutive dots
+    // - Valid TLD (at least 2 characters)
+    const re = /^[a-zA-Z0-9._+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    
+    // Additional checks for edge cases
+    if (!re.test(email)) return false;
+    if (email.includes('..')) return false; // No consecutive dots
+    if (email.startsWith('.') || email.endsWith('.')) return false;
+    if (email.split('@')[0].startsWith('.') || email.split('@')[0].endsWith('.')) return false;
+    
+    return true;
   };
 
   const validatePhone = (phone: string) => {
@@ -889,6 +901,16 @@ const FormPage = () => {
                 type="button"
                 onClick={() => {
                   setNotSureDates(true);
+                  // Set arrival to today and departure to tomorrow when user is unsure
+                  const today = new Date();
+                  const tomorrow = new Date(today);
+                  tomorrow.setDate(tomorrow.getDate() + 1);
+                  setFormData(prev => ({
+                    ...prev,
+                    arrivalDate: format(today, 'yyyy-MM-dd'),
+                    departureDate: format(tomorrow, 'yyyy-MM-dd')
+                  }));
+                  setNumberOfDays(1);
                   setErrors((prev) => {
                     const n = { ...prev };
                     delete n.arrivalDate;
@@ -1092,22 +1114,6 @@ const FormPage = () => {
             <p className="text-xs text-gray-500">This field is completely optional. Feel free to skip if you have nothing to add.</p>
           </div>
         );
-      case 10:
-        return (
-          <div className="text-center">
-            <div className="w-16 h-16 bg-teal-100 rounded-full flex items-center justify-center mx-auto mb-6">
-              <Check className="w-8 h-8 text-teal-600" />
-            </div>
-            <h2 className="text-3xl font-bold mb-4">Thank You!</h2>
-            <p className="text-gray-600 mb-8">We've received your information. Our team will get in touch with you soon!</p>
-            <button
-              onClick={() => router.push('/')}
-              className="w-full bg-teal-600 text-white py-3 px-6 rounded-lg font-medium hover:bg-teal-700 transition-colors cursor-pointer"
-            >
-              Back to Home
-            </button>
-          </div>
-        );
       default:
         return null;
     }
@@ -1178,16 +1184,16 @@ const FormPage = () => {
             </div>
           )}
           {/* Progress Bar */}
-          {step < 11 && (
+          {step < 10 && (
             <div className="mb-8">
               <div className="flex justify-between text-sm text-gray-600 mb-2">
-                <span>Step {step} of 10</span>
-                <span>{Math.round((step / 10) * 100)}% complete</span>
+                <span>Step {step} of 9</span>
+                <span>{Math.round((step / 9) * 100)}% complete</span>
               </div>
               <div className="w-full bg-gray-200 rounded-full h-2.5">
                 <div
                   className="bg-teal-600 h-2.5 rounded-full transition-all duration-300"
-                  style={{ width: `${(step / 10) * 100}%` }}
+                  style={{ width: `${(step / 9) * 100}%` }}
                 ></div>
               </div>
             </div>
@@ -1198,7 +1204,7 @@ const FormPage = () => {
             {renderStep()}
           </div>
 
-          {step < 10 ? (
+          {step < 9 ? (
             <div className="flex justify-between mt-8">
               <button
                 type="button"
@@ -1219,7 +1225,7 @@ const FormPage = () => {
                 Next <ArrowRight className="ml-2 h-5 w-5" />
               </button>
             </div>
-          ) : step === 10 ? (
+          ) : step === 9 ? (
             <div className="flex justify-between mt-8">
               <button
                 type="button"

@@ -30,7 +30,7 @@ export default function BlackHeroSection() {
     >
       <div className="black-hero-container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 30px', textAlign: 'center' }}>
         <h2 className="black-hero-title" style={{ fontSize: '2.5rem', fontWeight: 300, letterSpacing: '-0.5px', lineHeight: 1.2, color: '#ffffff', margin: 0, padding: 0 }}>
-          Join us for 2+ weeks — private Room, Shared Coworking, Yoga, and Surf
+          Join us for 2+ weeks: private Room, Shared Coworking, Yoga, and Surf
         </h2>
       </div>
     </section>

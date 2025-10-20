@@ -18,6 +18,8 @@ import { CTAButton, GoogleReviewsWrapper, LocationHighlights, PricingSectionWrap
 import BlackHeroSection from "@/components/BlackHeroSection"
 import HeroButtons from "@/components/HeroButtons"
 
+export { metadata } from './metadata'
+
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-white">
@@ -63,15 +65,26 @@ export default function HomePage() {
       </Head>
 
       {/* Hero Section */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
+      <section className="relative h-[93vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 w-full h-full">
+          {/* Mobile image - shown only on mobile devices */}
           <Image
-            src="/images/noma-background3.jpg"
-            alt="Cliff view at NomaVillage Lagos"
+            src="/images/noma_village_view.webp"
+            alt="Coliving and coworking space in Lagos Algarve Portugal with ocean cliff views at Noma Village"
             fill
             priority
             quality={95}
-            className="object-cover object-[50%_35%]"
+            className="object-cover object-[50%_35%] md:hidden"
+            sizes="100vw"
+          />
+          {/* Desktop/Tablet image - hidden on mobile */}
+          <Image
+            src="/images/noma-background3.jpg"
+            alt="Coliving and coworking space in Lagos Algarve Portugal with ocean cliff views at Noma Village"
+            fill
+            priority
+            quality={95}
+            className="object-cover object-[50%_35%] hidden md:block"
             sizes="100vw"
           />
           <div
@@ -84,36 +97,39 @@ export default function HomePage() {
           {/* removed top location badge */}
 
           <div className="mx-auto max-w-none lg:max-w-6xl">
-            <h1
-              className="font-montserrat font-light text-[40px] sm:text-[48px] md:text-[56px] tracking-[-0.5px] leading-tight mb-6 md:mb-8 text-white lg:whitespace-nowrap"
+            {/* Emotional tagline - keeps the heart */}
+            <div
+              className="font-montserrat font-light text-[32px] sm:text-[36px] md:text-[42px] tracking-[-0.5px] leading-tight mb-10 text-white/90"
               style={{ textShadow: '0 3px 10px rgba(0,0,0,0.4)' }}
             >
               <span className="text-[90%] md:text-[90%] lg:text-[90%]">
-                Find a <span className="font-caveat text-6xl md:text-7xl lg:text-8xl text-white relative -top-1 md:-top-2">
+                Find a <span className="font-caveat text-5xl md:text-6xl lg:text-6xl text-white relative -top-0 md:-top-0">
                   <span className="relative z-10">Home</span>
-                  <div 
-                    className="absolute left-[-10%] right-[-10%] bottom-[-4%] h-[20px] w-[120%] 
+                  <div
+                    className="absolute left-[-10%] right-[-10%] bottom-[-5%] h-[16px] w-[120%]
                               bg-[url('/brush-underline.webp')] bg-no-repeat bg-center
                               bg-[length:100%_100%] -rotate-1 -z-10
-                              brightness-0 invert opacity-100"
+                              brightness-0 invert opacity-80"
                   />
-                </span> on your <span className="text-[120%] md:text-[120%] lg:text-[120%] relative">Journey</span>
+                </span> on your <span className="text-[110%] md:text-[110%] lg:text-[110%] relative">Journey</span>
               </span>
+            </div>
+
+            {/* SEO-optimized H1 with location emphasis */}
+            <h1
+              className="font-montserrat font-semibold text-[24px] sm:text-[28px] md:text-[32px] tracking-[-0.3px] leading-tight mb-6 md:mb-8 text-white"
+              style={{ textShadow: '0 3px 10px rgba(0,0,0,0.4)' }}
+            >
+              Coliving & Coworking in <br/><span className="font-bold">Lagos, Algarve, Portugal</span>
             </h1>
 
             <p
-              className="font-sans text-[18px] font-normal max-w-[600px] mx-auto leading-[1.6] text-white/95 mb-6 md:mb-8"
+              className="font-sans text-[20px] font-normal max-w-[600px] mx-auto leading-[1.6] text-white/95 mb-6 md:mb-8"
               style={{ textShadow: '0 2px 8px rgba(0,0,0,0.35)' }}
             >
-              Coliving & Coworking Community <br></br> Live, work, and connect with like‑minded people in Portugal's most vibrant coastal community. 
+              Live, work, and connect with like‑minded people in Portugal's most vibrant coastal community.
             </p>
 
-            <div className="flex items-center justify-center gap-2 mb-8 md:mb-10">
-              <MapPin className="h-4 w-4 md:h-5 md:w-5" color="#ffffff" />
-              <span className="font-sans text-white text-[16px] font-normal" style={{ textShadow: '0 2px 8px rgba(0,0,0,0.3)' }}>
-                Lagos, Portugal
-              </span>
-            </div>
 
             <HeroButtons />
           </div>
@@ -135,7 +151,7 @@ export default function HomePage() {
               <div className="relative rounded-2xl overflow-hidden shadow-2xl">
                 <img
                   src="/images/yoga.jpg"
-                  alt="Yoga session by the pool at Noma Village"
+                  alt="Daily yoga sessions at Noma Village coliving Lagos Portugal with poolside terrace"
                   className="w-full h-[500px] object-cover object-[50%_70%]"
                 />
                 <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm rounded-lg px-4 py-2 shadow-lg">
@@ -154,13 +170,13 @@ export default function HomePage() {
               </div>
 
               <h2 className="font-montserrat text-3xl md:text-5xl font-bold text-gray-900 mb-4">
-                Life is better <span className="font-caveat text-[1.5em] leading-none">Shared</span>
+                <span className="font-caveat text-[1.5em] leading-none">Coliving</span> by the Ocean in Lagos
               </h2>
 
               <p className="font-nunito text-xl text-gray-700 mb-6 leading-relaxed">
-                Make our permanent coliving space by the ocean your home base. We combine uninterrupted remote work with a strong focus on community, featuring daily yoga classes to start your day right.
+                Make our <Link href="/coliving" className="text-lagos-blue-green hover:underline">permanent coliving space</Link> by the ocean your home base. We combine uninterrupted <Link href="/coworking" className="text-lagos-blue-green hover:underline">remote work</Link> with a strong focus on <Link href="/community" className="text-lagos-blue-green hover:underline">community</Link>, featuring daily yoga classes to start your day right.
               </p>
-              
+
               <p className="font-nunito text-xl text-gray-700 mb-6 leading-relaxed">
                 We are building meaningful connections with like-minded nomads through community events and shared living.
               </p>
@@ -224,7 +240,7 @@ export default function HomePage() {
       <section className="py-20 bg-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
-            <h2 className="font-montserrat text-3xl md:text-5xl font-bold text-gray-700 mb-4">A Day in the Life at <span className="font-caveat text-[1.5em] leading-none">NomaVillage</span></h2>
+            <h2 className="font-montserrat text-3xl md:text-5xl font-bold text-gray-700 mb-4">Digital Nomad Life at <span className="font-caveat text-[1.5em] leading-none">Noma Village</span> Lagos</h2>
             <p className="font-nunito text-lg text-gray-600 max-w-3xl mx-auto">
               Watch: Morning yoga on the terrace, focused coworking sessions, golden hour at the cliffs, and community dinners <span className="text-gray-500">(1:33)</span>
             </p>
@@ -275,9 +291,9 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="font-montserrat text-3xl md:text-5xl font-bold text-gray-900 mb-6"><span className="font-caveat text-[1.5em] leading-none">Live & Work</span> <br></br> by the Ocean</h2>
+              <h2 className="font-montserrat text-3xl md:text-5xl font-bold text-gray-900 mb-6">Remote Work & <span className="font-caveat text-[1.5em] leading-none">Coliving</span> <br></br> in Lagos, Algarve</h2>
               <p className="font-nunito text-xl text-gray-700 mb-8 leading-relaxed">
-                Imagine starting your day with sunrise yoga, tackling your most important work with ocean views, and ending with sunset at the cliffs - all while building lasting connections with talented remote workers from around the world.
+                Imagine starting your day with sunrise yoga, tackling your most important work with ocean views from our <Link href="/coworking" className="text-lagos-blue-green hover:underline">coworking space</Link>, and ending with sunset at the cliffs - all while building lasting connections with talented <Link href="/community" className="text-lagos-blue-green hover:underline">remote workers from around the world</Link>.
               </p>
 
               {/* Key Benefits Grid */}
@@ -336,12 +352,12 @@ export default function HomePage() {
             <div className="space-y-4">
               <img
                 src="/images/noma1.webp"
-                alt="NomaVillage exterior in Lagos, Portugal"
+                alt="Noma Village coliving exterior with swimming pool in Lagos Portugal Algarve"
                 className="w-full h-72 object-cover rounded-xl shadow-lg"
               />
               <img
                 src="/images/beach.jpg"
-                alt="Rooftop terrace with Lagos coastline view"
+                alt="Lagos Portugal beach coastline near Noma Village digital nomad coliving"
                 className="w-full h-56 object-cover rounded-xl shadow-lg"
               />
             </div>
@@ -353,7 +369,7 @@ export default function HomePage() {
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
-            <h2 className="font-montserrat text-3xl md:text-5xl font-bold text-gray-900 mb-4">What Makes Us Special</h2>
+            <h2 className="font-montserrat text-3xl md:text-5xl font-bold text-gray-900 mb-4">Premium Coliving & Coworking Amenities</h2>
             <p className="font-nunito text-xl text-gray-600 max-w-3xl mx-auto">
               Everything you need for productive remote work and an unforgettable Portuguese coastal experience
             </p>
@@ -365,7 +381,7 @@ export default function HomePage() {
               <div className="relative h-64 overflow-hidden">
                 <img
                   src="/images/room3.jpg"
-                  alt="Private room with workspace at Noma Village"
+                  alt="Private ensuite room with dedicated workspace desk for remote work at Noma Village Lagos"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 />
               </div>
@@ -397,7 +413,7 @@ export default function HomePage() {
               <div className="relative h-64 overflow-hidden">
                 <img
                   src="/images/cowork.jpg"
-                  alt="Coworking space with high-speed WiFi"
+                  alt="Professional coworking space with 500 Mbps high-speed WiFi for digital nomads in Lagos Portugal"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 />
               </div>
@@ -429,7 +445,7 @@ export default function HomePage() {
               <div className="relative h-64 overflow-hidden">
                 <img
                   src="/images/community.jpg"
-                  alt="Global community of digital nomads"
+                  alt="International community of digital nomads and remote workers at Noma Village coliving Lagos"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 />
               </div>
@@ -461,7 +477,7 @@ export default function HomePage() {
               <div className="relative h-64 overflow-hidden">
                 <img
                   src="/images/pool.jpg"
-                  alt="Pool and outdoor relaxation areas"
+                  alt="Swimming pool and outdoor coworking areas at Noma Village coliving Lagos Portugal"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 />
               </div>
@@ -525,7 +541,7 @@ export default function HomePage() {
               <div className="relative h-64 overflow-hidden">
                 <img
                   src="/images/beach2.jpg"
-                  alt="Golden beaches of Lagos Algarve"
+                  alt="Golden cliff beaches near Noma Village coliving Lagos Algarve Portugal surf spots"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 />
               </div>
@@ -840,7 +856,7 @@ export default function HomePage() {
             Ready to Start Your Journey?
           </h2>
           <p className="font-nunito text-xl text-gray-700 mb-10 max-w-2xl mx-auto leading-relaxed">
-            Join 145+ remote workers who've made Lagos their home base. Whether you're staying 2 weeks or 3 months, your next chapter starts here.
+            Join 175+ remote workers who've made Lagos their home base. Whether you're staying 2 weeks or 3 months, explore our <Link href="/rooms" className="text-lagos-blue-green hover:underline">private rooms</Link> and start your next chapter here.
           </p>
 
           {/* Primary CTA Buttons */}
