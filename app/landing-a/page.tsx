@@ -200,7 +200,7 @@ export default function LandingPage() {
                   filter: 'brightness(0) invert(1)',
                   opacity: 1
                 }}></span>
-              </span>&nbsp;<span style={{fontSize: '24px', fontFamily: 'Montserrat, sans-serif'}}>is </span><span style={{fontWeight: '300', fontFamily: 'Montserrat, sans-serif'}}>Coliving</span>
+              </span>&nbsp;<span style={{fontSize: '24px', fontFamily: 'Montserrat, sans-serif'}}>is </span><span style={{fontWeight: '300', fontFamily: 'Montserrat, sans-serif'}}>xColiving</span>
             </h1>
             <h2 className="text-4xl md:text-6xl font-normal mb-6 text-balance" style={{ fontFamily: 'Montserrat',
     fontWeight: 200,
