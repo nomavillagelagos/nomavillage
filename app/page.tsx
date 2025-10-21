@@ -98,7 +98,7 @@ export default function HomePage() {
           <div className="mx-auto max-w-5xl space-y-8">
             {/* Main Headline - Clean and Bold */}
             <h1
-              className="font-montserrat font-light text-5xl md:text-6xl lg:text-7xl tracking-[-2.5px] leading-[1.1] text-white"
+              className="font-montserrat font-light text-5xl md:text-6xl lg:text-6xl tracking-[-2.5px] leading-[1.1] text-white"
               style={{ textShadow: '0 4px 20px rgba(0,0,0,0.5)' }}
             >
               Find a <span className="font-caveat text-[1.3em] relative inline-block">
