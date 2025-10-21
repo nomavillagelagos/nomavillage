@@ -100,6 +100,14 @@
   }
 }
 
+/* Landing A hero brush size tweaks */
+@media (max-width: 767px) {
+  .hero-brush-underline {
+    --brush-h: 28px;
+    --brush-w: 100%;
+  }
+}
+
 .cta-pop {
   transition: transform 180ms ease, box-shadow 180ms ease;
   will-change: transform;

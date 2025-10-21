@@ -94,14 +94,14 @@ export default function HomePage() {
           ></div>
         </div>
 
-        <div className="relative z-10 text-center text-white mx-auto max-w-none lg:max-w-7xl px-4 pt-40 pb-20">
+        <div className="relative z-10 text-center text-white mx-auto max-w-none lg:max-w-7xl px-4 pt-28 md:pt-40 pb-12 md:pb-20">
           <div className="mx-auto max-w-5xl space-y-8">
             {/* Main Headline - Clean and Bold */}
             <h1
               className="font-montserrat font-light text-5xl md:text-6xl lg:text-6xl tracking-[-2.5px] leading-[1.1] text-white"
               style={{ textShadow: '0 4px 20px rgba(0,0,0,0.5)' }}
             >
-              Find a <span className="font-caveat text-[1.3em] relative inline-block">
+              Feeling <span className="font-caveat text-[1.3em] relative inline-block">
                 <span className="relative z-10">Home</span>
                 <div
                   className="absolute left-[-8%] right-[-8%] bottom-[2%] h-[18px] w-[116%]
@@ -129,7 +129,7 @@ export default function HomePage() {
         </div>
 
         {/* Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center opacity-60 animate-bounce">
+        <div className="hidden md:flex absolute bottom-8 left-1/2 -translate-x-1/2 flex-col items-center opacity-60 animate-bounce">
           <ChevronDown className="w-6 h-6 text-white" />
           <span className="text-white/60 text-xs mt-1 tracking-wider uppercase">Discover More</span>
         </div>

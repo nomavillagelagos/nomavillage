@@ -78,6 +78,11 @@ export default function LandingPage() {
   const [reviewsSummary, setReviewsSummary] = useState<{ rating?: number; user_ratings_total?: number; url?: string } | null>(null)
   const { ref: blackHeroRef, inView: blackHeroInView } = useInView<HTMLDivElement>({ threshold: 0.1 })
 
+  const handleJoinClick = () => {
+    setIsFormPopupOpen(true)
+    try { trackEvent('apply_click', { page: 'landing-b', location: 'pricing' }) } catch {}
+  };
+
   useEffect(() => {
     // Fetch summary for Google reviews (rating, total, url)
     fetch('/api/google-reviews', { cache: 'no-store' })
@@ -166,24 +171,25 @@ export default function LandingPage() {
           
           {/* Main Heading */}
           <div className="mb-8">
-            <h1 className="text-6xl md:text-8xl font-bold mb-4 text-balance leading-tight" style={{fontFamily: 'Montserrat, sans-serif'}}>
+            <h1 className="text-6xl md:text-8xl font-bold mb-4 text-balance leading-tight md:whitespace-nowrap inline-block mx-auto" style={{ fontFamily: 'Montserrat, sans-serif', letterSpacing: '-0.04em' }}>
+              <span style={{fontWeight: 200, fontFamily: 'Montserrat, sans-serif'}}>Feeling </span>
               <span style={{
                 position: 'relative', 
                 color: 'white', 
-                fontSize: '1.4em', 
+                fontSize: '1.2em', 
                 fontFamily: 'Caveat, cursive'
               }}>
                 <span style={{
                   position: 'relative',
                   zIndex: 1
-                }}>This</span>
-                <span style={{
+                }}>Home</span>
+                <span className="hero-brush-underline" style={{
                   position: 'absolute',
                   left: '-10%',
                   right: '-10%',
                   bottom: '-4%',
-                  height: '50px',
-                  width: '120%',
+                  height: 'var(--brush-h, 40px)',
+                  width: 'var(--brush-w, 120%)',
                   backgroundImage: 'url(/brush-underline.webp)',
                   backgroundRepeat: 'no-repeat',
                   backgroundSize: 'contain',
@@ -192,17 +198,12 @@ export default function LandingPage() {
                   zIndex: -1,
                   display: 'block',
                   filter: 'brightness(0) invert(1)',
-                  opacity: 1
+                  opacity: 0.95
                 }}></span>
-              </span>&nbsp;<span style={{fontSize: '24px', fontFamily: 'Montserrat, sans-serif'}}>is </span><span style={{fontWeight: '300', fontFamily: 'Montserrat, sans-serif'}}>Coliving</span>
+              </span>&nbsp;<span style={{fontSize: '34px',fontWeight: '300', fontFamily: 'Montserrat, sans-serif', whiteSpace: 'nowrap'}}>on your </span><span style={{fontWeight: '200', fontFamily: 'Montserrat, sans-serif'}}>Journey</span>
             </h1>
-            <h2 className="text-4xl md:text-6xl font-normal mb-6 text-balance" style={{ fontFamily: 'Montserrat',
-    fontWeight: 200,
-    letterSpacing: '-3px'}}>
-              A Home by the Ocean
-            </h2>
-            <h3 className="text-4xl md:text-6xl font-normal text-balance" style={{fontFamily: 'Caveat, cursive'}}>
-              Work, Surf and Yoga
+            <h3 className="text-4xl md:text-6xl font-normal text-balance inline-block mx-auto" style={{ fontFamily: 'Caveat, cursive', letterSpacing: '-0.01em' }}>
+              Coliving and Working by the Ocean
             </h3>
           </div>
           
@@ -219,8 +220,19 @@ export default function LandingPage() {
             >
               Learn More
             </Button>
+            <Button
+              size="lg"
+              className="ml-4 bg-[#ea86c0] text-white font-montserrat text-lg px-8 py-3 h-auto relative overflow-hidden group transition-colors"
+              onClick={() => {
+                try { posthog.capture('see_pricing_click', { page: 'landing-b', location: 'hero' }) } catch {}
+                scrollToSection('pricing')
+              }}
+            >
+              <span className="relative z-10 transition-colors duration-300 group-hover:text-black">See Pricing</span>
+              <span className="pointer-events-none absolute inset-0 -z-0 before:content-[''] before:absolute before:inset-0 before:bg-white before:-translate-x-full group-hover:before:translate-x-0 before:transition-transform before:duration-300 before:ease-out"></span>
+            </Button>
           </div>
-
+        
         </div>
       </section>
 
@@ -813,6 +825,9 @@ export default function LandingPage() {
           </div>
         </div>
       </section>
+
+      {/* Pricing & Value Section */}
+      <PricingSection onJoinClick={handleJoinClick} />
 
       {/* Video Testimonial */}
       <section className="py-20 bg-white">
