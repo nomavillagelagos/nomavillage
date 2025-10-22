@@ -171,7 +171,7 @@ export default function LandingPage() {
           
           {/* Main Heading */}
           <div className="mb-8">
-            <h1 className="text-6xl md:text-8xl font-bold mb-4 text-balance leading-tight md:whitespace-nowrap inline-block mx-auto" style={{ fontFamily: 'Montserrat, sans-serif', letterSpacing: '-0.04em' }}>
+            <h1 className="text-4xl sm:text-6xl md:text-8xl font-bold mb-4 text-balance leading-tight whitespace-normal md:whitespace-nowrap break-words md:break-normal inline-block mx-auto" style={{ fontFamily: 'Montserrat, sans-serif', letterSpacing: '-0.04em' }}>
               <span style={{fontWeight: 200, fontFamily: 'Montserrat, sans-serif'}}>Feeling </span>
               <span style={{
                 position: 'relative', 
@@ -200,9 +200,9 @@ export default function LandingPage() {
                   filter: 'brightness(0) invert(1)',
                   opacity: 0.95
                 }}></span>
-              </span>&nbsp;<span style={{fontSize: '34px',fontWeight: '300', fontFamily: 'Montserrat, sans-serif', whiteSpace: 'nowrap'}}>on your </span><span style={{fontWeight: '200', fontFamily: 'Montserrat, sans-serif'}}>Journey</span>
+              </span>&nbsp;<span style={{fontSize: '35px',fontWeight: '300', fontFamily: 'Montserrat, sans-serif', marginRight: '0.35em'}}>on your </span><span style={{fontWeight: '200', fontFamily: 'Montserrat, sans-serif'}}>Journey</span>
             </h1>
-            <h3 className="text-4xl md:text-6xl font-normal text-balance inline-block mx-auto" style={{ fontFamily: 'Caveat, cursive', letterSpacing: '-0.01em' }}>
+            <h3 className="text-[2rem] lg:text-[2.5rem] xl:text-[3rem] font-normal text-balance inline-block mx-auto" style={{ fontFamily: 'Caveat, cursive', letterSpacing: '-0.01em' }}>
               Coliving and Working by the Ocean
             </h3>
           </div>
@@ -373,6 +373,15 @@ export default function LandingPage() {
       {/* Video Preview */}
       <section className="py-20 bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <Button
+              size="lg"
+              className="bg-lagos-pink hover:bg-lagos-pink/90 text-white font-montserrat text-xl px-12 py-4 h-auto cta-boost cta-swipe cta-swipe--to-black"
+              onClick={() => handleFormClick('video-top')}
+            >
+              Book a Call now
+            </Button>
+          </div>
           <div className="text-center mb-10">
             <h2 className="font-caveat text-5xl font-normal text-gray-900 mb-4" style={{fontFamily: 'Caveat, cursive'}}>Take a Look Inside</h2>
             <p className="font-nunito text-lg text-gray-600 max-w-3xl mx-auto">
@@ -388,6 +397,15 @@ export default function LandingPage() {
               allowFullScreen
               className="absolute inset-0 w-full h-full"
             />
+          </div>
+          <div className="text-center mt-10 mb-12">
+            <Button
+              size="lg"
+              className="bg-lagos-pink hover:bg-lagos-pink/90 text-white font-montserrat text-xl px-12 py-4 h-auto cta-boost cta-swipe cta-swipe--to-black"
+              onClick={() => handleFormClick('video-bottom')}
+            >
+              Book a Call now
+            </Button>
           </div>
         </div>
       </section>
