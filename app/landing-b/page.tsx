@@ -171,13 +171,15 @@ export default function LandingPage() {
           
           {/* Main Heading */}
           <div className="mb-8">
-            <h1 className="text-4xl sm:text-6xl md:text-8xl font-bold mb-4 text-balance leading-tight whitespace-normal md:whitespace-nowrap break-words md:break-normal inline-block mx-auto" style={{ fontFamily: 'Montserrat, sans-serif', letterSpacing: '-0.04em' }}>
-              <span style={{fontWeight: 200, fontFamily: 'Montserrat, sans-serif'}}>Feeling </span>
+            <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 text-balance leading-tight whitespace-normal break-words inline-block mx-auto" style={{ fontFamily: 'Montserrat, sans-serif', letterSpacing: '-0.04em' }}>
+              <span style={{fontWeight: 200, fontFamily: 'Montserrat, sans-serif'}}>Find a </span>
               <span style={{
                 position: 'relative', 
                 color: 'white', 
-                fontSize: '1.2em', 
-                fontFamily: 'Caveat, cursive'
+                fontSize: '1.1em', 
+                fontFamily: 'Caveat, cursive',
+                fontWeight: 500,
+                marginRight: '0.3em'
               }}>
                 <span style={{
                   position: 'relative',
@@ -185,11 +187,11 @@ export default function LandingPage() {
                 }}>Home</span>
                 <span className="hero-brush-underline" style={{
                   position: 'absolute',
-                  left: '-10%',
+                  left: '-5%',
                   right: '-10%',
-                  bottom: '-4%',
-                  height: 'var(--brush-h, 40px)',
-                  width: 'var(--brush-w, 120%)',
+                  bottom: '-2%',
+                  height: 'var(--brush-h, 30px)',
+                  width: 'var(--brush-w, 115%)',
                   backgroundImage: 'url(/brush-underline.webp)',
                   backgroundRepeat: 'no-repeat',
                   backgroundSize: 'contain',
@@ -198,9 +200,12 @@ export default function LandingPage() {
                   zIndex: -1,
                   display: 'block',
                   filter: 'brightness(0) invert(1)',
-                  opacity: 0.95
+                  opacity: 0.9
                 }}></span>
-              </span>&nbsp;<span style={{fontSize: '35px',fontWeight: '300', fontFamily: 'Montserrat, sans-serif', marginRight: '0.35em'}}>on your </span><span style={{fontWeight: '200', fontFamily: 'Montserrat, sans-serif'}}>Journey</span>
+              </span>
+              <span className="block lg:inline mt-2 lg:mt-0" style={{fontWeight: '200', fontFamily: 'Montserrat, sans-serif'}}>
+                on your <span style={{fontWeight: '200', fontFamily: 'Montserrat, sans-serif'}}>Journey</span>
+              </span>
             </h1>
             <h3 className="text-[2rem] lg:text-[2.5rem] xl:text-[3rem] font-normal text-balance inline-block mx-auto" style={{ fontFamily: 'Caveat, cursive', letterSpacing: '-0.01em' }}>
               Coliving and Working by the Ocean

@@ -96,20 +96,22 @@ export default function HomePage() {
 
         <div className="relative z-10 text-center text-white mx-auto max-w-none lg:max-w-7xl px-4 pt-28 md:pt-40 pb-12 md:pb-20">
           <div className="mx-auto max-w-5xl space-y-8">
-            {/* Main Headline - Clean and Bold */}
+            {/* Main Headline - Polished for readability and balance */}
             <h1
-              className="font-montserrat font-light text-5xl md:text-6xl lg:text-6xl tracking-[-2.5px] leading-[1.1] text-white"
+              className="font-montserrat font-light text-[40px] md:text-[64px] lg:text-[72px] leading-[1.05] tracking-[-0.03em] text-white text-balance"
               style={{ textShadow: '0 4px 20px rgba(0,0,0,0.5)' }}
             >
-              Feeling <span className="font-caveat text-[1.3em] relative inline-block">
+              <span className="opacity-95">Finding</span>
+              <span className="font-caveat relative inline-block mx-2 align-baseline text-[1.25em]">
                 <span className="relative z-10">Home</span>
-                <div
-                  className="absolute left-[-8%] right-[-8%] bottom-[2%] h-[18px] w-[116%]
-                            bg-[url('/brush-underline.webp')] bg-no-repeat bg-center
-                            bg-[length:100%_100%] -rotate-1 -z-10
-                            brightness-0 invert opacity-70"
+                <span
+                  className="absolute left-[-10%] right-[-10%] bottom-[0%] h-[16px] md:h-[20px] lg:h-[24px] w-[120%]
+                             bg-[url('/brush-underline.webp')] bg-no-repeat bg-center bg-[length:100%_100%]
+                             -rotate-1 -z-10 brightness-0 invert opacity-80"
                 />
-              </span> on your Journey
+              </span>
+              <span className="inline-block text-white/90 text-[0.6em] md:text-[0.55em] tracking-[0.02em] align-baseline whitespace-nowrap mx-1">on your</span>
+              <span className="opacity-95">Journey</span>
             </h1>
 
             {/* Subtitle - SEO Keywords */}
