@@ -268,7 +268,7 @@ export default function HomePage() {
               <MapPin className="h-5 w-5" />
               <span className="font-montserrat text-sm tracking-wide uppercase">Prime Location</span>
             </div>
-            <h2 className="font-montserrat text-3xl md:text-5xl font-bold text-gray-900 mt-2">Your Base in the Algarve</h2>
+            <h2 className="font-montserrat text-3xl md:text-5xl font-bold text-gray-900 mt-2">Your <span className="font-caveat text-[1.2em] leading-none">Base</span> in the Algarve</h2>
             <p className="font-nunito text-lg text-gray-700 mt-2 max-w-3xl mx-auto">Perfectly positioned between golden beaches, dramatic cliffs, and Lagos historic center - the ideal setting for remote work and coastal living</p>
           </div>
           <div className="mb-10">
