@@ -373,39 +373,41 @@ export default function LandingPage() {
       {/* Video Preview */}
       <section className="py-20 bg-white">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <Button
-              size="lg"
-              className="bg-lagos-pink hover:bg-lagos-pink/90 text-white font-montserrat text-xl px-12 py-4 h-auto cta-boost cta-swipe cta-swipe--to-black"
-              onClick={() => handleFormClick('video-top')}
-            >
-              Book a Call now
-            </Button>
-          </div>
-          <div className="text-center mb-10">
-            <h2 className="font-caveat text-5xl font-normal text-gray-900 mb-4" style={{fontFamily: 'Caveat, cursive'}}>Take a Look Inside</h2>
-            <p className="font-nunito text-lg text-gray-600 max-w-3xl mx-auto">
-              A short video preview of life at Noma Village
-            </p>
-          </div>
+          <div className="flex flex-col items-center gap-12">
+            <div className="text-center">
+              <Button
+                size="lg"
+                className="bg-lagos-pink hover:bg-lagos-pink/90 text-white font-montserrat text-xl px-12 py-4 h-auto cta-boost cta-swipe cta-swipe--to-black"
+                onClick={() => handleFormClick('video-top')}
+              >
+                Book a Call now
+              </Button>
+            </div>
+            <div className="text-center">
+              <h2 className="font-caveat text-5xl font-normal text-gray-900" style={{fontFamily: 'Caveat, cursive'}}>Take a Look Inside</h2>
+              <p className="font-nunito text-lg text-gray-600 max-w-3xl mx-auto">
+                A short video preview of life at Noma Village
+              </p>
+            </div>
 
-          <div className="relative w-full md:w-1/2 mx-auto rounded-xl shadow-xl overflow-hidden" style={{paddingTop: '56.25%'}}>
-            <iframe
-              src="https://www.youtube.com/embed/7hPyCSk-6pM"
-              title="Noma Village Preview"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowFullScreen
-              className="absolute inset-0 w-full h-full"
-            />
-          </div>
-          <div className="text-center mt-10 mb-12">
-            <Button
-              size="lg"
-              className="bg-lagos-pink hover:bg-lagos-pink/90 text-white font-montserrat text-xl px-12 py-4 h-auto cta-boost cta-swipe cta-swipe--to-black"
-              onClick={() => handleFormClick('video-bottom')}
-            >
-              Book a Call now
-            </Button>
+            <div className="relative w-full md:w-1/2 mx-auto rounded-xl shadow-xl overflow-hidden" style={{paddingTop: '56.25%'}}>
+              <iframe
+                src="https://www.youtube.com/embed/7hPyCSk-6pM"
+                title="Noma Village Preview"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+                className="absolute inset-0 w-full h-full"
+              />
+            </div>
+            <div className="text-center">
+              <Button
+                size="lg"
+                className="bg-lagos-pink hover:bg-lagos-pink/90 text-white font-montserrat text-xl px-12 py-4 h-auto cta-boost cta-swipe cta-swipe--to-black"
+                onClick={() => handleFormClick('video-bottom')}
+              >
+                Book a Call now
+              </Button>
+            </div>
           </div>
         </div>
       </section>
