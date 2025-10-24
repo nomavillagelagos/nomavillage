@@ -370,7 +370,7 @@ export default function HomePage() {
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
-            <h2 className="font-montserrat text-3xl md:text-5xl font-bold text-gray-900 mb-4">Premium Coliving & Coworking Amenities</h2>
+            <h2 className="font-montserrat text-3xl md:text-5xl font-bold text-gray-900 mb-4">Premium <span className="font-caveat text-[1.3em] leading-none">Coliving & Coworking</span> Amenities</h2>
             <p className="font-nunito text-xl text-gray-600 max-w-3xl mx-auto">
               Everything you need for productive remote work and an unforgettable Portuguese coastal experience
             </p>
@@ -854,7 +854,7 @@ export default function HomePage() {
       <section className="py-20 bg-gradient-to-br from-lagos-aquamarine/5 via-white to-lagos-blue-green/5">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="font-montserrat text-3xl md:text-5xl font-bold text-gray-900 mb-6">
-            Ready to Start Your Journey?
+            Ready to Start Your <span className="font-caveat inline-block align-baseline text-[1.2em] leading-none">Journey</span>?
           </h2>
           <p className="font-nunito text-xl text-gray-700 mb-10 max-w-2xl mx-auto leading-relaxed">
             Join 175+ remote workers who've made Lagos their home base. Whether you're staying 2 weeks or 3 months, explore our <Link href="/rooms" className="text-lagos-blue-green hover:underline">private rooms</Link> and start your next chapter here.
