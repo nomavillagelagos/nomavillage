@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react';
 import ScarcityBadge from '@/components/ScarcityBadge';
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
+import { useInView } from '@/hooks/use-in-view';
 
 interface PricingSectionProps {
   onJoinClick: () => void;
@@ -35,30 +36,33 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onJoinClick }) =
   const [mounted, setMounted] = useState(false);
   useEffect(() => { setMounted(true); }, []);
 
+  // In-view trigger for brush underline animation on day-rate banner
+  const { ref: rateRef, inView: rateInView } = useInView<HTMLDivElement>({ threshold: 0.3 });
+
   // Pricing tiers data
   const pricingTiers = [
     {
       id: '2weeks',
       label: '2 Weeks',
-      price: '€790',
-      dailyRate: '€56/day',
+      price: '€644',
+      dailyRate: '€46/day',
       savings: null,
       description: 'Perfect for a short retreat',
     },
     {
       id: '3weeks',
       label: '3 Weeks',
-      price: '€1,185',
-      dailyRate: '€56/day',
-      savings: 'Save €75 vs. 2-week rate',
+      price: '€882',
+      dailyRate: '€42/day',
+      savings: null,
       description: 'Great balance of time and value',
     },
     {
       id: '1month',
       label: '1 Month',
-      price: '€1,480',
-      dailyRate: '€49/day',
-      savings: 'Save €200+ vs. 2x2-week stays',
+      price: '€1,170',
+      dailyRate: '€39/day',
+      savings: 'Save €118 vs. 2x2-week stays',
       description: 'Best value - lowest daily rate',
     },
   ];
@@ -84,6 +88,48 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onJoinClick }) =
           <p className="font-nunito text-lg text-gray-600 max-w-2xl mx-auto">
             Choose your stay duration. Everything included - no hidden fees.
           </p>
+        </div>
+
+        {/* Emphasized Day Rate Banner */}
+        <div className="max-w-2xl mx-auto mb-6" ref={rateRef}>
+          <div className="rounded-2xl border-2 border-lagos-blue-green bg-lagos-blue-green/10 px-6 py-4 text-center">
+            <p className="font-montserrat text-2xl md:text-3xl font-semibold text-gray-900">
+              Now from{' '}
+              <span className="text-lagos-blue-green price-highlight">
+                <span className="price-text">€39/day</span>
+                <span
+                  className={`price-brush ${rateInView ? 'is-visible' : ''}`}
+                  aria-hidden
+                />
+              </span>
+            </p>
+          </div>
+          <style jsx>{`
+            .price-highlight { position: relative; display: inline-block; padding-bottom: 6px; }
+            .price-text { position: relative; z-index: 2; }
+            .price-brush {
+              position: absolute;
+              left: -6%;
+              right: -6%;
+              bottom: -4px;
+              height: 21px;
+              background-color: #50bbb7;
+              transform: scaleX(0);
+              transform-origin: left center;
+              opacity: 0.8;
+              z-index: 1;
+              -webkit-mask-image: url('/brush-underline.webp');
+              mask-image: url('/brush-underline.webp');
+              -webkit-mask-repeat: no-repeat;
+              mask-repeat: no-repeat;
+              -webkit-mask-size: contain;
+              mask-size: contain;
+              -webkit-mask-position: center bottom;
+              mask-position: center bottom;
+            }
+            @keyframes brushReveal { from { transform: scaleX(0); opacity: 0.6; } to { transform: scaleX(1); opacity: 1; } }
+            .price-brush.is-visible { animation: brushReveal 900ms cubic-bezier(0.16, 1, 0.3, 1) 100ms forwards; }
+          `}</style>
         </div>
 
         {/* Tabbed Pricing Card */}
@@ -137,7 +183,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onJoinClick }) =
                     onClick={onJoinClick}
                     className="w-full bg-lagos-pink hover:bg-lagos-pink/90 text-white font-montserrat text-lg py-6"
                   >
-                    Book {tier.label}
+                    Join Us
                   </Button>
 
                   <p className="text-center text-sm text-gray-500 mt-4 font-nunito">
@@ -357,7 +403,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onJoinClick }) =
             <div className="pt-4 border-t-2 border-lagos-blue-green bg-gradient-to-r from-green-50 to-blue-50 -mx-4 px-4 pb-4">
               <div className="flex justify-between items-center mb-3">
                 <span className="font-montserrat font-bold text-gray-900">Your Monthly Total</span>
-                <span className="font-montserrat text-4xl font-bold text-lagos-blue-green">€1,480</span>
+                <span className="font-montserrat text-4xl font-bold text-lagos-blue-green">€1,170</span>
               </div>
               <div className="bg-[#50bbb7] text-black rounded-lg px-4 py-3 mb-3 shadow-md">
                 <p className="text-base font-montserrat font-bold">
@@ -457,7 +503,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onJoinClick }) =
               <div className="pt-4 border-t-2 border-lagos-blue-green bg-gradient-to-r from-green-50 to-blue-50 -mx-4 px-4 pb-4">
                 <div className="flex justify-between items-center mb-3">
                   <span className="font-montserrat font-bold text-gray-900 text-sm">Your Monthly Total</span>
-                  <span className="font-montserrat text-3xl font-bold text-lagos-blue-green">€1,480</span>
+                  <span className="font-montserrat text-3xl font-bold text-lagos-blue-green">€1,170</span>
                 </div>
                 <div className="bg-[#50bbb7] text-black rounded-lg px-3 py-2 mb-3 shadow-md">
                   <p className="text-sm font-montserrat font-bold">

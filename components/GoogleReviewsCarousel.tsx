@@ -161,6 +161,9 @@ export default function GoogleReviewsCarousel() {
   const [index, setIndex] = useState(0);
   const [itemsPerSlide, setItemsPerSlide] = useState(1);
   const intervalRef = useRef<number | null>(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedReview, setSelectedReview] = useState<Review | null>(null);
+  const modalPanelRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     fetchReviews().then((r) => setReviews(r));
@@ -222,6 +225,71 @@ export default function GoogleReviewsCarousel() {
   const prev = () => setIndex((i) => (i - 1 + pages.length) % pages.length);
   const next = () => setIndex((i) => (i + 1) % pages.length);
 
+  // Modal open/close helpers
+  const openModal = (r: Review) => {
+    setSelectedReview(r);
+    setIsModalOpen(true);
+  };
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setSelectedReview(null);
+  };
+
+  // Accessibility: focus trap + ESC to close when modal open
+  useEffect(() => {
+    if (!isModalOpen) return;
+
+    function handleKeyDown(e: KeyboardEvent) {
+      if (e.key === "Escape") {
+        e.preventDefault();
+        closeModal();
+        return;
+      }
+      if (e.key === "Tab") {
+        const panel = modalPanelRef.current;
+        if (!panel) return;
+        const focusables = panel.querySelectorAll<HTMLElement>(
+          'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])'
+        );
+        if (!focusables.length) return;
+        const first = focusables[0];
+        const last = focusables[focusables.length - 1];
+        const active = document.activeElement as HTMLElement | null;
+        if (!e.shiftKey && active === last) {
+          e.preventDefault();
+          first.focus();
+        } else if (e.shiftKey && active === first) {
+          e.preventDefault();
+          last.focus();
+        }
+      }
+    }
+
+    // Focus the close button after mount
+    const t = setTimeout(() => {
+      const panel = modalPanelRef.current;
+      if (!panel) return;
+      const btn = panel.querySelector<HTMLElement>("button[data-close]");
+      btn?.focus();
+    }, 0);
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      clearTimeout(t);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isModalOpen]);
+
+  const truncate = (text: string, max = 180) => {
+    if (!text) return "";
+    if (text.length <= max) return text;
+    return text.slice(0, max).trimEnd() + "...";
+  };
+
+  const modalAvatar = selectedReview
+    ? (selectedReview.profile_photo_url || getGravatarUrl(selectedReview.email_for_gravatar))
+    : null;
+
   return (
     <div className="relative">
       <div className="overflow-hidden">
@@ -240,12 +308,25 @@ export default function GoogleReviewsCarousel() {
                   const avatar = r.profile_photo_url || getGravatarUrl(r.email_for_gravatar);
                   return (
                     <div key={i} className="h-full">
-                      <div className="border border-gray-100 shadow-sm rounded-2xl p-6 bg-white h-full hover:shadow-md transition-shadow duration-300">
+                      <div className="border border-gray-100 shadow-sm rounded-2xl p-6 bg-white h-full hover:shadow-md transition-shadow duration-300 flex flex-col">
                         <div className="mb-4 flex items-center gap-2">
                           <div className="text-yellow-400 text-lg">{"★★★★★".slice(0, Math.max(1, Math.min(5, r.rating)))}</div>
                           <span className="text-sm text-gray-500 font-medium">{r.rating}/5</span>
                         </div>
-                        <p className="font-nunito text-gray-800 mb-6 leading-relaxed text-base">"{r.text}"</p>
+                        <div className="mb-6 grow">
+                          <p className="font-nunito text-gray-800 leading-relaxed text-base">
+                            "{truncate(r.text)}"
+                          </p>
+                          {r.text && r.text.length > 180 && (
+                            <button
+                              onClick={() => openModal(r)}
+                              className="mt-2 text-lagos-blue-green hover:text-lagos-blue-green/80 font-montserrat text-sm underline"
+                              aria-label={`Read full review from ${r.author_name}`}
+                            >
+                              Read more
+                            </button>
+                          )}
+                        </div>
                         <div className="flex items-center gap-4 mt-auto">
                           {avatar ? (
                             <span className="w-12 h-12 rounded-full bg-white ring-1 ring-gray-200 shadow-sm overflow-hidden flex items-center justify-center bg-gray-50 shrink-0">
@@ -273,7 +354,7 @@ export default function GoogleReviewsCarousel() {
                             ) : (
                               <div className="font-montserrat font-semibold text-gray-900 truncate">{r.author_name}</div>
                             )}
-                            <div className="text-sm text-gray-500">Google Review</div>
+                            <div className="text-sm text-gray-500">Google Review{r.relative_time_description ? ` · ${r.relative_time_description}` : ""}</div>
                           </div>
                         </div>
                       </div>
@@ -314,6 +395,58 @@ export default function GoogleReviewsCarousel() {
           >
             ›
           </button>
+        </div>
+      )}
+
+      {isModalOpen && selectedReview && (
+        <div
+          className="fixed inset-0 z-[1000] flex items-center justify-center bg-black/50 backdrop-blur-sm transition-opacity duration-200"
+          aria-hidden={!isModalOpen}
+          onClick={closeModal}
+        >
+          <div
+            ref={modalPanelRef}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="review-modal-title"
+            className="relative mx-4 w-full max-w-xl rounded-2xl bg-white p-6 shadow-xl focus:outline-none"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              data-close
+              onClick={closeModal}
+              aria-label="Close"
+              className="absolute right-3 top-3 h-9 w-9 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-700 flex items-center justify-center"
+            >
+              ×
+            </button>
+            <div className="mb-4 flex items-center gap-3">
+              {modalAvatar ? (
+                <span className="w-12 h-12 rounded-full bg-white ring-1 ring-gray-200 shadow-sm overflow-hidden flex items-center justify-center bg-gray-50 shrink-0">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={modalAvatar} alt={selectedReview.author_name} className="w-full h-full object-cover block" />
+                </span>
+              ) : (
+                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-lagos-blue-green to-lagos-aquamarine flex items-center justify-center text-white font-montserrat text-lg">
+                  {selectedReview.author_name?.charAt(0) || "?"}
+                </div>
+              )}
+              <div className="min-w-0">
+                <h3 id="review-modal-title" className="font-montserrat font-semibold text-gray-900 text-lg">
+                  {selectedReview.author_name}
+                </h3>
+                <div className="flex items-center gap-2 text-sm text-gray-500">
+                  <div className="text-yellow-400">{"★★★★★".slice(0, Math.max(1, Math.min(5, selectedReview.rating)))}</div>
+                  <span className="font-medium">{selectedReview.rating}/5</span>
+                  {selectedReview.relative_time_description && (
+                    <span>· {selectedReview.relative_time_description}</span>
+                  )}
+                </div>
+              </div>
+            </div>
+            <p className="font-nunito text-gray-800 leading-relaxed mb-4">"{selectedReview.text}"</p>
+            <div className="text-sm text-gray-500">Google Review</div>
+          </div>
         </div>
       )}
     </div>

@@ -10,10 +10,13 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Bath, Maximize, Wifi, AirVent, Car, Utensils, Shirt, CheckCircle, Calendar, Eye, Star, X, ChevronLeft, ChevronRight, Info, Laptop, Zap, Monitor, Bed, ChevronDown } from "lucide-react"
 import Link from "next/link"
+import EmailSignupForm from "@/components/email-signup-form"
 import { useState } from "react"
+import { useSmoothScroll } from "@/hooks/use-smooth-scroll"
 import Carousel from "@/components/Carousel"
 
 export default function RoomsPage() {
+  const { scrollToSection } = useSmoothScroll()
   const [isCalendarOpen, setIsCalendarOpen] = useState(false)
   const [isInfoOpen, setIsInfoOpen] = useState(false)
   const [showInfoOnCalendarOpen, setShowInfoOnCalendarOpen] = useState(false)
@@ -153,7 +156,7 @@ export default function RoomsPage() {
     {
       id: "premium-room",
       name: "Premium Room",
-      price: 1480,
+      price: 1170,
       size: "25m²",
       bathroom: "Private",
       view: "Premium",
@@ -260,7 +263,7 @@ export default function RoomsPage() {
                       <span className="font-nunito text-gray-600 ml-2">/month</span>
                     </div>
                     <div className="flex items-baseline">
-                      <span className="text-2xl font-bold text-lagos-blue-green font-montserrat">€790</span>
+                      <span className="text-2xl font-bold text-lagos-blue-green font-montserrat">€644</span>
                       <span className="font-nunito text-gray-600 ml-2">/two weeks</span>
                     </div>
                   </div>
@@ -302,9 +305,9 @@ export default function RoomsPage() {
                       }`}
                       disabled={room.available === 0}
                     >
-                      <a href="#availability">{room.available > 0 ? "Book Now" : "Join Waitlist"}</a>
+                      <a href="https://forms.fillout.com/t/aKuWaUwvaVus" target="_blank" rel="noopener noreferrer">{room.available > 0 ? "Book Now" : "Join Waitlist"}</a>
                     </Button>
-                    <Button variant="outline" className="font-montserrat bg-transparent">
+                    <Button variant="outline" className="font-montserrat bg-transparent" onClick={() => scrollToSection('get-the-guide')}>
                       Get the Guide
                     </Button>
                   </div>
@@ -520,6 +523,17 @@ export default function RoomsPage() {
               </div>
             </CardContent>
           </Card>
+        </div>
+      </section>
+
+      {/* Email Signup Section (above Testimonials) */}
+      <section id="get-the-guide" className="py-20 bg-gradient-to-r from-lagos-blue-green to-lagos-pink">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="font-caveat text-5xl font-bold text-white mb-4" style={{fontFamily: 'Caveat, cursive'}}>Get the Noma Village Guide</h2>
+          <p className="font-nunito text-xl text-white/90 mb-8 text-balance">
+            Everything you need to know about our Coliving & Coworking in Lagos, Portugal
+          </p>
+          <EmailSignupForm source="rooms-guide" showNames={true} className="max-w-md mx-auto" />
         </div>
       </section>
 

@@ -162,7 +162,9 @@ export default function CommunityPage() {
         </div>
 
         <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
-          <h1 className="font-montserrat text-5xl md:text-6xl font-bold mb-4">Coliving Community in Lagos</h1>
+          <h1 className="font-montserrat text-5xl md:text-6xl font-bold mb-4">
+            Coliving <span className="font-caveat" style={{fontFamily:'Caveat, cursive'}}>Community</span> in Lagos
+          </h1>
           <p className="font-nunito text-xl md:text-2xl text-balance">
             Digital Nomads & Remote Workers in Portugal
           </p>

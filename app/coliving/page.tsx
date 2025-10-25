@@ -90,10 +90,27 @@ export default function ColivingPage() {
         </div>
 
         <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
-          <h1 className="font-montserrat text-5xl md:text-6xl font-bold mb-4">Coliving in Lagos, Portugal</h1>
+          <h1 className="font-montserrat text-5xl md:text-6xl font-bold mb-4">
+            <span className="font-caveat" style={{fontFamily:'Caveat, cursive', fontSize:'130%'}}>Coliving</span> in Lagos, Portugal
+          </h1>
           <p className="font-nunito text-xl md:text-2xl text-balance">
             Private Rooms & Vibrant Community in the Algarve
           </p>
+        </div>
+      </section>
+
+      {/* Mid-page CTA: Book a Call (after Philosophy) */}
+      <section className="py-12">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <Button
+            asChild
+            size="lg"
+            className="bg-lagos-blue-green hover:bg-lagos-blue-green/90 text-white font-montserrat text-xl px-12 py-4 h-auto cta-boost"
+          >
+            <a href="https://calendly.com/nomavillagelagos/short-intro" target="_blank" rel="noopener noreferrer">
+              Book a Call
+            </a>
+          </Button>
         </div>
       </section>
 
@@ -102,7 +119,7 @@ export default function ColivingPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <h2 className="font-montserrat text-5xl font-bold text-gray-900 mb-6">A haven in the heart of community</h2>
+              <h2 className="font-montserrat text-5xl font-bold text-gray-900 mb-6">A <span className="font-caveat" style={{fontFamily:'Caveat, cursive', fontSize:'130%'}}>Haven</span> in the heart of <span className="font-caveat" style={{fontFamily:'Caveat, cursive', fontSize:'130%'}}>Community</span></h2>
               <p className="font-nunito text-lg text-gray-600 mb-6 leading-relaxed">
                 Nomavillage goes beyond being a place to crash—it's where your room turns into your cozy hideaway, and the shared spaces transform into your playground. It's all about that perfect balance between having your own chill space and enjoying the good vibes with your fellow Colivers.
               </p>
@@ -128,7 +145,7 @@ export default function ColivingPage() {
       <section className="py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="font-montserrat text-5xl font-bold text-gray-900 mb-4">High-Class Amenities</h2>
+            <h2 className="font-montserrat text-5xl font-bold text-gray-900 mb-4">High-Class <span className="font-caveat" style={{fontFamily:'Caveat, cursive', fontSize:'130%'}}>Amenities</span></h2>
             <p className="font-nunito text-xl text-gray-600">
               Everything you need for comfortable living and productive work
             </p>
@@ -154,7 +171,7 @@ export default function ColivingPage() {
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="font-montserrat text-5xl font-bold text-gray-900 mb-4">Our Coliving Space</h2>
+            <h2 className="font-montserrat text-5xl font-bold text-gray-900 mb-4">Our <span className="font-caveat" style={{fontFamily:'Caveat, cursive', fontSize:'130%'}}>Coliving</span> Space</h2>
             <p className="font-nunito text-xl text-gray-600">Everything you need for comfortable community living</p>
           </div>
 
@@ -229,7 +246,7 @@ export default function ColivingPage() {
       <section className="py-20 bg-lagos-aquamarine/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="font-montserrat text-5xl font-bold text-gray-900 mb-4">Community Life</h2>
+            <h2 className="font-montserrat text-5xl font-bold text-gray-900 mb-4"><span className="font-caveat" style={{fontFamily:'Caveat, cursive', fontSize:'130%'}}>Community</span> Life</h2>
             <p className="font-nunito text-xl text-gray-600">
               Every week, we come together for communal meals, and Thursdays are all about yoga sessions
             </p>
@@ -243,35 +260,23 @@ export default function ColivingPage() {
         </div>
       </section>
 
-      {/* Amenities */}
-      <section className="py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="font-montserrat text-5xl font-bold text-gray-900 mb-4">High-Class Amenities</h2>
-            <p className="font-nunito text-xl text-gray-600">
-              Everything you need for comfortable living and productive work
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {amenities.map((amenity, index) => (
-              <div key={index} className="flex items-start space-x-4">
-                <div className="w-12 h-12 bg-lagos-amber/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                  <amenity.icon className="h-6 w-6 text-lagos-amber" />
-                </div>
-                <div>
-                  <h3 className="font-montserrat font-semibold text-lg mb-2">{amenity.title}</h3>
-                  <p className="font-nunito text-gray-600">{amenity.description}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Virtual Tour */}
       <section className="py-20 bg-lagos-aquamarine/10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Video Preview */}
+          <div className="mb-16 max-w-4xl mx-auto">
+            <div className="relative w-full overflow-hidden rounded-lg shadow-md" style={{ paddingTop: "56.25%" }}>
+              <iframe
+                className="absolute inset-0 h-full w-full"
+                src="https://www.youtube.com/embed/d8O27uAopdo"
+                title="Noma Village Virtual Tour"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                referrerPolicy="strict-origin-when-cross-origin"
+                allowFullScreen
+              />
+            </div>
+          </div>
+
           <div className="text-center mb-16">
             <h2 className="font-montserrat text-5xl font-bold text-gray-900 mb-4">Take a Virtual Tour</h2>
             <p className="font-nunito text-xl text-gray-600">Explore our beautiful spaces from anywhere in the world</p>
@@ -305,7 +310,7 @@ export default function ColivingPage() {
           </div>
 
           <div className="text-center mt-12">
-            <Button asChild size="lg" className="bg-lagos-blue-green hover:bg-lagos-blue-green/90 text-white font-montserrat">
+            <Button asChild size="lg" className="bg-lagos-blue-green hover:bg-lagos-blue-green/90 text-white font-montserrat text-xl px-12 py-4 h-auto cta-boost">
               <a href="https://calendly.com/nomavillagelagos/short-intro" target="_blank" rel="noopener noreferrer">
                 Book a Call
               </a>
@@ -394,7 +399,7 @@ export default function ColivingPage() {
       {/* CTA Section */}
       <section className="py-20 bg-gradient-to-r from-lagos-blue-green to-lagos-pink">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="font-montserrat text-5xl font-bold text-white mb-4">Ready to Join Our Community?</h2>
+          <h2 className="font-montserrat text-5xl font-bold text-white mb-4">Ready to Join Our <span className="font-caveat" style={{fontFamily:'Caveat, cursive', fontSize:'130%'}}>Community</span>?</h2>
           <p className="font-nunito text-xl text-white/90 mb-8 text-balance">
             Start your coliving journey in beautiful Lagos, Portugal
           </p>

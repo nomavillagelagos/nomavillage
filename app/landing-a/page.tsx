@@ -432,7 +432,7 @@ export default function LandingPage() {
               <MapPin className="h-5 w-5" />
               <span className="font-montserrat text-sm tracking-wide">Your Transformation Base</span>
             </div>
-            <h2 className="font-montserrat text-4xl md:text-5xl font-bold text-gray-900 mt-2">Noma Village Lagos</h2>
+            <h2 className="font-caveat text-5xl font-normal text-gray-900 mt-2" style={{fontFamily: 'Caveat, cursive'}}>Noma Village Lagos</h2>
             <p className="font-nunito text-gray-600 mt-2">Nature • Culture • Convenience — the golden triangle of Praia da Dona Ana, dramatic cliffs, and Lagos historic center</p>
           </div>
 

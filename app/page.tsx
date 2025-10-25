@@ -186,7 +186,7 @@ export default function HomePage() {
               {/* Pricing & CTA */}
               <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-6">
                 <div>
-                  <div className="text-4xl font-montserrat font-bold text-gray-900">€790</div>
+                  <div className="text-4xl font-montserrat font-bold text-gray-900">€644</div>
                   <div className="text-sm font-nunito text-gray-600">for 2 weeks • Permanently</div>
                 </div>
                 <CTAButton
