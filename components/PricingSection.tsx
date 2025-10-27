@@ -112,11 +112,11 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onJoinClick }) =
               left: -6%;
               right: -6%;
               bottom: -4px;
-              height: 21px;
+              height: 26px;
               background-color: #50bbb7;
               transform: scaleX(0);
               transform-origin: left center;
-              opacity: 0.8;
+              opacity: 0.85;
               z-index: 1;
               -webkit-mask-image: url('/brush-underline.webp');
               mask-image: url('/brush-underline.webp');
@@ -418,6 +418,15 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onJoinClick }) =
                   ✨ <strong>Plus:</strong> Instant friends, weekly events, beach lifestyle, surf lessons, yoga, and memories that last forever
                 </p>
               </div>
+            </div>
+            {/* Button under the right card (desktop only) */}
+            <div className="md:col-start-2 mt-4">
+              <Button
+                onClick={onJoinClick}
+                className="w-full bg-lagos-pink hover:bg-lagos-pink/90 text-white font-montserrat text-lg py-4"
+              >
+                Join Us
+              </Button>
             </div>
           </div>
         </div>

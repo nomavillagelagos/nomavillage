@@ -4,7 +4,7 @@ import AnalyticsWrapper from '@/components/AnalyticsWrapper'
 
 export const metadata: Metadata = {
   title: 'Join our Yoga + Surf Colive | Noma Village (Variant B)',
-  description: 'Limited cohort in Lagos: private rooms, coworking, daily yoga, surf, and a curated community.',
+  description: 'Limited cohort in Lagos: private rooms, coworking, regular yoga, surf, and a curated community.',
   robots: {
     index: false,
     follow: true,
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'Join our Yoga + Surf Colive | Noma Village',
-    description: 'Private rooms, coworking, daily yoga, surf. Limited spots in Lagos, Portugal.',
+    description: 'Private rooms, coworking, regular yoga, surf. Limited spots in Lagos, Portugal.',
     url: '/landing',
     images: [{ url: '/images/yoga.jpg', width: 1200, height: 630, alt: 'Join our Yoga + Surf Colive' }],
     type: 'website',

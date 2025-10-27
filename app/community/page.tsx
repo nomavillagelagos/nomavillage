@@ -380,6 +380,52 @@ export default function CommunityPage() {
         </div>
       </section>
 
+      {/* Lucinda Testimonial */}
+      <section className="py-16">
+        <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+          <Card className="border-0 shadow-lg">
+            <CardContent className="p-8">
+              <div className="flex flex-col sm:flex-row items-start gap-6">
+                <Avatar className="h-20 w-20 flex-shrink-0">
+                  <AvatarImage src="/images/testimonials/lucinda.jpg" alt="Lucinda Kang" />
+                  <AvatarFallback>L</AvatarFallback>
+                </Avatar>
+                <div className="w-full">
+                  <blockquote className="relative bg-gray-50 rounded-xl p-6 border border-gray-100">
+                    <span className="absolute -left-3 -top-4 text-6xl text-lagos-blue-green/20 select-none">“</span>
+                    <div className="space-y-4 font-nunito text-gray-800 leading-relaxed text-lg md:text-xl">
+                      <p>Some co-livings give you a room in a house. Others give you a bed, a kitchen, and a WhatsApp group where you hope your housemates might be social.</p>
+                      <p>And then there is Noma Village.</p>
+                      <p>Calling it a co-living space doesn’t quite feel right. What it offers is a home — not the kind you’re born into by chance, but one you choose, and one that feels like it chose you back. The people here don’t just share an address; they share intention. They are different enough to make every conversation interesting, similar enough to feel like an instant tribe, and above all, committed to community.</p>
+                      <p>Edgar and Kevin (our hosts) have found the perfect balance — they organise just enough daily gatherings for even the shy to feel included, while leaving enough quiet space for introverts to retreat and recharge. But what makes Noma truly special is that the community isn’t only built for you — it’s built by you.</p>
+                      <div>
+                        <p className="mb-2">In my two-week stay, there were:</p>
+                        <ul className="list-disc ml-6 space-y-1">
+                          <li>daily yoga sessions</li>
+                          <li>hikes and cliff walks</li>
+                          <li>group dinners, at home and out in town</li>
+                          <li>impromptu evening singalongs and book readings</li>
+                          <li>member-led bachata lessons and a creative writing workshop</li>
+                          <li>full-moon ceremonies</li>
+                          <li>sunrise meditations on the beach</li>
+                        </ul>
+                      </div>
+                      <p>…and somehow, I still managed to get work done.</p>
+                      <p>Leaving was the hardest part.</p>
+                      <p>If you’re looking not just for a place to stay, but for people to stay with — for community, for generosity, for the quiet comfort of belonging — this might just be your tribe.</p>
+                    </div>
+                    <div className="mt-6 font-montserrat font-semibold text-gray-900">— Lucinda Kang</div>
+                  </blockquote>
+                  <div className="mt-4 text-center sm:text-left">
+                    <Link href="https://maps.app.goo.gl/YrbRrdGHfMhzsTuq8" target="_blank" className="text-lagos-blue-green underline">Read full review on Google Maps</Link>
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+        </div>
+      </section>
+
       {/* CTA Section */}
       <section className="py-20 bg-gradient-to-r from-lagos-blue-green to-lagos-pink">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">

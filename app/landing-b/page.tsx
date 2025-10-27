@@ -149,9 +149,9 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section - Join our Yoga Colive */}
-      <section className="relative h-screen flex items-center justify-center overflow-hidden">
+      <section className="relative h-[120vh] md:h-screen flex items-center justify-center overflow-hidden">
         <div
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          className="absolute inset-0 bg-cover bg-[center_28%] md:bg-center bg-no-repeat"
           style={{
             backgroundImage: "url('/images/beachpeople.jpeg')",
           }}
@@ -264,7 +264,7 @@ export default function LandingPage() {
       >
         <div className="black-hero-container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 30px', textAlign: 'center' }}>
           <h2 className="black-hero-title" style={{ fontSize: '2.5rem', fontWeight: 300, letterSpacing: '-0.5px', lineHeight: 1.2, color: '#ffffff', margin: 0, padding: 0 }}>
-            Join us for 2+ weeks — private Room, Shared Coworking, Yoga, and Surf
+            Start your days with intention alongside your tribe — Yoga, Primal Flows, Beach Walks, or whatever energizes the community that morning
           </h2>
         </div>
       </section>
@@ -307,7 +307,7 @@ export default function LandingPage() {
           <div className="text-center mb-16">
             <h2 className="font-caveat text-5xl font-normal text-gray-900 mb-4" style={{fontFamily: 'Caveat, cursive'}}>Join our Yoga Colive Experience</h2>
             <p className="font-nunito text-xl text-gray-600 max-w-4xl mx-auto text-balance">
-              Mindful living with daily yoga, surf, and entrepreneurial connections
+              Mindful living with regular yoga, surf, and entrepreneurial connections
             </p>
           </div>
 
@@ -316,9 +316,9 @@ export default function LandingPage() {
               <div className="w-16 h-16 bg-lagos-pink/20 rounded-lg flex items-center justify-center mx-auto mb-4">
                 <Heart className="h-8 w-8 text-lagos-pink" />
               </div>
-              <h3 className="font-montserrat text-xl font-semibold mb-4">Daily Yoga Sessions</h3>
+              <h3 className="font-montserrat text-xl font-semibold mb-4">Regular Yoga Sessions</h3>
               <p className="font-nunito text-gray-600 leading-relaxed">
-                Daily yoga sessions by the pool
+                Regular yoga sessions by the pool
               </p>
             </div>
 

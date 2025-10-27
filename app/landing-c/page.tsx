@@ -25,7 +25,7 @@ function LocationHighlights() {
     { icon: '🌅', title: 'Sunset Gatherings', desc: 'Cliffs, beach walks, and dinners together' },
     { icon: '💬', title: 'Skill Shares', desc: 'Founder talks, co-working jams, masterminds' },
     { icon: '🏄‍♀️', title: 'Surf Buddies', desc: 'Find your session partners easily' },
-    { icon: '🧘', title: 'Daily Yoga', desc: 'Mindful start to connect & focus' },
+    { icon: '🧘', title: 'Regular Yoga', desc: 'Mindful start to connect & focus' },
     { icon: '🍲', title: 'Community Meals', desc: 'Weekly dinners and potlucks' },
   ]
 
@@ -145,7 +145,7 @@ export default function LandingPageC() {
       <section ref={blackHeroRef as any} className="black-hero-section" style={{ backgroundColor: '#000', color: '#fff', width: '100vw', marginLeft: 'calc(-50vw + 50%)', position: 'relative', overflowX: 'hidden', padding: '60px 0', opacity: blackHeroInView ? 1 : 0, transform: blackHeroInView ? 'translateX(0)' : 'translateX(-100px)', transition: 'all 2s cubic-bezier(0.16, 1, 0.3, 1)' }}>
         <div className="black-hero-container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 30px', textAlign: 'center' }}>
           <h2 className="black-hero-title" style={{ fontSize: '2.3rem', fontWeight: 300, letterSpacing: '-0.5px', lineHeight: 1.2, color: '#ffffff', margin: 0, padding: 0 }}>
-            Community-first coliving — daily yoga, shared coworking, and surf buddies
+            Community-first coliving — regular yoga, shared coworking, and surf buddies
           </h2>
         </div>
       </section>
@@ -281,7 +281,7 @@ export default function LandingPageC() {
           <div className="text-center mb-10">
             <p className="font-montserrat text-sm text-gray-500 mb-2">From <span className="font-semibold text-gray-800">€1,170/month</span></p>
             <h2 className="font-montserrat text-4xl md:text-5xl font-bold text-gray-900 mb-4">Community-First Pricing</h2>
-            <p className="font-nunito text-lg text-gray-600 max-w-2xl mx-auto">One price that includes your private room, coworking, daily yoga, and a built-in community.</p>
+            <p className="font-nunito text-lg text-gray-600 max-w-2xl mx-auto">One price that includes your private room, coworking, regular yoga, and a built-in community.</p>
           </div>
           <div className="max-w-xl mx-auto">
             <div className="relative border-2 border-lagos-blue-green rounded-2xl p-8 shadow-xl bg-gradient-to-br from-white to-gray-50">
@@ -294,7 +294,7 @@ export default function LandingPageC() {
                 <p className="font-nunito text-gray-600">Best for deep focus and deeper connections</p>
               </div>
               <div className="space-y-3 mb-6">
-                {['Private ensuite room','Coworking 24/7','Daily yoga','Weekly community dinners','500 Mbps WiFi','All utilities & cleaning'].map((b,i)=> (
+                {['Private ensuite room','Coworking 24/7','Regular yoga','Weekly community dinners','500 Mbps WiFi','All utilities & cleaning'].map((b,i)=> (
                   <div key={i} className="flex items-start gap-3"><svg className="h-5 w-5 text-lagos-blue-green mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7"/></svg><span className="font-nunito text-gray-700">{b}</span></div>
                 ))}
               </div>

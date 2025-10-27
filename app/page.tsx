@@ -152,7 +152,7 @@ export default function HomePage() {
               <div className="relative rounded-2xl overflow-hidden shadow-2xl">
                 <img
                   src="/images/yoga.jpg"
-                  alt="Daily yoga sessions at Noma Village coliving Lagos Portugal with poolside terrace"
+                  alt="Regular yoga sessions at Noma Village coliving Lagos Portugal with poolside terrace"
                   className="w-full h-[500px] object-cover object-[50%_70%]"
                 />
                 <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm rounded-lg px-4 py-2 shadow-lg">
@@ -175,7 +175,7 @@ export default function HomePage() {
               </h2>
 
               <p className="font-nunito text-xl text-gray-700 mb-6 leading-relaxed">
-                Make our <Link href="/coliving" className="text-lagos-blue-green hover:underline">permanent coliving space</Link> by the ocean your home base. We combine uninterrupted <Link href="/coworking" className="text-lagos-blue-green hover:underline">remote work</Link> with a strong focus on <Link href="/community" className="text-lagos-blue-green hover:underline">community</Link>, featuring daily yoga classes to start your day right.
+                Make our <Link href="/coliving" className="text-lagos-blue-green hover:underline">permanent coliving space</Link> by the ocean your home base. We combine uninterrupted <Link href="/coworking" className="text-lagos-blue-green hover:underline">remote work</Link> with a strong focus on <Link href="/community" className="text-lagos-blue-green hover:underline">community</Link>, offering a colorful mix of morning activities like Yoga, Pilates, and other sporty pursuits to help you start your day with intention.
               </p>
 
               <p className="font-nunito text-xl text-gray-700 mb-6 leading-relaxed">
@@ -242,9 +242,6 @@ export default function HomePage() {
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
             <h2 className="font-montserrat text-3xl md:text-5xl font-bold text-gray-700 mb-4">Digital Nomad Life at <span className="font-caveat text-[1.5em] leading-none">Noma Village</span> Lagos</h2>
-            <p className="font-nunito text-lg text-gray-600 max-w-3xl mx-auto">
-              Watch: Morning yoga on the terrace, focused coworking sessions, golden hour at the cliffs, and community dinners <span className="text-gray-500">(1:33)</span>
-            </p>
           </div>
           <div className="relative w-full rounded-2xl shadow-2xl overflow-hidden border border-gray-100" style={{paddingTop: '56.25%'}}>
             <iframe

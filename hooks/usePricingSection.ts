@@ -19,7 +19,7 @@ export const usePricingSection = () => {
       noma: [
         { item: 'Private room with bathroom', price: 'Included' },
         { item: 'Dedicated coworking space', price: 'Included' },
-        { item: 'Daily yoga & mindfulness', price: 'Included' },
+        { item: 'Regular yoga & mindfulness', price: 'Included' },
         { item: 'Curated community', price: 'Included' },
         { item: 'Surf-friendly lifestyle', price: 'Included' },
       ]
