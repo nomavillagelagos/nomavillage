@@ -1,8 +1,8 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: process.env.NEXT_PUBLIC_SITE_URL || 'https://www.nomavillage.com',
+  siteUrl: process.env.NEXT_PUBLIC_SITE_URL || 'https://nomavillage.com',
   generateRobotsTxt: true,
-  exclude: ['/landing-a', '/landing-b', '/api/*'],
+  exclude: ['/landing', '/landing-a', '/landing-b', '/api/*'],
   robotsTxtOptions: {
     policies: [
       {
@@ -15,7 +15,7 @@ module.exports = {
       },
     ],
     additionalSitemaps: [
-      'https://www.nomavillage.com/sitemap.xml',
+      'https://nomavillage.com/sitemap.xml',
     ],
   },
   changefreq: 'weekly',

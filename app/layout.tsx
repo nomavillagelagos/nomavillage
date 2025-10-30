@@ -30,7 +30,7 @@ const caveat = Caveat({
   variable: "--font-caveat",
 })
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://www.nomavillage.com"
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://nomavillage.com"
 const gtmId = process.env.NEXT_PUBLIC_GTM_ID || ""
 
 export const metadata: Metadata = {
