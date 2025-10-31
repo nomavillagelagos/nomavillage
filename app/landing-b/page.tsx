@@ -15,6 +15,7 @@ import { useEffect, useState } from "react"
 import GuideModal from "@/components/guide-modal"
 import EmailSignupForm from "@/components/email-signup-form"
 import FilloutSliderPopup from "@/components/fillout-slider-popup"
+import GuideSliderPopup from "@/components/guide-slider-popup"
 import { useSmoothScroll } from "@/hooks/use-smooth-scroll"
 import GoogleReviewsCarousel from "@/components/GoogleReviewsCarousel"
 import { useInView } from "@/hooks/use-in-view"
@@ -25,7 +26,7 @@ import WhatsAppDirectButton from "@/components/WhatsAppDirectButton"
 // Proximity cards with in-view animation
 function LocationHighlights() {
   const items = [
-    { icon: '🏖️', title: '3-minute walk to Praia da Dona Ana', desc: 'One of the Algarve’s most iconic beaches' },
+    { icon: '🏖️', title: '15-minute walk to Praia Porto de Mós', desc: 'One of the Algarve’s most iconic beaches' },
     { icon: '🌊', title: 'Surrounded by world-famous golden cliffs', desc: 'Dramatic coastline right on your doorstep' },
     { icon: '🏛️', title: '15-minute walk to Lagos historic center', desc: 'Cafés, culture, and charming streets' },
     { icon: '✈️', title: '1 hour from Faro Airport', desc: 'Easy access for national and international flights' },
@@ -73,7 +74,9 @@ function LocationHighlights() {
 
 export default function LandingPage() {
   const [isGuideModalOpen, setIsGuideModalOpen] = useState(false)
+  const [isGuideSliderOpen, setIsGuideSliderOpen] = useState(false)
   const [isFormPopupOpen, setIsFormPopupOpen] = useState(false)
+  const [priceBannerIn, setPriceBannerIn] = useState(false)
   const { scrollToSection } = useSmoothScroll()
   const [reviewsSummary, setReviewsSummary] = useState<{ rating?: number; user_ratings_total?: number; url?: string } | null>(null)
   const { ref: blackHeroRef, inView: blackHeroInView } = useInView<HTMLDivElement>({ threshold: 0.1 })
@@ -84,6 +87,7 @@ export default function LandingPage() {
   };
 
   useEffect(() => {
+    const t = setTimeout(() => setPriceBannerIn(true), 250)
     // Fetch summary for Google reviews (rating, total, url)
     fetch('/api/google-reviews', { cache: 'no-store' })
       .then(r => r.ok ? r.json() : null)
@@ -91,6 +95,7 @@ export default function LandingPage() {
         if (data) setReviewsSummary({ rating: data.rating, user_ratings_total: data.user_ratings_total, url: data.url })
       })
       .catch(() => {})
+    return () => clearTimeout(t)
   }, [])
   const handleFormClick = (location: string) => {
     // Google Analytics tracking
@@ -137,21 +142,16 @@ export default function LandingPage() {
       location
     })
 
-    if (location === 'hero') {
-      // Scroll to the email signup section instead of opening modal
-      scrollToSection('email-signup')
-    } else {
-      // For other locations, still open the modal
-      setIsGuideModalOpen(true)
-    }
+    // For all locations, smoothly scroll to the email signup section
+    scrollToSection('email-signup')
   }
 
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section - Join our Yoga Colive */}
-      <section className="relative h-[120vh] md:h-screen flex items-center justify-center overflow-hidden">
+      <section className="relative h-screen flex items-center justify-center overflow-hidden">
         <div
-          className="absolute inset-0 bg-cover bg-[center_28%] md:bg-center bg-no-repeat"
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
           style={{
             backgroundImage: "url('/images/beachpeople.jpeg')",
           }}
@@ -264,7 +264,7 @@ export default function LandingPage() {
       >
         <div className="black-hero-container" style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 30px', textAlign: 'center' }}>
           <h2 className="black-hero-title" style={{ fontSize: '2.5rem', fontWeight: 300, letterSpacing: '-0.5px', lineHeight: 1.2, color: '#ffffff', margin: 0, padding: 0 }}>
-            Start your days with intention alongside your tribe — Yoga, Primal Flows, Beach Walks, or whatever energizes the community that morning
+            Start your days with intention alongside your tribe Yoga, Primal Flows, Beach Walks, or whatever energizes the community that morning
           </h2>
         </div>
       </section>
@@ -297,6 +297,29 @@ export default function LandingPage() {
               />
               <div className="font-nunito text-gray-600">community</div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="py-8">
+        <div className="max-w-3xl mx-auto px-4">
+          <div
+            className={`relative rounded-full border-2 border-lagos-aquamarine bg-white/80 backdrop-blur shadow-[0_0_0_3px_rgba(80,187,183,0.15)] px-6 py-4 text-center transform transition-all duration-700 ease-out ${priceBannerIn ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-16'}`}
+          >
+            <span className="font-montserrat text-2xl md:text-3xl text-gray-900">
+              Now from{' '}
+              <span className="relative inline-block font-semibold text-lagos-blue-green">
+                €39/day
+                <span
+                  aria-hidden
+                  className="pointer-events-none absolute left-0 right-0 -bottom-1 h-3 rounded-full"
+                  style={{
+                    background: 'linear-gradient(90deg, rgba(80,187,183,0.9) 0%, rgba(80,187,183,0.7) 100%)',
+                    filter: 'drop-shadow(0 2px 6px rgba(80,187,183,0.35))',
+                  }}
+                />
+              </span>
+            </span>
           </div>
         </div>
       </section>
@@ -426,7 +449,7 @@ export default function LandingPage() {
               <MapPin className="h-5 w-5" />
               <span className="font-montserrat text-sm tracking-wide">Your Transformation Base</span>
             </div>
-            <h2 className="font-montserrat text-4xl md:text-5xl font-bold text-gray-900 mt-2">Noma Village Lagos</h2>
+            <h2 className="font-caveat text-5xl font-normal text-gray-900 mt-2" style={{fontFamily: 'Caveat, cursive'}}>Noma Village Lagos</h2>
             <p className="font-nunito text-gray-600 mt-2">Nature • Culture • Convenience — the golden triangle of Praia da Dona Ana, dramatic cliffs, and Lagos historic center</p>
           </div>
 
@@ -451,7 +474,7 @@ export default function LandingPage() {
       </section>
 
       {/* Photo Gallery */}
-      <section className="py-20 bg-gray-50">
+      <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="font-caveat text-5xl font-normal text-gray-900 mb-4" style={{fontFamily: 'Caveat, cursive'}}>Life at Noma Village</h2>
@@ -669,14 +692,15 @@ export default function LandingPage() {
       {/* Newsletter Signup */}
       <section id="email-signup" className="py-20 bg-gradient-to-r from-lagos-blue-green to-lagos-pink">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="font-caveat text-5xl font-normal text-white mb-4" style={{fontFamily: 'Caveat, cursive'}}>Get the Guide</h2>
-          <p className="font-nunito text-xl text-white/90 mb-8 text-balance">
+          <h2 className="font-caveat text-5xl font-normal text-gray-900 mb-4" style={{fontFamily: 'Caveat, cursive'}}>Get the Guide</h2>
+          <p className="font-nunito text-xl text-gray-800 mb-8 text-balance">
             Get updates on community events, new amenities, and exclusive member benefits at Noma Village
           </p>
 
           <EmailSignupForm 
             source="landing-b-newsletter"
             showNames={true}
+            askLastName={false}
             className="max-w-md mx-auto"
           />
         </div>
@@ -862,14 +886,68 @@ export default function LandingPage() {
             <p className="font-nunito text-lg text-gray-600 max-w-3xl mx-auto">Listen to a Glenn sharing their experience at Noma Village</p>
           </div>
 
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="relative w-full rounded-xl shadow-xl overflow-hidden" style={{paddingTop: '56.25%'}}>
+              <iframe
+                src="https://www.youtube.com/embed/WnkUn11HMh8"
+                title="Noma Village Testimonial"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+                className="absolute inset-0 w-full h-full"
+              />
+            </div>
+            <div className="relative w-full rounded-xl shadow-xl overflow-hidden" style={{paddingTop: '56.25%'}}>
+              <iframe
+                src="https://www.youtube.com/embed/0pUJWrS4Kdw"
+                title="Noma Village Testimonial 2"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+                className="absolute inset-0 w-full h-full"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Inside Look Video */}
+      <section className="py-10 sm:py-16 bg-white">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-10">
+            <h2 className="font-caveat text-5xl font-normal text-gray-900 mb-4" style={{fontFamily: 'Caveat, cursive'}}>What does it look like from the Inside</h2>
+          </div>
+
           <div className="relative w-full md:w-2/3 mx-auto rounded-xl shadow-xl overflow-hidden" style={{paddingTop: '56.25%'}}>
             <iframe
-              src="https://www.youtube.com/embed/WnkUn11HMh8"
-              title="Noma Village Testimonial"
+              src="https://www.youtube.com/embed/d8O27uAopdo"
+              title="Inside Look at Noma Village"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
               allowFullScreen
               className="absolute inset-0 w-full h-full"
             />
+          </div>
+        </div>
+      </section>
+
+      {/* What If Section */}
+      <section className="py-20 sm:py-24 bg-white border-y border-gray-200">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <h2 className="font-caveat text-6xl md:text-7xl font-normal text-gray-900 mb-6" style={{fontFamily: 'Caveat, cursive'}}>what if....?</h2>
+          <div className="font-nunito text-xl md:text-2xl text-gray-800 leading-relaxed space-y-4 mb-10">
+            <p>“What if I land and don’t like it?”</p>
+            <p>“What if I want to stay longer / shorter?”</p>
+            <p>“What’s included exactly?”</p>
+          </div>
+          <div className="flex flex-col items-center gap-4">
+            <svg className="w-8 h-8 text-lagos-blue-green animate-bounce" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 4v14m0 0l-5-5m5 5l5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+            <button
+              type="button"
+              onClick={() => handleGuideClick('what_if')}
+              className="font-montserrat text-lg md:text-xl text-lagos-blue-green hover:text-lagos-blue-green/80 underline"
+            >
+              Get the guide with all info
+            </button>
           </div>
         </div>
       </section>
@@ -911,6 +989,12 @@ export default function LandingPage() {
       <GuideModal 
         isOpen={isGuideModalOpen} 
         onClose={() => setIsGuideModalOpen(false)} 
+      />
+      
+      <GuideSliderPopup
+        isOpen={isGuideSliderOpen}
+        onClose={() => setIsGuideSliderOpen(false)}
+        formUrl="https://forms.fillout.com/t/aKuWaUwvaVus"
       />
       
       <FilloutSliderPopup
