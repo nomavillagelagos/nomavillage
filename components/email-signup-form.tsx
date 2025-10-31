@@ -14,6 +14,7 @@ interface EmailSignupFormProps {
   source?: string
   className?: string
   showNames?: boolean
+  askLastName?: boolean
 }
 
 export default function EmailSignupForm({ 
@@ -21,7 +22,8 @@ export default function EmailSignupForm({
   description = "",
   source = "website",
   className = "",
-  showNames = false
+  showNames = false,
+  askLastName = true
 }: EmailSignupFormProps) {
   const [email, setEmail] = useState('')
   const [firstName, setFirstName] = useState('')
@@ -51,7 +53,7 @@ export default function EmailSignupForm({
         body: JSON.stringify({
           email,
           firstName: showNames ? firstName : undefined,
-          lastName: showNames ? lastName : undefined,
+          lastName: showNames && askLastName ? lastName : undefined,
           source,
           metadata: {
             formType: showNames ? 'detailed' : 'simple',
@@ -120,7 +122,7 @@ export default function EmailSignupForm({
       <CardContent>
         <form onSubmit={handleSubmit} className="space-y-4">
           {showNames && (
-            <div className="grid grid-cols-2 gap-4">
+            <div className={askLastName ? "grid grid-cols-2 gap-4" : "grid grid-cols-1 gap-4"}>
               <div className="space-y-2">
                 <Label htmlFor="firstName" className="font-montserrat">First Name</Label>
                 <Input
@@ -134,19 +136,21 @@ export default function EmailSignupForm({
                   placeholder="First name"
                 />
               </div>
-              <div className="space-y-2">
-                <Label htmlFor="lastName" className="font-montserrat">Last Name</Label>
-                <Input
-                  id="lastName"
-                  name="lastName"
-                  type="text"
-                  value={lastName}
-                  onChange={(e) => setLastName(e.target.value)}
-                  className="font-nunito"
-                  disabled={isLoading}
-                  placeholder="Last name"
-                />
-              </div>
+              {askLastName && (
+                <div className="space-y-2">
+                  <Label htmlFor="lastName" className="font-montserrat">Last Name</Label>
+                  <Input
+                    id="lastName"
+                    name="lastName"
+                    type="text"
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
+                    className="font-nunito"
+                    disabled={isLoading}
+                    placeholder="Last name"
+                  />
+                </div>
+              )}
             </div>
           )}
           
