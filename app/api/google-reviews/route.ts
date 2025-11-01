@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server'
-import { promises as fs } from 'fs'
 import path from 'path'
 
 // GET /api/google-reviews
@@ -28,12 +27,12 @@ export async function GET() {
       'name',
       'rating',
       'user_ratings_total',
-      'reviews',
-      'url'
+      'reviews'
     ].join(',')
 
     const url = `https://maps.googleapis.com/maps/api/place/details/json?place_id=${encodeURIComponent(placeId)}&fields=${encodeURIComponent(fields)}&reviews_sort=newest&key=${encodeURIComponent(key)}`
-    const res = await fetch(url, { next: { revalidate: 60 } })
+    // Vercel/serverless-friendly caching: 12h revalidate + tag for manual purge
+    const res = await fetch(url, { next: { revalidate: 60 * 60 * 12, tags: ['google-reviews'] } })
     const data = await res.json()
 
     if (data.status !== 'OK' || !data.result) {
@@ -56,6 +55,7 @@ export async function GET() {
     let extraReviews: any[] = []
     try {
       const file = path.join(process.cwd(), 'data', 'extra-reviews.json')
+      const { promises: fs } = await import('fs')
       const raw = await fs.readFile(file, 'utf8')
       extraReviews = JSON.parse(raw)
     } catch (_) {
@@ -88,10 +88,8 @@ export async function GET() {
       name: result.name,
       rating: result.rating,
       user_ratings_total: result.user_ratings_total,
-      url: result.url,
       reviews: mergedReviews,
     }
-
     return NextResponse.json(payload)
   } catch (err: any) {
     return NextResponse.json({ error: err?.message || 'Failed to fetch reviews' }, { status: 500 })
