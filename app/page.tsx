@@ -3,7 +3,7 @@ import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { Star, Quote, MapPin } from "lucide-react"
+import { Star, Quote, MapPin, Bath, Bed, Laptop, CheckCircle } from "lucide-react"
 import Link from "next/link"
 import Script from "next/script"
 import Head from 'next/head'
@@ -18,6 +18,7 @@ import { CTAButton, GoogleReviewsWrapper, LocationHighlights, PricingSectionWrap
 import BlackHeroSection from "@/components/BlackHeroSection"
 import HeroButtons from "@/components/HeroButtons"
 import { ChevronDown } from "lucide-react"
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
 
 export { metadata } from './metadata'
 
@@ -237,6 +238,30 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Slide-in promo under stats (static version) */}
+      <section className="py-8">
+        <div className="max-w-3xl mx-auto px-4">
+          <div
+            className={"relative rounded-full border-2 border-lagos-aquamarine bg-white/80 backdrop-blur shadow-[0_0_0_3px_rgba(80,187,183,0.15)] px-6 py-4 text-center transition-all duration-700 ease-out"}
+          >
+            <span className="font-montserrat text-2xl md:text-3xl text-gray-900">
+              Now from{' '}
+              <span className="relative inline-block font-semibold text-lagos-blue-green">
+                €39/day
+                <span
+                  aria-hidden
+                  className="pointer-events-none absolute left-0 right-0 -bottom-1 h-3 rounded-full"
+                  style={{
+                    background: 'linear-gradient(90deg, rgba(80,187,183,0.9) 0%, rgba(80,187,183,0.7) 100%)',
+                    filter: 'drop-shadow(0 2px 6px rgba(80,187,183,0.35))',
+                  }}
+                />
+              </span>
+            </span>
+          </div>
+        </div>
+      </section>
+
       {/* Video Preview: A Day in the Life */}
       <section className="py-20 bg-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -282,6 +307,77 @@ export default function HomePage() {
             </div>
           </div>
           <LocationHighlights />
+        </div>
+      </section>
+
+      {/* Your Private Room */}
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <h2 className="font-caveat text-5xl font-normal text-gray-900 mb-6">Your Private Space</h2>
+              <p className="font-nunito text-lg text-gray-600 mb-6 leading-relaxed">
+                Private rooms with queen bed, work desk, and private bathroom.
+              </p>
+
+              <div className="grid grid-cols-3 gap-4 mb-8">
+                <div className="text-center p-4 bg-white rounded-lg shadow-sm">
+                  <Bath className="h-6 w-6 text-lagos-amber mx-auto mb-2" />
+                  <div className="font-montserrat font-semibold text-sm">Private Bathroom</div>
+                </div>
+                <div className="text-center p-4 bg-white rounded-lg shadow-sm">
+                  <Bed className="h-6 w-6 text-lagos-amber mx-auto mb-2" />
+                  <div className="font-montserrat font-semibold text-sm">Queen Bed</div>
+                </div>
+                <div className="text-center p-4 bg-white rounded-lg shadow-sm">
+                  <Laptop className="h-6 w-6 text-lagos-amber mx-auto mb-2" />
+                  <div className="font-montserrat font-semibold text-sm">Work Desk</div>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mb-8">
+                {[
+                  "Air conditioning & heating",
+                  "Premium bed linens included",
+                  "Weekly cleaning service",
+                  "Hair dryer & towels",
+                  "Flatscreen TV",
+                  "Natural daylight"
+                ].map((feature, idx) => (
+                  <div key={idx} className="flex items-center font-nunito text-gray-600">
+                    <CheckCircle className="h-4 w-4 text-green-500 mr-2 flex-shrink-0" />
+                    {feature}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <div className="rounded-2xl shadow-xl bg-white p-2">
+                <Tabs defaultValue="room" className="w-full">
+                  <div className="relative w-full rounded-xl overflow-hidden" style={{paddingTop: '56.25%'}}>
+                    <TabsContent value="room" className="absolute inset-0">
+                      <img src="/images/room4.jpg" alt="Room" className="w-full h-full object-cover rounded-xl" />
+                    </TabsContent>
+                    <TabsContent value="bath" className="absolute inset-0">
+                      <img src="/images/private-bathroom-with-modern-fixtures.jpg" alt="Bathroom" className="w-full h-full object-cover rounded-xl" />
+                    </TabsContent>
+                    <TabsContent value="view" className="absolute inset-0">
+                      <img src="/images/balcony2.jpg" alt="View from room" className="w-full h-full object-cover rounded-xl" />
+                    </TabsContent>
+                  </div>
+
+                  <div className="mt-2 flex justify-center">
+                    <TabsList className="bg-gray-100">
+                      <TabsTrigger value="room">Room</TabsTrigger>
+                      <TabsTrigger value="bath">Bathroom</TabsTrigger>
+                      <TabsTrigger value="view">View</TabsTrigger>
+                    </TabsList>
+                  </div>
+                </Tabs>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 

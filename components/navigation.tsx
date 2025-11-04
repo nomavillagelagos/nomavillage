@@ -67,7 +67,7 @@ export function Navigation() {
                 {item.label}
               </Link>
             ))}
-            <Link href="/form">
+            <Link href="/form" target="_blank" rel="noopener noreferrer">
               <Button
                 className="bg-lagos-pink hover:bg-lagos-pink/90 cursor-pointer text-white font-montserrat font-bold  text-md inline-flex items-center h-16 px-5 rounded-none"
               >
@@ -106,7 +106,7 @@ export function Navigation() {
                 </Link>
               ))}
               <div className="px-3 py-2">
-                <Link href="/form" className="block" onClick={() => setIsOpen(false)}>
+                <Link href="/form" className="block" onClick={() => setIsOpen(false)} target="_blank" rel="noopener noreferrer">
                   <Button
                     className="w-full bg-lagos-pink hover:bg-lagos-pink/90 text-white font-montserrat"
                   >

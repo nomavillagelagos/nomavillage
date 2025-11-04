@@ -90,8 +90,20 @@ export default function ColivingPage() {
         </div>
 
         <div className="relative z-10 text-center text-white max-w-4xl mx-auto px-4">
-          <h1 className="font-montserrat text-5xl md:text-6xl font-bold mb-4">
-            <span className="font-caveat" style={{fontFamily:'Caveat, cursive', fontSize:'130%'}}>Coliving</span> in Lagos, Portugal
+          <h1
+            className="font-montserrat font-light text-[40px] md:text-[64px] lg:text-[72px] leading-[1.05] tracking-[-0.03em] text-white text-balance mb-4"
+            style={{ textShadow: '0 4px 20px rgba(0,0,0,0.5)' }}
+          >
+            <span className="font-caveat relative inline-block mx-2 align-baseline text-[1.25em]">
+              <span className="relative z-10">Coliving</span>
+              <span
+                className="absolute left-[-10%] right-[-10%] bottom-[0%] h-[16px] md:h-[20px] lg:h-[24px] w-[120%]
+                           bg-[url('/brush-underline.webp')] bg-no-repeat bg-center bg-[length:100%_100%]
+                           -rotate-1 -z-10 brightness-0 invert opacity-80"
+              />
+            </span>
+            <span className="inline-block text-white/90 text-[0.6em] md:text-[0.55em] tracking-[0.02em] align-baseline whitespace-nowrap mx-1">in</span>
+            <span className="opacity-95">Lagos, Portugal</span>
           </h1>
           <p className="font-nunito text-xl md:text-2xl text-balance">
             Private Rooms & Vibrant Community in the Algarve

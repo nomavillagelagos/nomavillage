@@ -185,7 +185,7 @@ export default function JoinPage() {
           
           {/* Slider Panel */}
           <div 
-            className="relative ml-auto h-full w-full max-w-2xl bg-white shadow-2xl transform transition-transform duration-300 ease-in-out translate-x-0"
+            className="relative ml-auto h-full w-full md:w-1/2 max-w-none bg-white shadow-2xl transform transition-transform duration-300 ease-in-out translate-x-0"
           >
             {/* Header */}
             <div className="flex items-center justify-between p-6 border-b border-gray-200">
