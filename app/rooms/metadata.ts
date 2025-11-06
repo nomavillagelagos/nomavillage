@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Rooms & Accommodation | Noma Village Lagos',
     description: 'Comfortable, modern rooms for digital nomads in the heart of Lagos, Portugal. Experience the perfect blend of work and play.',
-    url: 'https://www.nomavillage.com/rooms',
+    url: 'https://nomavillage.com/rooms',
     siteName: 'Noma Village',
     images: [
       {
@@ -26,6 +26,6 @@ export const metadata: Metadata = {
     images: ['/images/rooms/room1.jpg'],
   },
   alternates: {
-    canonical: 'https://www.nomavillage.com/rooms',
+    canonical: 'https://nomavillage.com/rooms',
   },
 }

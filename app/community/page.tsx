@@ -400,7 +400,7 @@ export default function CommunityPage() {
             <CardContent className="p-8">
               <div className="flex flex-col sm:flex-row items-start gap-6">
                 <Avatar className="h-20 w-20 flex-shrink-0">
-                  <AvatarImage src="/images/testimonials/lucinda.jpg" alt="Lucinda Kang" />
+                  <AvatarImage src="/images/testimonials/Lucinda.jpg" alt="Lucinda Kang" />
                   <AvatarFallback>L</AvatarFallback>
                 </Avatar>
                 <div className="w-full">

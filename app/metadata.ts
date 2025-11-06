@@ -22,12 +22,12 @@ export const metadata: Metadata = {
     'Portugal coliving space'
   ],
   alternates: {
-    canonical: 'https://www.nomavillage.com',
+    canonical: 'https://nomavillage.com',
   },
   openGraph: {
     title: 'Coliving & Coworking Lagos, Algarve, Portugal | Noma Village',
     description: 'Private rooms from €644/2 weeks. 500 Mbps WiFi, regular yoga, surf, beach lifestyle. Join 175+ digital nomads in Lagos, Algarve, Portugal.',
-    url: 'https://www.nomavillage.com',
+    url: 'https://nomavillage.com',
     siteName: 'Noma Village',
     images: [
       {

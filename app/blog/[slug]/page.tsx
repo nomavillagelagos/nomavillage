@@ -63,7 +63,7 @@ export async function generateMetadata({ params }: BlogPostPageProps): Promise<M
     };
   }
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.nomavillage.com';
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://nomavillage.com';
   const canonicalUrl = `${siteUrl}/blog/${post.slug}`;
 
   return {

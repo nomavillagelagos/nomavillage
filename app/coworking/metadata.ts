@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Coworking Space | Noma Village Lagos',
     description: 'Join our vibrant coworking community in Lagos, Portugal. High-speed internet, ergonomic workstations, and a supportive environment for digital nomads.',
-    url: 'https://www.nomavillage.com/coworking',
+    url: 'https://nomavillage.com/coworking',
     siteName: 'Noma Village',
     images: [
       {
@@ -26,6 +26,6 @@ export const metadata: Metadata = {
     images: ['/images/coworking/workspace1.jpg'],
   },
   alternates: {
-    canonical: 'https://www.nomavillage.com/coworking',
+    canonical: 'https://nomavillage.com/coworking',
   },
 }
