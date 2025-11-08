@@ -1,6 +1,6 @@
 # 🌐 WWW vs Non-WWW Setup
 
-## Current Status
+## Current Status.
 
 Your `.env.local` is set to: `https://www.nomavillage.com`
 
@@ -27,7 +27,7 @@ Then redirect the other to your chosen version.
 - ✅ Better for branding
 
 ### Setup Steps
-
+s
 #### 1. Update Environment Variable
 ```bash
 # In .env.local
@@ -120,7 +120,7 @@ curl -I https://nomavillage.com
 # Should show: Location: https://www.nomavillage.com
 
 # Or test if www redirects to non-www
-curl -I https://www.nomavillage.com  
+curl -I https://www.nomavillage.com
 # Should show: Location: https://nomavillage.com
 ```
 
@@ -186,5 +186,5 @@ curl https://nomavillage.com/sitemap.xml | grep "<loc>"
 
 ---
 
-**Current Status:** Using `www.nomavillage.com` ✅  
+**Current Status:** Using `www.nomavillage.com` ✅
 **Recommended:** Switch to `nomavillage.com` (but current setup works if you keep it consistent)
