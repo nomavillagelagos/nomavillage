@@ -80,17 +80,16 @@ export default function HomePage() {
           />
           {/* Desktop/Tablet image - hidden on mobile */}
           <Image
-            src="/images/noma-background3.jpg"
+            src="/images/noma_background.webp"
             alt="Coliving and coworking space in Lagos Algarve Portugal with ocean cliff views at Noma Village"
             fill
             priority
             quality={95}
-            className="object-cover object-[50%_35%] hidden md:block"
+            className="object-cover object-[50%_65%] hidden md:block"
             sizes="100vw"
           />
           <div
-            className="absolute inset-0"
-            style={{ background: 'linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.6))' }}
+            className="absolute inset-0 bg-gradient-to-br from-gray-700/60 to-gray-700/50"
           ></div>
         </div>
 
