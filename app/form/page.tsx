@@ -1,7 +1,7 @@
  'use client';
 
-import { useEffect, useState, useRef } from 'react';
-import { useRouter } from 'next/navigation';
+import { useEffect, useState, useRef, Suspense } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, ArrowLeft, Check, Mail, User, Phone, Flag, Clock, Users as UsersIcon, Sparkles, Calendar as CalendarIcon, Loader2, Home } from 'lucide-react';
@@ -14,7 +14,38 @@ import { format, parse, isValid, differenceInDays } from 'date-fns';
 import 'react-day-picker/style.css';
 import confetti from 'canvas-confetti';
 
-const FormPage = () => {
+// Form configuration for both variants
+const FORM_CONFIGS = {
+  full: {
+    totalSteps: 10, // Actually goes to step 10 (step 3 is skipped)
+    steps: [
+      { step: 1, type: 'welcome', field: null, required: false },
+      { step: 2, type: 'email', field: 'email', required: true },
+      // step 3 removed (was age_range)
+      { step: 4, type: 'work_style', field: 'workStyle', required: true },
+      { step: 5, type: 'colive_preference', field: 'colivePreference', required: true },
+      { step: 6, type: 'dates', field: ['arrivalDate', 'departureDate'], required: true },
+      { step: 7, type: 'first_name', field: 'firstName', required: true },
+      { step: 8, type: 'last_name', field: 'lastName', required: true },
+      { step: 9, type: 'phone_number', field: 'phoneNumber', required: false },
+      { step: 10, type: 'additional_notes', field: 'additionalNotes', required: false },
+    ]
+  },
+  lead: {
+    totalSteps: 5,
+    steps: [
+      { step: 1, type: 'welcome', field: null, required: false },
+      { step: 2, type: 'first_name', field: 'firstName', required: true },
+      { step: 3, type: 'email', field: 'email', required: true },
+      { step: 4, type: 'colive_preference_lead', field: 'colivePreference', required: true },
+      { step: 5, type: 'phone_number', field: 'phoneNumber', required: false },
+    ]
+  }
+} as const;
+
+const FormPageContent = () => {
+  const searchParams = useSearchParams();
+  const isLeadForm = searchParams.get('variant') === 'lead';
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState({
     email: '',
@@ -27,8 +58,17 @@ const FormPage = () => {
     lastName: '',
     phoneNumber: '',
     additionalNotes: '',
-    countryCode: '+351'
+    countryCode: '+351',
+    leadSource: 'full' // Will be set correctly in useEffect below
   });
+  
+  // Set leadSource based on URL parameter (must be in useEffect, not useState)
+  useEffect(() => {
+    setFormData(prev => ({
+      ...prev,
+      leadSource: isLeadForm ? 'short' : 'full'
+    }));
+  }, [isLeadForm]);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
@@ -68,20 +108,9 @@ const FormPage = () => {
 
   // Helper to get step name for analytics
   const getStepName = (stepNum: number) => {
-    const names: Record<number, string> = {
-      1: 'welcome',
-      2: 'email',
-      // 3 removed: age_range step skipped
-      4: 'work_style',
-      5: 'colive_preference',
-      6: 'dates',
-      7: 'first_name',
-      8: 'last_name',
-      9: 'phone_number',
-      10: 'additional_notes',
-      11: 'complete'
-    };
-    return names[stepNum] || `step_${stepNum}`;
+    const config = isLeadForm ? FORM_CONFIGS.lead : FORM_CONFIGS.full;
+    const stepConfig = config.steps.find(s => s.step === stepNum);
+    return stepConfig?.type || `step_${stepNum}`;
   };
 
   // Track step timing for analytics and auto-focus
@@ -233,14 +262,8 @@ const FormPage = () => {
     } catch {}
   }, [formData]);
 
-  // Debounced autosave on field changes
-  useEffect(() => {
-    if (!sessionId) return;
-    const t = setTimeout(() => {
-      savePartialData(step);
-    }, 800);
-    return () => clearTimeout(t);
-  }, [formData, step, sessionId]);
+  // Partial save is handled in handleNext() after each step completion
+  // No auto-save on field changes - only save when user advances to next step
 
   // Helper to upsert partial progress to Supabase
   const savePartialData = async (current_step: number) => {
@@ -263,6 +286,7 @@ const FormPage = () => {
       country_code: null, // Phone number now includes country code
       phone_number: formData.phoneNumber || null,
       additional_notes: formData.additionalNotes || null,
+      lead_source: formData.leadSource || null, // 'full' or 'short'
       current_step,
       is_completed: false,
       updated_at: new Date().toISOString(),
@@ -311,42 +335,78 @@ const FormPage = () => {
   };
 
   const validateCurrentStep = () => {
-    const newErrors: Record<string, string> = {};
-
-    if (step === 2 && !formData.email) {
-      newErrors.email = 'Email is required';
-    } else if (step === 2 && !validateEmail(formData.email)) {
-      newErrors.email = 'Please enter a valid email';
-    } else if (step === 4 && !formData.workStyle) {
-      newErrors.workStyle = 'Please select an option';
-    } else if (step === 5 && !formData.colivePreference) {
-      newErrors.colivePreference = 'Please select an option';
-    } else if (step === 6 && notSureDates) {
-      // If user chose "Not sure yet" for dates, skip date validation entirely
-      // and clear any previous date errors
+    const config = isLeadForm ? FORM_CONFIGS.lead : FORM_CONFIGS.full;
+    const currentStepConfig = config.steps.find(s => s.step === step);
+    
+    // If step not found or not required, it's valid
+    if (!currentStepConfig || !currentStepConfig.required) {
       setErrors({});
       return true;
-    } else if (step === 6 && !formData.arrivalDate) {
-      newErrors.arrivalDate = 'Arrival date is required';
-    } else if (step === 6 && !formData.departureDate) {
-      newErrors.departureDate = 'Departure date is required';
-    } else if (step === 6 && formData.arrivalDate && formData.departureDate) {
-      const arrivalDate = new Date(formData.arrivalDate);
-      const departureDate = new Date(formData.departureDate);
-      const diffTime = departureDate.getTime() - arrivalDate.getTime();
-      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    }
 
-      if (diffDays < 14) {
-        newErrors.departureDate = 'Minimum stay is 14 days';
-      } else if (diffDays <= 0) {
-        newErrors.departureDate = 'Departure must be after arrival';
+    const newErrors: Record<string, string> = {};
+    const field = currentStepConfig.field;
+
+    // Handle array fields (dates)
+    if (Array.isArray(field)) {
+      // Special case: "not sure" dates bypass validation
+      if (notSureDates) {
+        setErrors({});
+        return true;
       }
-    } else if (step === 7 && !formData.firstName) {
-      newErrors.firstName = 'First name is required';
-    } else if (step === 8 && !formData.lastName) {
-      newErrors.lastName = 'Last name is required';
-    } else if (step === 9 && formData.phoneNumber && !validatePhone(formData.phoneNumber)) {
-      newErrors.phone = 'Please enter a valid phone number';
+      
+      if (!formData.arrivalDate) {
+        newErrors.arrivalDate = 'Arrival date is required';
+      }
+      if (!formData.departureDate) {
+        newErrors.departureDate = 'Departure date is required';
+      }
+      
+      // Validate date range if both dates exist
+      if (formData.arrivalDate && formData.departureDate) {
+        const arrivalDate = new Date(formData.arrivalDate);
+        const departureDate = new Date(formData.departureDate);
+        const diffTime = departureDate.getTime() - arrivalDate.getTime();
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+        if (diffDays < 14) {
+          newErrors.departureDate = 'Minimum stay is 14 days';
+        } else if (diffDays <= 0) {
+          newErrors.departureDate = 'Departure must be after arrival';
+        }
+      }
+    } 
+    // Handle single fields
+    else if (field && typeof field === 'string') {
+      const fieldName = field as string;
+      
+      if (fieldName === 'email') {
+        if (!formData.email) {
+          newErrors.email = 'Email is required';
+        } else if (!validateEmail(formData.email)) {
+          newErrors.email = 'Please enter a valid email';
+        }
+      } else if (fieldName === 'firstName') {
+        if (!formData.firstName.trim()) {
+          newErrors.firstName = 'First name is required';
+        }
+      } else if (fieldName === 'lastName') {
+        if (!formData.lastName.trim()) {
+          newErrors.lastName = 'Last name is required';
+        }
+      } else if (fieldName === 'phoneNumber') {
+        if (formData.phoneNumber && !validatePhone(formData.phoneNumber)) {
+          newErrors.phone = 'Please enter a valid phone number';
+        }
+      } else if (fieldName === 'workStyle') {
+        if (!formData.workStyle) {
+          newErrors.workStyle = 'Please select an option';
+        }
+      } else if (fieldName === 'colivePreference') {
+        if (!formData.colivePreference) {
+          newErrors.colivePreference = 'Please select an option';
+        }
+      }
     }
 
     setErrors(newErrors);
@@ -355,11 +415,18 @@ const FormPage = () => {
 
   // Derived validity to control Next/Submit disabled state without showing errors
   const isCurrentStepValid = () => {
-    if (step === 1) return true;
-    if (step === 2) return !!formData.email && validateEmail(formData.email);
-    if (step === 4) return !!formData.workStyle;
-    if (step === 5) return !!formData.colivePreference;
-    if (step === 6) {
+    const config = isLeadForm ? FORM_CONFIGS.lead : FORM_CONFIGS.full;
+    const currentStepConfig = config.steps.find(s => s.step === step);
+    
+    // If step not found or not required, it's valid
+    if (!currentStepConfig || !currentStepConfig.required) {
+      return true;
+    }
+
+    const field = currentStepConfig.field;
+
+    // Handle array fields (dates)
+    if (Array.isArray(field)) {
       if (notSureDates) return true;
       if (!formData.arrivalDate || !formData.departureDate) return false;
       const arrivalDate = new Date(formData.arrivalDate);
@@ -368,10 +435,26 @@ const FormPage = () => {
       const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
       return diffDays >= 14;
     }
-    if (step === 7) return !!formData.firstName.trim();
-    if (step === 8) return !!formData.lastName.trim();
-    if (step === 9) return !formData.phoneNumber || validatePhone(formData.phoneNumber);
-    if (step === 10) return true; // Additional notes are optional
+    
+    // Handle single fields
+    if (field && typeof field === 'string') {
+      const fieldName = field as string;
+      
+      if (fieldName === 'email') {
+        return !!formData.email && validateEmail(formData.email);
+      } else if (fieldName === 'firstName') {
+        return !!formData.firstName.trim();
+      } else if (fieldName === 'lastName') {
+        return !!formData.lastName.trim();
+      } else if (fieldName === 'phoneNumber') {
+        return !formData.phoneNumber || validatePhone(formData.phoneNumber);
+      } else if (fieldName === 'workStyle') {
+        return !!formData.workStyle;
+      } else if (fieldName === 'colivePreference') {
+        return !!formData.colivePreference;
+      }
+    }
+
     return true;
   };
 
@@ -386,12 +469,17 @@ const FormPage = () => {
         has_errors: Object.keys(errors).length > 0
       });
 
-      let nextStep = step + 1;
-      // Skip removed step 3 (age)
-      if (nextStep === 3) nextStep = 4;
-      // Save partial progress for the next step index
-      savePartialData(nextStep);
-      setStep(nextStep);
+      // Find next step from config (not simple +1)
+      const config = isLeadForm ? FORM_CONFIGS.lead : FORM_CONFIGS.full;
+      const currentIndex = config.steps.findIndex(s => s.step === step);
+      const nextStepConfig = config.steps[currentIndex + 1];
+      
+      if (nextStepConfig) {
+        const nextStep = nextStepConfig.step;
+        // Save partial progress for the next step index
+        savePartialData(nextStep);
+        setStep(nextStep);
+      }
     } else {
       // Track validation failure
       captureWithAttribution('form_step_validation_failed', {
@@ -403,17 +491,23 @@ const FormPage = () => {
   };
 
   const handlePrev = () => {
-    // Track backward navigation
-    captureWithAttribution('form_step_back', {
-      from_step: step,
-      to_step: step - 1
-    });
+    // Find previous step from config (not simple -1)
+    const config = isLeadForm ? FORM_CONFIGS.lead : FORM_CONFIGS.full;
+    const currentIndex = config.steps.findIndex(s => s.step === step);
+    const prevStepConfig = config.steps[currentIndex - 1];
+    
+    if (prevStepConfig) {
+      const prevStep = prevStepConfig.step;
+      
+      // Track backward navigation
+      captureWithAttribution('form_step_back', {
+        from_step: step,
+        to_step: prevStep
+      });
 
-    let prevStep = Math.max(step - 1, 1);
-    // Skip removed step 3 (age)
-    if (prevStep === 3) prevStep = 2;
-    savePartialData(prevStep);
-    setStep(prevStep);
+      savePartialData(prevStep);
+      setStep(prevStep);
+    }
   };
 
   const handleSubmit = async () => {
@@ -452,6 +546,7 @@ const FormPage = () => {
         country_code: null, // Phone number now includes country code
         phone_number: formData.phoneNumber || null,
         additional_notes: formData.additionalNotes || null,
+        lead_source: formData.leadSource || null, // 'full' or 'short'
         created_at: new Date().toISOString(),
       };
 
@@ -490,6 +585,7 @@ const FormPage = () => {
           arrivalDate: formData.arrivalDate || null,
           departureDate: formData.departureDate || null,
           additionalNotes: formData.additionalNotes || null,
+          leadSource: formData.leadSource, // 'full' or 'short'
           source: 'form_page',
           timestamp: new Date().toISOString(),
           sessionId: sessionId || null
@@ -637,6 +733,37 @@ const FormPage = () => {
           </div>
         );
       case 2:
+        // Full form: email | Lead form: firstName
+        if (isLeadForm) {
+          return (
+            <div className="space-y-4 animate-slide-in">
+              <div>
+                <h2 className="text-2xl md:text-3xl font-semibold mb-2 text-gray-900">What's your first name?</h2>
+                <p className="text-sm text-gray-500">Let's get to know you</p>
+              </div>
+              <div className="relative">
+                <User className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5 pointer-events-none" />
+                <input
+                  ref={(el) => { inputRefs.current[2] = el; }}
+                  type="text"
+                  name="firstName"
+                  value={formData.firstName}
+                  onChange={handleInputChange}
+                  onKeyPress={(e) => e.key === 'Enter' && isCurrentStepValid() && handleNext()}
+                  disabled={isSubmitting}
+                  className={`w-full pl-10 pr-12 p-4 text-lg border-2 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all bg-white ${
+                    errors.firstName ? 'border-red-500' : formData.firstName.trim() ? 'border-teal-500 bg-teal-50/30' : 'border-gray-300'
+                  } ${isSubmitting ? 'opacity-80 cursor-not-allowed' : ''}`}
+                  placeholder="Your first name"
+                />
+                {formData.firstName.trim() && (
+                  <Check className="absolute right-3 top-1/2 -translate-y-1/2 text-teal-500 w-6 h-6 animate-scale-in" />
+                )}
+              </div>
+              {errors.firstName && <p className="text-red-500 text-sm mt-1">{errors.firstName}</p>}
+            </div>
+          );
+        }
         return (
           <div className="space-y-4 animate-slide-in">
             <div>
@@ -666,63 +793,226 @@ const FormPage = () => {
           </div>
         );
       case 3:
-        return null; // Step removed
+        // Full form: removed | Lead form: email
+        if (isLeadForm) {
+          return (
+            <div className="space-y-4 animate-slide-in">
+              <div>
+                <h2 className="text-2xl md:text-3xl font-semibold mb-2 text-gray-900">What's your email?</h2>
+                <p className="text-sm text-gray-500">We'll use this to keep you updated</p>
+              </div>
+              <div className="relative">
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 w-5 h-5 pointer-events-none" />
+                <input
+                  ref={(el) => { inputRefs.current[3] = el; }}
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  onKeyPress={(e) => e.key === 'Enter' && isCurrentStepValid() && handleNext()}
+                  disabled={isSubmitting}
+                  className={`w-full pl-10 pr-12 p-4 text-lg border-2 rounded-xl focus:ring-2 focus:ring-teal-500 focus:border-transparent transition-all bg-white ${
+                    errors.email ? 'border-red-500' : formData.email && validateEmail(formData.email) ? 'border-teal-500 bg-teal-50/30' : 'border-gray-300'
+                  } ${isSubmitting ? 'opacity-80 cursor-not-allowed' : ''}`}
+                  placeholder="your.email@example.com"
+                />
+                {formData.email && validateEmail(formData.email) && (
+                  <Check className="absolute right-3 top-1/2 -translate-y-1/2 text-teal-500 w-6 h-6 animate-scale-in" />
+                )}
+              </div>
+              {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
+            </div>
+          );
+        }
+        return null; // Full form: step removed
       case 4:
+        // Full form: work style | Lead form: what's most important
+        const config = isLeadForm ? FORM_CONFIGS.lead : FORM_CONFIGS.full;
+        const step4Config = config.steps.find(s => s.step === 4);
+        const isLeadFormStep4 = step4Config?.type === 'colive_preference_lead';
+        
         return (
           <div className="space-y-6 animate-slide-in">
             <div>
-              <h2 className="text-2xl md:text-3xl font-semibold mb-2 text-gray-900">How do you work?</h2>
-              <p className="text-sm text-gray-500">We're a community of remote workers, entrepreneurs, and digital nomads</p>
+              <h2 className="text-2xl md:text-3xl font-semibold mb-2 text-gray-900">
+                {isLeadFormStep4 ? "What's most important to you?" : "How do you work?"}
+              </h2>
+              <p className="text-sm text-gray-500">
+                {isLeadFormStep4 
+                  ? "Help us understand your priorities" 
+                  : "We're a community of remote workers, entrepreneurs, and digital nomads"}
+              </p>
             </div>
             <div className="space-y-3">
-              {[
+              {(isLeadFormStep4 ? [
+                '🏄 Surf & Beach Access',
+                '💼 Coworking & Networking',
+                '🧘 Yoga & Wellness',
+                '🌍 All of the Above'
+              ] : [
                 '🌍 Remote employee or freelancer',
                 '💼 Entrepreneur or business owner',
                 '🚀 Building something new',
                 '🔄 In transition / exploring'
-              ].map((option) => (
+              ]).map((option) => (
                 <label
                   key={option}
                   className={`flex items-center space-x-3 p-4 border-2 rounded-xl cursor-pointer transition-all hover:border-teal-400 hover:bg-teal-50/50 bg-white ${
-                    formData.workStyle === option
+                    (isLeadFormStep4 ? formData.colivePreference : formData.workStyle) === option
                       ? 'border-teal-500 bg-teal-50 shadow-md'
                       : 'border-gray-200'
                   }`}
                 >
                   <input
                     type="radio"
-                    name="workStyle"
-                    checked={formData.workStyle === option}
+                    name={isLeadFormStep4 ? "colivePreference" : "workStyle"}
+                    checked={(isLeadFormStep4 ? formData.colivePreference : formData.workStyle) === option}
                     onChange={() => {
-                      setFormData(prev => ({ ...prev, workStyle: option }));
+                      setFormData(prev => ({ 
+                        ...prev, 
+                        [isLeadFormStep4 ? 'colivePreference' : 'workStyle']: option 
+                      }));
                       setErrors({}); // Clear any errors
                       setTimeout(() => {
                         // Advance without validation since selection is inherently valid
-                        const nextStep = step + 1;
-                        const timeSpent = Math.round((Date.now() - stepStartTime) / 1000);
-                        captureWithAttribution('form_step_completed', {
-                          step,
-                          step_name: getStepName(step),
-                          time_spent_seconds: timeSpent,
-                          has_errors: false
-                        });
-                        savePartialData(nextStep);
-                        setStep(nextStep);
+                        // Find next step from config
+                        const config = isLeadForm ? FORM_CONFIGS.lead : FORM_CONFIGS.full;
+                        const currentIndex = config.steps.findIndex(s => s.step === step);
+                        const nextStepConfig = config.steps[currentIndex + 1];
+                        
+                        if (nextStepConfig) {
+                          const nextStep = nextStepConfig.step;
+                          const timeSpent = Math.round((Date.now() - stepStartTime) / 1000);
+                          captureWithAttribution('form_step_completed', {
+                            step,
+                            step_name: getStepName(step),
+                            time_spent_seconds: timeSpent,
+                            has_errors: false
+                          });
+                          savePartialData(nextStep);
+                          setStep(nextStep);
+                        }
                       }, 400);
                     }}
                     className="h-5 w-5 text-teal-600 focus:ring-teal-500"
                   />
                   <span className="text-base text-gray-700 font-medium flex-1">{option}</span>
-                  {formData.workStyle === option && (
+                  {(isLeadFormStep4 ? formData.colivePreference : formData.workStyle) === option && (
                     <Check className="text-teal-500 w-5 h-5 animate-scale-in" />
                   )}
                 </label>
               ))}
-              {errors.workStyle && <p className="text-red-500 text-sm mt-1">{errors.workStyle}</p>}
+              {isLeadFormStep4 ? 
+                (errors.colivePreference && <p className="text-red-500 text-sm mt-1">{errors.colivePreference}</p>) :
+                (errors.workStyle && <p className="text-red-500 text-sm mt-1">{errors.workStyle}</p>)
+              }
             </div>
           </div>
         );
       case 5:
+        // Full form: colive preference | Lead form: phone (last step)
+        if (isLeadForm) {
+          // Phone step for lead form
+          return (
+            <div className="space-y-4 animate-slide-in">
+              <div>
+                <h2 className="text-2xl md:text-3xl font-semibold mb-2 text-gray-900">Lastly, your phone number</h2>
+                <p className="text-sm text-gray-500">OPTIONAL - This is just for us. GDPR compliant</p>
+              </div>
+              <div className={`relative ${errors.phone ? 'phone-error-container' : ''} ${formData.phoneNumber && formData.phoneNumber.length > 8 ? 'phone-valid-container' : ''}`}>
+                {userCountry ? (
+                  <div
+                    className="phone-wrapper"
+                    style={{
+                      position: 'relative',
+                      width: '100%',
+                      border: errors.phone ? '2px solid #ef4444' : (formData.phoneNumber && formData.phoneNumber.length > 8 ? '2px solid #14b8a6' : '2px solid #d1d5db'),
+                      borderRadius: '0.75rem',
+                      padding: '0 1rem',
+                      height: '56px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.75rem',
+                      background: formData.phoneNumber && formData.phoneNumber.length > 8 ? 'rgba(20, 184, 166, 0.03)' : 'white',
+                      transition: 'all 0.2s',
+                    }}
+                  >
+                    <PhoneInput
+                      key={userCountry}
+                      defaultCountry={userCountry}
+                      value={formData.phoneNumber}
+                      onChange={(phone) => {
+                        setFormData(prev => ({ ...prev, phoneNumber: phone }));
+                        if (submitError) {
+                          setSubmitError(null);
+                        }
+                      }}
+                      disabled={isSubmitting}
+                      inputProps={{
+                        onKeyDown: (e: React.KeyboardEvent) => {
+                          if (e.key === 'Enter') {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            // Lead form step 5 is last step - trigger submit
+                            if (isCurrentStepValid()) {
+                              handleSubmit();
+                            }
+                          }
+                        },
+                        style: {
+                          border: 'none',
+                          outline: 'none',
+                          background: 'transparent',
+                          fontSize: '1.125rem',
+                          padding: 0,
+                          width: '100%',
+                        }
+                      }}
+                      countrySelectorStyleProps={{
+                        buttonStyle: {
+                          border: 'none',
+                          background: 'transparent',
+                          padding: 0,
+                          margin: 0,
+                        }
+                      }}
+                      style={{
+                        border: 'none',
+                        background: 'transparent',
+                        padding: 0,
+                        width: '100%',
+                        height: 'auto',
+                      }}
+                    />
+                    {formData.phoneNumber && formData.phoneNumber.length > 8 && !errors.phone && (
+                      <Check className="text-teal-500 w-6 h-6 animate-scale-in pointer-events-none flex-shrink-0" />
+                    )}
+                  </div>
+                ) : (
+                  <div
+                    className="phone-wrapper"
+                    style={{
+                      position: 'relative',
+                      width: '100%',
+                      border: '2px solid #d1d5db',
+                      borderRadius: '0.75rem',
+                      padding: '0 1rem',
+                      height: '56px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      background: 'white',
+                    }}
+                  >
+                    <span className="text-gray-400">Loading...</span>
+                  </div>
+                )}
+              </div>
+              {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
+            </div>
+          );
+        }
+        // Full form: colive preference
         return (
           <div className="space-y-6 animate-slide-in">
             <div>
@@ -752,16 +1042,23 @@ const FormPage = () => {
                       setErrors({}); // Clear any errors
                       setTimeout(() => {
                         // Advance without validation since selection is inherently valid
-                        const nextStep = step + 1;
-                        const timeSpent = Math.round((Date.now() - stepStartTime) / 1000);
-                        captureWithAttribution('form_step_completed', {
-                          step,
-                          step_name: getStepName(step),
-                          time_spent_seconds: timeSpent,
-                          has_errors: false
-                        });
-                        savePartialData(nextStep);
-                        setStep(nextStep);
+                        // Find next step from config
+                        const config = isLeadForm ? FORM_CONFIGS.lead : FORM_CONFIGS.full;
+                        const currentIndex = config.steps.findIndex(s => s.step === step);
+                        const nextStepConfig = config.steps[currentIndex + 1];
+                        
+                        if (nextStepConfig) {
+                          const nextStep = nextStepConfig.step;
+                          const timeSpent = Math.round((Date.now() - stepStartTime) / 1000);
+                          captureWithAttribution('form_step_completed', {
+                            step,
+                            step_name: getStepName(step),
+                            time_spent_seconds: timeSpent,
+                            has_errors: false
+                          });
+                          savePartialData(nextStep);
+                          setStep(nextStep);
+                        }
                       }, 400);
                     }}
                     className="h-5 w-5 text-teal-600 focus:ring-teal-500"
@@ -918,9 +1215,16 @@ const FormPage = () => {
                     return n;
                   });
                   captureWithAttribution('form_dates_unsure_selected', { step: 6 });
-                  const nextStep = step + 1;
-                  savePartialData(nextStep);
-                  setStep(nextStep);
+                  // Find next step from config
+                  const config = isLeadForm ? FORM_CONFIGS.lead : FORM_CONFIGS.full;
+                  const currentIndex = config.steps.findIndex(s => s.step === step);
+                  const nextStepConfig = config.steps[currentIndex + 1];
+                  
+                  if (nextStepConfig) {
+                    const nextStep = nextStepConfig.step;
+                    savePartialData(nextStep);
+                    setStep(nextStep);
+                  }
                 }}
                 className="w-full text-center px-6 py-3 rounded-lg border-2 border-gray-300 text-gray-700 hover:bg-gray-50 cursor-pointer"
               >
@@ -1184,77 +1488,98 @@ const FormPage = () => {
             </div>
           )}
           {/* Progress Bar */}
-          {step < 10 && (
-            <div className="mb-8">
-              <div className="flex justify-between text-sm text-gray-600 mb-2">
-                <span>Step {step} of 9</span>
-                <span>{Math.round((step / 9) * 100)}% complete</span>
+          {(() => {
+            const config = isLeadForm ? FORM_CONFIGS.lead : FORM_CONFIGS.full;
+            // Calculate actual step count (excluding welcome step)
+            const actualTotalSteps = config.steps.length - 1; // Subtract welcome step
+            // Find current step index in the config (0-based)
+            const currentStepIndex = config.steps.findIndex(s => s.step === step);
+            // Current step number (1-based) for display, excluding welcome
+            const currentStepNumber = currentStepIndex >= 1 ? currentStepIndex : 1;
+            // Progress percentage based on actual steps (excluding welcome)
+            const progress = Math.round((currentStepNumber / actualTotalSteps) * 100);
+            
+            // Show progress bar if not on welcome step (step 1) and not on last step
+            const isWelcomeStep = step === 1;
+            const isLastStep = step === config.steps[config.steps.length - 1]?.step;
+            
+            return !isWelcomeStep && !isLastStep && (
+              <div className="mb-8">
+                <div className="flex justify-between text-sm text-gray-600 mb-2">
+                  <span>Step {currentStepNumber} of {actualTotalSteps}</span>
+                  <span>{progress}% complete</span>
+                </div>
+                <div className="w-full bg-gray-200 rounded-full h-2.5">
+                  <div
+                    className="bg-teal-600 h-2.5 rounded-full transition-all duration-300"
+                    style={{ width: `${progress}%` }}
+                  ></div>
+                </div>
               </div>
-              <div className="w-full bg-gray-200 rounded-full h-2.5">
-                <div
-                  className="bg-teal-600 h-2.5 rounded-full transition-all duration-300"
-                  style={{ width: `${(step / 9) * 100}%` }}
-                ></div>
-              </div>
-            </div>
-          )}
+            );
+          })()}
 
           {/* Form Step Content */}
           <div>
             {renderStep()}
           </div>
 
-          {step < 9 ? (
-            <div className="flex justify-between mt-8">
-              <button
-                type="button"
-                onClick={handlePrev}
-                disabled={step === 1}
-                className={`flex items-center px-6 py-2 rounded-lg ${step === 1 ? 'text-gray-400 cursor-not-allowed' : 'text-teal-600 hover:bg-teal-50 cursor-pointer'}`}
-              >
-                <ArrowLeft className="mr-2 h-5 w-5" /> Back
-              </button>
-              <button
-                type="button"
-                onClick={handleNext}
-                disabled={!isCurrentStepValid()}
-                className={`flex items-center px-6 py-2 rounded-lg transition-colors text-white ${
-                  isCurrentStepValid() ? 'bg-teal-600 hover:bg-teal-700 cursor-pointer' : 'bg-teal-500/30 cursor-not-allowed'
-                }`}
-              >
-                Next <ArrowRight className="ml-2 h-5 w-5" />
-              </button>
-            </div>
-          ) : step === 9 ? (
-            <div className="flex justify-between mt-8">
-              <button
-                type="button"
-                onClick={handlePrev}
-                className="flex items-center px-6 py-2 rounded-lg text-teal-600 hover:bg-teal-50 cursor-pointer"
-              >
-                <ArrowLeft className="mr-2 h-5 w-5" /> Back
-              </button>
-              <button
-                type="button"
-                onClick={handleSubmit}
-                disabled={!isCurrentStepValid() || isSubmitting}
-                className={`flex items-center px-6 py-2 rounded-lg transition-colors text-white ${
-                  !isCurrentStepValid() || isSubmitting ? 'bg-teal-400 cursor-not-allowed' : 'bg-teal-600 hover:bg-teal-700 cursor-pointer'
-                }`}
-              >
-                {isSubmitting ? (
-                  <>
-                    <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-                    Submitting...
-                  </>
-                ) : (
-                  <>
-                    Submit <ArrowRight className="ml-2 h-5 w-5" />
-                  </>
-                )}
-              </button>
-            </div>
-          ) : null}
+          {(() => {
+            const config = isLeadForm ? FORM_CONFIGS.lead : FORM_CONFIGS.full;
+            const isLastStep = step === config.totalSteps;
+            
+            return isLastStep ? (
+              <div className="flex justify-between mt-8">
+                <button
+                  type="button"
+                  onClick={handlePrev}
+                  className="flex items-center px-6 py-2 rounded-lg text-teal-600 hover:bg-teal-50 cursor-pointer"
+                >
+                  <ArrowLeft className="mr-2 h-5 w-5" /> Back
+                </button>
+                <button
+                  type="button"
+                  onClick={handleSubmit}
+                  disabled={!isCurrentStepValid() || isSubmitting}
+                  className={`flex items-center px-6 py-2 rounded-lg transition-colors text-white ${
+                    !isCurrentStepValid() || isSubmitting ? 'bg-teal-400 cursor-not-allowed' : 'bg-teal-600 hover:bg-teal-700 cursor-pointer'
+                  }`}
+                >
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                      Submitting...
+                    </>
+                  ) : (
+                    <>
+                      Submit <ArrowRight className="ml-2 h-5 w-5" />
+                    </>
+                  )}
+                </button>
+              </div>
+            ) : (
+              <div className="flex justify-between mt-8">
+                <button
+                  type="button"
+                  onClick={handlePrev}
+                  disabled={step === 1}
+                  className={`flex items-center px-6 py-2 rounded-lg ${step === 1 ? 'text-gray-400 cursor-not-allowed' : 'text-teal-600 hover:bg-teal-50 cursor-pointer'}`}
+                >
+                  <ArrowLeft className="mr-2 h-5 w-5" /> Back
+                </button>
+                <button
+                  type="button"
+                  onClick={handleNext}
+                  disabled={!isCurrentStepValid()}
+                  className={`flex items-center px-6 py-2 rounded-lg transition-colors text-white ${
+                    isCurrentStepValid() ? 'bg-teal-600 hover:bg-teal-700 cursor-pointer' : 'bg-teal-500/30 cursor-not-allowed'
+                  }`}
+                >
+                  Next <ArrowRight className="ml-2 h-5 w-5" />
+                </button>
+              </div>
+            );
+          })()}
 
           {submitError && (
             <p className="mt-3 text-sm text-red-600">{submitError}</p>
@@ -1282,4 +1607,17 @@ const FormPage = () => {
   );
 };
 
-export default FormPage;
+export default function FormPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-teal-600 mx-auto"></div>
+          <p className="mt-4 text-gray-600">Loading form...</p>
+        </div>
+      </div>
+    }>
+      <FormPageContent />
+    </Suspense>
+  );
+}
