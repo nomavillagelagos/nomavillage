@@ -2,9 +2,9 @@ import { useMemo } from 'react';
 
 export const usePricingSection = () => {
   const pricingData = useMemo(() => ({
-    monthlyPrice: '€1,170',
-    dailyRate: '€39',
-    title: '€39/day for the Coastal Noma Life',
+    monthlyPrice: '€990',
+    dailyRate: '€33',
+    title: '€33/day for the Coastal Noma Life',
     description: 'Yoga, surf-friendly schedule, coworking, community meals, and personal growth — not just accommodation, but a lifestyle transformation in Lagos.',
     
     // Cost comparison data
@@ -29,7 +29,7 @@ export const usePricingSection = () => {
     tiers: [
       {
         name: '2 Weeks',
-        price: '€644',
+        price: '€550',
         description: 'Perfect for a short retreat',
         features: [
           'Private room & bathroom',
@@ -42,7 +42,7 @@ export const usePricingSection = () => {
       },
       {
         name: '1 Month',
-        price: '€1,170',
+        price: '€990',
         description: 'Best value - save 10%',
         popular: true,
         features: [

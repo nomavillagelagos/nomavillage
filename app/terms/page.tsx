@@ -1,10 +1,28 @@
 import React from 'react';
 import Link from 'next/link';
 import { ArrowLeft } from 'lucide-react';
+import type { Metadata } from 'next';
 
-export const metadata = {
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://nomavillage.com';
+
+export const metadata: Metadata = {
   title: 'Terms and Conditions - Noma Village',
   description: 'Terms and conditions for Noma Village coliving and coworking community in Lagos, Portugal.',
+  alternates: {
+    canonical: `${siteUrl}/terms`,
+  },
+  openGraph: {
+    title: 'Terms and Conditions - Noma Village',
+    description:
+      'Terms and conditions for Noma Village coliving and coworking community in Lagos, Portugal.',
+    url: `${siteUrl}/terms`,
+    siteName: 'Noma Village',
+    type: 'website',
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
 };
 
 export default function TermsPage() {

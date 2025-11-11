@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Coliving & Coworking Lagos, Algarve, Portugal | Noma Village Digital Nomad Community',
-  description: 'Experience coliving & coworking in Lagos, Algarve, Portugal. Private rooms from €644/2 weeks, 500 Mbps WiFi, regular yoga, surf lessons, vibrant digital nomad community. 10 min to beach. Book now!',
+  description: 'Experience coliving & coworking in Lagos, Algarve, Portugal. Private rooms from €550/2 weeks, 500 Mbps WiFi, regular yoga, surf lessons, vibrant digital nomad community. 10 min to beach. Book now!',
   keywords: [
     'coliving Lagos Algarve Portugal',
     'coworking Lagos Algarve',
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
   },
   openGraph: {
     title: 'Coliving & Coworking Lagos, Algarve, Portugal | Noma Village',
-    description: 'Private rooms from €644/2 weeks. 500 Mbps WiFi, regular yoga, surf, beach lifestyle. Join 175+ digital nomads in Lagos, Algarve, Portugal.',
+    description: 'Private rooms from €550/2 weeks. 500 Mbps WiFi, regular yoga, surf, beach lifestyle. Join 175+ digital nomads in Lagos, Algarve, Portugal.',
     url: 'https://nomavillage.com',
     siteName: 'Noma Village',
     images: [
@@ -43,7 +43,7 @@ export const metadata: Metadata = {
   twitter: {
     card: 'summary_large_image',
     title: 'Coliving & Coworking Lagos, Algarve, Portugal | Noma Village',
-    description: 'Private rooms from €644/2 weeks. 500 Mbps WiFi, yoga, surf, beach. Digital nomad community in Lagos, Algarve.',
+    description: 'Private rooms from €550/2 weeks. 500 Mbps WiFi, yoga, surf, beach. Digital nomad community in Lagos, Algarve.',
     images: ['/images/noma-background3.jpg'],
   },
 }

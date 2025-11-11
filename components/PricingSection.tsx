@@ -44,25 +44,25 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onJoinClick }) =
     {
       id: '2weeks',
       label: '2 Weeks',
-      price: '€644',
-      dailyRate: '€46/day',
+      price: '€550',
+      dailyRate: '€39/day',
       savings: null,
       description: 'Perfect for a short retreat',
     },
     {
       id: '3weeks',
       label: '3 Weeks',
-      price: '€882',
-      dailyRate: '€42/day',
+      price: '€769',
+      dailyRate: '€37/day',
       savings: null,
       description: 'Great balance of time and value',
     },
     {
       id: '1month',
       label: '1 Month',
-      price: '€1,170',
-      dailyRate: '€39/day',
-      savings: 'Save €118 vs. 2x2-week stays',
+      price: '€990',
+      dailyRate: '€33/day',
+      savings: 'Save €110 vs. 2x2-week stays',
       description: 'Best value - lowest daily rate',
     },
   ];
@@ -96,7 +96,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onJoinClick }) =
             <p className="font-montserrat text-2xl md:text-3xl font-semibold text-gray-900">
               Now from{' '}
               <span className="text-lagos-blue-green price-highlight">
-                <span className="price-text">€39/day</span>
+                <span className="price-text">€33/day</span>
                 <span
                   className={`price-brush ${rateInView ? 'is-visible' : ''}`}
                   aria-hidden
@@ -403,7 +403,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onJoinClick }) =
             <div className="pt-4 border-t-2 border-lagos-blue-green bg-gradient-to-r from-green-50 to-blue-50 -mx-4 px-4 pb-4">
               <div className="flex justify-between items-center mb-3">
                 <span className="font-montserrat font-bold text-gray-900">Your Monthly Total</span>
-                <span className="font-montserrat text-4xl font-bold text-lagos-blue-green">€1,170</span>
+                <span className="font-montserrat text-4xl font-bold text-lagos-blue-green">€990</span>
               </div>
               <div className="bg-[#50bbb7] text-black rounded-lg px-4 py-3 mb-3 shadow-md">
                 <p className="text-base font-montserrat font-bold">
@@ -512,7 +512,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onJoinClick }) =
               <div className="pt-4 border-t-2 border-lagos-blue-green bg-gradient-to-r from-green-50 to-blue-50 -mx-4 px-4 pb-4">
                 <div className="flex justify-between items-center mb-3">
                   <span className="font-montserrat font-bold text-gray-900 text-sm">Your Monthly Total</span>
-                  <span className="font-montserrat text-3xl font-bold text-lagos-blue-green">€1,170</span>
+                  <span className="font-montserrat text-3xl font-bold text-lagos-blue-green">€990</span>
                 </div>
                 <div className="bg-[#50bbb7] text-black rounded-lg px-3 py-2 mb-3 shadow-md">
                   <p className="text-sm font-montserrat font-bold">

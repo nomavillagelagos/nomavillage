@@ -279,7 +279,7 @@ export default function LandingPageC() {
       <section id="pricing" className="py-20 bg-white">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-10">
-            <p className="font-montserrat text-sm text-gray-500 mb-2">From <span className="font-semibold text-gray-800">€1,170/month</span></p>
+            <p className="font-montserrat text-sm text-gray-500 mb-2">From <span className="font-semibold text-gray-800">€990/month</span></p>
             <h2 className="font-montserrat text-4xl md:text-5xl font-bold text-gray-900 mb-4">Community-First Pricing</h2>
             <p className="font-nunito text-lg text-gray-600 max-w-2xl mx-auto">One price that includes your private room, coworking, regular yoga, and a built-in community.</p>
           </div>
@@ -287,10 +287,10 @@ export default function LandingPageC() {
             <div className="relative border-2 border-lagos-blue-green rounded-2xl p-8 shadow-xl bg-gradient-to-br from-white to-gray-50">
               <div className="text-center mb-6">
                 <div className="flex items-end justify-center gap-2 mb-1">
-                  <span className="text-5xl font-bold text-gray-900 font-montserrat">€1,170</span>
+                  <span className="text-5xl font-bold text-gray-900 font-montserrat">€990</span>
                   <span className="text-gray-500 font-nunito pb-2">/ month</span>
                 </div>
-                <div className="text-lagos-blue-green font-montserrat font-semibold mb-2">~ €39/day</div>
+                <div className="text-lagos-blue-green font-montserrat font-semibold mb-2">~ €33/day</div>
                 <p className="font-nunito text-gray-600">Best for deep focus and deeper connections</p>
               </div>
               <div className="space-y-3 mb-6">

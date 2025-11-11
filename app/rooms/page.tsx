@@ -156,7 +156,7 @@ export default function RoomsPage() {
     {
       id: "premium-room",
       name: "Premium Room",
-      price: 1170,
+      price: 990,
       size: "25m²",
       bathroom: "Private",
       view: "Premium",
@@ -278,7 +278,7 @@ export default function RoomsPage() {
                       <span className="font-nunito text-gray-600 ml-2">/month</span>
                     </div>
                     <div className="flex items-baseline">
-                      <span className="text-2xl font-bold text-lagos-blue-green font-montserrat">€644</span>
+                      <span className="text-2xl font-bold text-lagos-blue-green font-montserrat">€550</span>
                       <span className="font-nunito text-gray-600 ml-2">/two weeks</span>
                     </div>
                   </div>
