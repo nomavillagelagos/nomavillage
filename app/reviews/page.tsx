@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 
-export const revalidate = 60 * 60 * 12 // 12 hours ISR
+export const revalidate = 43200 // 12 hours ISR
 
 export const metadata: Metadata = {
   title: 'Reviews',
