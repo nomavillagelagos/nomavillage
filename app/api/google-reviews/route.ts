@@ -19,7 +19,7 @@ export async function GET() {
         { author_name: 'Mr. X (volvic)', rating: 5, text: 'Super welcoming community and inspiring people. Loved the energy and the place.', author_url: 'https://www.google.com/maps/contrib/107772854416821939764/reviews' },
         { author_name: 'Pat Rick', rating: 5, text: 'Amazing month here. Beautiful setting, 10 minutes to the beach, genuine community.', author_url: 'https://www.google.com/maps/contrib/105503513928987597340/reviews' },
       ],
-    }, { status: 200 })
+    }, { status: 200, headers: { 'Cache-Control': 's-maxage=43200, stale-while-revalidate=86400' } })
   }
 
   try {
@@ -90,7 +90,7 @@ export async function GET() {
       user_ratings_total: result.user_ratings_total,
       reviews: mergedReviews,
     }
-    return NextResponse.json(payload)
+    return NextResponse.json(payload, { headers: { 'Cache-Control': 's-maxage=43200, stale-while-revalidate=86400' } })
   } catch (err: any) {
     return NextResponse.json({ error: err?.message || 'Failed to fetch reviews' }, { status: 500 })
   }

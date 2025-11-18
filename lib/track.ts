@@ -35,12 +35,18 @@ export function captureWithAttribution(event: string, properties?: EventProps) {
   } catch {
     // Best-effort fallback to server
     try {
-      fetch('/api/track', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        keepalive: true,
-        body: JSON.stringify({ event, properties: merged })
-      }).catch(() => {})
+      // Whitelist critical events; otherwise apply sampling to reduce volume
+      const CRITICAL = new Set(['apply_click', 'cta_clicked'])
+      const SAMPLE_RATE = 0.1 // 10% sampling for non-critical events
+      const shouldSend = CRITICAL.has(event) || Math.random() < SAMPLE_RATE
+      if (shouldSend) {
+        fetch('/api/track', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          keepalive: true,
+          body: JSON.stringify({ event, properties: merged })
+        }).catch(() => {})
+      }
     } catch {}
   }
 }

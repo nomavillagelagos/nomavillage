@@ -88,13 +88,6 @@ export default function LandingPage() {
 
   useEffect(() => {
     const t = setTimeout(() => setPriceBannerIn(true), 250)
-    // Fetch summary for Google reviews (rating, total, url)
-    fetch('/api/google-reviews', { cache: 'no-store' })
-      .then(r => r.ok ? r.json() : null)
-      .then((data) => {
-        if (data) setReviewsSummary({ rating: data.rating, user_ratings_total: data.user_ratings_total, url: data.url })
-      })
-      .catch(() => {})
     return () => clearTimeout(t)
   }, [])
   const handleFormClick = (location: string) => {

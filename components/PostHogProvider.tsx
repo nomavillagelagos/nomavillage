@@ -85,14 +85,7 @@ function PostHogTracker() {
     try {
       posthog.capture("$pageview", pageviewProps)
     } catch (err) {
-      // Client capture failed; send to fallback API with stored attribution
-      const fallback = getStoredAttribution() || attribution
-      fetch("/api/track", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        keepalive: true,
-        body: JSON.stringify({ event: "$pageview", properties: { ...pageviewProps, ...fallback } }),
-      }).catch(() => {})
+      // Do not fallback to server for $pageview to avoid high function volume
     }
   }, [pathname, searchParams])
 

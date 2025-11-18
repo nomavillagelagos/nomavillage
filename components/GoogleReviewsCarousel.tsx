@@ -122,7 +122,7 @@ const FALLBACK_REVIEWS: Review[] = [
 
 async function fetchReviews(): Promise<Review[]> {
   try {
-    const res = await fetch("/api/google-reviews", { cache: "no-store" });
+    const res = await fetch("/api/google-reviews");
     if (!res.ok) throw new Error("bad");
     const data = await res.json();
     const list: Review[] = (data.reviews || []).map((r: Review) => ({
