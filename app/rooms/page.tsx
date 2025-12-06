@@ -541,6 +541,54 @@ export default function RoomsPage() {
         </div>
       </section>
 
+      {/* Room 101/102/103 Gallery */}
+      <section id="room-galleries" className="py-16">
+        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-10">
+            <h3 className="font-caveat text-4xl font-bold text-gray-900 mb-2">Explore Rooms 101–103</h3>
+            <p className="font-nunito text-lg text-gray-600">Switch between rooms and browse photos</p>
+          </div>
+
+          <Tabs defaultValue="101" className="w-full">
+            <TabsList className="grid grid-cols-3 max-w-md mx-auto mb-6">
+              <TabsTrigger value="101" className="font-montserrat">Room 101</TabsTrigger>
+              <TabsTrigger value="102" className="font-montserrat">Room 102</TabsTrigger>
+              <TabsTrigger value="103" className="font-montserrat">Room 103</TabsTrigger>
+            </TabsList>
+
+            <TabsContent value="101">
+              <Carousel
+                aspectRatio="16/9"
+                slides={[
+                  { src: "/images/rooms/room3.jpg", alt: "Room 101" },
+                  { src: "/images/rooms/bath.jpg", alt: "Room 101 Bathroom" },
+                ]}
+              />
+            </TabsContent>
+
+            <TabsContent value="102">
+              <Carousel
+                aspectRatio="16/9"
+                slides={[
+                  { src: "/images/rooms/room2.jpg", alt: "Room 102" },
+                  { src: "/images/rooms/bath2.jpg", alt: "Room 102 Bathroom" },
+                ]}
+              />
+            </TabsContent>
+
+            <TabsContent value="103">
+              <Carousel
+                aspectRatio="16/9"
+                slides={[
+                  { src: "/images/rooms/room1.jpg", alt: "Room 103" },
+                  { src: "/images/rooms/bath.jpg", alt: "Room 103 Bathroom" },
+                ]}
+              />
+            </TabsContent>
+          </Tabs>
+        </div>
+      </section>
+
       {/* Email Signup Section (above Testimonials) */}
       <section id="get-the-guide" className="py-20 bg-gradient-to-r from-lagos-blue-green to-lagos-pink">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">

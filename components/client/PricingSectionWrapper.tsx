@@ -14,8 +14,13 @@ export function PricingSectionWrapper() {
         button_text: 'Join Us',
         page_url: window.location.pathname
       })
+      try {
+        window.open('/form', '_blank', 'noopener,noreferrer')
+      } catch {
+        // Fallback if window.open is blocked
+        location.assign('/form')
+      }
     }
-    router.push('/form')
   }
 
   return <PricingSection onJoinClick={handleJoinUsClick} />

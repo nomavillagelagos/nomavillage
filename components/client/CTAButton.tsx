@@ -28,7 +28,7 @@ export function CTAButton({ location = 'unknown', children, className, size = 'l
       size={size}
       className={className || "bg-lagos-pink hover:bg-lagos-pink/90 text-white font-montserrat"}
     >
-      <Link href="/form" onClick={handleClick}>
+      <Link href="/form" onClick={handleClick} target="_blank" rel="noopener noreferrer">
         {children}
       </Link>
     </Button>

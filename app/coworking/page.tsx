@@ -2,7 +2,6 @@ import { Navigation } from "@/components/navigation"
 import { Footer } from "@/components/footer"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Wifi, Printer, Coffee, Users, Clock, CheckCircle, Star, Headphones, Monitor, Waves, MapPin } from "lucide-react"
 import Link from "next/link"
@@ -116,28 +115,6 @@ export default function CoworkingPage() {
     },
   ]
 
-  const upcomingColives = [
-    {
-      date: "October",
-      title: "Yoga",
-      showBadge: false,
-    },
-    {
-      date: "November",
-      title: "Pilates",
-      showBadge: true,
-    },
-    {
-      date: "December",
-      title: "Movement",
-      showBadge: true,
-    },
-    {
-      date: "January",
-      title: "Meditation",
-      showBadge: true,
-    },
-  ]
 
   const upcomingEvents = [
     {
@@ -200,6 +177,9 @@ export default function CoworkingPage() {
           <p className="font-nunito text-xl md:text-2xl text-balance">
             Get work done without being alone
           </p>
+          <p className="font-nunito text-base md:text-lg text-white/90 mt-2">
+            Permanently open from October to end of April.
+          </p>
         </div>
       </section>
 
@@ -210,6 +190,9 @@ export default function CoworkingPage() {
             <h2 className="font-caveat text-5xl font-bold text-gray-900 mb-4">Our Coworking Spaces</h2>
             <p className="font-nunito text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
               If you're looking for a space to work and live in sunny Portugal, we've got you covered all beneath the same roof(s). Coworking at Noma Village is more than just a place to work. Let yourself be inspired and motivated by sitting together with our Coliving Community members in the same space, where everyone works on their stuff.
+            </p>
+            <p className="font-nunito text-base text-gray-600 max-w-3xl mx-auto mt-4">
+              Permanently open from October to end of April.
             </p>
           </div>
 
@@ -337,58 +320,7 @@ export default function CoworkingPage() {
         </div>
       </section>
 
-      {/* Upcoming Colives */}
-      <section className="py-20 bg-lagos-aquamarine/10">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="font-caveat text-5xl font-bold text-gray-900 mb-6">Upcoming Colives</h2>
-              <p className="font-nunito text-lg text-gray-600 mb-8 leading-relaxed">
-                Every month there is a theme in the colive. Look at the schedule for what's coming up. We want to have interesting themes that enrich our private and professional lives. Maybe there's also something for you.
-              </p>
-
-              <div className="grid grid-cols-2 gap-6 mb-8">
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-lagos-blue-green font-montserrat">15+</div>
-                  <div className="font-nunito text-sm text-gray-600">Monthly Events</div>
-                </div>
-                <div className="text-center">
-                  <div className="text-3xl font-bold text-lagos-blue-green font-montserrat">200+</div>
-                  <div className="font-nunito text-sm text-gray-600">Community Members</div>
-                </div>
-              </div>
-
-            </div>
-
-            <div>
-              <h3 className="font-montserrat text-2xl font-semibold mb-6">Upcoming Colives</h3>
-              <div className="space-y-4">
-                {upcomingColives.map((colive, index) => (
-                  <Card key={index} className="border-0 shadow-md">
-                    <CardContent className="p-6">
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center space-x-6">
-                          <div className="min-w-[100px]">
-                            <div className="font-montserrat font-bold text-lagos-blue-green text-lg">{colive.date}</div>
-                          </div>
-                          <div>
-                            <h4 className="font-montserrat font-semibold text-lg">{colive.title}</h4>
-                          </div>
-                        </div>
-                        {colive.showBadge && (
-                          <Badge variant="outline" className="text-lagos-amber border-lagos-amber">
-                            Exploratory
-                          </Badge>
-                        )}
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+      
 
 
       <Footer />

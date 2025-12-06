@@ -77,7 +77,7 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onJoinClick }) =
   ];
 
   return (
-    <section id="pricing" className="py-20 bg-white">
+    <section id="prices" className="py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header */}
         <div className="text-center mb-12">
@@ -133,11 +133,15 @@ export const PricingSection: React.FC<PricingSectionProps> = ({ onJoinClick }) =
         </div>
 
         {/* Tabbed Pricing Card */}
-        <div className="max-w-2xl mx-auto mb-20">
+        <div className="max-w-3xl mx-auto mb-20">
           <Tabs defaultValue="1month" className="w-full">
-            <TabsList className="grid w-full grid-cols-3 mb-8">
+            <TabsList className="!inline-grid h-auto w-full grid-cols-3 gap-1 p-1 md:p-2 mb-8 rounded-full border-2 border-lagos-blue-green/70 bg-white/80 backdrop-blur shadow-[0_4px_20px_rgba(80,187,183,0.15)]">
               {pricingTiers.map((tier) => (
-                <TabsTrigger key={tier.id} value={tier.id} className="font-montserrat">
+                <TabsTrigger
+                  key={tier.id}
+                  value={tier.id}
+                  className="!h-full !border-0 font-montserrat text-base md:text-lg font-semibold py-3 md:py-4 rounded-full transition-all hover:bg-lagos-blue-green/10 data-[state=active]:bg-lagos-blue-green/15 data-[state=active]:text-lagos-blue-green data-[state=active]:shadow-[inset_0_0_0_2px_rgba(80,187,183,0.6)]"
+                >
                   {tier.label}
                 </TabsTrigger>
               ))}

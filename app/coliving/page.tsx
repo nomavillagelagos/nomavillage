@@ -7,6 +7,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Users, Utensils, Wifi, Car, Waves, Coffee, Shield, CheckCircle } from "lucide-react"
 import Link from "next/link"
 import { UTMAnchor } from "@/components/utm-link"
+import Carousel from "@/components/Carousel"
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = {
@@ -110,6 +111,8 @@ export default function ColivingPage() {
           </p>
         </div>
       </section>
+
+      {/* Removed initial carousel section to keep only bottom carousel */}
 
       {/* Mid-page CTA: Book a Call (after Philosophy) */}
       <section className="py-12">
@@ -422,7 +425,7 @@ export default function ColivingPage() {
               size="lg"
               className="bg-white text-lagos-blue-green hover:bg-white/90 font-montserrat text-lg px-8 py-3"
             >
-              <Link href="/form">Apply Now</Link>
+              <Link href="/form" target="_blank" rel="noopener noreferrer">Apply Now</Link>
             </Button>
             <Button
               asChild
@@ -433,6 +436,21 @@ export default function ColivingPage() {
               <a href="https://calendly.com/nomavillagelagos/short-intro" target="_blank" rel="noopener noreferrer">Book Call</a>
             </Button>
           </div>
+        </div>
+      </section>
+
+      {/* Bottom Carousel (same as top) */}
+      <section className="py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <Carousel
+            aspectRatio="16/9"
+            autoPlayMs={5000}
+            slides={[
+              { src: "/images/rooms/kitchen.jpg", alt: "Communal Kitchen" },
+              { src: "/images/yoga.jpg", alt: "Yoga Studio" },
+              { src: "/images/cowork.jpg", alt: "Coworking Area" },
+            ]}
+          />
         </div>
       </section>
 

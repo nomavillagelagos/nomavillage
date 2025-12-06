@@ -97,7 +97,7 @@ export default function LandingPageC() {
     <div className="min-h-screen bg-white">
       {/* Hero */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
-        <div className="absolute inset-0 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: "url('/images/fireplace.jpeg')" }}>
+        <div className="absolute inset-0 bg-cover bg-center bg-no-repeat" style={{ backgroundImage: "url('/images/beachpeople.jpeg')" }}>
           <div className="absolute inset-0 bg-black/40"></div>
         </div>
 
@@ -346,7 +346,7 @@ export default function LandingPageC() {
 
       <Script src="https://server.fillout.com/embed/v1/" strategy="afterInteractive" />
       <GuideModal isOpen={isGuideModalOpen} onClose={() => setIsGuideModalOpen(false)} />
-      <FilloutSliderPopup isOpen={isFormPopupOpen} onClose={() => setIsFormPopupOpen(false)} formUrl="https://forms.fillout.com/t/aKuWaUwvaVus" />
+      <FilloutSliderPopup isOpen={isFormPopupOpen} onClose={() => setIsFormPopupOpen(false)} formUrl="/form?variant=lead" />
 
       <WhatsAppDirectButton messagePreset="october_interest" source="landing-c" />
     </div>

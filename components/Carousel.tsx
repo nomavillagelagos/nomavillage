@@ -15,6 +15,7 @@ type CarouselProps = {
   autoPlayMs?: number; // set to 0 to disable
   className?: string;
   aspectRatio?: `${number}/${number}` | "16/9" | "4/3" | "1/1";
+  fullHeight?: boolean;
 };
 
 const DEFAULT_SLIDES: Slide[] = [
@@ -30,6 +31,7 @@ export default function Carousel({
   autoPlayMs = 4500,
   className = "",
   aspectRatio = "16/9",
+  fullHeight = false,
 }: CarouselProps) {
   const [index, setIndex] = React.useState(0);
   const timerRef = React.useRef<number | null>(null);
@@ -104,13 +106,13 @@ export default function Carousel({
   return (
     <div
       className={
-        "relative w-full select-none " +
-        (className ?? "")
+        "relative w-full select-none " + (className ?? "")
       }
+      style={fullHeight ? { height: "100vh" } : undefined}
     >
       <div
-        className="w-full overflow-hidden rounded-lg"
-        style={{ aspectRatio }}
+        className={"w-full overflow-hidden rounded-lg " + (fullHeight ? "h-full" : "")}
+        style={fullHeight ? undefined : { aspectRatio }}
       >
         <div
           ref={trackRef}

@@ -23,7 +23,7 @@ export function HeroCTA() {
         size="lg"
         className="bg-lagos-pink hover:bg-lagos-pink/90 text-white font-montserrat text-lg px-10 py-6 shadow-xl hover:shadow-2xl transition-all"
       >
-        <Link href="/form" onClick={handleJoinUsClick}>
+        <Link href="/form" onClick={handleJoinUsClick} target="_blank" rel="noopener noreferrer">
           Join Our Community
         </Link>
       </Button>

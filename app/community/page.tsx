@@ -383,7 +383,7 @@ export default function CommunityPage() {
                   asChild
                   className="bg-green-500 hover:bg-green-600 text-white font-montserrat"
                 >
-                  <Link href="https://api.whatsapp.com/send/?phone=4917669299755&text&type=phone_number&app_absent=0" target="_blank">
+                  <Link href="https://api.whatsapp.com/send/?phone=31630440768&text&type=phone_number&app_absent=0" target="_blank">
                     Talk to us on WhatsApp
                   </Link>
                 </Button>
@@ -453,7 +453,7 @@ export default function CommunityPage() {
               size="lg"
               className="bg-white text-lagos-blue-green hover:bg-white/90 font-montserrat text-lg px-8 py-3"
             >
-              <Link href="/form">Apply Now</Link>
+              <Link href="/form" target="_blank" rel="noopener noreferrer">Apply Now</Link>
             </Button>
             <Button
               asChild

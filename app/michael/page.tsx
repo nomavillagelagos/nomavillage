@@ -46,7 +46,7 @@ export default function MichaelPage() {
                   <a href="/contact">Kontakt aufnehmen</a>
                 </Button>
                 <Button asChild variant="outline" size="lg" className="border-gray-300">
-                  <a href="/form">Jetzt starten</a>
+                  <a href="/form" target="_blank" rel="noopener noreferrer">Jetzt starten</a>
                 </Button>
               </div>
             </div>

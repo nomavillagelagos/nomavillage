@@ -21,7 +21,7 @@ const PRESET_MESSAGES: Record<NonNullable<WhatsAppDirectButtonProps["messagePres
 }
 
 export default function WhatsAppDirectButton({
-  phoneNumber = "+4917669299755",
+  phoneNumber = "+31630440768",
   messagePreset = "october_interest",
   messageOverride,
   source = "floating_button",

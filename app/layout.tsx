@@ -66,6 +66,12 @@ export const metadata: Metadata = {
     ],
     locale: "en_US",
   },
+  twitter: {
+    card: 'summary_large_image',
+    site: '@nomavillage',
+    creator: '@nomavillage',
+    images: ['/images/noma1.webp'],
+  },
   generator: "v0.app",
   icons: {
     icon: '/favicon.svg',
@@ -104,7 +110,7 @@ export default function RootLayout({
               longitude: -8.6828956,
             },
             openingHours: "Mo-Su 00:00-24:00",
-            telephone: "+4917669299755",
+            telephone: "+31630440768",
             hasMap: "https://maps.google.com/?cid=12085466010589542175",
             aggregateRating: {
               "@type": "AggregateRating",
@@ -172,7 +178,7 @@ export default function RootLayout({
             ],
             contactPoint: {
               "@type": "ContactPoint",
-              telephone: "+4917669299755",
+              telephone: "+31630440768",
               contactType: "customer service",
               availableLanguage: ["English", "Portuguese"],
               areaServed: "PT"

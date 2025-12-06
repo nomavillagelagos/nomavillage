@@ -230,7 +230,7 @@ export default function LandingPage() {
               className="ml-4 bg-[#ea86c0] text-white font-montserrat text-lg px-8 py-3 h-auto relative overflow-hidden group transition-colors"
               onClick={() => {
                 try { posthog.capture('see_pricing_click', { page: 'landing-a', location: 'hero' }) } catch {}
-                scrollToSection('pricing')
+                scrollToSection('prices')
               }}
             >
               <span className="relative z-10 transition-colors duration-300 group-hover:text-black">See Pricing</span>
