@@ -15,6 +15,7 @@ import FAQSection from "@/components/FAQ"
 import MapWithZoom from "@/components/MapWithZoom"
 import GoogleReviewsCarousel from "@/components/GoogleReviewsCarousel"
 import { CTAButton, GoogleReviewsWrapper, LocationHighlights, PricingSectionWrapper, TrustBar } from "@/components/client"
+import ClosureBanner from "@/components/ClosureBanner"
 import BlackHeroSection from "@/components/BlackHeroSection"
 import HeroButtons from "@/components/HeroButtons"
 import { ChevronDown } from "lucide-react"
@@ -142,6 +143,9 @@ export default function HomePage() {
 
       {/* Trust & Benefits Bar */}
       <TrustBar />
+
+      {/* BIG closure banner under the feature bar */}
+      <ClosureBanner />
 
       {/* Next Retreat: Yoga + Surf Experience */}
       <section id="coming-up" className="py-20 bg-gradient-to-br from-gray-50 to-white">

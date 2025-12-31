@@ -21,6 +21,8 @@ import { useInView } from "@/hooks/use-in-view"
 import posthog from "@/lib/posthog"
 import WhatsAppDirectButton from "@/components/WhatsAppDirectButton"
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
+import { TrustBar } from "@/components/client"
+import ClosureBanner from "@/components/ClosureBanner"
 
 // Proximity cards with in-view animation
 function LocationHighlights() {
@@ -241,8 +243,13 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* Feature bar */}
+      <TrustBar />
+
+      {/* BIG closure banner under the feature bar */}
+      <ClosureBanner />
+
       {/* Slide-in promo under stats */}
-      
 
       
 
