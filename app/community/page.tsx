@@ -383,7 +383,7 @@ export default function CommunityPage() {
                   asChild
                   className="bg-green-500 hover:bg-green-600 text-white font-montserrat"
                 >
-                  <Link href="https://api.whatsapp.com/send/?phone=31630440768&text&type=phone_number&app_absent=0" target="_blank">
+                  <Link href="https://api.whatsapp.com/send/?phone=4915784928200&text&type=phone_number&app_absent=0" target="_blank">
                     Talk to us on WhatsApp
                   </Link>
                 </Button>
