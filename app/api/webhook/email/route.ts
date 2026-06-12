@@ -69,101 +69,45 @@ export async function POST(request: NextRequest) {
     
     if (brevoApiKey) {
       try {
-        // Build the contact object matching the working format
         const brevoContact = {
-          email: emailData.email,
           attributes: {
             FIRSTNAME: emailData.firstName || emailData.name || '',
             LASTNAME: emailData.lastName || '',
             SOURCE: emailData.source,
             SIGNUP_DATE: emailData.timestamp,
             FORM_TYPE: emailData.metadata?.formType || 'unknown'
-          },
-          listIds: [] as number[],
-          updateEnabled: true
-        }
-
-        // Add to default list if specified
-        const defaultListId = process.env.BREVO_DEFAULT_LIST_ID
-        if (defaultListId) {
-          brevoContact.listIds.push(parseInt(defaultListId))
-        }
-
-        // Add to guide-specific list for guide requests
-        if (emailData.metadata?.requestType === 'lagos-algarve-guide') {
-          const guideListId = process.env.BREVO_GUIDE_LIST_ID
-          if (guideListId) {
-            brevoContact.listIds.push(parseInt(guideListId))
           }
         }
 
-        console.log('Sending to Brevo:', JSON.stringify(brevoContact, null, 2))
-        
-        const brevoResponse = await fetch('https://api.brevo.com/v3/contacts', {
+        const defaultListId = process.env.BREVO_DEFAULT_LIST_ID
+        const doiTemplateId = process.env.BREVO_DOI_TEMPLATE_ID || '25'
+
+        const doiPayload = {
+          email: emailData.email,
+          attributes: brevoContact.attributes,
+          includeListIds: defaultListId ? [parseInt(defaultListId)] : [],
+          templateId: parseInt(doiTemplateId),
+          redirectionUrl: 'https://nomavillage.com/thankyou'
+        }
+
+        console.log('Sending DOI request to Brevo:', JSON.stringify(doiPayload, null, 2))
+
+        const brevoResponse = await fetch('https://api.brevo.com/v3/contacts/doubleOptinConfirmation', {
           method: 'POST',
           headers: {
             'accept': 'application/json',
             'Content-Type': 'application/json',
             'api-key': brevoApiKey
           },
-          body: JSON.stringify(brevoContact)
+          body: JSON.stringify(doiPayload)
         })
 
         if (brevoResponse.ok) {
           brevoSuccess = true
-          console.log('Successfully created contact in Brevo with list assignment')
+          console.log('Successfully triggered Brevo DOI confirmation email')
         } else {
           const errorData = await brevoResponse.json()
-          console.error('Brevo API error:', errorData)
-          
-          // If contact already exists, try to update and add to list
-          if (brevoResponse.status === 400 && errorData.code === 'duplicate_parameter') {
-            console.log('Contact exists, updating and ensuring list membership...')
-            
-            // First update the contact
-            const updateResponse = await fetch(`https://api.brevo.com/v3/contacts/${emailData.email}`, {
-              method: 'PUT',
-              headers: {
-                'Content-Type': 'application/json',
-                'api-key': brevoApiKey
-              },
-              body: JSON.stringify({
-                attributes: brevoContact.attributes
-              })
-            })
-            
-            // Then explicitly add to list using the list-specific endpoint
-            if (brevoContact.listIds && brevoContact.listIds.length > 0) {
-              for (const listId of brevoContact.listIds) {
-                try {
-                  const addToListResponse = await fetch(`https://api.brevo.com/v3/contacts/lists/${listId}/contacts/add`, {
-                    method: 'POST',
-                    headers: {
-                      'Content-Type': 'application/json',
-                      'api-key': brevoApiKey
-                    },
-                    body: JSON.stringify({
-                      emails: [emailData.email]
-                    })
-                  })
-                  
-                  if (addToListResponse.ok) {
-                    console.log(`Successfully added contact to list ${listId}`)
-                  } else {
-                    const listError = await addToListResponse.json()
-                    console.error(`Failed to add to list ${listId}:`, listError)
-                  }
-                } catch (listError) {
-                  console.error(`Error adding to list ${listId}:`, listError)
-                }
-              }
-            }
-            
-            if (updateResponse.ok) {
-              brevoSuccess = true
-              console.log('Successfully updated existing contact and added to lists')
-            }
-          }
+          console.error('Brevo DOI API error:', errorData)
         }
       } catch (error) {
         console.error('Failed to send to Brevo:', error)
