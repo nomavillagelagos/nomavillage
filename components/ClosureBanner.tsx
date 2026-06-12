@@ -60,9 +60,26 @@ export default function ClosureBanner({ className = "" }: { className?: string }
             </p>
 
             {status === "success" ? (
-              <p className="font-montserrat text-white text-lg font-semibold">
-                You're on the list! We'll let you know when we reopen.
-              </p>
+              <>
+                {/* Confirmation popup overlay */}
+                <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm" onClick={() => setStatus("idle")}>
+                  <div className="bg-white rounded-2xl shadow-2xl p-8 max-w-sm mx-4 text-center" onClick={(e) => e.stopPropagation()}>
+                    <div className="flex items-center justify-center w-14 h-14 rounded-full bg-lagos-blue-green/10 mx-auto mb-4">
+                      <svg className="w-7 h-7 text-lagos-blue-green" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+                    </div>
+                    <h3 className="font-montserrat font-bold text-gray-900 text-xl mb-2">Check your inbox!</h3>
+                    <p className="font-nunito text-gray-600 text-sm leading-relaxed mb-6">
+                      We sent you a confirmation email. Please click the link inside to confirm your subscription and be notified when we reopen for season 2026/27.
+                    </p>
+                    <button
+                      onClick={() => setStatus("idle")}
+                      className="w-full rounded-lg bg-lagos-blue-green hover:bg-lagos-blue-green/90 text-white font-montserrat font-semibold py-3 transition-colors"
+                    >
+                      Got it!
+                    </button>
+                  </div>
+                </div>
+              </>
             ) : (
               <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-3 max-w-lg mx-auto">
                 <input

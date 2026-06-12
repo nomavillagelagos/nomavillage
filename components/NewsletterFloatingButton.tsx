@@ -71,9 +71,15 @@ export default function NewsletterFloatingButton() {
 
         <div className="p-4">
           {status === "success" ? (
-            <p className="font-nunito text-center text-green-600 text-sm font-semibold py-2">
-              You&apos;re on the list! We&apos;ll let you know when we reopen.
-            </p>
+            <div className="flex flex-col items-center gap-2 py-3 text-center">
+              <div className="flex items-center justify-center w-10 h-10 rounded-full bg-lagos-blue-green/10 mb-1">
+                <svg className="w-5 h-5 text-lagos-blue-green" fill="none" stroke="currentColor" strokeWidth={2} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
+              </div>
+              <p className="font-montserrat font-semibold text-gray-900 text-sm">Check your inbox!</p>
+              <p className="font-nunito text-gray-500 text-xs leading-snug">
+                We sent you a confirmation email. Click the link inside to secure your spot on the list.
+              </p>
+            </div>
           ) : (
             <form onSubmit={handleSubmit} className="flex flex-col gap-2">
               <input
