@@ -5,7 +5,7 @@ Modern coliving & coworking website for Noma Village (Lagos, Portugal) built wit
 [![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://www.nomavillage.com)
 
 ## Overview
--m
+-mnpm
 - Next.js 15 App Router with TypeScript and Tailwind CSS 4
 - Edge Middleware for A/B testing of landing pages (`/landing-a` and `/landing-b`)
 - PostHog analytics with SPA pageview tracking and server fallback endpoint

@@ -10,7 +10,7 @@ import Head from 'next/head'
 import Image from 'next/image'
 import SmoothScrollLink from "@/components/smooth-scroll-link"
 import { CountUp } from "@/components/count-up"
-import WhatsAppDirectButton from "@/components/WhatsAppDirectButton"
+import NewsletterFloatingButton from "@/components/NewsletterFloatingButton"
 import FAQSection from "@/components/FAQ"
 import MapWithZoom from "@/components/MapWithZoom"
 import GoogleReviewsCarousel from "@/components/GoogleReviewsCarousel"
@@ -1253,11 +1253,8 @@ export default function HomePage() {
 
       <Footer />
 
-      {/* Floating WhatsApp Direct Button (homepage) */}
-      <WhatsAppDirectButton
-        source="homepage"
-        messagePreset="october_interest"
-      />
+      {/* Floating Newsletter Button (season 26/27 reopen notification) */}
+      <NewsletterFloatingButton />
     </div>
   )
 }

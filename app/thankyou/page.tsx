@@ -56,7 +56,7 @@ export default function ThankYouPage() {
           <div className="bg-white/80 backdrop-blur-md rounded-2xl p-8 md:p-10 max-w-2xl mx-auto shadow-2xl animate-slide-in">
             <h3 className="text-2xl font-semibold text-gray-900 mb-4">What happens next?</h3>
             <p className="text-gray-600 text-lg leading-relaxed mb-6">
-              Our team will carefully review your application and reach out within <span className="font-semibold text-teal-600">24-48 hours</span> with the next steps.
+              We will notify when we reopen for next season.
             </p>
             <div className="flex items-center justify-center gap-2 text-sm text-gray-500">
               <Mail className="w-4 h-4" />
